@@ -23,5 +23,11 @@ class Device():
                 f"tx_power : {self.tx_power}\n" \
                 f"distance : {self.distance}\n" \
                 f"frequency : {self.frequency}\n" \
+                f"bandwidth : {self.bandwidth}\n" \
+                f"task_size : {self.task_size}\n" \
+                f"arrival_rate : {self.arrival_rate}\n" \
                 f"required_cpu_cycle : {self.required_cpu_cycle}\n" \
-                f"log_snr : {self.log_snr}"
+                f"log_snr : {self.log_snr}\n" \
+                f"shannon_rate : {self.shannon_rate}\n" \
+                f"transmission_time_to_asp : {self.transmission_time_to_asp}\n" \
+                f"price_per_task : {self.price_per_task}\n"

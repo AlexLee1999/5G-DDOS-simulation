@@ -22,8 +22,8 @@ DEVICE_TASK_SIZE_LOWER = 400 ##400 kB
 DEVICE_ARRIVAL_RATE_UPPER = 3
 DEVICE_ARRIVAL_RATE_LOWER = 1
 # price per task
-DEVICE_PRICE_PER_TASK_UPPER = 5 * 10E-3
-DEVICE_PRICE_PER_TASK_LOWER = 10E-3
+DEVICE_PRICE_PER_TASK_UPPER = 5
+DEVICE_PRICE_PER_TASK_LOWER = 1
 
 ########################################
 # These are the parameters of ASP
@@ -39,10 +39,14 @@ ASP_NUM_OF_MALICIOUS_USERS_LOWER = 50
 
 ASP_CPU_FREQUENCY_UPPER = 0.3 * 10E9
 ASP_CPU_FREQUENCY_LOWER = 0.1 * 10E9
-
-
+MU = 3
+ALPHA = 0.5
+def asp_H(z_ih):
+    return ((z_ih + MU) ** (1 - ALPHA)) / (1 - ALPHA) - ((MU) ** (1 - ALPHA) / (1 - ALPHA))
 
 ########################################
 # These are the parameters of MPO
 # Prefix with MPO_
 ########################################
+MPO_NUM_OF_ASP_UPPER = 50
+MPO_NUM_OF_ASP_LOWER = 25
