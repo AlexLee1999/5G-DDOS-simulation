@@ -51,6 +51,9 @@ MU = 5
 ALPHA = 0.5
 def asp_H(z_ih):
     return (((z_ih + MU) ** (1 - ALPHA)) / (1 - ALPHA)) - ((MU) ** (1 - ALPHA) / (1 - ALPHA))
+# H^-1
+def asp_H_inverse(y):
+    return ((y + (MU ** (1 - ALPHA) / (1 - ALPHA))) * (1 - ALPHA)) ** (1 / (1 - ALPHA)) - MU
 # H'
 def asp_H_deri(z_ih):
     return (z_ih + MU) ** (-ALPHA)
