@@ -1,0 +1,12 @@
+########################################
+# These are the parameters of Device
+# Prefix with DEVICE_
+########################################
+DEVICE_LATENCY_UPPER = 100E-3
+DEVICE_LATENCY_LOWER = 5E-3
+DEVICE_TX_POWER = 199.5262315
+DEVICE_DISTANCE_UPPER = 100
+DEVICE_DISTANCE_LOWER = 50
+DEVICE_FREQUENCY = 2.1
+DEVICE_REQUIRED_CPU_CYCLE_UPPER = 0.6E6
+DEVICE_REQUIRED_CPU_CYCLE_LOWER = 0.5E6
