@@ -3,7 +3,6 @@ from random import randint
 from const import *
 
 
-
 class MPO():
     def __init__(self):
         self.price_per_vm = None

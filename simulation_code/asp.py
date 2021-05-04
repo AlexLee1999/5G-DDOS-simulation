@@ -14,9 +14,11 @@ class ASP():
         self.set_users()
         self.set_service_rate()
         self.set_arrival_rate()
-        self.z_v = None
+        self.z_v = 150
         self.z_h = None
-        self.mpo_price = None
+        self.mpo_price = 1
+        self.eta = uniform(ASP_ETA_LOWER, ASP_ETA_UPPER) ## system parameters
+        self.phi = uniform(ASP_PHI_LOWER, ASP_PHI_UPPER) ## system parameters
 
     def __str__(self):
         return_str = ""
@@ -48,6 +50,25 @@ class ASP():
     def utility(self):
         util = 0
         for dev in self.device_list:
-            if self.process_time() + dev.transmission_time_to_asp >= dev.latency_requirement:
-                util += dev.price_per_task
+            util += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.process_time() - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
+            print(self.process_time())
         return util - self.mpo_price * self.z_v
+
+    def optimize(self):
+        
+        self.z_h = asp_G(self.service_rate)
+        if self.z_h > self.eta * self.z_v:
+            self.z_h = self.eta * self.z_v
+            print('case2')
+            return
+        else:
+            if self.phi * self.service_rate * self.z_v >= ((self.z_v - self.z_h) * self.service_rate - self.arrival_rate + asp_H(self.z_h)):
+                print('case3')
+                return
+            else:
+                print('case1')
+                print(asp_G(self.service_rate))
+                return
+
+asp = ASP()
+asp.optimize()
