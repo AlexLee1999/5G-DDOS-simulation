@@ -23,3 +23,5 @@ class ASP():
         for dev in self.device_list:
             tot_cpu_cycle += dev.required_cpu_cycle
         self.service_rate = self.frequency / (tot_cpu_cycle / (self.num_of_normal_users + self.num_of_malicious_users))
+
+    
