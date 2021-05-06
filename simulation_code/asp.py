@@ -1,4 +1,4 @@
-import math
+from math import sqrt
 from random import uniform, randint
 from const import *
 from device import Device
@@ -14,10 +14,11 @@ class ASP():
         self.set_users()
         self.set_service_rate()
         self.set_arrival_rate()
-        self.z_v = 150
+        self.total_pay()
+        self.z_v = 100
         self.mpo_price = 1
         self.process_time = None
-        self.eta = uniform(ASP_ETA_LOWER, ASP_ETA_UPPER) ## system parameters
+        self.opt_case = 0
         self.phi = uniform(ASP_PHI_LOWER, ASP_PHI_UPPER) ## system parameters
 
     def __str__(self):
@@ -29,6 +30,11 @@ class ASP():
     def set_users(self):
         for i in range(self.num_of_normal_users):
             self.device_list.append(Device(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
+
+    def total_pay(self):
+        self.total_payment = 0
+        for dev in self.device_list:
+            self.total_payment += dev.price_per_task
 
     def set_service_rate(self):
         tot_cpu_cycle = 0
@@ -50,24 +56,11 @@ class ASP():
             util += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.process_time - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
         return util - self.mpo_price * self.z_v
 
-    def optimize(self):
-        z_h = asp_G(self.service_rate)
-        if z_h > self.eta * self.z_v:
-            self.process_time = 1 / ((1 - self.eta) * self.service_rate * self.z_v - (self.arrival_rate - asp_H(self.eta * self.z_v)))
-            print('case2')
-            print(self.utility())
-            return
-        else:
-            if self.phi * self.service_rate * self.z_v >= ((self.z_v - z_h) * self.service_rate - self.arrival_rate + asp_H(z_h)):
-                self.process_time = 1/(self.phi * self.z_v * self.service_rate)
-                print('case3')
-                print(self.utility())
-                return
-            else:
-                print('case1')
-                self.process_time = 1 / ((self.z_v - asp_G(self.service_rate)) * self.service_rate - self.arrival_rate + asp_H(asp_G(self.service_rate)))
-                print(self.utility())
-                return
+    def optimize_zh(self):
+        pass
 
-asp = ASP()
-asp.optimize()
+    def set_chi(self):
+        self.chi = uniform(0, ASP_chi_upper(self.phi, self.z_v, self.service_rate, self.arrival_rate))
+
+    def optimize_zv(self):
+        pass
