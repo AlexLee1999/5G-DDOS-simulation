@@ -18,7 +18,6 @@ class ASP():
         self.z_v = 100
         self.mpo_price = 1
         self.process_time = None
-        self.opt_case = 0
         self.phi = uniform(ASP_PHI_LOWER, ASP_PHI_UPPER) ## system parameters
 
     def __str__(self):
@@ -57,10 +56,16 @@ class ASP():
         return util - self.mpo_price * self.z_v
 
     def optimize_zh(self):
-        pass
+        if GLOBAL_ETA > self.service_rate:
+            self.phi = uniform(ASP_phi_lower_case1(self.z_v, self.service_rate, self.arrival_rate), ASP_phi_upper_case1(self.z_v, self.service_rate, self.arrival_rate))
+            self.chi = uniform(max(0, ASP_chi_lower(self.phi, self.z_v, self.service_rate, self.arrival_rate)), 1)
+            self.z_h = self.chi * self.z_v
 
-    def set_chi(self):
-        self.chi = uniform(0, ASP_chi_upper(self.phi, self.z_v, self.service_rate, self.arrival_rate))
+        else:
+            # self.phi = uniform(ASP_phi_lower_case2(self.z_v, self.service_rate, self.arrival_rate), ASP_phi_upper_case2(self.z_v, self.service_rate, self.arrival_rate))
+            # self.z_h = ((self.phi - 1) * self.z_v * self.service_rate + self.arrival_rate) / (GLOBAL_ETA - self.service_rate)
+            # print(self.z_h)
+            self.z_h = 0
 
     def optimize_zv(self):
         pass

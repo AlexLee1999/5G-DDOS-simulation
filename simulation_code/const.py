@@ -3,7 +3,7 @@ from math import log, exp, sqrt
 # These are the parameters of Global
 # Prefix with GLOBAL_
 ########################################
-GLOBAL_ETA = 200
+GLOBAL_ETA = 7000
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_
@@ -47,11 +47,23 @@ ASP_NUM_OF_MALICIOUS_USERS_LOWER = 50
 ASP_CPU_FREQUENCY_UPPER = 0.3 * 10E9
 ASP_CPU_FREQUENCY_LOWER = 0.1 * 10E9
 
-ASP_PHI_UPPER = 0.7
+ASP_PHI_UPPER = 0.9
 ASP_PHI_LOWER = 0.9
 
-def ASP_chi_upper(phi, z, mu, lamb):
+def ASP_chi_lower(phi, z, mu, lamb):
     return ((phi - 1) * z * mu + lamb) / ((GLOBAL_ETA - mu) * z)
+
+def ASP_phi_upper_case1(z, mu, lamb):
+    return (z * (GLOBAL_ETA - mu) - lamb) / (z * mu) + 1
+
+def ASP_phi_lower_case1(z, mu, lamb):
+    return -1 * lamb / (mu * z)
+
+def ASP_phi_upper_case2(z, mu, lamb):
+    return (GLOBAL_ETA - mu - lamb) / (z * mu) + 1
+
+def ASP_phi_lower_case2(z, mu, lamb):
+    return -1 * lamb / (mu * z)
 ###################################################
 # H function
 def ASP_H(x):
