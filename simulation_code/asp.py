@@ -1,8 +1,8 @@
-from math import sqrt
+from math import sqrt, floor
 from random import uniform, randint
 from const import *
 from device import Device
-
+import matplotlib.pyplot as plt
 
 
 class ASP():
@@ -17,16 +17,9 @@ class ASP():
         self.set_arrival_rate()
         self.total_pay()
         self.mpo_price = None
-        self.chi = 0.8
-        self.gamma = 10
-
-        self.phi = uniform(ASP_PHI_LOWER, ASP_PHI_UPPER) ## system parameters
-
-    def __str__(self):
-        return_str = ""
-        for dev in self.device_list:
-            return_str += f"{dev}\n\n"
-        return return_str
+        self.chi = 0.999
+        self.gamma = 10000
+        self.phi = 0.9
 
     def set_users(self):
         for i in range(self.num_of_normal_users):
@@ -58,25 +51,25 @@ class ASP():
         self.utility = util - self.mpo_price * self.z_v
         return
 
-    def optimize_zh(self):
-        if self.z_v == 0:
-            self.z_h = 0
-            return
-        elif GLOBAL_ETA > self.service_rate:
-            self.phi = uniform(ASP_phi_lower_case1(self.z_v, self.service_rate, self.arrival_rate), ASP_phi_upper_case1(self.z_v, self.service_rate, self.arrival_rate))
-            self.chi = uniform(max(0, ASP_chi_lower(self.phi, self.z_v, self.service_rate, self.arrival_rate)), 1)
-            self.z_h = self.chi * self.z_v
-            self.set_process_time()
-            self.set_utility()
-            return
-        else:
-            # self.phi = uniform(ASP_phi_lower_case2(self.z_v, self.service_rate, self.arrival_rate), ASP_phi_upper_case2(self.z_v, self.service_rate, self.arrival_rate))
-            # self.z_h = ((self.phi - 1) * self.z_v * self.service_rate + self.arrival_rate) / (GLOBAL_ETA - self.service_rate)
-            # print(self.z_h)
-            self.z_h = 0
-            self.set_process_time()
-            self.set_utility()
-            return
+    # def optimize_zh(self):
+    #     if self.z_v == 0:
+    #         self.z_h = 0
+    #         return
+    #     elif GLOBAL_ETA > self.service_rate:
+    #         if ASP_chi_lower(self.phi, self.z_v, self.service_rate, self.arrival_rate) > self.chi:
+    #             print('infeasible')
+    #         self.z_h = self.chi * self.z_v
+    #         self.set_process_time()
+    #         self.set_utility()
+    #         return
+    #     else:
+    #         # self.phi = uniform(ASP_phi_lower_case2(self.z_v, self.service_rate, self.arrival_rate), ASP_phi_upper_case2(self.z_v, self.service_rate, self.arrival_rate))
+    #         # self.z_h = ((self.phi - 1) * self.z_v * self.service_rate + self.arrival_rate) / (GLOBAL_ETA - self.service_rate)
+    #         # print(self.z_h)
+    #         self.z_h = 0
+    #         self.set_process_time()
+    #         self.set_utility()
+    #         return
 
     def set_process_time(self):
         self.process_time = 1 / ((self.z_v - self.z_h) * self.service_rate - (self.arrival_rate - ASP_H(self.z_h)))
@@ -89,6 +82,8 @@ class ASP():
             self.z_h = self.chi * self.z_v
             self.set_process_time()
             self.set_utility()
+            if ASP_chi_lower(self.phi, self.z_v, self.service_rate, self.arrival_rate) > self.chi:
+                print('infeasible')
             if self.utility < 0:
                 self.z_v = 0
                 return
@@ -96,9 +91,52 @@ class ASP():
             self.z_v = 1 / self.service_rate * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
             if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                 self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+            if ((self.phi - 1) * self.z_v * self.service_rate + self.arrival_rate) / (GLOBAL_ETA - self.service_rate) < 0:
+                print("infeasible")
             self.z_h = 0
             self.set_process_time()
             self.set_utility()
             if self.utility < 0:
                 self.z_v = 0
                 return
+    def plot_max(self):
+        self.mpo_price = 0.0001
+        if GLOBAL_ETA > self.service_rate:
+            self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+            self.z_h = self.chi * self.z_v
+            self.set_process_time()
+            self.set_utility()
+            plt.scatter(self.z_v, self.utility, color='red')
+            extre = floor(self.z_v)
+            ut = []
+            z_v = []
+            for i in range(extre - 50, extre + 50):
+                if i > 0:
+                    self.z_v = i
+                    self.z_h = self.chi * self.z_v
+                    self.set_process_time()
+                    self.set_utility()
+                    z_v.append(self.z_v)
+                    ut.append(self.utility)
+            plt.scatter(z_v, ut, marker='.')
+            plt.savefig('./asp_utility_case1.jpg')
+        else:
+            self.z_v = 1 / self.service_rate * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
+            self.z_h = 0
+            self.set_process_time()
+            self.set_utility()
+            plt.scatter(self.z_v, self.utility, color='red')
+            extre = floor(self.z_v)
+            ut = []
+            z_v = []
+            for i in range(extre - 50, extre + 50):
+                if i > 0:
+                    self.z_v = i
+                    self.z_h = self.chi * self.z_v
+                    self.set_process_time()
+                    self.set_utility()
+                    z_v.append(self.z_v)
+                    ut.append(self.utility)
+            plt.scatter(z_v, ut, marker='.')
+            plt.savefig('./asp_utility_case2.jpg')
+            plt.close()

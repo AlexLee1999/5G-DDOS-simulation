@@ -28,7 +28,7 @@ class MPO():
 
     def optimize_phi(self):
         phi = 40
-        step = 10
+        step = 1E-1
         pr = []
         ut = []
         for _ in range(1000):
@@ -42,7 +42,7 @@ class MPO():
             #     asp.optimize_zv()
             # vm_after = self.total_vm()
             pr.append(phi)
-            ut.append(vm_prior * phi)
+            ut.append(phi * vm_prior)
             phi += step
             # print(vm_after)
             # if ((vm_prior * phi) - (vm_after * (phi + step))) <= 0:
@@ -51,6 +51,5 @@ class MPO():
             #     print('break')
             #     break
         plt.scatter(pr, ut, marker='.')
-        plt.show()
-mpo = MPO()
-mpo.optimize_phi()
+        plt.savefig('./utility.jpg')
+        plt.close()
