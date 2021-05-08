@@ -4,6 +4,7 @@ from const import *
 from device import Device
 
 
+
 class ASP():
     def __init__(self):
         self.bandwidth = ASP_BANDWIDTH
@@ -15,8 +16,10 @@ class ASP():
         self.set_service_rate()
         self.set_arrival_rate()
         self.total_pay()
-        self.z_v = 100
-        self.mpo_price = 1
+        self.mpo_price = None
+        self.chi = 0.8
+        self.gamma = 10
+
         self.phi = uniform(ASP_PHI_LOWER, ASP_PHI_UPPER) ## system parameters
 
     def __str__(self):
@@ -48,7 +51,7 @@ class ASP():
     def set_mpo_price(self, price):
         self.mpo_price = price
 
-    def utility(self):
+    def set_utility(self):
         util = 0
         for dev in self.device_list:
             util += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.process_time - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
@@ -64,9 +67,7 @@ class ASP():
             self.chi = uniform(max(0, ASP_chi_lower(self.phi, self.z_v, self.service_rate, self.arrival_rate)), 1)
             self.z_h = self.chi * self.z_v
             self.set_process_time()
-            self.utility()
-            print(self.utility)
-
+            self.set_utility()
             return
         else:
             # self.phi = uniform(ASP_phi_lower_case2(self.z_v, self.service_rate, self.arrival_rate), ASP_phi_upper_case2(self.z_v, self.service_rate, self.arrival_rate))
@@ -74,15 +75,30 @@ class ASP():
             # print(self.z_h)
             self.z_h = 0
             self.set_process_time()
-            self.utility()
-            print(self.utility)
+            self.set_utility()
             return
 
     def set_process_time(self):
         self.process_time = 1 / ((self.z_v - self.z_h) * self.service_rate - (self.arrival_rate - ASP_H(self.z_h)))
 
     def optimize_zv(self):
-        pass
-
-asp = ASP()
-asp.optimize_zh()
+        if GLOBAL_ETA > self.service_rate:
+            self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+            if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
+                self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+            self.z_h = self.chi * self.z_v
+            self.set_process_time()
+            self.set_utility()
+            if self.utility < 0:
+                self.z_v = 0
+                return
+        else:
+            self.z_v = 1 / self.service_rate * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
+            if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
+                self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+            self.z_h = 0
+            self.set_process_time()
+            self.set_utility()
+            if self.utility < 0:
+                self.z_v = 0
+                return
