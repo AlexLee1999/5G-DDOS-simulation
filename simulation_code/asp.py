@@ -17,7 +17,6 @@ class ASP():
         self.total_pay()
         self.z_v = 100
         self.mpo_price = 1
-        self.process_time = None
         self.phi = uniform(ASP_PHI_LOWER, ASP_PHI_UPPER) ## system parameters
 
     def __str__(self):
@@ -53,19 +52,37 @@ class ASP():
         util = 0
         for dev in self.device_list:
             util += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.process_time - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
-        return util - self.mpo_price * self.z_v
+        self.utility = util - self.mpo_price * self.z_v
+        return
 
     def optimize_zh(self):
-        if GLOBAL_ETA > self.service_rate:
+        if self.z_v == 0:
+            self.z_h = 0
+            return
+        elif GLOBAL_ETA > self.service_rate:
             self.phi = uniform(ASP_phi_lower_case1(self.z_v, self.service_rate, self.arrival_rate), ASP_phi_upper_case1(self.z_v, self.service_rate, self.arrival_rate))
             self.chi = uniform(max(0, ASP_chi_lower(self.phi, self.z_v, self.service_rate, self.arrival_rate)), 1)
             self.z_h = self.chi * self.z_v
+            self.set_process_time()
+            self.utility()
+            print(self.utility)
 
+            return
         else:
             # self.phi = uniform(ASP_phi_lower_case2(self.z_v, self.service_rate, self.arrival_rate), ASP_phi_upper_case2(self.z_v, self.service_rate, self.arrival_rate))
             # self.z_h = ((self.phi - 1) * self.z_v * self.service_rate + self.arrival_rate) / (GLOBAL_ETA - self.service_rate)
             # print(self.z_h)
             self.z_h = 0
+            self.set_process_time()
+            self.utility()
+            print(self.utility)
+            return
+
+    def set_process_time(self):
+        self.process_time = 1 / ((self.z_v - self.z_h) * self.service_rate - (self.arrival_rate - ASP_H(self.z_h)))
 
     def optimize_zv(self):
         pass
+
+asp = ASP()
+asp.optimize_zh()
