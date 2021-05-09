@@ -1,4 +1,4 @@
-
+from math import exp
 ########################################
 # These are the parameters of Global
 # Prefix with GLOBAL_
@@ -50,17 +50,6 @@ ASP_CPU_FREQUENCY_LOWER = 0.1 * 10E9
 def ASP_chi_lower(phi, z, mu, lamb):
     return ((phi - 1) * z * mu + lamb) / ((GLOBAL_ETA - mu) * z)
 
-# def ASP_phi_upper_case1(z, mu, lamb):
-#     return (z * (GLOBAL_ETA - mu) - lamb) / (z * mu) + 1
-#
-# def ASP_phi_lower_case1(z, mu, lamb):
-#     return -1 * lamb / (mu * z)
-#
-# def ASP_phi_upper_case2(z, mu, lamb):
-#     return (GLOBAL_ETA - mu - lamb) / (z * mu) + 1
-#
-# def ASP_phi_lower_case2(z, mu, lamb):
-#     return -1 * lamb / (mu * z)
 ###################################################
 # H function
 def ASP_H(x):
@@ -72,5 +61,6 @@ def ASP_H(x):
 ########################################
 MPO_NUM_OF_ASP_UPPER = 50
 MPO_NUM_OF_ASP_LOWER = 25
+
 def MPO_cost(x):
-    return 0.05 * x ** 2
+    return 100 * exp(x)

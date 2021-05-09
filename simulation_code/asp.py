@@ -51,26 +51,6 @@ class ASP():
         self.utility = util - self.mpo_price * self.z_v
         return
 
-    # def optimize_zh(self):
-    #     if self.z_v == 0:
-    #         self.z_h = 0
-    #         return
-    #     elif GLOBAL_ETA > self.service_rate:
-    #         if ASP_chi_lower(self.phi, self.z_v, self.service_rate, self.arrival_rate) > self.chi:
-    #             print('infeasible')
-    #         self.z_h = self.chi * self.z_v
-    #         self.set_process_time()
-    #         self.set_utility()
-    #         return
-    #     else:
-    #         # self.phi = uniform(ASP_phi_lower_case2(self.z_v, self.service_rate, self.arrival_rate), ASP_phi_upper_case2(self.z_v, self.service_rate, self.arrival_rate))
-    #         # self.z_h = ((self.phi - 1) * self.z_v * self.service_rate + self.arrival_rate) / (GLOBAL_ETA - self.service_rate)
-    #         # print(self.z_h)
-    #         self.z_h = 0
-    #         self.set_process_time()
-    #         self.set_utility()
-    #         return
-
     def set_process_time(self):
         self.process_time = 1 / ((self.z_v - self.z_h) * self.service_rate - (self.arrival_rate - ASP_H(self.z_h)))
 
@@ -90,7 +70,7 @@ class ASP():
             if self.z_v > (self.gamma + self.arrival_rate) / self.service_rate and self.utility >= 0:
                 print('extreme')
         else:
-            self.z_v = 1 / self.service_rate * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
+            self.z_v = (1 / self.service_rate) * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
             if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                 self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
                 print('queue')
@@ -105,20 +85,19 @@ class ASP():
                 print('extreme')
 
     def plot_max(self):
-        mpo_lst = [0.001, 0.003, 0.005, 0.007, 0.009]
-        color_dict = {0.001 : 'red', 0.003 : 'darkorange', 0.005 : 'indigo', 0.007 : 'darkgreen', 0.009 : 'darkblue'}
+        mpo_lst = [0.0001, 0.0003, 0.0005, 0.0007, 0.0009]
+        color_dict = {0.0001 : 'red', 0.0003 : 'darkorange', 0.0005 : 'indigo', 0.0007 : 'darkgreen', 0.0009 : 'darkblue'}
         if GLOBAL_ETA > self.service_rate:
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
                 self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
                 self.z_h = self.chi * self.z_v
+                ut = []
+                z_v = []
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                extre = floor(self.z_v)
-                ut = []
-                z_v = []
-                for i in range(1, 20):
+                for i in range(5, 100):
                     self.z_v = i
                     self.z_h = self.chi * self.z_v
                     self.set_process_time()
@@ -133,15 +112,14 @@ class ASP():
         else:
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
-                self.z_v = 1 / self.service_rate * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
+                self.z_v = (1 / self.service_rate) * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
                 self.z_h = 0
+                ut = []
+                z_v = []
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                extre = floor(self.z_v)
-                ut = []
-                z_v = []
-                for i in range(1, 20):
+                for i in range(5, 100):
                     self.z_v = i
                     self.z_h = self.chi * self.z_v
                     self.set_process_time()
@@ -153,4 +131,5 @@ class ASP():
                 ut = []
                 z_v = []
             plt.savefig('./asp_utility_case2.jpg')
+            print('case2')
             plt.close()
