@@ -10,7 +10,7 @@ class MPO():
         self.asp_lst = []
         self.num_of_asp = randint(MPO_NUM_OF_ASP_LOWER, MPO_NUM_OF_ASP_UPPER)
         self.set_asp()
-
+        self.bd = []
     def set_asp(self):
         for i in range(self.num_of_asp):
             self.asp_lst.append(ASP())
@@ -25,12 +25,21 @@ class MPO():
         for asp in self.asp_lst:
             tot += asp.z_v
         return tot
+    def set_bd(self):
+        for asp in self.asp_lst:
+            asp.set_boundary()
+            if  asp.rbound > 1000 and asp.rbound < 7000:
+                self.bd.append(asp.rbound)
+            if  asp.mbound > 1000 and asp.mbound < 7000:
+                self.bd.append(asp.mbound)
 
+        return
     def optimize_phi(self):
         phi = 1000
         step = 6
         pr = []
         ut = []
+        bound = []
         for _ in range(1000):
             self.set_price_per_vm(phi)
             for asp in self.asp_lst:
@@ -50,6 +59,10 @@ class MPO():
             #     print(((vm_prior * phi) - (vm_after * (phi + step))))
             #     print('break')
             #     break
+        #self.setbd()
+        self.set_bd()
+        z1 = [0] * len(self.bd)
         plt.plot(pr, ut, marker='.', linestyle='-.')
+        plt.scatter(self.bd, z1, marker='.', color ='red')
         plt.savefig('./utility.jpg')
         plt.close()
