@@ -50,6 +50,6 @@ class MPO():
             #     print(((vm_prior * phi) - (vm_after * (phi + step))))
             #     print('break')
             #     break
-        plt.scatter(pr, ut, marker='.')
+        plt.plot(pr, ut, marker='.', linestyle='-.')
         plt.savefig('./utility.jpg')
         plt.close()

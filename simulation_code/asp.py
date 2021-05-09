@@ -120,7 +120,7 @@ class ASP():
                     self.set_utility()
                     z_v.append(self.z_v)
                     ut.append(self.utility)
-                plt.scatter(z_v, ut, marker='.', color=color_dict[mpo_price])
+                plt.plot(z_v, ut, marker='.', color=color_dict[mpo_price], linestyle='-.')
                 z_v = []
                 ut = []
             plt.savefig('./asp_utility_case1.jpg')
@@ -142,7 +142,7 @@ class ASP():
                     self.set_utility()
                     z_v.append(self.z_v)
                     ut.append(self.utility)
-                plt.scatter(z_v, ut, marker='.', color=color_dict[mpo_price])
+                plt.plot(z_v, ut, marker='.', color=color_dict[mpo_price], linestyle='-.')
                 ut = []
                 z_v = []
             plt.savefig('./asp_utility_case2.jpg')
