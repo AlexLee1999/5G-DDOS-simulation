@@ -70,6 +70,7 @@ def ASP_H(x):
 # These are the parameters of MPO
 # Prefix with MPO_
 ########################################
-
 MPO_NUM_OF_ASP_UPPER = 50
 MPO_NUM_OF_ASP_LOWER = 25
+def MPO_cost(x):
+    return 0.05 * x ** 2

@@ -27,8 +27,8 @@ class MPO():
         return tot
 
     def optimize_phi(self):
-        phi = 40
-        step = 1E-1
+        phi = 1000
+        step = 6
         pr = []
         ut = []
         for _ in range(1000):
@@ -42,7 +42,7 @@ class MPO():
             #     asp.optimize_zv()
             # vm_after = self.total_vm()
             pr.append(phi)
-            ut.append(phi * vm_prior)
+            ut.append(phi * vm_prior - MPO_cost(vm_prior))
             phi += step
             # print(vm_after)
             # if ((vm_prior * phi) - (vm_after * (phi + step))) <= 0:

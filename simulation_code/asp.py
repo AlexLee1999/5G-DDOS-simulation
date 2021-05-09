@@ -18,8 +18,8 @@ class ASP():
         self.total_pay()
         self.mpo_price = None
         self.chi = 0.999
-        self.gamma = 10000
-        self.phi = 0.9
+        self.gamma = 100
+        self.phi = 0.1
 
     def set_users(self):
         for i in range(self.num_of_normal_users):
@@ -79,6 +79,7 @@ class ASP():
             self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
             if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                 self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+                print('queue')
             self.z_h = self.chi * self.z_v
             self.set_process_time()
             self.set_utility()
@@ -86,11 +87,13 @@ class ASP():
                 print('infeasible')
             if self.utility < 0:
                 self.z_v = 0
-                return
+            if self.z_v > (self.gamma + self.arrival_rate) / self.service_rate and self.utility >= 0:
+                print('extreme')
         else:
             self.z_v = 1 / self.service_rate * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
             if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                 self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+                print('queue')
             if ((self.phi - 1) * self.z_v * self.service_rate + self.arrival_rate) / (GLOBAL_ETA - self.service_rate) < 0:
                 print("infeasible")
             self.z_h = 0
@@ -98,7 +101,9 @@ class ASP():
             self.set_utility()
             if self.utility < 0:
                 self.z_v = 0
-                return
+            if self.z_v > (self.gamma + self.arrival_rate) / self.service_rate and self.utility >= 0:
+                print('extreme')
+
     def plot_max(self):
         mpo_lst = [0.001, 0.003, 0.005, 0.007, 0.009]
         color_dict = {0.001 : 'red', 0.003 : 'darkorange', 0.005 : 'indigo', 0.007 : 'darkgreen', 0.009 : 'darkblue'}
@@ -120,7 +125,8 @@ class ASP():
                     self.set_utility()
                     z_v.append(self.z_v)
                     ut.append(self.utility)
-                plt.plot(z_v, ut, marker='.', color=color_dict[mpo_price], linestyle='-.')
+                plt.plot(z_v, ut, marker='.', color=color_dict[mpo_price], linestyle='-.', label=f"MPO price:{mpo_price}")
+                plt.legend(loc="best")
                 z_v = []
                 ut = []
             plt.savefig('./asp_utility_case1.jpg')
@@ -142,7 +148,8 @@ class ASP():
                     self.set_utility()
                     z_v.append(self.z_v)
                     ut.append(self.utility)
-                plt.plot(z_v, ut, marker='.', color=color_dict[mpo_price], linestyle='-.')
+                plt.plot(z_v, ut, marker='.', color=color_dict[mpo_price], linestyle='-.', label=f"MPO price:{mpo_price}")
+                plt.legend(loc="best")
                 ut = []
                 z_v = []
             plt.savefig('./asp_utility_case2.jpg')
