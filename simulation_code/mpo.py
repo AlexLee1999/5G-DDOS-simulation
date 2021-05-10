@@ -11,6 +11,7 @@ class MPO():
         self.num_of_asp = randint(MPO_NUM_OF_ASP_LOWER, MPO_NUM_OF_ASP_UPPER)
         self.set_asp()
         self.bd = []
+
     def set_asp(self):
         for i in range(self.num_of_asp):
             self.asp_lst.append(ASP())
@@ -29,10 +30,8 @@ class MPO():
     def set_bd(self):
         for asp in self.asp_lst:
             asp.set_boundary()
-            if  asp.rbound > 0 and asp.rbound < 7000:
-                self.bd.append(asp.rbound)
-            if  asp.mbound > 0 and asp.mbound < 7000:
-                self.bd.append(asp.mbound)
+            if asp.bound > 0 and asp.bound < 7000:
+                self.bd.append(asp.bound)
 
         return
     def optimize_phi(self):

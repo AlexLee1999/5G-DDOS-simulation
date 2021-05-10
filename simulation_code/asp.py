@@ -58,16 +58,19 @@ class ASP():
         return 1 / ((z_v - z_h) * self.service_rate - (self.arrival_rate - ASP_H(z_h)))
 
     def set_boundary(self):
-        z_v = (self.arrival_rate + self.gamma)/self.service_rate
+        z_v = (self.arrival_rate + self.gamma) / self.service_rate
         z_h = self.chi * z_v
         util1 = 0
         util2 = 0
         for dev in self.device_list:
             util1 += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.time(z_v, z_h) - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
             util2 += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.time(z_v, 0) - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
-        self.rbound = util1 / z_v
-        self.mbound = util2 / z_v
-        self.lbound = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) / (z_v - self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) ** 2
+        if GLOBAL_ETA > self.service_rate:
+            self.bound = util1 / z_v
+        else:
+
+            self.bound = util2 / z_v
+        #self.lbound = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) / (z_v - self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) ** 2
         return
 
     def set_process_time(self):
@@ -129,7 +132,7 @@ class ASP():
             plt.figure(figsize=(20, 16))
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
-                self.z_v = (1 / self.service_rate) * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
+                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
                 self.z_h = 0
                 ut = []
                 z_v = []
