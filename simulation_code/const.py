@@ -62,8 +62,8 @@ def ASP_H(x):
 MPO_NUM_OF_ASP_UPPER = 50
 MPO_NUM_OF_ASP_LOWER = 25
 
-MPO_NUM_OF_VM_LOWER = 0.5
-MPO_NUM_OF_VM_UPPER = 1
+MPO_NUM_OF_VM_LOWER = 1.2
+MPO_NUM_OF_VM_UPPER = 1.5
 
 def MPO_cost(x):
     return 100 * exp(x)

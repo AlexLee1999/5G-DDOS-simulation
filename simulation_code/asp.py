@@ -20,9 +20,6 @@ class ASP():
         self.chi = 0.999
         self.gamma = 100
         self.phi = 0.1
-        self.rbound = 0
-        self.lbound = 0
-        self.mbound = 0
 
     def set_users(self):
         for i in range(self.num_of_normal_users):
@@ -67,10 +64,10 @@ class ASP():
             util2 += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.time(z_v, 0) - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
         if GLOBAL_ETA > self.service_rate:
             self.bound = util1 / z_v
+            self.qbound = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) / (z_v - self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) ** 2
         else:
-
             self.bound = util2 / z_v
-        #self.lbound = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) / (z_v - self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) ** 2
+            self.qbound = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1) * self.service_rate)) / (z_v - self.arrival_rate / ((1) * self.service_rate)) ** 2
         return
 
     def set_process_time(self):
@@ -88,9 +85,9 @@ class ASP():
                 print('infeasible')
             if self.utility < 0:
                 self.z_v = 0
-
         else:
-            self.z_v = (1 / self.service_rate) * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
+            self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
+            self.z_h = 0
             if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                 self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
 
