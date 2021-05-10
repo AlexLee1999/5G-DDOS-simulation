@@ -65,13 +65,13 @@ class MPO():
         #self.setbd()
         self.set_bd()
 
-        plt.figure(figsize=(40, 32))
+        plt.figure(figsize=(20, 16))
         plt.plot(pr, ut, marker='.', linestyle='-.')
         plt.vlines(self.bd, ymin=0, ymax=max(ut), linestyle='-', color ='red')
         plt.savefig('./utility.jpg')
         plt.close()
 
-        plt.figure(figsize=(40, 32))
+        plt.figure(figsize=(20, 16))
         plt.plot(pr, num, marker='.', linestyle='-.')
         plt.vlines(self.bd, ymin=0, ymax=max(num), linestyle='-', color ='red')
         plt.savefig('./vm_number.jpg')

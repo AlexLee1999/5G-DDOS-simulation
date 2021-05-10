@@ -78,7 +78,6 @@ class ASP():
             self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
             if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                 self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
-                print('queue')
             self.z_h = self.chi * self.z_v
             self.set_process_time()
             self.set_utility()
@@ -86,13 +85,12 @@ class ASP():
                 print('infeasible')
             if self.utility < 0:
                 self.z_v = 0
-            if self.z_v > (self.gamma + self.arrival_rate) / self.service_rate and self.utility >= 0:
-                print('extreme')
+
         else:
             self.z_v = (1 / self.service_rate) * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
             if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                 self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
-                print('queue')
+
             if ((self.phi - 1) * self.z_v * self.service_rate + self.arrival_rate) / (GLOBAL_ETA - self.service_rate) < 0:
                 print("infeasible")
             self.z_h = 0
@@ -100,13 +98,12 @@ class ASP():
             self.set_utility()
             if self.utility < 0:
                 self.z_v = 0
-            if self.z_v > (self.gamma + self.arrival_rate) / self.service_rate and self.utility >= 0:
-                print('extreme')
 
     def plot_max(self):
         mpo_lst = [0.0001, 0.0003, 0.0005, 0.0007, 0.0009]
         color_dict = {0.0001 : 'red', 0.0003 : 'darkorange', 0.0005 : 'indigo', 0.0007 : 'darkgreen', 0.0009 : 'darkblue'}
         if GLOBAL_ETA > self.service_rate:
+            plt.figure(figsize=(20, 16))
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
                 self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
@@ -129,6 +126,7 @@ class ASP():
                 ut = []
             plt.savefig('./asp_utility_case1.jpg')
         else:
+            plt.figure(figsize=(20, 16))
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
                 self.z_v = (1 / self.service_rate) * sqrt(self.service_rate * self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price)) + self.arrival_rate / self.service_rate
