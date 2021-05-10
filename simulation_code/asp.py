@@ -53,8 +53,10 @@ class ASP():
             util += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.process_time - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
         self.utility = util - self.mpo_price * self.z_v
         return
+
     def time(self, z_v, z_h):
         return 1 / ((z_v - z_h) * self.service_rate - (self.arrival_rate - ASP_H(z_h)))
+
     def set_boundary(self):
         z_v = (self.arrival_rate + self.gamma)/self.service_rate
         z_h = self.chi * z_v
@@ -63,14 +65,14 @@ class ASP():
         for dev in self.device_list:
             util1 += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.time(z_v, z_h) - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
             util2 += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.time(z_v, 0) - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
-        self.rbound = util1/z_v
-        self.mbound = util2/z_v
-        self.lbound = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) / (z_v - self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))**2
+        self.rbound = util1 / z_v
+        self.mbound = util2 / z_v
+        self.lbound = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) / (z_v - self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) ** 2
         return
 
     def set_process_time(self):
         self.process_time = 1 / ((self.z_v - self.z_h) * self.service_rate - (self.arrival_rate - ASP_H(self.z_h)))
-    
+
     def optimize_zv(self):
         if GLOBAL_ETA > self.service_rate:
             self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)

@@ -25,21 +25,23 @@ class MPO():
         for asp in self.asp_lst:
             tot += asp.z_v
         return tot
+
     def set_bd(self):
         for asp in self.asp_lst:
             asp.set_boundary()
-            if  asp.rbound > 1000 and asp.rbound < 7000:
+            if  asp.rbound > 0 and asp.rbound < 7000:
                 self.bd.append(asp.rbound)
-            if  asp.mbound > 1000 and asp.mbound < 7000:
+            if  asp.mbound > 0 and asp.mbound < 7000:
                 self.bd.append(asp.mbound)
 
         return
     def optimize_phi(self):
-        phi = 1000
-        step = 6
+        phi = 700
+        step = 7
         pr = []
         ut = []
         bound = []
+        num = []
         for _ in range(1000):
             self.set_price_per_vm(phi)
             for asp in self.asp_lst:
@@ -52,6 +54,7 @@ class MPO():
             # vm_after = self.total_vm()
             pr.append(phi)
             ut.append(phi * vm_prior - MPO_cost(vm_prior))
+            num.append(vm_prior)
             phi += step
             # print(vm_after)
             # if ((vm_prior * phi) - (vm_after * (phi + step))) <= 0:
@@ -61,8 +64,15 @@ class MPO():
             #     break
         #self.setbd()
         self.set_bd()
-        z1 = [0] * len(self.bd)
+
+        plt.figure(figsize=(40, 32))
         plt.plot(pr, ut, marker='.', linestyle='-.')
-        plt.scatter(self.bd, z1, marker='.', color ='red')
+        plt.vlines(self.bd, ymin=0, ymax=max(ut), linestyle='-', color ='red')
         plt.savefig('./utility.jpg')
+        plt.close()
+
+        plt.figure(figsize=(40, 32))
+        plt.plot(pr, num, marker='.', linestyle='-.')
+        plt.vlines(self.bd, ymin=0, ymax=max(num), linestyle='-', color ='red')
+        plt.savefig('./vm_number.jpg')
         plt.close()
