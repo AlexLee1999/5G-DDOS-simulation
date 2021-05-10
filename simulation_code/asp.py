@@ -127,7 +127,11 @@ class ASP():
                 plt.legend(loc="best")
                 z_v = []
                 ut = []
+            plt.title('ASP utility in case 1')
+            plt.xlabel('Purchased VM')
+            plt.ylabel('Utility')
             plt.savefig('./asp_utility_case1.jpg')
+            plt.close()
         else:
             plt.figure(figsize=(20, 16))
             for mpo_price in mpo_lst:
@@ -141,7 +145,7 @@ class ASP():
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
                 for i in range(5, 100):
                     self.z_v = i
-                    self.z_h = self.chi * self.z_v
+                    self.z_h = 0
                     self.set_process_time()
                     self.set_utility()
                     z_v.append(self.z_v)
@@ -150,6 +154,56 @@ class ASP():
                 plt.legend(loc="best")
                 ut = []
                 z_v = []
+            plt.title('ASP utility in case 2')
+            plt.xlabel('Purchased VM')
+            plt.ylabel('Utility')
             plt.savefig('./asp_utility_case2.jpg')
-            print('case2')
+            plt.close()
+
+    def plot_max_zh(self):
+        if GLOBAL_ETA > self.service_rate:
+            self.mpo_price = 0.001
+            ut = []
+            z_h = []
+            plt.figure(figsize=(20, 16))
+            for z in range(100, 105, 1):
+                self.z_v = z
+                for i in range(11):
+                    i = i / 10
+                    self.z_h = self.z_v * i
+                    self.set_process_time()
+                    self.set_utility()
+                    z_h.append(i)
+                    ut.append(self.utility)
+                plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}")
+                ut = []
+                z_h = []
+            plt.title('ASP utility in case 1 with different z_h')
+            plt.xlabel('Security VM ratio')
+            plt.ylabel('Utility')
+            plt.legend(loc="best")
+            plt.savefig('./asp_utility_z_h_case1.jpg')
+            plt.close()
+        else:
+            self.mpo_price = 0.001
+            ut = []
+            z_h = []
+            plt.figure(figsize=(20, 16))
+            for z in range(100, 105, 1):
+                self.z_v = z
+                for i in range(11):
+                    i = i / 10
+                    self.z_h = self.z_v * i
+                    self.set_process_time()
+                    self.set_utility()
+                    z_h.append(i)
+                    ut.append(self.utility)
+                plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}")
+                ut = []
+                z_h = []
+            plt.title('ASP utility in case 2 with different z_h')
+            plt.xlabel('Security VM ratio')
+            plt.ylabel('Utility')
+            plt.legend(loc="best")
+            plt.savefig('./asp_utility_z_h_case2.jpg')
             plt.close()

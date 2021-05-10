@@ -8,3 +8,4 @@ if __name__ == '__main__':
     mpo.optimize_phi()
     asp = ASP()
     asp.plot_max()
+    asp.plot_max_zh()

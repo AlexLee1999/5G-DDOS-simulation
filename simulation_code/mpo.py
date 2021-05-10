@@ -66,6 +66,9 @@ class MPO():
 
         plt.figure(figsize=(20, 16))
         plt.plot(pr, ut, marker='.', linestyle='-.')
+        plt.title('Utility of MPO')
+        plt.xlabel('MPO Price')
+        plt.ylabel('Utility')
         plt.vlines(self.bd, ymin=0, ymax=max(ut), linestyle='-', color ='red')
         plt.savefig('./utility.jpg')
         plt.close()
@@ -73,5 +76,8 @@ class MPO():
         plt.figure(figsize=(20, 16))
         plt.plot(pr, num, marker='.', linestyle='-.')
         plt.vlines(self.bd, ymin=0, ymax=max(num), linestyle='-', color ='red')
+        plt.title('Total Purchased VM')
+        plt.xlabel('MPO Price')
+        plt.ylabel('Purchased VM')
         plt.savefig('./vm_number.jpg')
         plt.close()
