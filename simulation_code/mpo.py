@@ -4,6 +4,7 @@ from const import *
 from asp import ASP
 import matplotlib.pyplot as plt
 
+
 class MPO():
     def __init__(self):
         self.price_per_vm = None
@@ -75,16 +76,16 @@ class MPO():
         plt.title('Utility of MPO')
         plt.xlabel('MPO Price')
         plt.ylabel('Utility')
-        plt.vlines(self.bd, ymin=0, ymax=max(ut), linestyle='-', color ='red', label='Boundary')
-        plt.vlines(self.constraint_phi, ymin=0, ymax=max(ut), linestyle='-', color ='darkorange', label='Price Constraint')
+        plt.vlines(self.bd, ymin=0, ymax=max(ut), linestyle='-', color='red', label='Boundary')
+        plt.vlines(self.constraint_phi, ymin=0, ymax=max(ut), linestyle='-', color='darkorange', label='Price Constraint')
         plt.legend(loc="best")
         plt.savefig('./utility.jpg')
         plt.close()
         plt.figure(figsize=(20, 16), dpi=100)
         plt.plot(pr, num, marker='.', linestyle='-.')
-        plt.vlines(self.bd, ymin=0, ymax=max(num), linestyle='-', color ='red', label='Boundary')
-        plt.hlines(self.num_of_vm, xmin=min(700, self.constraint_phi), xmax=7700, linestyle='-', color ='black', label='VM Constraint')
-        plt.vlines(self.constraint_phi, ymin=0, ymax=max(num), linestyle='-', color ='darkorange', label='Price Constraint')
+        plt.vlines(self.bd, ymin=0, ymax=max(num), linestyle='-', color='red', label='Boundary')
+        plt.hlines(self.num_of_vm, xmin=min(700, self.constraint_phi), xmax=7700, linestyle='-', color='black', label='VM Constraint')
+        plt.vlines(self.constraint_phi, ymin=0, ymax=max(num), linestyle='-', color='darkorange', label='Price Constraint')
         plt.title('Total Purchased VM')
         plt.legend(loc="best")
         plt.xlabel('MPO Price')

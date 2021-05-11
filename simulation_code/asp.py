@@ -101,7 +101,7 @@ class ASP():
 
     def plot_max(self):
         mpo_lst = [100, 300, 500, 700, 900]
-        color_dict = {100 : 'red', 300 : 'darkorange', 500 : 'indigo', 700 : 'darkgreen', 900 : 'darkblue'}
+        color_dict = {100: 'red', 300: 'darkorange', 500: 'indigo', 700: 'darkgreen', 900: 'darkblue'}
         if GLOBAL_ETA > self.service_rate:
             plt.figure(figsize=(20, 16))
             for mpo_price in mpo_lst:

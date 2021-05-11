@@ -19,8 +19,8 @@ DEVICE_FREQUENCY = 2.1
 DEVICE_REQUIRED_CPU_CYCLE_UPPER = 0.6E6
 DEVICE_REQUIRED_CPU_CYCLE_LOWER = 0.5E6
 # task size
-DEVICE_TASK_SIZE_UPPER = 5 ##5 kB
-DEVICE_TASK_SIZE_LOWER = 4 ##4 kB
+DEVICE_TASK_SIZE_UPPER = 5  # 5 kB
+DEVICE_TASK_SIZE_LOWER = 4  # 4 kB
 # arrival rate
 DEVICE_ARRIVAL_RATE_UPPER = 3
 DEVICE_ARRIVAL_RATE_LOWER = 1
@@ -47,11 +47,14 @@ ASP_NUM_OF_MALICIOUS_USERS_LOWER = 50
 ASP_CPU_FREQUENCY_UPPER = 0.3 * 10E9
 ASP_CPU_FREQUENCY_LOWER = 0.1 * 10E9
 
+
 def ASP_chi_lower(phi, z, mu, lamb):
     return ((phi - 1) * z * mu + lamb) / ((GLOBAL_ETA - mu) * z)
 
 ###################################################
 # H function
+
+
 def ASP_H(x):
     return GLOBAL_ETA * x
 
@@ -64,6 +67,7 @@ MPO_NUM_OF_ASP_LOWER = 25
 
 MPO_NUM_OF_VM_LOWER = 1.2
 MPO_NUM_OF_VM_UPPER = 1.5
+
 
 def MPO_cost(x):
     return 100 * exp(x)
