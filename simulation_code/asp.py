@@ -100,8 +100,8 @@ class ASP():
                 self.z_v = 0
 
     def plot_max(self):
-        mpo_lst = [0.0001, 0.0003, 0.0005, 0.0007, 0.0009]
-        color_dict = {0.0001 : 'red', 0.0003 : 'darkorange', 0.0005 : 'indigo', 0.0007 : 'darkgreen', 0.0009 : 'darkblue'}
+        mpo_lst = [100, 300, 500, 700, 900]
+        color_dict = {100 : 'red', 300 : 'darkorange', 500 : 'indigo', 700 : 'darkgreen', 900 : 'darkblue'}
         if GLOBAL_ETA > self.service_rate:
             plt.figure(figsize=(20, 16))
             for mpo_price in mpo_lst:
@@ -113,8 +113,8 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(5, 100):
-                    self.z_v = i
+                for i in range(31, 100):
+                    self.z_v = i / 1000
                     self.z_h = self.chi * self.z_v
                     self.set_process_time()
                     self.set_utility()
@@ -140,8 +140,8 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(5, 100):
-                    self.z_v = i
+                for i in range(25, 100):
+                    self.z_v = i / 1000
                     self.z_h = 0
                     self.set_process_time()
                     self.set_utility()
@@ -159,12 +159,12 @@ class ASP():
 
     def plot_max_zh(self):
         if GLOBAL_ETA > self.service_rate:
-            self.mpo_price = 0.001
+            self.mpo_price = 100
             ut = []
             z_h = []
             plt.figure(figsize=(20, 16))
             for z in range(100, 105, 1):
-                self.z_v = z
+                self.z_v = z / 1000
                 for i in range(11):
                     i = i / 10
                     self.z_h = self.z_v * i
@@ -175,19 +175,19 @@ class ASP():
                 plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}")
                 ut = []
                 z_h = []
-            plt.title('ASP utility in case 1 with different z_h')
+            plt.title('ASP utility in case 1 with different IPS VM ratio')
             plt.xlabel('Security VM ratio')
             plt.ylabel('Utility')
             plt.legend(loc="best")
             plt.savefig('./asp_utility_z_h_case1.jpg')
             plt.close()
         else:
-            self.mpo_price = 0.001
+            self.mpo_price = 100
             ut = []
             z_h = []
             plt.figure(figsize=(20, 16))
             for z in range(100, 105, 1):
-                self.z_v = z
+                self.z_v = z / 1000
                 for i in range(11):
                     i = i / 10
                     self.z_h = self.z_v * i
@@ -198,7 +198,7 @@ class ASP():
                 plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}")
                 ut = []
                 z_h = []
-            plt.title('ASP utility in case 2 with different z_h')
+            plt.title('ASP utility in case 2 with different IPS VM ratio')
             plt.xlabel('Security VM ratio')
             plt.ylabel('Utility')
             plt.legend(loc="best")
