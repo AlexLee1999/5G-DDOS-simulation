@@ -1,17 +1,19 @@
 from math import sqrt, floor
 from random import uniform, randint
 from const import *
-from device import Device
+from device import Device, Malicious_Device
 import matplotlib.pyplot as plt
 
 
 class ASP():
-    def __init__(self):
+    def __init__(self, ratio):
         self.bandwidth = ASP_BANDWIDTH
         self.frequency = uniform(ASP_CPU_FREQUENCY_LOWER, ASP_CPU_FREQUENCY_UPPER)
         self.device_list = []
-        self.num_of_normal_users = randint(ASP_NUM_OF_NORMAL_USERS_LOWER, ASP_NUM_OF_NORMAL_USERS_UPPER)
-        self.num_of_malicious_users = randint(ASP_NUM_OF_MALICIOUS_USERS_LOWER, ASP_NUM_OF_MALICIOUS_USERS_UPPER)
+        self.mal_device_list = []
+        self.malicious_ratio = ratio
+        self.num_of_normal_users = ASP_NUM_OF_NORMAL_USERS
+        self.num_of_malicious_users = int(ASP_NUM_OF_NORMAL_USERS * self.malicious_ratio)
         self.set_users()
         self.set_service_rate()
         self.set_arrival_rate()
@@ -19,11 +21,13 @@ class ASP():
         self.mpo_price = None
         self.chi = 0.999
         self.gamma = 100
-        self.phi = 0.1
+        self.phi = 0.05
 
     def set_users(self):
         for i in range(self.num_of_normal_users):
             self.device_list.append(Device(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
+        for i in range(self.num_of_malicious_users):
+            self.mal_device_list.append(Malicious_Device(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
 
     def total_pay(self):
         self.total_payment = 0
@@ -39,6 +43,8 @@ class ASP():
     def set_arrival_rate(self):
         self.arrival_rate = 0
         for dev in self.device_list:
+            self.arrival_rate += dev.arrival_rate
+        for dev in self.mal_device_list:
             self.arrival_rate += dev.arrival_rate
 
     def set_mpo_price(self, price):
@@ -81,7 +87,7 @@ class ASP():
             self.z_h = self.chi * self.z_v
             self.set_process_time()
             self.set_utility()
-            if ASP_chi_lower(self.phi, self.z_v, self.service_rate, self.arrival_rate) > self.chi:
+            if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
                 print('infeasible')
             if self.utility < 0:
                 self.z_v = 0
@@ -90,14 +96,29 @@ class ASP():
             self.z_h = 0
             if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                 self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
-
-            if ((self.phi - 1) * self.z_v * self.service_rate + self.arrival_rate) / (GLOBAL_ETA - self.service_rate) < 0:
-                print("infeasible")
-            self.z_h = 0
+            if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                print('infeasible')
+                self.z_h = 0
             self.set_process_time()
             self.set_utility()
             if self.utility < 0:
                 self.z_v = 0
+
+    def set_malicious_ratio(self, ratio):
+        self.malicious_ratio = ratio
+
+    def set_zv_zh(self, chi):
+        self.chi = chi
+        self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+        if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
+            self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+        self.z_h = self.chi * self.z_v
+        self.set_process_time()
+        self.set_utility()
+        if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+            print('infeasible')
+        if self.utility < 0:
+            self.z_v = 0
 
     def plot_max(self):
         mpo_lst = [100, 300, 500, 700, 900]
@@ -113,7 +134,7 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(31, 100):
+                for i in range(30, 100):
                     self.z_v = i / 1000
                     self.z_h = self.chi * self.z_v
                     self.set_process_time()
@@ -124,9 +145,9 @@ class ASP():
                 plt.legend(loc="best")
                 z_v = []
                 ut = []
-            plt.title('ASP utility in case 1')
-            plt.xlabel('Purchased VM')
-            plt.ylabel('Utility')
+            plt.title('ASP utility in case 1', fontsize=30)
+            plt.xlabel('Purchased VM', fontsize=30)
+            plt.ylabel('Utility', fontsize=30)
             plt.savefig('./asp_utility_case1.jpg')
             plt.close()
         else:
@@ -140,7 +161,7 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(25, 100):
+                for i in range(30, 100):
                     self.z_v = i / 1000
                     self.z_h = 0
                     self.set_process_time()
@@ -151,9 +172,9 @@ class ASP():
                 plt.legend(loc="best")
                 ut = []
                 z_v = []
-            plt.title('ASP utility in case 2')
-            plt.xlabel('Purchased VM')
-            plt.ylabel('Utility')
+            plt.title('ASP utility in case 2', fontsize=30)
+            plt.xlabel('Purchased VM', fontsize=30)
+            plt.ylabel('Utility', fontsize=30)
             plt.savefig('./asp_utility_case2.jpg')
             plt.close()
 
@@ -175,9 +196,9 @@ class ASP():
                 plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}")
                 ut = []
                 z_h = []
-            plt.title('ASP utility in case 1 with different IPS VM ratio')
-            plt.xlabel('Security VM ratio')
-            plt.ylabel('Utility')
+            plt.title('ASP utility in case 1 with different IPS VM ratio', fontsize=30)
+            plt.xlabel('Security VM ratio', fontsize=30)
+            plt.ylabel('Utility', fontsize=30)
             plt.legend(loc="best")
             plt.savefig('./asp_utility_z_h_case1.jpg')
             plt.close()
@@ -198,9 +219,9 @@ class ASP():
                 plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}")
                 ut = []
                 z_h = []
-            plt.title('ASP utility in case 2 with different IPS VM ratio')
-            plt.xlabel('Security VM ratio')
-            plt.ylabel('Utility')
+            plt.title('ASP utility in case 2 with different IPS VM ratio', fontsize=30)
+            plt.xlabel('Security VM ratio', fontsize=30)
+            plt.ylabel('Utility', fontsize=30)
             plt.legend(loc="best")
             plt.savefig('./asp_utility_z_h_case2.jpg')
             plt.close()
