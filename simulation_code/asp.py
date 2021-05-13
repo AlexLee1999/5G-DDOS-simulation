@@ -163,7 +163,7 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(40, 150):
+                for i in range(50, 150):
                     self.z_v = i / 1000
                     self.z_h = 0
                     self.set_process_time()

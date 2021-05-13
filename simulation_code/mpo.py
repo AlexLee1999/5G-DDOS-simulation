@@ -71,17 +71,11 @@ class MPO():
     def plot_phi(self):
         self.find_optimize_phi()
         phi = 500
-        step = 2
+        step = 3
         pr = []
-        pr_zh1 = []
-        pr_zh2 = []
-        pr_zh3 = []
         ut = []
         bound = []
         num = []
-        ut_zh1 = []
-        ut_zh2 = []
-        ut_zh3 = []
         vm_prior = float('inf')
         for _ in range(1000):
             self.set_and_check_required_vm(phi)
@@ -89,43 +83,6 @@ class MPO():
             pr.append(phi)
             ut.append(phi * vm_after - MPO_cost(vm_after))
             num.append(vm_after)
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-
-        vm_prior = float('inf')
-        phi = 500
-        for _ in range(1000):
-            self.set_and_check_required_vm_with_chi(phi, 0)
-            vm_after = self.total_vm()
-            pr_zh1.append(phi)
-            ut_zh1.append(phi * vm_after - MPO_cost(vm_after))
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-
-        vm_prior = float('inf')
-        phi = 500
-        for _ in range(1000):
-            self.set_and_check_required_vm_with_chi(phi, 0.3)
-            vm_after = self.total_vm()
-            pr_zh2.append(phi)
-            ut_zh2.append(phi * vm_after - MPO_cost(vm_after))
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-
-        vm_prior = float('inf')
-        phi = 500
-        ratio = np.random.rand(self.num_of_asp) * 0.9
-        for _ in range(1000):
-            self.set_and_check_required_vm_with_chi_random(phi, ratio)
-            vm_after = self.total_vm()
-            pr_zh3.append(phi)
-            ut_zh3.append(phi * vm_after - MPO_cost(vm_after))
             phi += step
             if vm_prior < vm_after:
                 print('Total VM is not non-increasing')
@@ -140,17 +97,6 @@ class MPO():
         plt.vlines(self.constraint_phi, ymin=0, ymax=max(ut), linestyle='-', color='darkorange', label='Price Constraint')
         plt.legend(loc="best")
         plt.savefig('./utility.jpg')
-        plt.close()
-        plt.figure(figsize=(20, 16), dpi=100)
-        plt.plot(pr, ut, marker='.', linestyle='-.', label='Optimized')
-        plt.plot(pr_zh1, ut_zh1, marker='.', linestyle='-.', label='No IPS VM')
-        plt.plot(pr_zh2, ut_zh2, marker='.', linestyle='-.', label='30% IPS VM')
-        plt.plot(pr_zh3, ut_zh3, marker='.', linestyle='-.', label='random IPS VM')
-        plt.title('Utility of MPO', fontsize=30)
-        plt.xlabel('MPO Price', fontsize=30)
-        plt.ylabel('Utility', fontsize=30)
-        plt.legend(loc="best")
-        plt.savefig('./utility_cmp.jpg')
         plt.close()
         plt.figure(figsize=(20, 16), dpi=100)
         plt.plot(pr, num, marker='.', linestyle='-.')
@@ -195,30 +141,129 @@ class MPO():
             vm = self.total_vm()
             self.constraint_phi = mid
 
-    def plot_malicious_ratio(self):
-        ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
-        plt.figure(figsize=(20, 16), dpi=100)
-        step = 5
-        for ra in ratio:
-            ut = []
-            pr = []
-            phi = 500
+    # def plot_malicious_ratio(self):
+    #     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
+    #     plt.figure(figsize=(20, 16), dpi=100)
+    #     step = 5
+    #     for ra in ratio:
+    #         ut = []
+    #         pr = []
+    #         phi = 500
+    #         for asp in self.asp_lst:
+    #             asp.set_malicious_ratio(ra)
+    #         vm_prior = float('inf')
+    #         for _ in range(1000):
+    #             self.set_and_check_required_vm(phi)
+    #             vm_after = self.total_vm()
+    #             pr.append(phi)
+    #             ut.append(phi * vm_after - MPO_cost(vm_after))
+    #             phi += step
+    #             if vm_prior < vm_after:
+    #                 print('Total VM is not non-increasing')
+    #             vm_prior = vm_after
+    #         plt.plot(pr, ut, marker='.', linestyle='-.', label=f'ratio : {ra}')
+    #     plt.title('Utility of MPO')
+    #     plt.xlabel('MPO Price')
+    #     plt.ylabel('Utility')
+    #     plt.legend(loc="best")
+    #     plt.savefig('./utility_ratio.jpg')
+    #     plt.close()
+    def plot_social_welfare(self):
+        phi = 500
+        step = 2
+        pr = []
+        pr_zh1 = []
+        pr_zh2 = []
+        pr_zh3 = []
+        pr_zh4 = []
+        ut = []
+        ut_zh1 = []
+        ut_zh2 = []
+        ut_zh3 = []
+        ut_zh4 = []
+        vm_prior = float('inf')
+        for _ in range(1000):
+            self.set_and_check_required_vm(phi)
+            vm_after = self.total_vm()
+            pr.append(phi)
+            welfare = 0
             for asp in self.asp_lst:
-                asp.set_malicious_ratio(ra)
-            vm_prior = float('inf')
-            for _ in range(1000):
-                self.set_and_check_required_vm(phi)
-                vm_after = self.total_vm()
-                pr.append(phi)
-                ut.append(phi * vm_after - MPO_cost(vm_after))
-                phi += step
-                if vm_prior < vm_after:
-                    print('Total VM is not non-increasing')
-                vm_prior = vm_after
-            plt.plot(pr, ut, marker='.', linestyle='-.', label=f'ratio : {ra}')
-        plt.title('Utility of MPO')
-        plt.xlabel('MPO Price')
-        plt.ylabel('Utility')
+                welfare += asp.utility
+            ut.append(phi * vm_after - MPO_cost(vm_after) + welfare)
+            phi += step
+            if vm_prior < vm_after:
+                print('Total VM is not non-increasing')
+            vm_prior = vm_after
+
+        vm_prior = float('inf')
+        phi = 500
+        for _ in range(1000):
+            self.set_and_check_required_vm_with_chi(phi, 0)
+            vm_after = self.total_vm()
+            pr_zh1.append(phi)
+            welfare = 0
+            for asp in self.asp_lst:
+                welfare += asp.utility
+            ut_zh1.append(phi * vm_after - MPO_cost(vm_after) + welfare)
+            phi += step
+            if vm_prior < vm_after:
+                print('Total VM is not non-increasing')
+            vm_prior = vm_after
+
+        vm_prior = float('inf')
+        phi = 500
+        for _ in range(1000):
+            self.set_and_check_required_vm_with_chi(phi, 0.3)
+            vm_after = self.total_vm()
+            pr_zh2.append(phi)
+            welfare = 0
+            for asp in self.asp_lst:
+                welfare += asp.utility
+            ut_zh2.append(phi * vm_after - MPO_cost(vm_after) + welfare)
+            phi += step
+            if vm_prior < vm_after:
+                print('Total VM is not non-increasing')
+            vm_prior = vm_after
+
+        vm_prior = float('inf')
+        phi = 500
+        ratio = np.random.rand(self.num_of_asp) * 0.9
+        for _ in range(1000):
+            self.set_and_check_required_vm_with_chi_random(phi, ratio)
+            vm_after = self.total_vm()
+            pr_zh3.append(phi)
+            welfare = 0
+            for asp in self.asp_lst:
+                welfare += asp.utility
+            ut_zh3.append(phi * vm_after - MPO_cost(vm_after) + welfare)
+            phi += step
+            if vm_prior < vm_after:
+                print('Total VM is not non-increasing')
+            vm_prior = vm_after
+
+        vm_prior = float('inf')
+        phi = 500
+        for _ in range(1000):
+            self.set_and_check_required_vm_with_chi(phi, 0.9)
+            vm_after = self.total_vm()
+            pr_zh4.append(phi)
+            welfare = 0
+            for asp in self.asp_lst:
+                welfare += asp.utility
+            ut_zh4.append(phi * vm_after - MPO_cost(vm_after) + welfare)
+            phi += step
+            if vm_prior < vm_after:
+                print('Total VM is not non-increasing')
+            vm_prior = vm_after
+        plt.figure(figsize=(20, 16), dpi=100)
+        plt.plot(pr, ut, marker='.', linestyle='-.', label='Optimized')
+        plt.plot(pr_zh1, ut_zh1, marker='.', linestyle='-.', label='No IPS VM')
+        plt.plot(pr_zh2, ut_zh2, marker='.', linestyle='-.', label='30% IPS VM')
+        plt.plot(pr_zh3, ut_zh3, marker='.', linestyle='-.', label='random IPS VM')
+        plt.plot(pr_zh4, ut_zh4, marker='.', linestyle='-.', label='90% IPS VM')
+        plt.title('Social Welfare', fontsize=30)
+        plt.xlabel('MPO Price', fontsize=30)
+        plt.ylabel('Utility', fontsize=30)
         plt.legend(loc="best")
-        plt.savefig('./utility_ratio.jpg')
+        plt.savefig('./utility_cmp.jpg')
         plt.close()
