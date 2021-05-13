@@ -71,7 +71,7 @@ class MPO():
     def plot_phi(self):
         self.find_optimize_phi()
         phi = 500
-        step = 5
+        step = 2
         pr = []
         pr_zh1 = []
         pr_zh2 = []
@@ -120,7 +120,7 @@ class MPO():
 
         vm_prior = float('inf')
         phi = 500
-        ratio = np.random.rand(self.num_of_asp)
+        ratio = np.random.rand(self.num_of_asp) * 0.9
         for _ in range(1000):
             self.set_and_check_required_vm_with_chi_random(phi, ratio)
             vm_after = self.total_vm()
@@ -136,7 +136,7 @@ class MPO():
         plt.title('Utility of MPO', fontsize=30)
         plt.xlabel('MPO Price', fontsize=30)
         plt.ylabel('Utility', fontsize=30)
-        plt.vlines(self.bd, ymin=0, ymax=max(ut), linestyle='-', color='red', label='Boundary')
+        plt.vlines(self.bd, ymin=min(ut), ymax=max(ut), linestyle='-', color='red', label='Boundary')
         plt.vlines(self.constraint_phi, ymin=0, ymax=max(ut), linestyle='-', color='darkorange', label='Price Constraint')
         plt.legend(loc="best")
         plt.savefig('./utility.jpg')
@@ -154,9 +154,9 @@ class MPO():
         plt.close()
         plt.figure(figsize=(20, 16), dpi=100)
         plt.plot(pr, num, marker='.', linestyle='-.')
-        plt.vlines(self.bd, ymin=0, ymax=max(num), linestyle='-', color='red', label='Boundary')
+        plt.vlines(self.bd, ymin=min(num), ymax=max(num), linestyle='-', color='red', label='Boundary')
         plt.hlines(self.num_of_vm, xmin=min(700, self.constraint_phi), xmax=500 + 1000 * step, linestyle='-', color='black', label='VM Constraint')
-        plt.vlines(self.constraint_phi, ymin=0, ymax=max(num), linestyle='-', color='darkorange', label='Price Constraint')
+        plt.vlines(self.constraint_phi, ymin=min(num), ymax=max(num), linestyle='-', color='darkorange', label='Price Constraint')
         plt.title('Total Purchased VM', fontsize=30)
         plt.legend(loc="best")
         plt.xlabel('MPO Price', fontsize=30)

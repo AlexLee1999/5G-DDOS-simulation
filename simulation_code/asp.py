@@ -38,6 +38,8 @@ class ASP():
         tot_cpu_cycle = 0
         for dev in self.device_list:
             tot_cpu_cycle += dev.required_cpu_cycle
+        for dev in self.mal_device_list:
+            tot_cpu_cycle += dev.required_cpu_cycle
         self.service_rate = self.frequency / (tot_cpu_cycle / (self.num_of_normal_users + self.num_of_malicious_users))
 
     def set_arrival_rate(self):
@@ -134,7 +136,7 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(30, 100):
+                for i in range(60, 150):
                     self.z_v = i / 1000
                     self.z_h = self.chi * self.z_v
                     self.set_process_time()
@@ -161,7 +163,7 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(30, 100):
+                for i in range(40, 150):
                     self.z_v = i / 1000
                     self.z_h = 0
                     self.set_process_time()
