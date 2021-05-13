@@ -62,9 +62,9 @@ To be added ...
 \caption{System Architecture}
 \label{fig:system}
 \end{figure}
-We illustrate our system architecture in Fig~\ref{fig:system}. There are three types of entities in our system: the MEC platform operator (MPO), application service providers (ASPs), and end-users (EUs). The MPO manages the computation resources in terms of virtual machines (VMs) of geographically distributed edge servers. Since the ASPs do not have the computation resources to process the application tasks, they have strong demands for the MPO's VMs whose total number is $\mathcal{Q}_{V}$. The goal of the MPO is to maximize its profit by finding the optimal unit selling price $\Psi_{m}^v$ per VM. We denote the set of ASPs as $\mathcal{I}=\{1, \cdots, I\}$. The ASPs determine the number of VMs to buy (denoted by $z_i^v$) from MPO to maximize their profit too. The ASPs utilize these purchased VMs to either run the application service or mitigate the DDoS security attacks. If ASPs devote most of their VMs to running the application service, they are prone to DDoS security attacks. The security threat would damage the users' quality of experience (QoE) and thus the revenue of ASPs. Even worse, it would paralyze the application service such that the ASPs have no revenue. On the other hand, if the ASPs devote most of their VMs to mitigating the DDoS attack, they can not ensure good satisfaction to the users (e.g., users' latency requirements can not be satisfied) even though the ASPs are immune from the DDoS attacks. Therefore, it is crucial to find an optimal resource allocation between running the application service and mitigating the DDoS attacks. We denote the set of EUs associated with ASP $i \in \mathcal{I}$ as $\mathrm{U}_i$ and further categorize it into two kinds: normal users (NUs) $\mathrm{U}_i^n$ and malicious users (MUs) $\mathrm{U}_i^m$. Each MU $j \in \mathrm{U}_i$ has the Poisson task arrival rate $\lambda_{ij}$, latency requirement $d_{ij}$, and task size $s_{ij}$. We consider the situation that the EUs do not have enough computation resources or needed resources such as Graphics Processing Unit (GPS) resources to process the application tasks. Therefore, they will offload the tasks out to the MPO.  
+We illustrate our system architecture in Fig~\ref{fig:system}. There are three types of entities in our system: the MEC platform operator (MPO), application service providers (ASPs), and end-users (EUs). The MPO manages the computation resources in terms of virtual machines (VMs) of geographically distributed edge servers. Since the ASPs do not have the computation resources to process the application tasks, they have strong demands for the MPO's VMs whose total number is $\mathcal{Q}_{V}$. The goal of the MPO is to maximize its profit by finding the optimal unit selling price $\Psi_{m}^v$ per VM. We denote the set of ASPs as $\mathcal{I}=\{1, \cdots, I\}$. The ASPs determine the number of VMs to buy (denoted by $z_i^v$) from MPO to maximize their profit too. The ASPs utilize these purchased VMs to either run the application service or mitigate the DDoS security attacks. If ASPs devote most of their VMs to running the application service, they are prone to DDoS security attacks. The security threat would damage the users' quality of experience (QoE) and thus the revenue of ASPs. Even worse, it would paralyze the application service such that the ASPs have no revenue. On the other hand, if the ASPs devote most of their VMs to mitigating the DDoS attack, they can not ensure good satisfaction to the users (e.g., users' latency requirements can not be satisfied) even though the ASPs are immune from the DDoS attacks. Therefore, it is crucial to find an optimal resource allocation between running the application service and mitigating the DDoS attacks. We denote the set of EUs associated with ASP $i \in \mathcal{I}$ as $\mathrm{U}_i$ and further categorize it into two kinds: normal users (NUs) $\mathrm{U}_i^n$ and malicious users (MUs) $\mathrm{U}_i^m$. Each MU $j \in \mathrm{U}_i$ has the Poisson task arrival rate $\lambda_{ij}$, latency requirement $d_{ij}$, and task size $s_{ij}$. We consider the situation that the EUs do not have enough computation resources or needed resources such as Graphics Processing Unit (GPU) resources to process the application tasks. Therefore, they will offload the tasks out to the MPO.  
 
-The DDoS attacks happen when the AUs flood into the edge servers. The ASPs can intercept some malicious requests by employing open-source intrusion prevention system (IPS) such as Suricata \cite{Suricata}. The IPS of all ASPs monitors and filters all task requests, and all VMs devoted to running the application service process the filtered task requests. We assume the IPS does not classify the normal task requests as malicious, but it can not discern all malicious requests and would classify some malicious task requests as normal. How many malicious requests can the IPS filter depends on how many VMs the ASPs dedicate to the IPS. We use $H(\cdot)$ to represent the relationship between the quantity of intercepted malicious requests and the number of devoted VMs. $H(\cdot)$ is assumed to be nondecreasing and concave. Also, $H(0)=0$. The cost of using IPS only comes from the devoted VMs and does not include any payment because it is open-source.
+The DDoS attacks happen when the AUs flood into the edge servers. The ASPs can intercept some malicious requests by employing open-source intrusion prevention system (IPS) such as Suricata \cite{Suricata}. The IPS of all ASPs monitors and filters all task requests, and all VMs devoted to running the application service process the filtered task requests. We assume the IPS does not classify the normal task requests as malicious, but it can not discern all malicious requests and would classify some malicious task requests as normal. How many malicious requests can the IPS filter depends on how many VMs the ASPs dedicate to the IPS. We use $H(\cdot)$ to represent the relationship between the quantity of intercepted malicious requests and the number of devoted VMs. $H(\cdot)$ is assumed to be nondecreasing and concave. Also, $H(0)=0$. In this paper, we recommend a linear function form of $H(x) = \eta{x}$ so that the closed form solutions can be derived in the following optimization problems. The cost of using IPS only comes from the devoted VMs and does not include any payment because it is open-source.
 
 We consider orthogonal frequency-division multiple access (OFDMA) system and thus the bandwidth of the edge servers whose computation resources are allocated to ASP $i$ denoted by $B_i$ can be divided into $|\mathrm{U}_i|$ sub-bands of size $W_{i} = B_i/|\mathrm{U}_i|$. Each MU $j\in \mathrm{U}_i$ transmits the data over each of $|\mathrm{U}_i|$ sub-bands, and hence they would not cause interference to other EUs while transmitting. The maximum achievable uplink data transmission rate $R_{ij}$ between ASP $i$ and MU $j \in \mathrm{U}_i$ is 
 \begin{equation} \label{eqn:shannon}
@@ -189,94 +189,21 @@ When we substitute (\ref{eqn:asp_utility_def_extreme_point}) into (\ref{eqn:asp_
 T_{i,1}^p(z_i^v) = \frac{1}{\big(z_i^v - G(\mu_i^v)\big)\mu_i^v - \lambda_i + H\big(G(\mu_i^v)\big)}
 \end{equation}
 According to (\ref{eqn:asp_def_subobjective_unfold}) and (\ref{eqn:asp_def_subobjective}), the objective function (\ref{eqn:asp_utility_opti_obj}) becomes
-\begin{equation}
+\begin{equation}\label{eqn:asp_case1_utility}
 Y_i^1(z_i^v|\Psi_m^v) \triangleq \sum_{j \in \mathrm{U}_i^n}\Psi_{ij}(1-\frac{T_{ij}^t + T_{i,1}^p(z_i^v)-a_i}{b_i-a_i}) - \Psi_m^vz_i^v
 \end{equation}
-If $Y_i^1(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to solve the optimization problem (\ref{eqn:asp_utility_opti}) with the objective being $Y_i^1(z_i^v|\Psi_m^v)$. We prove this properties in the following. 
-\begin{lemma} \label{lemma:asp_case1_utility_concave}
-$Y_i^1(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.
+If we optimize (\ref{eqn:asp_case1_utility}), we can observe how the ASP reacts to different $z_i^v$ and $\Psi_m^v$ in order to reach the highest utility. However, we won't try to do so since the case doesn't happen based on the initial assumption of $H(x) = \eta{x}$. We briefly explain the property in the following.
+\begin{lemma} \label{lemma:asp_case1_not_exist}
+$X_1(z_i^h|z_i^v,\Psi_m^v)$ doesn't have extreme point in feasible $z_i^h$ if $H(x) = \eta{x}$.
 \end{lemma}
-\begin{proof}
-If $T_{i,1}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^1(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. We can verify the convexity of $T_{i,1}^p(z_i^v)$ by taking second derivative of $T_{i,1}^p(z_i^v)$ with respect to $z_i^v$
-\begin{equation} \label{eqn:asp_case1_mm1_delay_second_deriv}
-\frac{\partial^2 T_{i,1}^p(z_i^v)}{\partial (z_i^v)^2}=2[\big(z_i^v - G(\mu_i^v)\big)\mu_i^v - \lambda_i + H\big(G(\mu_i^v)\big)]^{-3}
+\begin{proof}  
+From (\ref{eqn:asp_utilitu_def_firstderiv}),  we substitute $\eta{z_i^h}$ into $H(z_i^h)$, then we can obtain
+\begin{equation} \label{eqn:asp_utilitu_simplified}
+[(z_i^v - z_i^h) - \lambda_i + \eta{z_i^h}]^{-2} \cdot (-\mu_i^v + \eta)
 \end{equation}
-Since $(z_i^h)^* = G(\mu_i^v)$ satisfies the constraint (\ref{eqn:asp_utility_def_opti_const2}), (\ref{eqn:asp_case1_mm1_delay_second_deriv}) is always positive, which means $T_{i,1}^p(z_i^v)$ is convex in feasible $z_i^v$. Hence, $Y_i^1(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.
-\end{proof}
-We characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^1(z_i^v|\Psi_m^v)$ in the following theorem. Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const1}) as $\Upsilon_i$ for ASP $i$, and (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^1$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^1(z_i^v|\Psi_m^v)$. When $\Upsilon_i \cap \Upsilon_i^1$ is an non-empty interval in $\mathbb{R}^+$, we express the left endpoint of $\Upsilon_i \cap \Upsilon_i^1$ as $\zeta_i^{1l}$ and the right endpoint of $\Upsilon_i \cap \Upsilon_i^1$ as $\zeta_i^{1u}$. 
-\begin{theorem}\label{thm:asp_case1_optimal}
-The solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^1(z_i^v|\Psi_m^v)$ is $(z_{i,1}^v(\Psi_m^v))^*$ 
-\begin{subnumcases}{=\label{eqn:asp_case1_optimal_solution}}
-  0 & if $\Upsilon_i \cap \Upsilon_i^1 = \emptyset$ \label{eqn:asp_case1_optimal_solution_individual_rationality} \\
-  \zeta_i^{1l} & if $(z_{i,1}^{v,e}(\Psi_m^v))^* < \zeta_i^{1l}$ \label{eqn:asp_case1_optimal_solution_lower_boundary} \\ 
-  \zeta_i^{1u} & if $(z_{i,1}^{v,e}(\Psi_m^v))^* > \zeta_i^{1u}$ \label{eqn:asp_case1_optimal_solution_upper_boundary} \\
-  (z_{i,1}^{v,e}(\Psi_m^v))^* & if $(z_{i,1}^{v,e}(\Psi_m^v))^* \in [\zeta_i^{1l}, \zeta_i^{1u}]$ \label{eqn:asp_case1_optimal_solution_extreme} 
-\end{subnumcases}
-where
-\begin{equation} \label{eqn:asp_case1_utility_extreme}
-(z_{i,1}^{v,e}(\Psi_m^v))^* = \frac{1}{\mu_i^v}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)\Psi_m^v}} + \frac{\lambda_i - H(G(\mu_i^v))}{\mu_i^v} + G(\mu_i^v)
-\end{equation}
-\end{theorem}
-\begin{proof}
-We begin by proving the feasbile region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray. Since we have proved the convexity of $Y_i^1(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case1_utility_concave}, $\Upsilon_i^1$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^1$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^1 = \emptyset$, which means the ASP $i$ cannot make the processign queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case1_utility_concave}, $Y_i^1(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^1(z_i^v|\Psi_m^v)$ is smaller than $\zeta_i^{1l}$, $\zeta_i^{1l}$ is the optimal point. Likewise, when the extreme point of $Y_i^1(z_i^v|\Psi_m^v)$ is larger than $\zeta_i^{1u}$, $\zeta_i^{1u}$ is the optimal point. When the extreme point of $Y_i^1(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^1(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^1(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
-\begin{equation} \label{eqn:asp_case1_utility_first_deriv}
-\Big[\big(z_i^v - G(\mu_i^v)\big)\mu_i^v - \lambda_i + H\big(G(\mu_i^v)\big)\Big]^{2} = \frac{\sum_{j \in \mathrm{U}_i^n} \Psi_{ij}}{(b_i-a_i)\Psi_m^v}
-\end{equation}
-Starting from (\ref{eqn:asp_case1_utility_first_deriv}), it only takes simple algebraic operations to have the expression for the extreme point in (\ref{eqn:asp_case1_utility_extreme}). \qedhere
-\end{proof}
-From \Cref{thm:asp_case1_optimal}, we can obtain the MPO's price per VM $\Psi_m^i$ which makes the ASP $i$'s optimal response switch among (\ref{eqn:asp_case1_optimal_solution_lower_boundary}), (\ref{eqn:asp_case1_optimal_solution_upper_boundary}), and (\ref{eqn:asp_case1_optimal_solution_extreme}) by solving the $\Psi_m^v$ that satisfies $(z_{i,1}^{v,e}(\Psi_m^v))^* = \zeta_i^{1l}$ or $(z_{i,1}^{v,e}(\Psi_m^v))^* = \zeta_i^{1u}$. 
-\begin{equation}
-\begin{aligned}
-&\Psi_{m,1}^{i,l} = \frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\big(\mu_i^v(\zeta_i^{1u} - G(\mu_i^v)) - \lambda_i + H(G(\mu_i^v)\big)^2(b_i-a_i)} \\
-&\Psi_{m,1}^{i,u} = \frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\big(\mu_i^v(\zeta_i^{1l} - G(\mu_i^v)) - \lambda_i + H(G(\mu_i^v)\big)^2(b_i-a_i)}
-\end{aligned}
-\end{equation}
-The sequence $\{\Psi_{m,1}^{i,l} , \Psi_{m,1}^{i,u}, \forall i \in \mathcal{I}\}$ partitions the space of the MPO's price per VM $\Psi_m^v$ into $2I + 1$ intervals.
-\begin{equation}
-0 \cup \mathbb{R}^{+} = \mathcal{M}_1^1 \cup \mathcal{M}_1^1 \cdots \cup \mathcal{M}_1^{2I+1}
-\end{equation}
-Within each interval $\mathcal{M}_1^k, \forall k \in \{1, \cdots, 2I+1\}$, we define four sets of ASP $i$ that has different optimal responses.
-\begin{equation}
-\begin{aligned}
-&\Omega_1^{k,z} = \{i \in \mathcal{I}|(z_{i,1}^v(\Psi_m^v))^* = 0\} \\
-&\Omega_1^{k,l} = \{i \in \mathcal{I}|(z_{i,1}^v(\Psi_m^v))^* = \zeta_i^{1l}\} \\
-&\Omega_1^{k,u} = \{i \in \mathcal{I}|(z_{i,1}^v(\Psi_m^v))^* = \zeta_i^{1u}\} \\
-&\Omega_1^{k,e} = \{i \in \mathcal{I}|(z_{i,1}^v(\Psi_m^v))^* = (z_{i,1}^{v,e}(\Psi_m^v))^*\} 
-\end{aligned}
-\end{equation}
-These four sets form a partition of the all ASPs. That is, $\mathcal{I} = \Omega_1^{k,z} \cup \Omega_1^{k,l} \cup \Omega_1^{k,u} \cup \Omega_1^{k,e}, \, \forall k \in \{1, \cdots, 2I+1\}$. The total number of VMs bought by the ASPs within each interval $\mathcal{M}_1^k, \forall k \in \{1, \cdots, 2I+1\}$ can be expressed 
-\begin{equation}\label{eqn:asp_case1_total_number_VM}
-\sum_{i \in \mathcal{I}} (z_{i,1}^v(\Psi_m^v))^* =  \sum_{i\in \Omega_1^{k,l}}\zeta_i^{1l} + \sum_{i\in \Omega_1^{k,u}}\zeta_i^{1u} + \sum_{i \in \Omega_1^{k,e}}(z_{i,1}^{v,e}(\Psi_m^v))^* 
-\end{equation}
-With the expression (\ref{eqn:asp_case1_total_number_VM}), the MPO's optimization problem in each interval $\mathcal{M}_1^k, \forall k \in \{1, \cdots, 2I+1\}$ is
-\begin{maxi!}[2]
-  {\Psi_m^v}
-  {\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i,1}^v(\Psi_m^v))^* - C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i,1}^v(\Psi_m^v))^*\big) \label{eqn:case1_mpo_utility_opti_obj}} 
-  {\label{eqn:case1_mpo_utility_opti}}
-  {}
-  \addConstraint{\sum_{i \in \mathcal{I}} (z_{i,1}^v(\Psi_m^v))^* \leq \mathcal{Q}_v}{\label{eqn:case1_mpo_utility_opti_const1}}
-  \addConstraint{\Psi_m^v \in \mathcal{M}_1^k}{\label{eqn:case1_mpo_utility_opti_const2}}
-\end{maxi!}
-\begin{theorem}\label{thm:mpo_case1_convex_optimization}
-In each interval $\mathcal{M}_1^k, \forall k \in \{1, \cdots, 2I+1\}$, the MPO's optimization problem (\ref{eqn:mpo_utility_opti}) is a convex optimization problem. The MPO's otpimal price per VM $\Psi_m^v$ is one of the optimal prices in each $\mathcal{M}_1^k, \forall k \in \{1, \cdots, 2I+1\}$ that gives the highest utility.
-\end{theorem}
-\begin{proof}
-We start by proving that $\sum_{i \in \mathcal{I}} (z_{i,1}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v$ when $\Psi_m^v \in \mathcal{M}_1^k,\, \forall k \in \{1, \cdots, 2I+1\}$. In (\ref{eqn:asp_case1_total_number_VM}), only the second term pertains to $\Psi_m^v$. As the summation of convex function is also a convex function, it suffices to prove that $(z_{i,1}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_1^{k,e}$. Taking the second derivative of (\ref{eqn:asp_case1_utility_extreme}) with respect to $\Psi_m^v$, we have 
-\begin{equation}
-\frac{\partial^2 (z_{i,1}^{v,e}(\Psi_m^v))^*}{\partial (\Psi_m^v)^2} = \frac{3}{4}(\Psi_m^v)^{-5/2}\frac{1}{\mu_i^v}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)}} \geq 0
-\end{equation}
-Hence, $(z_{i,1}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v \in \mathcal{M}_1^k,\, \forall k \in \{1, \cdots, 2I+1\}$. Since the sublevel set of a convex function is a convex set, the feasible region resulting from (\ref{eqn:case1_mpo_utility_opti_const1}) is a convex set for any value $\mathcal{Q}_v$. In addition, the feasible region of (\ref{eqn:case1_mpo_utility_opti_const2}) is also a convex set because the convex combination of two numbers in $\mathcal{M}_1^k, \forall k \in \{1, \cdots, 2I+1\}$ is still a number in $\mathcal{M}_1^k, \forall k \in \{1, \cdots, 2I+1\}$. Hence, the feasible region of the optimization problem (\ref{eqn:case1_mpo_utility_opti}) is the intersection of two convex set and thus is a convex set. To prove that the MPO's the optimization problem (\ref{eqn:case1_mpo_utility_opti}) is a convex optimization problem, what remains to do is to prove that the objective function (\ref{eqn:case1_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}_1^k,\, \forall k \in \{1, \cdots, 2I+1\}$. Using (\ref{eqn:asp_case1_utility_extreme}) and (\ref{eqn:asp_case1_total_number_VM}), we can unfold the first term in (\ref{eqn:case1_mpo_utility_opti_obj}) as follows. 
-\begin{align} \label{eqn:mpo_case1_utility_first_term}
-&\Psi_m^v \cdot \sum_{i \in \Omega_1^{k,e}} (z_{i,1}^v(\Psi_m^v))^* \\
-&= \Psi_m^v\sum_{i\in \Omega_1^{k,l}}\zeta_i^{1l} + \Psi_m^v\sum_{i\in \Omega_1^{k,u}}\zeta_i^{1u} + \sum_{i \in \Omega_1^{k,e}}\Psi_m^v(z_{i,1}^{v,e}(\Psi_m^v))^*  \nonumber\\
-& = \Psi_m^v \Big[\sum_{i\in \Omega_1^{k,l}}\zeta_i^{1l} + \sum_{i\in \Omega_1^{k,u}}\zeta_i^{1u}+ \sum_{i \in \Omega_1^{k,e}} \big(\frac{\lambda_i - H(G(\mu_i^v))}{\mu_i^v} \nonumber \\
-&+ G(\mu_i^v)\big) \Big]+ \sum_{i \in \Omega_1^{k,e}} \frac{1}{\mu_i^v}\sqrt{\frac{\Psi_m^v \cdot \sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)}} \nonumber
-\end{align}
-The first term in the final expression (\ref{eqn:mpo_case1_utility_first_term}) is a linear function of $\Psi_m^v$ which is both convex and concave. The second term in the final expression (\ref{eqn:mpo_case1_utility_first_term}) is concave in $\Psi_m^v$. To see this, we check the concavity via the second order test. The second derivative of the second term is 
-\begin{equation}
- -\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_1^{k,e}} \frac{1}{\mu_i^v}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)}} \leq 0 
-\end{equation}
-Therefore, (\ref{eqn:mpo_case1_utility_first_term}) is concave in $\Psi_m^v$. The second term of (\ref{eqn:case1_mpo_utility_opti_obj}), $C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i,1}^v(\Psi_m^v))^*$, is convex in $\Psi_m^v$ as it is a composition of $C_m^v$ and $\sum_{i \in \mathcal{I}} (z_{i,1}^v(\Psi_m^v)$ where $C_m^v$ is convex and non-decreasing, and $\sum_{i \in \mathcal{I}} (z_{i,1}^v(\Psi_m^v)$ is convex in $\Psi_m^v \in \mathcal{M}_1^k,\, \forall k \in \{1, \cdots, 2I+1\}$. Since a concave function minus a convex function yields a concave function, (\ref{eqn:case1_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}_1^k,\, \forall k \in  \{1, \cdots, 2I+1\}$. In sum, the MPO's optimization problem (\ref{eqn:case1_mpo_utility_opti}) in each interval $\mathcal{M}_1^k, \forall k \in \{1, \cdots, 2I+1\}$ is a convex optimization problem. \qedhere
+Obviously, no matter what the value of $z_i^h$ is, (\ref{eqn:asp_utilitu_simplified}) equaling zero will never be satisfied. Therefore, the extreme point of (\ref{eqn:asp_case1_utility}) does not exist.
+Now we know that the extreme point of (\ref{eqn:asp_utility_def_opti_obj}) does not exist in feasible $z_i^h$, so the maximum value of $X_1(z_i^h|z_i^v,\Psi_m^v)$ only happens at the boundary points of feasible $z_i^h$.
+\qedhere
 \end{proof}
 \textbf{Case 2}: The optimal point of (\ref{eqn:asp_utility_def_opti}) happens at the right boundary of (\ref{eqn:asp_utility_def_opti_const1}). That is, when the purchased number of VM is $z_i^v$, the ASP $i$'s optimal number of VMs devoted to the IPS is
 \begin{equation} \label{eqn:asp_utility_def_first_boundary}
