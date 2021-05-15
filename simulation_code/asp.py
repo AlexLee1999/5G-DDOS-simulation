@@ -126,7 +126,7 @@ class ASP():
         mpo_lst = [100, 300, 500, 700, 900]
         color_dict = {100: 'red', 300: 'darkorange', 500: 'indigo', 700: 'darkgreen', 900: 'darkblue'}
         if GLOBAL_ETA > self.service_rate:
-            plt.figure(figsize=(20, 16))
+            plt.figure(figsize=(20, 16), dpi=400)
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
                 self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
@@ -147,16 +147,16 @@ class ASP():
                 plt.legend(loc="best")
                 z_v = []
                 ut = []
-            plt.title('ASP utility in case 1', fontsize=30)
             plt.xlabel('Purchased VM', fontsize=30)
             plt.ylabel('Utility', fontsize=30)
             plt.xticks(fontsize=20)
             plt.yticks(fontsize=20)
             plt.legend(loc="best", fontsize=20)
+            plt.savefig('./asp_utility_case1.pdf')
             plt.savefig('./asp_utility_case1.jpg')
             plt.close()
         else:
-            plt.figure(figsize=(20, 16))
+            plt.figure(figsize=(20, 16), dpi=400)
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
                 self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
@@ -177,12 +177,12 @@ class ASP():
                 plt.legend(loc="best")
                 ut = []
                 z_v = []
-            plt.title('ASP utility in case 2', fontsize=30)
             plt.xlabel('Purchased VM', fontsize=30)
             plt.ylabel('Utility', fontsize=30)
             plt.xticks(fontsize=20)
             plt.yticks(fontsize=20)
             plt.legend(loc="best", fontsize=20)
+            plt.savefig('./asp_utility_case2.pdf')
             plt.savefig('./asp_utility_case2.jpg')
             plt.close()
 
@@ -191,7 +191,7 @@ class ASP():
             self.mpo_price = 100
             ut = []
             z_h = []
-            plt.figure(figsize=(20, 16))
+            plt.figure(figsize=(20, 16), dpi=400)
             for z in range(100, 105, 1):
                 self.z_v = z / 1000
                 for i in range(11):
@@ -204,19 +204,19 @@ class ASP():
                 plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}")
                 ut = []
                 z_h = []
-            plt.title('ASP utility in case 1 with different IPS VM ratio', fontsize=30)
             plt.xlabel('Security VM ratio', fontsize=30)
             plt.ylabel('Utility', fontsize=30)
             plt.xticks(fontsize=20)
             plt.yticks(fontsize=20)
             plt.legend(loc="best", fontsize=20)
+            plt.savefig('./asp_utility_z_h_case1.pdf')
             plt.savefig('./asp_utility_z_h_case1.jpg')
             plt.close()
         else:
             self.mpo_price = 100
             ut = []
             z_h = []
-            plt.figure(figsize=(20, 16))
+            plt.figure(figsize=(20, 16), dpi=400)
             for z in range(100, 105, 1):
                 self.z_v = z / 1000
                 for i in range(11):
@@ -229,11 +229,11 @@ class ASP():
                 plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}")
                 ut = []
                 z_h = []
-            plt.title('ASP utility in case 2 with different IPS VM ratio', fontsize=30)
             plt.xlabel('Security VM ratio', fontsize=30)
             plt.ylabel('Utility', fontsize=30)
             plt.xticks(fontsize=20)
             plt.yticks(fontsize=20)
             plt.legend(loc="best", fontsize=20)
+            plt.savefig('./asp_utility_z_h_case2.pdf')
             plt.savefig('./asp_utility_z_h_case2.jpg')
             plt.close()

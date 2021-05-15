@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
 
     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
-    plt.figure(figsize=(20, 16), dpi=100)
+    plt.figure(figsize=(20, 16), dpi=400)
     step = 5
     for ra in ratio:
         ut = []
@@ -35,11 +35,11 @@ if __name__ == '__main__':
                 print('Total VM is not non-increasing')
             vm_prior = vm_after
         plt.plot(pr, ut, marker='.', linestyle='-.', label=f'ratio : {ra}')
-    plt.title('Social Welfare', fontsize=30)
     plt.xlabel('MPO Price', fontsize=30)
     plt.ylabel('Utility', fontsize=30)
     plt.xticks(fontsize=20)
     plt.yticks(fontsize=20)
     plt.legend(loc="best", fontsize=20)
+    plt.savefig('./utility_ratio.pdf')
     plt.savefig('./utility_ratio.jpg')
     plt.close()
