@@ -39,7 +39,7 @@ if __name__ == '__main__':
     plt.ylabel('Utility', fontsize=30)
     plt.xticks(fontsize=20)
     plt.yticks(fontsize=20)
-    plt.legend(loc="best", fontsize=20)
+    plt.legend(loc="best", fontsize=30)
     plt.savefig('./utility_ratio.pdf')
     plt.savefig('./utility_ratio.jpg')
     plt.close()
