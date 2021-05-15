@@ -381,33 +381,30 @@ In Case 1, we have analytical solutions for ASPs' optimal number of VMs to buy f
 \end{proof}
 Because of \Cref{thm:mpo_case1_convex_optimization}, \Cref{thm:mpo_case2_convex_optimization}, and \Cref{thm:mpo_case3_convex_optimization}, if the specific form of $C_m^v(\cdot)$ is given, we can solve the exact form of the solution to the MPO's optimization problem. We will select some specific forms for $C_m^v(\cdot)$ in the \Cref{sec:simulation}.
 \section{Simulation} \label{sec:simulation}
+\begin{table}[H]
+\caption{System Parameters}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Parameter & $|U_i^n|$ &$N_o$ & $p_i$ &$\chi_{ij}(10^6)$&$\lambda_i$ \\ \hline
+Value     & 50 & -100dBM & 23dBM &uni(0.5,0.6)  & uni(1,3) \\ \hline
+Parameter &  $\dfrac{|U_i^m|}{|U_i^n|}$& $d_{ij}$(ms) &$B_i$ &$f_m^v$(GHz)&$s_{ij}$(kB) \\ \hline
+Value    &0.5 &uni(5,100)&20MHz&uni(0.6,0.9)&uni(4,5)\\ \hline
+\end{tabular}
+\end{table}
+
 \begin{figure}[H]
-    \subfloat[Case 1\label{subfig-1:aspzh1}]{%
-      \includegraphics[width=0.23\textwidth]{5GDDoS_Game_asp_utility_z_h_case1.pdf}
-    }
-    \subfloat[Case 2\label{subfig-2:aspzh2}]{%
-      \includegraphics[width=0.23\textwidth]{5GDDoS_Game_asp_utility_z_h_case2.pdf}
-    }
-    \hfill
-    \subfloat[Case 1\label{subfig-1:aspzv1}]{%
-      \includegraphics[width=0.23\textwidth]{5GDDoS_Game_asp_utility_case1.pdf}
-    }
-    \subfloat[Case 2\label{subfig-2:aspzv2}]{%
-      \includegraphics[width=0.23\textwidth]{5GDDoS_Game_asp_utility_case2.pdf}
-    }
-    \hfill
     \subfloat[Purchased VM\label{subfig-1:VMnum}]{%
-      \includegraphics[width=0.23\textwidth]{5GDDoS_Game_vm_number.pdf}
+      \includegraphics[width=0.25\textwidth]{5GDDoS_Game_vm_number.pdf}
     }
     \subfloat[MPO Utility\label{subfig-2:MPOutil}]{%
-      \includegraphics[width=0.23\textwidth]{5GDDoS_Game_utility.pdf}
+      \includegraphics[width=0.25\textwidth]{5GDDoS_Game_utility.pdf}
     }
-    \hfill
+    \\
     \subfloat[Malicious Users Ratio\label{subfig-1:ratio}]{%
-      \includegraphics[width=0.23\textwidth]{5GDDoS_Game_utility_ratio.pdf}
+      \includegraphics[width=0.25\textwidth]{5GDDoS_Game_utility_ratio.pdf}
     }
-    \subfloat[\label{subfig-2:cmp}]{%
-      \includegraphics[width=0.23\textwidth]{5GDDoS_Game_utility_cmp.pdf}
+    \subfloat[Different Scheme of IPS Ratio\label{subfig-2:cmp}]{%
+      \includegraphics[width=0.25\textwidth]{5GDDoS_Game_utility_cmp.pdf}
     }
     \caption{Simulation Result}
     \label{fig:sim}
