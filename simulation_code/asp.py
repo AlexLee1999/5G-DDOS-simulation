@@ -126,6 +126,7 @@ class ASP():
         mpo_lst = [100, 300, 500, 700, 900]
         color_dict = {100: 'red', 300: 'darkorange', 500: 'indigo', 700: 'darkgreen', 900: 'darkblue'}
         if GLOBAL_ETA > self.service_rate:
+            print('case1')
             plt.figure(figsize=(20, 16), dpi=400)
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
@@ -152,8 +153,8 @@ class ASP():
             plt.xticks(fontsize=20)
             plt.yticks(fontsize=20)
             plt.legend(loc="best", fontsize=30)
-            plt.savefig('./asp_utility_case1.pdf')
-            plt.savefig('./asp_utility_case1.jpg')
+            plt.savefig('./5GDDoS_Game_asp_utility_case1.pdf')
+            plt.savefig('./5GDDoS_Game_asp_utility_case1.jpg')
             plt.close()
         else:
             plt.figure(figsize=(20, 16), dpi=400)
@@ -182,8 +183,8 @@ class ASP():
             plt.xticks(fontsize=20)
             plt.yticks(fontsize=20)
             plt.legend(loc="best", fontsize=30)
-            plt.savefig('./asp_utility_case2.pdf')
-            plt.savefig('./asp_utility_case2.jpg')
+            plt.savefig('./5GDDoS_Game_asp_utility_case2.pdf')
+            plt.savefig('./5GDDoS_Game_asp_utility_case2.jpg')
             plt.close()
 
     def plot_max_zh(self):
@@ -209,8 +210,8 @@ class ASP():
             plt.xticks(fontsize=20)
             plt.yticks(fontsize=20)
             plt.legend(loc="best", fontsize=30)
-            plt.savefig('./asp_utility_z_h_case1.pdf')
-            plt.savefig('./asp_utility_z_h_case1.jpg')
+            plt.savefig('./5GDDoS_Game_asp_utility_z_h_case1.pdf')
+            plt.savefig('./5GDDoS_Game_asp_utility_z_h_case1.jpg')
             plt.close()
         else:
             self.mpo_price = 100
@@ -234,6 +235,6 @@ class ASP():
             plt.xticks(fontsize=20)
             plt.yticks(fontsize=20)
             plt.legend(loc="best", fontsize=30)
-            plt.savefig('./asp_utility_z_h_case2.pdf')
-            plt.savefig('./asp_utility_z_h_case2.jpg')
+            plt.savefig('./5GDDoS_Game_asp_utility_z_h_case2.pdf')
+            plt.savefig('./5GDDoS_Game_asp_utility_z_h_case2.jpg')
             plt.close()

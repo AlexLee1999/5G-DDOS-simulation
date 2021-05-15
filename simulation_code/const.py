@@ -3,7 +3,7 @@ from math import exp
 # These are the parameters of Global
 # Prefix with GLOBAL_
 ########################################
-GLOBAL_ETA = 3200
+GLOBAL_ETA = 3700
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_
@@ -59,7 +59,7 @@ def ASP_H(x):
 # Prefix with MPO_
 ########################################
 MPO_NUM_OF_ASP_UPPER = 50
-MPO_NUM_OF_ASP_LOWER = 25
+MPO_NUM_OF_ASP_LOWER = 50
 
 MPO_NUM_OF_VM_LOWER = 1.2
 MPO_NUM_OF_VM_UPPER = 1.5

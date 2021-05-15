@@ -95,8 +95,8 @@ class MPO():
         plt.legend(loc="best", fontsize=30)
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
-        plt.savefig('./utility.pdf')
-        plt.savefig('./utility.jpg')
+        plt.savefig('./5GDDoS_Game_utility.pdf')
+        plt.savefig('./5GDDoS_Game_utility.jpg')
         plt.close()
 
         plt.figure(figsize=(20, 16), dpi=400)
@@ -107,8 +107,8 @@ class MPO():
         plt.ylabel('Purchased VM', fontsize=30)
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
-        plt.savefig('./vm_number.pdf')
-        plt.savefig('./vm_number.jpg')
+        plt.savefig('./5GDDoS_Game_vm_number.pdf')
+        plt.savefig('./5GDDoS_Game_vm_number.jpg')
         plt.close()
 
 
@@ -210,6 +210,6 @@ class MPO():
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
         plt.legend(loc="best", fontsize=30)
-        plt.savefig('./utility_cmp.pdf')
-        plt.savefig('./utility_cmp.jpg')
+        plt.savefig('./5GDDoS_Game_utility_cmp.pdf')
+        plt.savefig('./5GDDoS_Game_utility_cmp.jpg')
         plt.close()

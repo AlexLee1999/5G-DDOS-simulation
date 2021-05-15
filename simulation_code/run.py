@@ -40,6 +40,6 @@ if __name__ == '__main__':
     plt.xticks(fontsize=20)
     plt.yticks(fontsize=20)
     plt.legend(loc="best", fontsize=30)
-    plt.savefig('./utility_ratio.pdf')
-    plt.savefig('./utility_ratio.jpg')
+    plt.savefig('./5GDDoS_Game_utility_ratio.pdf')
+    plt.savefig('./5GDDoS_Game_utility_ratio.jpg')
     plt.close()
