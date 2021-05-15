@@ -232,14 +232,13 @@ If $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^2(z_i^v|\Psi_m^v)$ is 
 \end{equation}
 Since $(z_i^h)^* = \xi_i z_i^v$ satisfies the constraint (\ref{eqn:asp_utility_def_opti_const2}), $(1-\xi_i)\mu_i^v z_i^v - \lambda_i + H(\xi_i z_i^v)$ is always positive. Moreover, as $H(\cdot)$ is concave, $H''(\xi_i z_i^v)$ is non-positive. The first term of (\ref{eqn:asp_case2_mm1_delay_second_deriv}) is positive, and the second term of (\ref{eqn:asp_case2_mm1_delay_second_deriv}) is non-positive. Therefore, (\ref{eqn:asp_case2_mm1_delay_second_deriv}) is non-negative, which means $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$. Hence, $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. \qedhere
 \end{proof}
-With \Cref{lemma:asp_case2_utility_concave}, we can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^2(z_i^v|\Psi_m^v)$ in the following theorem with a specific form of $H(\cdot)$. Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^2$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^2(z_i^v|\Psi_m^v)$. When $\Upsilon_i \cap \Upsilon_i^2$ is an non-empty interval in $\mathbb{R}^+$, we express the left endpoint of $\Upsilon_i \cap \Upsilon_i^2$ as $\zeta_i^{2l}$ and the right endpoint of $\Upsilon_i \cap \Upsilon_i^2$ as $\zeta_i^{2u}$.
+With \Cref{lemma:asp_case2_utility_concave}, we can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^2(z_i^v|\Psi_m^v)$ in the following theorem with a specific form of $H(\cdot)$. Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const1}) as $\Upsilon_i$ for ASP i while the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^2$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^2(z_i^v|\Psi_m^v)$. 
 \begin{theorem}\label{thm:asp_case2_optimal}
 The solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^2(z_i^v|\Psi_m^v)$ and $H(x)=\eta x$ is $(z_{i,2}^v(\Psi_m^v))^*$ 
 \begin{subnumcases}{=\label{eqn:asp_case2_optimal_solution}}
   0 & if $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$ \label{eqn:asp_case2_optimal_solution_individual_rationality} \\
-  \zeta_i^{2l} & if $(z_{i,2}^{v,e}(\Psi_m^v))^* < \zeta_i^{2l}$ \label{eqn:asp_case2_optimal_solution_lower_boundary} \\ 
-  \zeta_i^{2u} & if $(z_{i,2}^{v,e}(\Psi_m^v))^* > \zeta_i^{2u}$ \label{eqn:asp_case2_optimal_solution_upper_boundary} \\
-  (z_{i,2}^{v,e}(\Psi_m^v))^* & if $(z_{i,2}^{v,e}(\Psi_m^v))^* \in [\zeta_i^{2l}, \zeta_i^{2u}]$ \label{eqn:asp_case2_optimal_solution_extreme} 
+  \frac{\lambda_i+\gamma_i}{\mu_i} & if $\Upsilon_i \cap \Upsilon_i^2 \neq \emptyset $ and $(z_{i,2}^{v,e}(\Psi_m^v))^* < \frac{\lambda_i+\gamma_i}{\mu_i}$ \label{eqn:asp_case2_optimal_solution_lower_boundary} \\ 
+  (z_{i,2}^{v,e}(\Psi_m^v))^* & if $\Upsilon_i \cap \Upsilon_i^2 \neq \emptyset $ and $(z_{i,2}^{v,e}(\Psi_m^v))^* \geq \frac{\lambda_i+\gamma_i}{\mu_i}$ \label{eqn:asp_case2_optimal_solution_extreme} 
 \end{subnumcases}
 where
 \begin{equation}\label{eqn:asp_case2_utility_extreme}
@@ -250,72 +249,31 @@ where
 \end{equation}
 \end{theorem}
 \begin{proof}
-We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray. Since we have proved the convexity of $Y_i^2(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case2_utility_concave}, $\Upsilon_i^2$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^2$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$, which means the ASP $i$ cannot make the processign queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case2_utility_concave}, $Y_i^2(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ is smaller than $\zeta_i^{2l}$, $\zeta_i^{2l}$ is the optimal point. Likewise, when the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ is larger than $\zeta_i^{2u}$, $\zeta_i^{2u}$ is the optimal point. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^2(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
+We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i}$ to $\infty$. Since we have proved the convexity of $Y_i^2(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case2_utility_concave}, $\Upsilon_i^2$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^2$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case2_utility_concave}, $Y_i^2(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i}$, $\frac{\lambda_i+\gamma_i}{\mu_i}$ is the optimal point. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^2(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
 \begin{equation} \label{eqn:asp_case2_utility_first_deriv}
 -\frac{\partial T_{i,2}^p(z_i^v)}{\partial z_i^v} = \frac{\Psi_m^v (b_i - a_i)}{\sum_{j \in \mathsf{U}_i^n} \Psi_{ij}}
 \end{equation}
 Using (\ref{eqn:asp_case2_mm1_delay}), (\ref{eqn:asp_case2_objective}), and $H(x)=\eta x$, it only takes simple algebraic operations to have the expression for the extreme point in (\ref{eqn:asp_case2_utility_extreme}). \qedhere
 \end{proof}
-From \Cref{thm:asp_case2_optimal}, we can obtain the MPO's price per VM $\Psi_m^i$ which makes the ASP $i$'s optimal response switch among (\ref{eqn:asp_case2_optimal_solution_lower_boundary}), (\ref{eqn:asp_case2_optimal_solution_upper_boundary}), and (\ref{eqn:asp_case2_optimal_solution_extreme}) by solving the $\Psi_m^v$ that satisfies $(z_{i,2}^{v,e}(\Psi_m^v))^* = \zeta_i^{2l}$ or $(z_{i,2}^{v,e}(\Psi_m^v))^* = \zeta_i^{2u}$. 
+
+From \Cref{thm:asp_case2_optimal}, we can obtain the MPO's price per VM $\Psi_m^i$ which makes the ASP $i$'s optimal response switch among (\ref{eqn:asp_case2_optimal_solution_individual_rationality}), (\ref{eqn:asp_case2_optimal_solution_lower_boundary}) and (\ref{eqn:asp_case2_optimal_solution_extreme})by solving the $\Psi_m^v$ that satisfies $Y_i^2(\frac{\lambda_i+\gamma_i}{\mu_i}|\Psi_m^v) = 0$ and $(z_{i,2}^{v,e}(\Psi_m^v))^* = \frac{\lambda_i+\gamma_i}{\mu_i}$. 
 \begin{equation} 
 \begin{aligned}
-\Psi_{m,2}^{i,u}&= \frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta]} \\
-& \times \big[\zeta_i^{2l} - \frac{\lambda_i}{(1-\xi_i)\mu_i^v + \xi_i\eta}\big]^{-2} 
-\end{aligned}
-\end{equation}
+\Psi_{m,2}^{i,z}&= \frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta]} \\
+& \times \big[\frac{\lambda_i+\gamma_i}{\mu_i} - \frac{\lambda_i}{(1-\xi_i)\mu_i^v + \xi_i\eta}\big]^{-2} 
+\end{aligned} 
+\end{equation}.
 \begin{equation} 
 \begin{aligned}
-\Psi_{m,2}^{i,l}&= \frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta]} \\
-& \times \big[\zeta_i^{2u} - \frac{\lambda_i}{(1-\xi_i)\mu_i^v + \xi_i\eta}\big]^{-2} 
+\Psi_{m,2}^{i,l}&= \sum_{j \in \mathrm{U}_i^n}\Psi_{ij}(1-\frac{T_{ij}^t + T_{i,1}^p(z_i^v)-a_i}{b_i-a_i}) \\
+& \times \big[\frac{\lambda_i+\gamma_i}{\mu_i} - \frac{\lambda_i}{(1-\xi_i)\mu_i^v + \xi_i\eta}\big]^{-2} \times (\frac{\mu_i}{\lambda_i+\gamma_i})
 \end{aligned}
 \end{equation}
-The sequence $\{\Psi_{m,2}^{i,l} , \Psi_{m,2}^{i,u}, \forall i \in \mathcal{I}\}$ partitions the space of the MPO's price per VM $\Psi_m^v$ into $2I + 1$ intervals.
-\begin{equation}
-0 \cup \mathbb{R}^{+} = \mathcal{M}_2^1 \cup \mathcal{M}_2^1 \cdots \cup \mathcal{M}_2^{2I+1}
-\end{equation}
-Within each interval $\mathcal{M}_2^k, \forall k \in \{1, \cdots, 2I+1\}$, we define four sets of ASP $i$ that has different optimal responses.
-\begin{equation}
-\begin{aligned}
-&\Omega_2^{k,z} = \{i \in \mathcal{I}|(z_{i,2}^v(\Psi_m^v))^* = 0\} \\
-&\Omega_2^{k,l} = \{i \in \mathcal{I}|(z_{i,2}^v(\Psi_m^v))^* = \zeta_i^{2l}\} \\
-&\Omega_2^{k,u} = \{i \in \mathcal{I}|(z_{i,2}^v(\Psi_m^v))^* = \zeta_i^{2u}\} \\
-&\Omega_2^{k,e} = \{i \in \mathcal{I}|(z_{i,2}^v(\Psi_m^v))^* = (z_{i,2}^{v,e}(\Psi_m^v))^*\} 
-\end{aligned}
-\end{equation}
-These four sets form a partition of the all ASPs. That is, $\mathcal{I} = \Omega_2^{k,z} \cup \Omega_2^{k,l} \cup \Omega_2^{k,u} \cup \Omega_2^{k,e}, \, \forall k \in \{1, \cdots, 2I+1\}$. The total number of VMs bought by the ASPs within each interval $\mathcal{M}_2^k, \forall k \in \{1, \cdots, 2I+1\}$ can be expressed 
-\begin{equation}\label{eqn:asp_case2_total_number_VM}
-\sum_{i \in \mathcal{I}} (z_{i,2}^v(\Psi_m^v))^* =  \sum_{i\in \Omega_2^{k,l}}\zeta_i^{2l} + \sum_{i\in \Omega_2^{k,u}}\zeta_i^{2u} + \sum_{i \in \Omega_2^{k,e}}(z_{i,2}^{v,e}(\Psi_m^v))^* 
-\end{equation}
-With the expression (\ref{eqn:asp_case2_total_number_VM}), the MPO's optimization problem in each interval $\mathcal{M}_2^k, \forall k \in \{1, \cdots, 2I+1\}$ is
-\begin{maxi!}[2]
-  {\Psi_m^v}
-  {\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i,2}^v(\Psi_m^v))^* - C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i,2}^v(\Psi_m^v))^*\big) \label{eqn:case2_mpo_utility_opti_obj}} 
-  {\label{eqn:case2_mpo_utility_opti}}
-  {}
-  \addConstraint{\sum_{i \in \mathcal{I}} (z_{i,2}^v(\Psi_m^v))^* \leq \mathcal{Q}_v}{\label{eqn:case2_mpo_utility_opti_const1}}
-  \addConstraint{\Psi_m^v \in \mathcal{M}_2^k}{\label{eqn:case2_mpo_utility_opti_const2}}
-\end{maxi!}
-\begin{theorem}\label{thm:mpo_case2_convex_optimization}
-In each interval $\mathcal{M}_2^k,\, \forall k \in \{1, \cdots, 2I+1\}$, the MPO's optimization problem (\ref{eqn:mpo_utility_opti}) is a convex optimization problem. The MPO's otpimal price per VM $\Psi_m^v$ is one of the optimal prices in each $\mathcal{M}_2^k, \forall k \in \{1, \cdots, 2I+1\}$ that gives the highest utility.
-\end{theorem}
-\begin{proof}
-We start by proving that $\sum_{i \in \mathcal{I}} (z_{i,2}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v$ when $\Psi_m^v \in \mathcal{M}_2^k,\, \forall k \in \{1, \cdots, 2I+1\}$. In (\ref{eqn:asp_case2_total_number_VM}), only the second term pertains to $\Psi_m^v$. As the summation of convex function is also a convex function, it suffices to prove that $(z_{i,2}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_2^{k,e}$. Taking the second derivative of (\ref{eqn:asp_case2_utility_extreme}) with respect to $\Psi_m^v$, we have 
-\begin{equation}
-\frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta]}} \geq 0
-\end{equation}
-Hence, $(z_{i,2}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v \in \mathcal{M}_2^k,\, \forall k \in \{1, \cdots, 2I+1\}$. Since the sublevel set of a convex function is a convex set, the feasible region resulting from (\ref{eqn:case2_mpo_utility_opti_const1}) is a convex set for any value $\mathcal{Q}_v$. In addition, the feasible region of (\ref{eqn:case2_mpo_utility_opti_const2}) is also a convex set because the convex combination of two numbers in $\mathcal{M}_2^k, \forall k \in \{1, \cdots, 2I+1\}$ is still a number in $\mathcal{M}_2^k, \forall k \in \{1, \cdots, 2I+1\}$. Hence, the feasible region of the optimization problem (\ref{eqn:case2_mpo_utility_opti}) is the intersection of two convex set and thus is a convex set. To prove that the MPO's the optimization problem (\ref{eqn:case2_mpo_utility_opti}) is a convex optimization problem, what remains to do is to prove that the objective function (\ref{eqn:case2_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}_2^k,\, \forall k \in \{1, \cdots, 2I+1\}$. Using (\ref{eqn:asp_case2_utility_extreme}) and (\ref{eqn:asp_case2_total_number_VM}), we can unfold the first term in (\ref{eqn:case2_mpo_utility_opti_obj}) as follows. 
-\begin{align} \label{eqn:mpo_case2_utility_first_term}
-&\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i,2}^v(\Psi_m^v))^* \\
-&=  \Psi_m^v\sum_{i\in \Omega_2^{k,l}}\zeta_i^{2l} + \Psi_m^v\sum_{i\in \Omega_2^{k,u}}\zeta_i^{2u} + \sum_{i \in \Omega_2^{k,e}}\Psi_m^v(z_{i,2}^{v,e}(\Psi_m^v))^* \nonumber\\
-& = \Psi_m^v \Big[\sum_{i\in \Omega_2^{k,l}}\zeta_i^{2l} + \sum_{i\in \Omega_2^{k,u}}\zeta_i^{2u} + \sum_{i \in \Omega_2^{k,e}} \frac{\lambda_i}{(1-\xi_i)\mu_i^v + \xi_i \eta} \Big] \nonumber \\
-&+  \sum_{i \in \Omega_2^{k,e}} \sqrt{\frac{\Psi_m^v\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta]}} \nonumber
-\end{align}
-The first term in the final expression (\ref{eqn:mpo_case2_utility_first_term}) is a linear function of $\Psi_m^v$ which is both convex and concave. The second term in the final expression (\ref{eqn:mpo_case2_utility_first_term}) is concave in $\Psi_m^v$. To see this, we check the concavity via the second order test. The second derivative of the second term is 
-\begin{equation}
- -\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_2^{k,e}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta]}} \leq 0 
-\end{equation}
-Therefore, (\ref{eqn:mpo_case2_utility_first_term}) is concave in $\Psi_m^v$. The second term of (\ref{eqn:case2_mpo_utility_opti_obj}), $C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i,2}^v(\Psi_m^v))^*$, is convex in $\Psi_m^v$ as it is a composition of $C_m^v$ and $\sum_{i \in \mathcal{I}} (z_{i,2}^v(\Psi_m^v)$ where $C_m^v$ is convex and non-decreasing, and $\sum_{i \in \mathcal{I}} (z_{i,2}^v(\Psi_m^v))$ is convex in $\Psi_m^v \in \mathcal{M}_2^k,\, \forall k \in \{1, \cdots, 2I+1\}$. Since a concave function minus a convex function yields a concave function, (\ref{eqn:case2_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}_2^k,\, \forall k \in \mathcal{I}$. In sum, the MPO's optimization problem (\ref{eqn:case2_mpo_utility_opti}) in each interval $\mathcal{M}_2^k,\, \forall k \in \{1, \cdots, 2I+1\}$ is a convex optimization problem. \qedhere
-\end{proof}
+\iffalse
+The $z_i^v$ will switch from $0$ to $\frac{\lambda_i+\gamma_i}{\mu_i}$ at $\Psi_{m,2}^{i,z}$ and $\frac{\lambda_i+\gamma_i}{\mu_i}$ to$(z_{i,2}^{v,e}(\Psi_m^v))^*$ at $\Psi_{m,2}^{i,l}$.
+\fi
+Based on the analysis above, the MPO can predict how many VMs every ASP will buy given an arbitrary price of VM when $(z_i^h)^* = \xi_i z_i^v$.
+
 \textbf{Case 3}: The optimal point of (\ref{eqn:asp_utility_def_opti}) happens at the boundary of (\ref{eqn:asp_utility_def_opti_const2}). That is, when the purchased number of VM is $z_i^v$, the ASP $i$'s optimal number of VMs devoted to the IPS $(z_i^h)^*$ satisfies
 \begin{equation} \label{eqn:asp_utility_def_second_boundary}
 \phi_i z_i^v \mu_i^v = \big(z_i^v-(z_i^h)^*\big)\mu_i^v - \lambda_i + H\big((z_i^h)^*\big)
