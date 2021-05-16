@@ -3,7 +3,7 @@ from math import exp
 # These are the parameters of Global
 # Prefix with GLOBAL_
 ########################################
-GLOBAL_ETA = 3700
+GLOBAL_ETA = 4000
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_
