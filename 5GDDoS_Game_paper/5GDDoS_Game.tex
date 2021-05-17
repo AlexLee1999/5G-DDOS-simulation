@@ -277,7 +277,6 @@ From \Cref{thm:asp_case2_optimal}, we can obtain the MPO's price per VM $\Psi_m^
 \iffalse
 The $z_i^v$ will switch from $0$ to $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ at $\Psi_{m,2}^{i,z}$ and $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to$(z_{i,2}^{v,e}(\Psi_m^v))^*$ at $\Psi_{m,2}^{i,l}$.
 \fi
-Based on the analysis above, the MPO can predict how many VMs every ASP will buy given an arbitrary price per VM when $(z_i^h)^* = \xi_i z_i^v$.
 
 \textbf{Case 3}: The optimal point of (\ref{eqn:asp_utility_def_opti}) happens at the left boundary of (\ref{eqn:asp_utility_def_opti_const1}). That is, when the purchased number of VM is $z_i^v$, the ASP $i$'s optimal number of VMs devoted to the IPS $(z_i^h)^*$ is
 \begin{equation} \label{eqn:asp_utility_def_first_boundary_2}
@@ -326,7 +325,7 @@ and if $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$
 \end{equation}
 \end{theorem}
 \begin{proof}
-We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^3(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case3_utility_concave}, $\Upsilon_i^2$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^3$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case3_utility_concave}, $Y_i^3(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^3(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
+We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^3(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case3_utility_concave}, $\Upsilon_i^3$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^3$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case3_utility_concave}, $Y_i^3(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^3(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
 \begin{equation} \label{eqn:asp_case3_utility_first_deriv}
 -\frac{\partial T_{i,3}^p(z_i^v)}{\partial z_i^v} = \frac{\Psi_m^v (b_i - a_i)}{\sum_{j \in \mathsf{U}_i^n} \Psi_{ij}}
 \end{equation}
@@ -378,7 +377,7 @@ Let's compare the value of (\ref{eqn:asp_case4_mm1_delay}) with the value of  (\
 \end{equation}
 \fi
 
-
+Based on the analysis above, the MPO can predict how many VMs every ASP will buy given an arbitrary price per VM in each case, which make MPO can optimize its utility by setting $\Psi_m^v$. We will optimize the utility of MPO in the next subsection. 
 
 
 
@@ -493,7 +492,7 @@ Value    &100&uni(50,100)&0.999&0.05&4000\\ \hline
  \end{figure}
 \subsection{The Boundary of MPO Optimization Problem}
 \label{MPO_opti}
-As seen in (\ref{subfig-1:VMnum}) and (\ref{subfig-2:MPOutil}), the boundary has been plot and shown in the figures. The MPO utility is a concave function in every interval.
+As seen in (\ref{subfig-1:VMnum}) and (\ref{subfig-2:MPOutil}), the boundary has been plot and shown in the figures. The MPO utility is a concave function in every interval. 
 \subsection{Comparison Between Different Ratio of Malicious and Normal Users}
 We compare different ratio of malicious users to normal users with $ratio = [0.1, 0.3, 0.5, 0.7, 0.9]$. In this simulation, the number of normal users is fixed to 50. As seen in (\ref{subfig-1:ratio}), when the ratio decrease, malicious users also decreases and ASPs devote less VMs to intercept malicious requests. Thus, ASPs can serve more EUs with shorter time, and the social welfare increases.
 \label{mal_ratio}
