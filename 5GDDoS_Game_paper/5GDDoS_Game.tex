@@ -175,7 +175,7 @@ Likewise, we denote the MPO's action set as $\mathcal{A}_m$. Furthermore, to str
 If $\mathcal{B}_{m}$ and $\mathcal{B}^R(\Psi_m^v)$ are both non-empty, the Stackelberg equilibrium in our mechanism is a vector of dimension $(I+1)$ that is an element of $\mathcal{B}_m  \times \mathcal{B}^R(\Psi_m^v)$.
 \end{definition}
 We analyze the solution process of the formulated Stackelberg game according to whether the solution to (\ref{eqn:asp_utility_def_opti}) is the extreme point or boundary point of the constraint.
-\subsection{Optimize ASP}
+\subsection{ASP Optimization Problem}
 \textbf{Case 1}: The optimal point of (\ref{eqn:asp_utility_def_opti}) is the extreme point whose first derivative with respect to $z_i^h$. The first derivative of $X_i(z_i^h|z_i^v,\Psi_m^v)$ with respect to $z_i^h$ is
 \begin{equation} \label{eqn:asp_utilitu_def_firstderiv}
 [(z_i^v - z_i^h) - \lambda_i + H(z_i^h)]^{-2} \cdot (-\mu_i^v + H'(z_i^h))
@@ -315,7 +315,7 @@ The solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the o
 where
 \begin{equation}\label{eqn:asp_case3_utility_extreme}
 \begin{aligned}
-(z_{i,3}^{v,e}(\Psi_m^v))^* &= \frac{1}{\mu_i^v}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)\Psi_m^v}} + \frac{\lambda_i}{\mu_i^v}
+(z_{i,3}^{v,e}(\Psi_m^v))^* &= \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)\Psi_m^v}} + \frac{\lambda_i}{\mu_i^v}
 \end{aligned}
 \end{equation}
 and if $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$
@@ -383,7 +383,7 @@ Let's compare the value of (\ref{eqn:asp_case4_mm1_delay}) with the value of  (\
 
 
 
-\subsection{Optimize MPO}
+\subsection{MPO Optimization Problem}
 In this section, we solve the \Cref{eqn:mpo_utility_opti}. For every ASP, the optimization solutions is either case2 or case3. That is, $\mathcal{I}_{case2} \cup \mathcal{I}_{case3} = \mathcal{I}$. The boundary set of all ASP is $\{\Psi_{m,2}^{i,z}, \Psi_{m,2}^{i,l}, i\in \mathcal{I}_{case2} \}\cup \{\Psi_{m,3}^{j,z}, \Psi_{m,3}^{j,l}, j\in \mathcal{I}_{case3}\}$.
 The boundary sequence partitions the space of the MPO's price per VM $\Psi_m^v$ into $2I + 1$ intervals.
 \begin{equation}
@@ -409,13 +409,13 @@ These four sets form a partition of the all ASPs. That is, $\mathcal{I} = \Omega
 With the expression (\ref{eqn:total_number_VM}), the MPO's optimization problem in each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ is
 \begin{maxi!}[2]
   {\Psi_m^v}
-  {\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^* - C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*\big) \label{eqn:mpo_utility_opti_obj}}
+  {\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^* - C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*\big) \label{eqn:f_mpo_utility_opti_obj}}
   {\label{eqn:f_mpo_utility_opti}}
   {}
   \addConstraint{\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^* \leq \mathcal{Q}_v}{\label{eqn:f_mpo_utility_opti_const1}}
   \addConstraint{\Psi_m^v \in \mathcal{M}^k}{\label{eqn:f_mpo_utility_opti_const2}}
 \end{maxi!}
-\begin{theorem} \label{thm:mpo_convex_optimization}
+\begin{theorem} \label{thm:f_mpo_convex_optimization}
 In each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$, the MPO's optimization problem (\ref{eqn:f_mpo_utility_opti}) is a convex optimization problem. The MPO's optimal price per VM $\Psi_m^v$ is one of the optimal prices in each $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ that gives the highest utility.
 \end{theorem}
 \begin{proof}
@@ -423,11 +423,12 @@ We start by proving that $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ is con
 \begin{equation}
 \frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta]}} \geq 0
 \end{equation}
-And take the second derivative of (\ref{eqn:asp_case3_utility_extreme}) with respect to $\Psi_m^v$, we have
+In addition, take the second derivative of (\ref{eqn:asp_case3_utility_extreme}) with respect to $\Psi_m^v$, we have
 \begin{equation}
-    TO BE ADDED
+\frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \geq 0
 \end{equation}
-Hence, $(z_{i,2}^v(\Psi_m^v))^*$ and $(z_{i,3}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1,\cdots, 2I+1\}$. Since the sublevel set of a convex function is a convex set, the feasible region resulting from (\ref{eqn:mpo_utility_opti_const1}) is a convex set for any value $\mathcal{Q}_v$. In addition, the feasible region of (\ref{eqn:mpo_utility_opti_const2}) is also a convex set because the convex combination of two numbers in $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ is still a number in $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$. Hence, the feasible region of the optimization problem (\ref{eqn:mpo_utility_opti}) is the intersection of two convex set and thus is a convex set. To prove that the MPO's the optimization problem (\ref{eqn:mpo_utility_opti}) is a convex optimization problem, what remains to do is to prove that the objective function (\ref{eqn:mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1,\cdots, 2I+1\}$. Using (\ref{eqn:asp_case2_utility_extreme}), (\ref{eqn:asp_case3_utility_extreme}) and (\ref{eqn:total_number_VM}), we can unfold the first term in (\ref{eqn:mpo_utility_opti_obj}) as follows.
+
+Hence, $(z_{i,2}^v(\Psi_m^v))^*$ and $(z_{i,3}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1,\cdots, 2I+1\}$. Since the sublevel set of a convex function is a convex set, the feasible region resulting from (\ref{eqn:f_mpo_utility_opti_const1}) is a convex set for any value $\mathcal{Q}_v$. In addition, the feasible region of (\ref{eqn:f_mpo_utility_opti_const2}) is also a convex set because the convex combination of two numbers in $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ is still a number in $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$. Thus, the feasible region of the optimization problem (\ref{eqn:f_mpo_utility_opti}) is the intersection of two convex set and thus is a convex set. To prove that the MPO's the optimization problem (\ref{eqn:f_mpo_utility_opti}) is a convex optimization problem, what remains to do is to prove that the objective function (\ref{eqn:f_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1,\cdots, 2I+1\}$. Using (\ref{eqn:asp_case2_utility_extreme}), (\ref{eqn:asp_case3_utility_extreme}) and (\ref{eqn:total_number_VM}), we can unfold the first term in (\ref{eqn:f_mpo_utility_opti_obj}) as follows.
 \begin{align} \label{eqn:mpo_utility_first_term}
 &\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^* \\
 &= \Psi_m^v\{\sum_{i\in \Omega^{k,l}}\frac{\lambda_i + \gamma_i}{\mu_i^v} + \sum_{i\in \Omega^{k,e}_{2}}(z_{i,2}^{v,e}(\Psi_m^v))^* +\sum_{i\in \Omega^{k,e}_{3}}(z_{i,3}^{v,e}(\Psi_m^v))^*\} \nonumber\\
@@ -438,11 +439,14 @@ The first term (\ref{eqn:mpo_utility_first_term}) is a linear function of $\Psi_
 \end{equation}
 And the second derivative of the third term is
 \begin{equation}
-TO BE ADDED
+-\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_3^{k,e}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \leq 0
 \end{equation}
 Therefore, (\ref{eqn:mpo_utility_first_term}) is concave in $\Psi_m^v$. The second term of (\ref{eqn:f_mpo_utility_opti_obj}), $C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$, is convex in $\Psi_m^v$ as it is a composition of $C_m^v$ and $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v)$ where $C_m^v$ is convex and non-decreasing, and $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))$ is convex in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1, \cdots, 2I+1\}$. Since a concave function minus a convex function yields a concave function, (\ref{eqn:f_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \mathcal{I}$. In sum, the MPO's optimization problem (\ref{eqn:f_mpo_utility_opti}) in each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ is a convex optimization problem. \qedhere
 \end{proof}
-After analyzing both the followers' and the leader's optimization problems, we can now prove that there are at least one Stackelberg game equilibrium in our system with minor modifications on. We convert all the right open intervals among $\mathcal{M}_1^k$, $\mathcal{M}_2^k$, and $\mathcal{M}_3^k$, $\forall k \in \{1, \cdots, 2I+1\}$ into right close intervals with the right endpoint being the right endpoint of original ones minus small constants $\epsilon_1$, $\epsilon_2$, and $\epsilon_3$.
+By comparing the optimal value in every interval, we can find the largest value among every interval to find the best $\Psi_m^v$ for MPO.
+
+
+\iffalse
 \begin{theorem} \label{thm:stackelberg_game_equilibrium}
 There are at lease one Stackelberg game equlibrium in our system after the modifications.
 \end{theorem}
@@ -450,6 +454,10 @@ There are at lease one Stackelberg game equlibrium in our system after the modif
 In Case 1, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case1_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists becasue when (\ref{eqn:case1_mpo_utility_opti_const2}) becomes $\Psi_m^v \in \mathcal{M}_1^{k'}$, MPO's optimization problem is a convex optimization problem proved in \Cref{thm:mpo_case1_convex_optimization} with a compact feasible region. Thus, the MPO's best response set definded in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there are at least one Stackelberg game equlibrium in Case 1. Similarly, in Case 2, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case2_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists becasue becasue when (\ref{eqn:case2_mpo_utility_opti_const2}) becomes $\Psi_m^v \in \mathcal{M}_2^{k'}$, MPO's optimization problem is a convex optimization problem proved in \Cref{thm:mpo_case2_convex_optimization} with a compact feasible region. Thus, the MPO's best response set definded in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there are at least one Stackelberg game equlibrium in Case 2. Finally, in Case 3, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case4_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists becasue becasue when (\ref{eqn:case4_mpo_utility_opti_const2}) becomes $\Psi_m^v \in \mathcal{M}_3^{k'}$, MPO's optimization problem is a convex optimization problem proved in \Cref{thm:mpo_case4_convex_optimization} with a compact feasible region. Thus, the MPO's best response set definded in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there are at least one Stackelberg game equlibrium in Case 3.
 \end{proof}
 Because of \Cref{thm:mpo_case1_convex_optimization}, \Cref{thm:mpo_case2_convex_optimization}, and \Cref{thm:mpo_case4_convex_optimization}, if the specific form of $C_m^v(\cdot)$ is given, we can solve the exact form of the solution to the MPO's optimization problem. We will select some specific forms for $C_m^v(\cdot)$ in the \Cref{sec:simulation}.
+\fi
+
+
+
 \section{Simulation} \label{sec:simulation}
 \subsection{Simulation Setup}
 In the simulation, we choose the cost function $C_m^v(\cdot)$ to be $C_m^v(x) = 100e^x$, which is convex and non-decreasing. For path loss model, we choose $g(d)=22log_{10}(d)+28+20log_{10}(f_c)$, where $d$ is the distance between EUs and ASPs, and $f_c$ is the carrier frequency. Except \Cref{mal_ratio}, all the ratio of malicious users and normal users are set to be 0.5. The key parameters are presented in \Cref{parameterlist}.
@@ -460,40 +468,38 @@ In the simulation, we choose the cost function $C_m^v(\cdot)$ to be $C_m^v(x) = 
 Parameter & $|U_i^n|$ &$N_o$ & $p_i$ &$\chi_{ij}(10^6)$&$\lambda_i$ \\ \hline
 Value     & 50 & -100dBM & 23dBM &uni(0.5,0.6)  & uni(1,3) \\ \hline
 Parameter &$|\mathcal{I}|$& $d_{ij}$(ms) &$B_i$ &$f_m^v$(GHz)&$s_{ij}$(kB) \\ \hline
-Value    &50&uni(5,100)&20MHz&uni(0.6,0.9)&uni(4,5)\\ \hline
+Value    &5&uni(5,100)&20MHz&uni(0.6,0.9)&uni(4,5)\\ \hline
 Parameter &$\gamma_i$&distance&$\xi_i$&$\phi_i$ &$\eta$  \\ \hline
 Value    &100&uni(50,100)&0.999&0.05&4000\\ \hline
 \end{tabular}
 \label{parameterlist}
 \end{table}
 \begin{figure}[!]
-    \subfloat[Purchased VM v.s. MPO Price\label{subfig-1:VMnum}]{%
-      \includegraphics[width=0.25\textwidth]{5GDDoS_Game_vm_number.pdf}
+    \subfloat[Total Purchased VM v.s. MPO Price\label{subfig-1:VMnum}]{%
+      \includegraphics[width=0.24\textwidth]{5GDDoS_Game_vm_number.pdf}
     }
     \subfloat[MPO Utility v.s. MPO Price\label{subfig-2:MPOutil}]{%
-      \includegraphics[width=0.25\textwidth]{5GDDoS_Game_utility.pdf}
+      \includegraphics[width=0.24\textwidth]{5GDDoS_Game_utility.pdf}
     }
     \\
     \subfloat[Different Malicious and Normal Ratio\label{subfig-1:ratio}]{%
-      \includegraphics[width=0.25\textwidth]{5GDDoS_Game_utility_ratio.pdf}
+      \includegraphics[width=0.24\textwidth]{5GDDoS_Game_utility_ratio.pdf}
     }
     \subfloat[Different IPS VM Ratio\label{subfig-2:cmp}]{%
-      \includegraphics[width=0.25\textwidth]{5GDDoS_Game_utility_cmp.pdf}
+      \includegraphics[width=0.24\textwidth]{5GDDoS_Game_utility_cmp.pdf}
     }
     \caption{Simulation Result}
     \label{fig:sim}
  \end{figure}
 \subsection{The Boundary of MPO Optimization Problem}
 \label{MPO_opti}
-As seen in \Cref{subfig-2:MPOutil}, the boundary has been plot and shown in the figure.
+As seen in (\ref{subfig-1:VMnum}) and (\ref{subfig-2:MPOutil}), the boundary has been plot and shown in the figures. The MPO utility is a concave function in every interval.
 \subsection{Comparison Between Different Ratio of Malicious and Normal Users}
-We compare different ratio of malicious users to normal users with $ratio = [0.1, 0.3, 0.5, 0.7, 0.9]$. In this simulation, the number of normal users is fixed to 50. As seen in \Cref{subfig-1:ratio}, when the ratio decrease, malicious users also decreases and ASPs devote less VMs to intercept malicious requests. Thus, ASPs can serve more EUs with shorter time, and the social welfare increases.
+We compare different ratio of malicious users to normal users with $ratio = [0.1, 0.3, 0.5, 0.7, 0.9]$. In this simulation, the number of normal users is fixed to 50. As seen in (\ref{subfig-1:ratio}), when the ratio decrease, malicious users also decreases and ASPs devote less VMs to intercept malicious requests. Thus, ASPs can serve more EUs with shorter time, and the social welfare increases.
 \label{mal_ratio}
 \subsection{Comparison Between Different Allocation Scheme of IPS VM}
 \label{MPO_cmp}
-We compare different scheme of IPS VM allocation. These schemes include $0\%$, $30\%$, $90\%$ IPS VM, and random percent of IPS VM choosen from $0\% $ to $99.9\%$. As seen in \Cref{subfig-2:cmp}, our proposed scheme has largest social welfare compare with other allocation schemes.
-
-
+We compare different scheme of IPS VM allocation. These schemes include $0\%$, $30\%$, $90\%$ IPS VM, and random percent of IPS VM choosen from $0\% $ to $99.9\%$. As seen in (\ref{subfig-2:cmp}), our proposed scheme has largest social welfare compare with other allocation schemes.
 \bibliographystyle{IEEEtran}
 \bibliography{5GDDoS_Game}
 

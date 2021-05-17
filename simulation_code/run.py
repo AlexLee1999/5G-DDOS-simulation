@@ -15,7 +15,7 @@ if __name__ == '__main__':
 
     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
     plt.figure(figsize=(25, 16), dpi=400)
-    step = 5
+    step = 0.5
     for ra in ratio:
         ut = []
         pr = []

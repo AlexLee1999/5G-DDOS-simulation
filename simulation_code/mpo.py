@@ -114,7 +114,7 @@ class MPO():
 
     def plot_social_welfare(self):
         phi = 10
-        step = 2
+        step = 0.5
         pr = []
         pr_zh1 = []
         pr_zh2 = []
