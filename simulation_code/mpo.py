@@ -69,7 +69,7 @@ class MPO():
         return
 
     def plot_phi(self):
-        phi = 500
+        phi = 10
         step = 2.5
         pr = []
         ut = []
@@ -91,7 +91,7 @@ class MPO():
         plt.plot(pr, ut, marker='.', linestyle='-.', label='Proposed')
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=60)
         plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=60)
-        plt.vlines(self.bd, ymin=min(ut), ymax=max(ut), linestyle='-', color='red', label='Boundary')
+        plt.vlines(self.bd + self.qbd, ymin=min(ut), ymax=max(ut), linestyle='-', color='red', label='Boundary')
         plt.legend(loc="best", fontsize=60)
         plt.xticks(fontsize=30)
         plt.yticks(fontsize=30)
@@ -101,7 +101,7 @@ class MPO():
 
         plt.figure(figsize=(25, 16), dpi=400)
         plt.plot(pr, num, marker='.', linestyle='-.', label='Purchased VM')
-        plt.vlines(self.bd, ymin=min(num), ymax=max(num), linestyle='-', color='red', label='Boundary')
+        plt.vlines(self.bd + self.qbd, ymin=min(num), ymax=max(num), linestyle='-', color='red', label='Boundary')
         plt.legend(loc="best", fontsize=60)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=60)
         plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=60)
@@ -113,7 +113,7 @@ class MPO():
 
 
     def plot_social_welfare(self):
-        phi = 500
+        phi = 10
         step = 2
         pr = []
         pr_zh1 = []
@@ -140,7 +140,7 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 500
+        phi = 10
         for _ in range(1000):
             self.set_and_check_required_vm_with_chi(phi, 0)
             vm_after = self.total_vm()
@@ -155,7 +155,7 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 500
+        phi = 10
         for _ in range(1000):
             self.set_and_check_required_vm_with_chi(phi, 0.3)
             vm_after = self.total_vm()
@@ -170,7 +170,7 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 500
+        phi = 10
         ratio = np.random.rand(self.num_of_asp) * 0.9
         for _ in range(1000):
             self.set_and_check_required_vm_with_chi_random(phi, ratio)
@@ -186,7 +186,7 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 500
+        phi = 10
         for _ in range(1000):
             self.set_and_check_required_vm_with_chi(phi, 0.9)
             vm_after = self.total_vm()

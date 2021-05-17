@@ -19,7 +19,7 @@ if __name__ == '__main__':
     for ra in ratio:
         ut = []
         pr = []
-        phi = 500
+        phi = 10
         mpo = MPO(ra)
         vm_prior = float('inf')
         for _ in range(1000):
