@@ -7,19 +7,20 @@ import numpy as np
 
 
 class MPO():
-    def __init__(self, ratio):
+    def __init__(self, ratio, num):
         self.price_per_vm = None
         self.asp_lst = []
         self.num_of_asp = randint(MPO_NUM_OF_ASP_LOWER, MPO_NUM_OF_ASP_UPPER)
         self.num_of_vm = uniform(MPO_NUM_OF_VM_LOWER, MPO_NUM_OF_VM_UPPER)
         self.ratio = ratio
+        self.num = num
         self.set_asp()
         self.set_bd()
         self.get_queue_bound()
 
     def set_asp(self):
         for i in range(self.num_of_asp):
-            self.asp_lst.append(ASP(self.ratio))
+            self.asp_lst.append(ASP(self.ratio, self.num))
 
     def set_price_per_vm(self, price):
         self.price_per_vm = price
@@ -67,6 +68,118 @@ class MPO():
             asp.set_zv_zh(chi[i])
             i += 1
         return
+
+    def optimize_phi(self):
+        phi = 0.01
+        step = 5
+        max = 0
+        max_phi = 0
+        for _ in range(10000):
+            self.set_and_check_required_vm(phi)
+            vm_num = self.total_vm()
+            uti = phi * vm_num - MPO_cost(vm_num)
+            if uti > max:
+                max = uti
+                max_phi = phi
+            phi += step
+        return max, max_phi
+
+    def optimize_phi_with_chi(self, chi):
+        phi = 0.01
+        step = 5
+        max = 0
+        max_phi = 0
+        for _ in range(10000):
+            self.set_and_check_required_vm_with_chi(phi, chi)
+            vm_num = self.total_vm()
+            uti = phi * vm_num - MPO_cost(vm_num)
+            if uti > max:
+                max = uti
+                max_phi = phi
+            phi += step
+        return max, max_phi
+
+    def optimize_phi_social(self):
+        phi = 0.01
+        step = 5
+        max = 0
+        max_phi = 0
+        max_welfare = 0
+        for _ in range(10000):
+            self.set_and_check_required_vm(phi)
+            vm_num = self.total_vm()
+            welfare = 0
+            for asp in self.asp_lst:
+                welfare += asp.utility
+            uti = phi * vm_num - MPO_cost(vm_num)
+            welfare += uti
+            if uti > max:
+                max = uti
+                max_phi = phi
+                max_welfare = welfare
+            phi += step
+        return max_welfare, max_phi
+
+    def optimize_phi_social_with_chi(self, chi):
+        phi = 0.01
+        step = 5
+        max = 0
+        max_phi = 0
+        max_welfare = 0
+        for _ in range(10000):
+            self.set_and_check_required_vm_with_chi(phi, chi)
+            vm_num = self.total_vm()
+            welfare = 0
+            for asp in self.asp_lst:
+                welfare += asp.utility
+            uti = phi * vm_num - MPO_cost(vm_num)
+            welfare += uti
+            if uti > max:
+                max = uti
+                max_phi = phi
+                max_welfare = welfare
+            phi += step
+        return max_welfare, max_phi
+
+    def optimize_phi_asp(self):
+        phi = 0.01
+        step = 5
+        max = 0
+        max_phi = 0
+        max_welfare = 0
+        for _ in range(10000):
+            self.set_and_check_required_vm(phi)
+            vm_num = self.total_vm()
+            welfare = 0
+            for asp in self.asp_lst:
+                welfare += asp.utility
+            uti = phi * vm_num - MPO_cost(vm_num)
+            if uti > max:
+                max = uti
+                max_phi = phi
+                max_welfare = welfare
+            phi += step
+        return max_welfare, max_phi
+
+    def optimize_phi_asp_with_chi(self, chi):
+        phi = 0.01
+        step = 5
+        max = 0
+        max_phi = 0
+        max_welfare = 0
+        for _ in range(10000):
+            self.set_and_check_required_vm_with_chi(phi, chi)
+            vm_num = self.total_vm()
+            welfare = 0
+            for asp in self.asp_lst:
+                welfare += asp.utility
+            uti = phi * vm_num - MPO_cost(vm_num)
+            if uti > max:
+                max = uti
+                max_phi = phi
+                max_welfare = welfare
+            phi += step
+        return max_welfare, max_phi
 
     def plot_phi(self):
         phi = 10

@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 
 
 class ASP():
-    def __init__(self, ratio):
+    def __init__(self, ratio, num):
         self.bandwidth = ASP_BANDWIDTH
         self.frequency = uniform(ASP_CPU_FREQUENCY_LOWER, ASP_CPU_FREQUENCY_UPPER)
         self.device_list = []
         self.mal_device_list = []
         self.malicious_ratio = ratio
-        self.num_of_normal_users = ASP_NUM_OF_NORMAL_USERS
+        self.num_of_normal_users = num
         self.num_of_malicious_users = int(ASP_NUM_OF_NORMAL_USERS * self.malicious_ratio)
         self.set_users()
         self.set_service_rate()
@@ -93,6 +93,8 @@ class ASP():
                 print('infeasible')
             if self.utility < 0:
                 self.z_v = 0
+                self.utility = 0
+
         else:
             self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
             self.z_h = 0
@@ -105,6 +107,8 @@ class ASP():
             self.set_utility()
             if self.utility < 0:
                 self.z_v = 0
+                self.utility = 0
+
 
     def set_malicious_ratio(self, ratio):
         self.malicious_ratio = ratio
@@ -121,6 +125,7 @@ class ASP():
             print('infeasible')
         if self.utility < 0:
             self.z_v = 0
+            self.utility = 0
 
     def plot_max(self):
         mpo_lst = [100, 300, 500, 700, 900]
