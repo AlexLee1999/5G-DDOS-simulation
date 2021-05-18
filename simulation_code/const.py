@@ -26,7 +26,7 @@ DEVICE_ARRIVAL_RATE_UPPER = 3
 DEVICE_ARRIVAL_RATE_LOWER = 1
 # price per task
 DEVICE_PRICE_PER_TASK_UPPER = 5
-DEVICE_PRICE_PER_TASK_LOWER = 1
+DEVICE_PRICE_PER_TASK_LOWER = 4
 
 ########################################
 # These are the parameters of ASP

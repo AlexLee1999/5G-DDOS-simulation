@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 def plot_utility_device_num():
-    num = [i for i in range(50, 250, 50)]
+    num = [i for i in range(50, 250, 10)]
     util_proposed = []
     social_proposed = []
     asp_util_proposed = []
@@ -22,11 +22,11 @@ def plot_utility_device_num():
         util_proposed.append(util)
         social_proposed.append(social)
         asp_util_proposed.append(asp_u)
-        util, max_phi, social, asp_u = mpo.optimize_phi_with_chi(0)
+        util, social, asp_u = mpo.optimize_phi_with_chi(0, max_phi)
         util_fix_zero.append(util)
         social_fix_zero.append(social)
         asp_util_fix_zero.append(asp_u)
-        util, max_phi, social, asp_u = mpo.optimize_phi_with_chi(0.3)
+        util, social, asp_u = mpo.optimize_phi_with_chi(0.3, max_phi)
         util_fix_three.append(util)
         social_fix_three.append(social)
         asp_util_fix_three.append(asp_u)
@@ -69,6 +69,70 @@ def plot_utility_device_num():
     plt.savefig('./5GDDoS_Game_asp_device.pdf')
     plt.close()
 
+def plot_utility_ratio():
+    ratio = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+
+    util_proposed = []
+    social_proposed = []
+    asp_util_proposed = []
+    util_fix_zero = []
+    social_fix_zero = []
+    asp_util_fix_zero = []
+    util_fix_three = []
+    social_fix_three = []
+    asp_util_fix_three = []
+    for r in ratio:
+        mpo = MPO(r, 50)
+        util, max_phi, social, asp_u = mpo.optimize_phi()
+        util_proposed.append(util)
+        social_proposed.append(social)
+        asp_util_proposed.append(asp_u)
+        util, social, asp_u = mpo.optimize_phi_with_chi(0, max_phi)
+        util_fix_zero.append(util)
+        social_fix_zero.append(social)
+        asp_util_fix_zero.append(asp_u)
+        util, social, asp_u = mpo.optimize_phi_with_chi(0.3, max_phi)
+        util_fix_three.append(util)
+        social_fix_three.append(social)
+        asp_util_fix_three.append(asp_u)
+    plt.figure(figsize=(25, 16), dpi=400)
+    plt.plot(ratio, util_proposed, marker='o', linestyle='-.', label='Proposed')
+    plt.plot(ratio, util_fix_zero, marker='^', linestyle='-.', label='No IPS VM')
+    plt.plot(ratio, util_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
+    plt.legend(loc="best", fontsize=60)
+    plt.xlabel(r'$\bf{Ratio}$', fontsize=60)
+    plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=60)
+    plt.xticks(fontsize=30)
+    plt.yticks(fontsize=30)
+    plt.savefig('./5GDDoS_Game_MPO_ratio.jpg')
+    plt.savefig('./5GDDoS_Game_MPO_ratio.pdf')
+    plt.close()
+
+    plt.figure(figsize=(25, 16), dpi=400)
+    plt.plot(ratio, social_proposed, marker='o', linestyle='-.', label='Proposed')
+    plt.plot(ratio, social_fix_zero, marker='^', linestyle='-.', label='50% IPS VM')
+    plt.plot(ratio, social_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
+    plt.legend(loc="best", fontsize=60)
+    plt.xlabel(r'$\bf{Ratio}$', fontsize=60)
+    plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=60)
+    plt.xticks(fontsize=30)
+    plt.yticks(fontsize=30)
+    plt.savefig('./5GDDoS_Game_social_ratio.jpg')
+    plt.savefig('./5GDDoS_Game_social_ratio.pdf')
+    plt.close()
+
+    plt.figure(figsize=(25, 16), dpi=400)
+    plt.plot(ratio, asp_util_proposed, marker='o', linestyle='-.', label='Proposed')
+    plt.plot(ratio, asp_util_fix_zero, marker='^', linestyle='-.', label='50% IPS VM')
+    plt.plot(ratio, asp_util_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
+    plt.legend(loc="best", fontsize=60)
+    plt.xlabel(r'$\bf{Ratio}$', fontsize=60)
+    plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=60)
+    plt.xticks(fontsize=30)
+    plt.yticks(fontsize=30)
+    plt.savefig('./5GDDoS_Game_asp_ratio.jpg')
+    plt.savefig('./5GDDoS_Game_asp_ratio.pdf')
+    plt.close()
 
 
 
@@ -113,3 +177,4 @@ if __name__ == '__main__':
     # asp.plot_max_zh()
     # plot_different_ratio()
     plot_utility_device_num()
+    plot_utility_ratio()
