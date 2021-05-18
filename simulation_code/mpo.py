@@ -82,7 +82,11 @@ class MPO():
                 max = uti
                 max_phi = phi
             phi += step
-        return max, max_phi
+        self.set_and_check_required_vm(max_phi)
+        asp_util = 0
+        for asp in self.asp_lst:
+            asp_util += asp.utility
+        return max, max_phi, asp_util + max, asp_util
 
     def optimize_phi_with_chi(self, chi):
         phi = 0.01
@@ -97,89 +101,11 @@ class MPO():
                 max = uti
                 max_phi = phi
             phi += step
-        return max, max_phi
-
-    def optimize_phi_social(self):
-        phi = 0.01
-        step = 5
-        max = 0
-        max_phi = 0
-        max_welfare = 0
-        for _ in range(10000):
-            self.set_and_check_required_vm(phi)
-            vm_num = self.total_vm()
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            uti = phi * vm_num - MPO_cost(vm_num)
-            welfare += uti
-            if uti > max:
-                max = uti
-                max_phi = phi
-                max_welfare = welfare
-            phi += step
-        return max_welfare, max_phi
-
-    def optimize_phi_social_with_chi(self, chi):
-        phi = 0.01
-        step = 5
-        max = 0
-        max_phi = 0
-        max_welfare = 0
-        for _ in range(10000):
-            self.set_and_check_required_vm_with_chi(phi, chi)
-            vm_num = self.total_vm()
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            uti = phi * vm_num - MPO_cost(vm_num)
-            welfare += uti
-            if uti > max:
-                max = uti
-                max_phi = phi
-                max_welfare = welfare
-            phi += step
-        return max_welfare, max_phi
-
-    def optimize_phi_asp(self):
-        phi = 0.01
-        step = 5
-        max = 0
-        max_phi = 0
-        max_welfare = 0
-        for _ in range(10000):
-            self.set_and_check_required_vm(phi)
-            vm_num = self.total_vm()
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            uti = phi * vm_num - MPO_cost(vm_num)
-            if uti > max:
-                max = uti
-                max_phi = phi
-                max_welfare = welfare
-            phi += step
-        return max_welfare, max_phi
-
-    def optimize_phi_asp_with_chi(self, chi):
-        phi = 0.01
-        step = 5
-        max = 0
-        max_phi = 0
-        max_welfare = 0
-        for _ in range(10000):
-            self.set_and_check_required_vm_with_chi(phi, chi)
-            vm_num = self.total_vm()
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            uti = phi * vm_num - MPO_cost(vm_num)
-            if uti > max:
-                max = uti
-                max_phi = phi
-                max_welfare = welfare
-            phi += step
-        return max_welfare, max_phi
+        self.set_and_check_required_vm_with_chi(max_phi, chi)
+        asp_util = 0
+        for asp in self.asp_lst:
+            asp_util += asp.utility
+        return max, max_phi, max + asp_util, asp_util 
 
     def plot_phi(self):
         phi = 10

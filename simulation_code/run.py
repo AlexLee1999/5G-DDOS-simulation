@@ -5,19 +5,31 @@ from mpo import MPO
 import matplotlib.pyplot as plt
 
 
-def plot_MPO_utility_device_num():
+def plot_utility_device_num():
     num = [i for i in range(50, 250, 50)]
     util_proposed = []
+    social_proposed = []
+    asp_util_proposed = []
     util_fix_zero = []
+    social_fix_zero = []
+    asp_util_fix_zero = []
     util_fix_three = []
+    social_fix_three = []
+    asp_util_fix_three = []
     for n in num:
         mpo = MPO(0.5, n)
-        util, _ = mpo.optimize_phi()
+        util, max_phi, social, asp_u = mpo.optimize_phi()
         util_proposed.append(util)
-        util, _ = mpo.optimize_phi_with_chi(0)
+        social_proposed.append(social)
+        asp_util_proposed.append(asp_u)
+        util, max_phi, social, asp_u = mpo.optimize_phi_with_chi(0)
         util_fix_zero.append(util)
-        util, _ = mpo.optimize_phi_with_chi(0.3)
+        social_fix_zero.append(social)
+        asp_util_fix_zero.append(asp_u)
+        util, max_phi, social, asp_u = mpo.optimize_phi_with_chi(0.3)
         util_fix_three.append(util)
+        social_fix_three.append(social)
+        asp_util_fix_three.append(asp_u)
     plt.figure(figsize=(25, 16), dpi=400)
     plt.plot(num, util_proposed, marker='o', linestyle='-.', label='Proposed')
     plt.plot(num, util_fix_zero, marker='^', linestyle='-.', label='No IPS VM')
@@ -31,24 +43,10 @@ def plot_MPO_utility_device_num():
     plt.savefig('./5GDDoS_Game_MPO_device.pdf')
     plt.close()
 
-
-def plot_social_device_num():
-    num = [i for i in range(50, 250, 50)]
-    util_proposed = []
-    util_fix_zero = []
-    util_fix_three = []
-    for n in num:
-        mpo = MPO(0.5, n)
-        util, _ = mpo.optimize_phi_social()
-        util_proposed.append(util)
-        util, _ = mpo.optimize_phi_social_with_chi(0)
-        util_fix_zero.append(util)
-        util, _ = mpo.optimize_phi_social_with_chi(0.3)
-        util_fix_three.append(util)
     plt.figure(figsize=(25, 16), dpi=400)
-    plt.plot(num, util_proposed, marker='o', linestyle='-.', label='Proposed')
-    plt.plot(num, util_fix_zero, marker='^', linestyle='-.', label='No IPS VM')
-    plt.plot(num, util_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
+    plt.plot(num, social_proposed, marker='o', linestyle='-.', label='Proposed')
+    plt.plot(num, social_fix_zero, marker='^', linestyle='-.', label='50% IPS VM')
+    plt.plot(num, social_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
     plt.legend(loc="best", fontsize=60)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=60)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=60)
@@ -58,24 +56,10 @@ def plot_social_device_num():
     plt.savefig('./5GDDoS_Game_social_device.pdf')
     plt.close()
 
-
-def plot_asp_device_num():
-    num = [i for i in range(50, 250, 50)]
-    util_proposed = []
-    util_fix_zero = []
-    util_fix_three = []
-    for n in num:
-        mpo = MPO(0.5, n)
-        util, _ = mpo.optimize_phi_asp()
-        util_proposed.append(util)
-        util, _ = mpo.optimize_phi_asp_with_chi(0)
-        util_fix_zero.append(util)
-        util, _ = mpo.optimize_phi_asp_with_chi(0.3)
-        util_fix_three.append(util)
     plt.figure(figsize=(25, 16), dpi=400)
-    plt.plot(num, util_proposed, marker='o', linestyle='-.', label='Proposed')
-    plt.plot(num, util_fix_zero, marker='^', linestyle='-.', label='No IPS VM')
-    plt.plot(num, util_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
+    plt.plot(num, asp_util_proposed, marker='o', linestyle='-.', label='Proposed')
+    plt.plot(num, asp_util_fix_zero, marker='^', linestyle='-.', label='50% IPS VM')
+    plt.plot(num, asp_util_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
     plt.legend(loc="best", fontsize=60)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=60)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=60)
@@ -84,6 +68,8 @@ def plot_asp_device_num():
     plt.savefig('./5GDDoS_Game_asp_device.jpg')
     plt.savefig('./5GDDoS_Game_asp_device.pdf')
     plt.close()
+
+
 
 
 def plot_different_ratio():
@@ -126,6 +112,4 @@ if __name__ == '__main__':
     # asp.plot_max()
     # asp.plot_max_zh()
     # plot_different_ratio()
-    # plot_MPO_utility_device_num()
-    # plot_social_device_num()
-    plot_asp_device_num()
+    plot_utility_device_num()
