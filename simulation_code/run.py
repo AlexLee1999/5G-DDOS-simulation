@@ -4,10 +4,10 @@ from device import Device
 from mpo import MPO
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-ITER = 100
+ITER = 1000
 
 def plot_utility_device_num():
-    num = [i for i in range(50, 250, 10)]
+    num = [i for i in range(50, 250, 20)]
     util_proposed = []
     social_proposed = []
     asp_util_proposed = []
@@ -90,7 +90,7 @@ def plot_utility_device_num():
     plt.close()
 
 def plot_utility_ratio():
-    ratio = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
 
     util_proposed = []
     social_proposed = []
