@@ -13,7 +13,7 @@ class ASP():
         self.mal_device_list = []
         self.malicious_ratio = ratio
         self.num_of_normal_users = num
-        self.num_of_malicious_users = int(ASP_NUM_OF_NORMAL_USERS * self.malicious_ratio)
+        self.num_of_malicious_users = int(self.num_of_normal_users * self.malicious_ratio)
         self.set_users()
         self.set_service_rate()
         self.set_arrival_rate()
@@ -142,7 +142,7 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(60, 150):
+                for i in range(90, 300):
                     self.z_v = i / 1000
                     self.z_h = self.chi * self.z_v
                     self.set_process_time()
@@ -172,7 +172,7 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(50, 150):
+                for i in range(80, 300):
                     self.z_v = i / 1000
                     self.z_h = 0
                     self.set_process_time()
@@ -198,7 +198,7 @@ class ASP():
             ut = []
             z_h = []
             plt.figure(figsize=(25, 16), dpi=400)
-            for z in range(100, 105, 1):
+            for z in range(1000, 1005, 1):
                 self.z_v = z / 1000
                 for i in range(11):
                     i = i / 10
@@ -223,7 +223,7 @@ class ASP():
             ut = []
             z_h = []
             plt.figure(figsize=(25, 16), dpi=400)
-            for z in range(100, 105, 1):
+            for z in range(1000, 1005, 1):
                 self.z_v = z / 1000
                 for i in range(11):
                     i = i / 10

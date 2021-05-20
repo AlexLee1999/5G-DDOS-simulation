@@ -3,7 +3,7 @@ from math import exp
 # These are the parameters of Global
 # Prefix with GLOBAL_
 ########################################
-GLOBAL_ETA = 4000
+GLOBAL_ETA = 3500
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_
@@ -37,8 +37,6 @@ ASP_DEVICE_LATENCY_UPPER = 100E-3
 ASP_DEVICE_LATENCY_LOWER = 5E-3
 
 ASP_BANDWIDTH = 20 * 10E6
-
-ASP_NUM_OF_NORMAL_USERS = 50
 
 ASP_CPU_FREQUENCY_UPPER = 0.3 * 10E9
 ASP_CPU_FREQUENCY_LOWER = 0.1 * 10E9

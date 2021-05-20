@@ -95,11 +95,11 @@ class MPO():
         asp_util = 0
         for asp in self.asp_lst:
             asp_util += asp.utility
-        return util, util + asp_util, asp_util 
+        return util, util + asp_util, asp_util
 
     def plot_phi(self):
         phi = 10
-        step = 2.5
+        step = 5
         pr = []
         ut = []
         bound = []

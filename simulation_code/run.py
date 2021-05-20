@@ -3,7 +3,8 @@ from const import *
 from device import Device
 from mpo import MPO
 import matplotlib.pyplot as plt
-
+from tqdm import tqdm
+ITER = 100
 
 def plot_utility_device_num():
     num = [i for i in range(50, 250, 10)]
@@ -17,19 +18,38 @@ def plot_utility_device_num():
     social_fix_three = []
     asp_util_fix_three = []
     for n in num:
-        mpo = MPO(0.5, n)
-        util, max_phi, social, asp_u = mpo.optimize_phi()
-        util_proposed.append(util)
-        social_proposed.append(social)
-        asp_util_proposed.append(asp_u)
-        util, social, asp_u = mpo.optimize_phi_with_chi(0, max_phi)
-        util_fix_zero.append(util)
-        social_fix_zero.append(social)
-        asp_util_fix_zero.append(asp_u)
-        util, social, asp_u = mpo.optimize_phi_with_chi(0.3, max_phi)
-        util_fix_three.append(util)
-        social_fix_three.append(social)
-        asp_util_fix_three.append(asp_u)
+        u_zero = 0
+        soc_zero = 0
+        asp_u_zero = 0
+        u_proposed = 0
+        soc_proposed = 0
+        asp_u_proposed = 0
+        u_three = 0
+        soc_three = 0
+        asp_u_three = 0
+        for _ in tqdm(range(ITER)):
+            mpo = MPO(0.5, n)
+            util, max_phi, social, asp_u = mpo.optimize_phi()
+            u_proposed += util
+            soc_proposed += social
+            asp_u_proposed += asp_u
+            util, social, asp_u = mpo.optimize_phi_with_chi(0, max_phi)
+            u_zero += util
+            soc_zero += social
+            asp_u_zero += asp_u
+            util, social, asp_u = mpo.optimize_phi_with_chi(0.3, max_phi)
+            u_three += util
+            soc_three += social
+            asp_u_three += asp_u
+        util_proposed.append(u_proposed / ITER)
+        social_proposed.append(soc_proposed / ITER)
+        asp_util_proposed.append(asp_u_proposed / ITER)
+        util_fix_zero.append(u_zero / ITER)
+        social_fix_zero.append(soc_zero / ITER)
+        asp_util_fix_zero.append(asp_u_zero / ITER)
+        util_fix_three.append(u_three / ITER)
+        social_fix_three.append(soc_three / ITER)
+        asp_util_fix_three.append(asp_u_three / ITER)
     plt.figure(figsize=(25, 16), dpi=400)
     plt.plot(num, util_proposed, marker='o', linestyle='-.', label='Proposed')
     plt.plot(num, util_fix_zero, marker='^', linestyle='-.', label='No IPS VM')
@@ -45,7 +65,7 @@ def plot_utility_device_num():
 
     plt.figure(figsize=(25, 16), dpi=400)
     plt.plot(num, social_proposed, marker='o', linestyle='-.', label='Proposed')
-    plt.plot(num, social_fix_zero, marker='^', linestyle='-.', label='50% IPS VM')
+    plt.plot(num, social_fix_zero, marker='^', linestyle='-.', label='No IPS VM')
     plt.plot(num, social_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
     plt.legend(loc="best", fontsize=60)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=60)
@@ -58,7 +78,7 @@ def plot_utility_device_num():
 
     plt.figure(figsize=(25, 16), dpi=400)
     plt.plot(num, asp_util_proposed, marker='o', linestyle='-.', label='Proposed')
-    plt.plot(num, asp_util_fix_zero, marker='^', linestyle='-.', label='50% IPS VM')
+    plt.plot(num, asp_util_fix_zero, marker='^', linestyle='-.', label='No IPS VM')
     plt.plot(num, asp_util_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
     plt.legend(loc="best", fontsize=60)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=60)
@@ -82,19 +102,38 @@ def plot_utility_ratio():
     social_fix_three = []
     asp_util_fix_three = []
     for r in ratio:
-        mpo = MPO(r, 50)
-        util, max_phi, social, asp_u = mpo.optimize_phi()
-        util_proposed.append(util)
-        social_proposed.append(social)
-        asp_util_proposed.append(asp_u)
-        util, social, asp_u = mpo.optimize_phi_with_chi(0, max_phi)
-        util_fix_zero.append(util)
-        social_fix_zero.append(social)
-        asp_util_fix_zero.append(asp_u)
-        util, social, asp_u = mpo.optimize_phi_with_chi(0.3, max_phi)
-        util_fix_three.append(util)
-        social_fix_three.append(social)
-        asp_util_fix_three.append(asp_u)
+        u_zero = 0
+        soc_zero = 0
+        asp_u_zero = 0
+        u_proposed = 0
+        soc_proposed = 0
+        asp_u_proposed = 0
+        u_three = 0
+        soc_three = 0
+        asp_u_three = 0
+        for _ in tqdm(range(ITER)):
+            mpo = MPO(r, 50)
+            util, max_phi, social, asp_u = mpo.optimize_phi()
+            u_proposed += util
+            soc_proposed += social
+            asp_u_proposed += asp_u
+            util, social, asp_u = mpo.optimize_phi_with_chi(0, max_phi)
+            u_zero += util
+            soc_zero += social
+            asp_u_zero += asp_u
+            util, social, asp_u = mpo.optimize_phi_with_chi(0.3, max_phi)
+            u_three += util
+            soc_three += social
+            asp_u_three += asp_u
+        util_proposed.append(u_proposed / ITER)
+        social_proposed.append(soc_proposed / ITER)
+        asp_util_proposed.append(asp_u_proposed / ITER)
+        util_fix_zero.append(u_zero / ITER)
+        social_fix_zero.append(soc_zero / ITER)
+        asp_util_fix_zero.append(asp_u_zero / ITER)
+        util_fix_three.append(u_three / ITER)
+        social_fix_three.append(soc_three / ITER)
+        asp_util_fix_three.append(asp_u_three / ITER)
     plt.figure(figsize=(25, 16), dpi=400)
     plt.plot(ratio, util_proposed, marker='o', linestyle='-.', label='Proposed')
     plt.plot(ratio, util_fix_zero, marker='^', linestyle='-.', label='No IPS VM')
@@ -110,7 +149,7 @@ def plot_utility_ratio():
 
     plt.figure(figsize=(25, 16), dpi=400)
     plt.plot(ratio, social_proposed, marker='o', linestyle='-.', label='Proposed')
-    plt.plot(ratio, social_fix_zero, marker='^', linestyle='-.', label='50% IPS VM')
+    plt.plot(ratio, social_fix_zero, marker='^', linestyle='-.', label='No IPS VM')
     plt.plot(ratio, social_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
     plt.legend(loc="best", fontsize=60)
     plt.xlabel(r'$\bf{Ratio}$', fontsize=60)
@@ -123,7 +162,7 @@ def plot_utility_ratio():
 
     plt.figure(figsize=(25, 16), dpi=400)
     plt.plot(ratio, asp_util_proposed, marker='o', linestyle='-.', label='Proposed')
-    plt.plot(ratio, asp_util_fix_zero, marker='^', linestyle='-.', label='50% IPS VM')
+    plt.plot(ratio, asp_util_fix_zero, marker='^', linestyle='-.', label='No IPS VM')
     plt.plot(ratio, asp_util_fix_three, marker='s', linestyle='-.', label='30% IPS VM')
     plt.legend(loc="best", fontsize=60)
     plt.xlabel(r'$\bf{Ratio}$', fontsize=60)
@@ -144,7 +183,7 @@ def plot_different_ratio():
         ut = []
         pr = []
         phi = 10
-        mpo = MPO(ra)
+        mpo = MPO(ra, 100)
         vm_prior = float('inf')
         for _ in range(1000):
             mpo.set_and_check_required_vm(phi)
@@ -169,12 +208,12 @@ def plot_different_ratio():
     plt.close()
 
 if __name__ == '__main__':
-    # mpo = MPO(0.5, 50)
-    # mpo.plot_phi()
-    # mpo.plot_social_welfare()
-    # asp = ASP(0.5, 50)
-    # asp.plot_max()
-    # asp.plot_max_zh()
-    # plot_different_ratio()
+    mpo = MPO(0.5, 100)
+    mpo.plot_phi()
+    mpo.plot_social_welfare()
+    asp = ASP(0.5, 100)
+    asp.plot_max()
+    asp.plot_max_zh()
+    plot_different_ratio()
     plot_utility_device_num()
     plot_utility_ratio()
