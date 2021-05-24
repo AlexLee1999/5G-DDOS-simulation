@@ -54,7 +54,13 @@ To be added ...
 To be added ...
 
 \section{Related Works}
-To be added ...
+Several studies have been conducted to fight against DDoS attacks. In \cite{Alharbi}, the authors introduced NFV and edge computing architecture to design a two-stage DDoS mitigation network. \cite{Santoyo} presented an edged based detection scheme ensuring fast detection of DDoS attacks from IoT devices. The author in \cite{Mert} provided a similar paradigm that security function on a edge computing defend the DDoS attack. A multi-level DDoS mitigation framework was proposed by the authors of \cite{Yan} to mitigate the DDoS attack to IoT. In \cite{Ali}, the authors illustrated a three-tier intrusion detection and prevention system in SDN-IoT environment to assure security. The authors in \cite{Shen} implemented a Two-Phase DDoS detection system and showed that it can detect attacks with little overhead.
+
+Some papers enhanced intrusion detection with different methods. \cite{Wang} and \cite{Xuanyuan} adopted the entropy-based methods to identify the DDoS attack and achieve a decent detection rate. \cite{10} developed a Deep Convolution Neural Network Q-learning model to prevent Mirai botnet. The authors of \cite{12} built dynamic deployment of classifiers based on reinforcement learning model to detect DDoS attacks.
+
+Collaborative frameworks also provided a possible solution. \cite{13} devised a collaborative task offloading scheme to balance the task load between overloaded and underloaded cloudlets, which can ameliorate the overall performance without additional security frameworks. \cite{14} explored the cooperative defense strategy and provided an online cooperative defense framework. In \cite{17}, detecting and isolating malicious nodes for D2D communication was proposed as another solution to DDoS attacks.
+
+Distinguished from previous works, we focus on the resource allocation problems when defending DDoS attacks in this paper. We use the Stackelberg game model to formulate the relationships between MPO and ASPs and solve the subsequent optimization problems to maximize the utility of both sides under the DDoS attacks.
 \section{System Model}
 \begin{figure}[!ht]
 \centering
@@ -380,7 +386,7 @@ Let's compare the value of (\ref{eqn:asp_case4_mm1_delay}) with the value of  (\
 
 
 
-Based on the analysis above, the MPO can predict how many VMs every ASP will buy given an arbitrary price per VM in each case, which make MPO can optimize its utility by setting $\Psi_m^v$. We will optimize the utility of MPO in the next subsection. 
+Based on the analysis above, the MPO can predict how many VMs every ASP will buy given an arbitrary price per VM in each case, which make MPO can optimize its utility by setting $\Psi_m^v$. We will optimize the utility of MPO in the next subsection.
 
 \subsection{MPO Optimization Problem}
 In this section, we solve the optimization problem (\ref{eqn:mpo_utility_opti}). For every ASP, the optimal solution is either case2 or case3. That is, $\mathcal{I}_{case2} \cup \mathcal{I}_{case3} = \mathcal{I}$, where $\mathcal{I}_{case2}$ indicates the ASP set which its optimal solution is in case 2, and $\mathcal{I}_{case3}$ indicates the ASP set which its optimal solution is in case 3. The boundary set of all ASP is $\{\Psi_{m,2}^{i,z}, \Psi_{m,2}^{i,l}, i\in \mathcal{I}_{case2} \}\cup \{\Psi_{m,3}^{j,z}, \Psi_{m,3}^{j,l}, j\in \mathcal{I}_{case3}\}$.
@@ -444,7 +450,7 @@ Therefore, (\ref{eqn:mpo_utility_first_term}) is concave in $\Psi_m^v$. The seco
 \end{proof}
 By comparing the optimal value in every interval, we can find the largest value among every interval to find the best $\Psi_m^v$ for MPO.
 
-% Conment out
+% Comment out
 \iffalse
 \begin{theorem} \label{thm:stackelberg_game_equilibrium}
 There are at lease one Stackelberg game equlibrium in our system after the modifications.
@@ -454,60 +460,64 @@ In Case 1, we have analytical solutions for ASPs' optimal number of VMs to buy f
 \end{proof}
 Because of \Cref{thm:mpo_case1_convex_optimization}, \Cref{thm:mpo_case2_convex_optimization}, and \Cref{thm:mpo_case4_convex_optimization}, if the specific form of $C_m^v(\cdot)$ is given, we can solve the exact form of the solution to the MPO's optimization problem. We will select some specific forms for $C_m^v(\cdot)$ in the \Cref{sec:simulation}.
 \fi
-% Conment out
+% Comment out
 
 
 \section{Simulation} \label{sec:simulation}
 \subsection{Simulation Setup}
-In the simulation, we choose the cost function $C_m^v(\cdot)$ to be $C_m^v(x) = 100e^x$, which is convex and non-decreasing. For path loss model, we choose $g(d)=22log_{10}(d)+28+20log_{10}(f_c)$, where $d$ is the distance between EUs and ASPs, and $f_c$ is the carrier frequency. Except (\ref{mal_ratio}), all the ratio of malicious users to normal users are set to 0.5. The key parameters are presented in \Cref{parameterlist}.
+In the simulation, we choose the cost function $C_m^v(\cdot)$ to be $C_m^v(x) = 100e^x$, which is convex and non-decreasing. For path loss model, we choose $g(d)=22log_{10}(d)+28+20log_{10}(f_c)$\cite{3gpp.36.814}, where $d$ is the distance between EUs and ASPs, and $f_c$ is the frequency band. Except (\ref{mal_ratio}), all the ratio of malicious users to normal users are set to 0.5. For every section except (\ref{num_cmp}), the number of end users are set to 100 per ASP. The key parameters are presented in \Cref{parameterlist}, and $U(a, b)$ represents the uniform distribution in $[a, b]$.
 \begin{table}[!htb]
 \caption{System Parameters}
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
 \hline
-Parameter & $|U_i^n|$ &$N_o$ & $p_i$ &$\chi_{ij}(10^6)$&$\lambda_i$ \\ \hline
-Value     & 50 & -100dBM & 23dBM &uni(0.5,0.6)  & uni(1,3) \\ \hline
-Parameter &$|\mathcal{I}|$& $d_{ij}$(ms) &$B_i$ &$f_m^v$(GHz)&$s_{ij}$(kB) \\ \hline
-Value     &5&uni(5,100)&20MHz&uni(0.6,0.9)&uni(4,5)\\ \hline
-Parameter &$\gamma_i$&distance&$\xi_i$&$\phi_i$ &$\eta$  \\ \hline
-Value     &100&uni(50,100)&0.999&0.05&4000\\ \hline
+ $\eta$ &$N_o$ & $p_i$ &$\chi_{ij}(MHz)$&$\lambda_i$ \\ \hline
+ 3500 & -100dBM\cite{chen2015efficient} & 23dBM\cite{3gpp.36.101}&$U(0.5, 0.6)$&$U(1, 3)$\cite{fan2018application}\cite{sun2016primal} \\ \hline
+$|\mathcal{I}|$& $d_{ij}(ms)$ &$B_i$ &$f_m^v(GHz)$&$s_{ij}(kB)$ \\ \hline
+5&$U(5, 100)$&20MHz&$U(0.6, 0.9)$&$U(4, 5)$\\ \hline
+$\gamma_i$&distance&$\xi_i$&$\phi_i$ &$\Psi_{ij}$  \\ \hline
+100&$U(50, 100)$&0.999&0.05&$U(4, 5)$\\ \hline
 \end{tabular}
 \label{parameterlist}
 \end{table}
 
-    \begin{figure}
-      \includegraphics[width=0.45\textwidth]{5GDDoS_Game_vm_number.pdf}
-      \caption{Total Purchased VM v.s. MPO Price}
-      \label{subfig-1:VMnum}
-    \end{figure}
-    
-    \begin{figure}
-      \includegraphics[width=0.45\textwidth]{5GDDoS_Game_utility.pdf}
-    \caption{MPO Utility v.s. MPO Price}
-    \label{subfig-2:MPOutil}
-    \end{figure}
-    
-    \begin{figure}
-      \includegraphics[width=0.45\textwidth]{5GDDoS_Game_utility_ratio.pdf}
-        \caption{Different Malicious and Normal Ratio}
-    \label{subfig-1:ratio}
-    \end{figure}
-    
-    \begin{figure}
-      \includegraphics[width=0.45\textwidth]{5GDDoS_Game_utility_cmp.pdf}
-    \caption{Different IPS VM Ratio}
-    \label{subfig-2:cmp}
-    \end{figure}
-    
+\begin{figure}
+  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_vm_number.pdf}
+  \caption{Total Purchased VM v.s. MPO Price}
+  \label{subfig-1:VMnum}
+\end{figure}
 
+\begin{figure}
+  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_utility.pdf}
+\caption{MPO Utility v.s. MPO Price}
+\label{subfig-2:MPOutil}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_social_ratio.pdf}
+    \caption{Different Malicious Users to Normal Users Ratio}
+\label{subfig-1:ratio}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_social_device.pdf}
+\caption{Different Number of End users}
+\label{subfig-2:num_cmp}
+\end{figure}
 \subsection{The Boundary of MPO Optimization Problem}
 \label{MPO_opti}
-As seen in (\ref{subfig-1:VMnum}) and (\ref{subfig-2:MPOutil}), the boundary has been plot and shown in the figures. The MPO utility is a concave function in every interval. 
-\subsection{Comparison Between Different Ratio of Malicious and Normal Users}
-We compare different ratio of malicious users to normal users with $ratio = [0.1, 0.3, 0.5, 0.7, 0.9]$. In this simulation, the number of normal users is fixed to 50. As seen in (\ref{subfig-1:ratio}), when the ratio decrease, malicious users also decreases and ASPs devote less VMs to intercept malicious requests. Thus, ASPs can serve more EUs with shorter time, and the social welfare increases.
-\label{mal_ratio}
-\subsection{Comparison Between Different Allocation Rule of IPS VM}
-\label{MPO_cmp}
-We compare different rule of IPS VM allocation. These rules include $0\%$, $30\%$, $90\%$ IPS VM, and random percent of IPS VM choosen from $0\% $ to $99.9\%$. As seen in (\ref{subfig-2:cmp}), our proposed rule has largest social welfare compare with other allocation rules.
+As seen in \Cref{subfig-1:VMnum} and \Cref{subfig-2:MPOutil}, the boundary has been plot and shown in the figures. The ASP has the same optimal response in every interval. As the MPO price increases, the optimal responses by the ASPs changes from a decreasing, convex function ((\ref{eqn:asp_case2_utility_extreme}) and (\ref{eqn:asp_case3_utility_extreme})) to a constant. The MPO utility shown in \Cref{subfig-2:MPOutil} is a concave function in every interval, which is proven in the previous section.
+
+\subsection{Comparison Between Different Ratio of Malicious Users and Normal Users}\label{mal_ratio}
+We compare different rules of IPS VM allocation in scenarios of different malicious to normal users. In this simulation, the number of normal users is fixed to 100. As seen in \Cref{subfig-1:ratio}, if the ratio increases, the social welfare declines. As the ratio increases, ASP has to devote more VMs to intercept unnecessary tasks instead of serving end-users, hence the decline in social welfare. In addition, our proposed scheme has the highest social welfare in contrast to other ways in different scenarios.
+
+\subsection{Comparison Between Different Numbers of End Users}
+\label{num_cmp}
+We compare different allocation rules of IPS VM in scenarios of various numbers of end-users. These rules include $0\%$, $30\%$ IPS VM. As seen in \Cref{subfig-2:num_cmp}, when the number of devices increases, the social welfare increases initially, but then decreases after the device number exceeds 150. As the devices number started to exceed the optimal value, ASP cannot serve excess EUs in time, thus the social welfare drops. Moreover, our proposed rule has the best social welfare compare with other allocation rules in different scenarios.
+
+\section{Conclusion} \label{sec:conclusion}
+In the paper, we proposed an optimal allocation rule to allocate the IPS VM to mitigate DDoS attacks. In addition, we solve the optimization problem of ASP and MPO by formulating the hierarchy relationship between the two users into a Stackelberg game.
+
+
 \bibliographystyle{IEEEtran}
 \bibliography{5GDDoS_Game}
 
