@@ -51,14 +51,18 @@ To be added ...
 \end{abstract}
 
 \section{Introduction}
-To be added ...
+Mobile edge computing (MEC) is a promising technique to provide ultra-low-latency computing services for latency-critical applications such as Vehicle Automation, AR/VR, Artificial Intelligent Internet of Things (AIoT), etc. MEC platform providers (MPOs) deploy MEC servers at the network edge, such as base stations, to provide computation resources. Application service providers (ASPs) may rent those resources to deploy their latency-critical applications and provide services to the end users. This architecture will be the foundation of 5G/B5G killer applications and is expected to play a major role of 5G/B5G ecosystem.
+
+The network attack has been considered as a serious threat to most network services, from the global web services to local IoT networks. One of the most common attacks is the Distributed Denial-of-Service (DDoS) attack, which is performed by a significant number of infected devices to send fake requests to the victim service to occupy the resource. The service requests of true end users will then be denied afterward due to that the victim service is out of resources. We observe that DDoS would be critical in MEC architecture, as the available resource at the MEC servers are significantly less than the traditional cloud architecture, while the deployed applications are mostly latency-critical and cannot tolerant service denial even for a short period of time. A defensive measurement is necessary to guarantee the MEC service quality even under the foreseen DDoS attacks.
+
+Intrusion prevention system (IPS) is an effective measurement to identify and respond to the malicious behaviors performed by the attackers. In DDoS attack, for instance, an effective IPS can identify those malicious requests and isolate them from the service requests from the normal end users. Nevertheless, such a system also requires computation resources
 
 \section{Related Works}
-Several studies have been conducted to fight against DDoS attacks. In \cite{Alharbi}, the authors introduced NFV and edge computing architecture to design a two-stage DDoS mitigation network. \cite{Santoyo} presented an edged based detection scheme ensuring fast detection of DDoS attacks from IoT devices. The author in \cite{Mert} provided a similar paradigm that security function on a edge computing defend the DDoS attack. A multi-level DDoS mitigation framework was proposed by the authors of \cite{Yan} to mitigate the DDoS attack to IoT. In \cite{Ali}, the authors illustrated a three-tier intrusion detection and prevention system in SDN-IoT environment to assure security. The authors in \cite{Shen} implemented a Two-Phase DDoS detection system and showed that it can detect attacks with little overhead.
+Several studies have been conducted to fight against DDoS attacks.  Alharbi \emph{et al.} introduced NFV and edge computing architecture to design a two-stage DDoS mitigation network\cite{Alharbi}. Santoyo \emph{et al.} presented an edged based detection scheme ensuring fast detection of DDoS attacks from IoT devices\cite{Santoyo}. Mert \emph{et al.}  provided a similar paradigm that security function on a edge computing defend the DDoS attack\cite{Mert}. A multi-level DDoS mitigation framework \cite{Yan} was proposed by Yan \emph{et al.}  to mitigate the DDoS attack to IoT. In \cite{Ali}, Ali \emph{et al.} illustrated a three-tier intrusion detection and prevention system in SDN-IoT environment to assure security. Shen \emph{et al.} \cite{Shen} implemented a Two-Phase DDoS detection system and showed that it can detect attacks with little overhead.
 
-Some papers enhanced intrusion detection with different methods. \cite{Wang} and \cite{Xuanyuan} adopted the entropy-based methods to identify the DDoS attack and achieve a decent detection rate. \cite{10} developed a Deep Convolution Neural Network Q-learning model to prevent Mirai botnet. The authors of \cite{12} built dynamic deployment of classifiers based on reinforcement learning model to detect DDoS attacks.
+Some papers enhanced intrusion detection with different methods. For example, several papers adopted the entropy-based methods to identify the DDoS attack and achieve a decent detection rate\cite{Wang}\cite{Xuanyuan}. Liu \emph{et al.} developed a Deep Convolution Neural Network Q-learning model to prevent Mirai botnet\cite{Liu}. Zhang \emph{et al.} built dynamic deployment of classifiers based on reinforcement learning model to detect DDoS attacks\cite{Zhang}.
 
-Collaborative frameworks also provided a possible solution. \cite{13} devised a collaborative task offloading scheme to balance the task load between overloaded and underloaded cloudlets, which can ameliorate the overall performance without additional security frameworks. \cite{14} explored the cooperative defense strategy and provided an online cooperative defense framework. In \cite{17}, detecting and isolating malicious nodes for D2D communication was proposed as another solution to DDoS attacks.
+Collaborative frameworks also provided a possible solution. Yang \emph{et al.} devised a collaborative task offloading scheme to balance the task load between overloaded and underloaded cloudlets, which can improve the overall performance without additional security frameworks\cite{Yang}. Li \emph{et al.} explored the cooperative defense strategy and provided an online cooperative defense framework\cite{Li}. Introduced by Mtibaa \emph{et al.} \cite{Mtibaa}, detecting and isolating malicious nodes for D2D communication was proposed as another solution to DDoS attacks.
 
 Distinguished from previous works, we focus on the resource allocation problems when defending DDoS attacks in this paper. We use the Stackelberg game model to formulate the relationships between MPO and ASPs and solve the subsequent optimization problems to maximize the utility of both sides under the DDoS attacks.
 \section{System Model}
@@ -121,6 +125,10 @@ In (\ref{eqn:asp_utility_def_opti_const1}), we further introduce a system parame
 \begin{lemma}
 The utility of ASP $i$, $Y_i(z_i^v)$, is well defined. That is, the optimization problem (\ref{eqn:asp_utility_def_opti}) has at least one optimal point. Moreover, the optimization problem (\ref{eqn:asp_utility_def_opti}) is a convex optimization problem.
 \end{lemma}
+The proof of convexity is omitted due to page limitation.
+
+% Comment Out
+\iffalse
 \begin{proof}
 The feasible region imposed by (\ref{eqn:asp_utility_def_opti_const1}) and (\ref{eqn:asp_utility_def_opti_const2}) is a closed and bounded interval in $\mathbb{R}$ and thus is a convex set. As the objective function (\ref{eqn:asp_utility_def_opti_obj}) is continuous in $z_i^h$, the existence of the optimal solution then comes from the Extreme Value Theorem. If (\ref{eqn:asp_utility_def_opti_obj}) is concave at each feasible $z_i^h$, optimization problem (\ref{eqn:asp_utility_def_opti}) is a convex optimization problem. It remains to show that the objective function (\ref{eqn:asp_utility_def_opti_obj}) is concave in feasible $z_i^h$. By rearranging the terms, we express $X_i(z_i^h|z_i^v,\Psi_m^v)$ as
 \begin{equation}
@@ -135,6 +143,9 @@ The feasible region imposed by (\ref{eqn:asp_utility_def_opti_const1}) and (\ref
 \end{subequations}
 $H'(z_i^h)$ and $H''(z_i^h)$ stand for first and second derivative with respect to $z_i^h$. In (\ref{eqn:asp_subobjective_second_deriv_first_term}) and (\ref{eqn:asp_subobjective_second_deriv_second_term}), $(z_i^v- z_i^h)\mu_i^v - \lambda_i - H(z_i^h)$ is always positive at each feasible $z_i^h$ because of (\ref{eqn:asp_utility_def_opti_const2}). Also, as $H(\cdot)$ is concave, $H''(z_i^h)$ is non-positive. Therefore, (\ref{eqn:asp_subobjective_second_deriv_first_term}) and (\ref{eqn:asp_subobjective_second_deriv_second_term}) are non-negative. We can conclude that the second derivative of $T_i^p(z_i^v, z_i^h)$ is non-negative, and $T_i^p(z_i^v, z_i^h)$ is convex in feasible $z_i^h$.
 \end{proof}
+\fi
+%Comment Out
+
 After defining the utility of ASP $i$, $Y_i(z_i^v)$, we can now formulate the optimization problem of ASP $i$ given the MPO's price per VM $\Psi_m^v$.
 \begin{maxi!}[2]
   {z_i^v \in \mathbb{R}}
@@ -158,7 +169,11 @@ With the prediction about the number of VMs purchased by ASPs $(z_i^v(\Psi_m^v))
 \end{maxi!}
 The constraint (\ref{eqn:mpo_utility_opti_const1}) mandates that the MPO can not sell more VMs than the total number of VMs $\mathcal{Q}_v$ that the MPO has. The constraint (\ref{eqn:mpo_utility_opti_const1}) imposes a lower bound for MPO's price per VM. The constraint (\ref{eqn:mpo_utility_opti_const2}) requires the MPO's price per VM must be non-negative. The property of this optimization (\ref{eqn:mpo_utility_opti}) relies on the solution $(z_i^v(\Psi_m^v))^*$, and we defer the analysis to \Cref{sec:game_optimization}.
 \section{Game Optimization} \label{sec:game_optimization}
-We would leverage the backward induction principle to solve the formulated Stackelberg game. In this principle, we solve the followers' (ASPs') optimization problems first and then the leader's (the MPO's) optimization problem based on responses of ASPs to the MPO's price per VM, i.e., $(z_i^v(\Psi_m^v))^* \, \forall i \in \mathcal{I}$. Before delving into the solution process, we first define the Stackelberg game equilibrium. We symbolize the ASP $i$'s action set using $\mathcal{A}_i$ and the profile of all ASPs' action using $\bm{z^v}=(z_1^v, z_2^v, \cdots, z_I^v) \in \mathcal{A}_1 \times \mathcal{A}_2 \cdots \times \mathcal{A}_I$ where $\mathcal{A}_1 \times \mathcal{A}_2$ means the Cartesian product of $\mathcal{A}_1$ and $\mathcal{A}_2$. The ASP $i$'s best response set $\mathcal{B}_i^R(\Psi_m^v)$ to the MPO's price per VM $\Psi_m^v$ is given by
+We would leverage the backward induction principle to solve the formulated Stackelberg game. In this principle, we solve the followers' (ASPs') optimization problems first and then the leader's (the MPO's) optimization problem based on responses of ASPs to the MPO's price per VM, i.e., $(z_i^v(\Psi_m^v))^* \, \forall i \in \mathcal{I}$. We analyze the ASP Optimization problem according to whether the solution to (\ref{eqn:asp_utility_def_opti}) is the extreme point or boundary point of the constraint.
+
+% Comment Out
+\iffalse
+Before delving into the solution process, we first define the Stackelberg game equilibrium. We symbolize the ASP $i$'s action set using $\mathcal{A}_i$ and the profile of all ASPs' action using $\bm{z^v}=(z_1^v, z_2^v, \cdots, z_I^v) \in \mathcal{A}_1 \times \mathcal{A}_2 \cdots \times \mathcal{A}_I$ where $\mathcal{A}_1 \times \mathcal{A}_2$ means the Cartesian product of $\mathcal{A}_1$ and $\mathcal{A}_2$. The ASP $i$'s best response set $\mathcal{B}_i^R(\Psi_m^v)$ to the MPO's price per VM $\Psi_m^v$ is given by
 \begin{equation} \label{eqn:asp_best_response}
 \begin{aligned}
 \mathcal{B}_i^R(\Psi_m^v) = &\{z_i^v \in \mathcal{A}_i |Y_i(z_i^v|\Psi_m^v) \geq Y_i\big((z_i^v)'|\Psi_m^v\big) \\
@@ -180,7 +195,11 @@ Likewise, we denote the MPO's action set as $\mathcal{A}_m$. Furthermore, to str
 \begin{definition}[\textbf{Stackelberg equilibrium}] \label{def:stackelberg_equilibrium}
 If $\mathcal{B}_{m}$ and $\mathcal{B}^R(\Psi_m^v)$ are both non-empty, the Stackelberg equilibrium in our mechanism is a vector of dimension $(I+1)$ that is an element of $\mathcal{B}_m  \times \mathcal{B}^R(\Psi_m^v)$.
 \end{definition}
+
+
 We analyze the solution process of the formulated Stackelberg game according to whether the solution to (\ref{eqn:asp_utility_def_opti}) is the extreme point or boundary point of the constraint.
+\fi
+% Comment Out
 \subsection{ASP Optimization Problem}
 \textbf{Case 1}: The optimal point of (\ref{eqn:asp_utility_def_opti}) is the extreme point whose first derivative with respect to $z_i^h$. The first derivative of $X_i(z_i^h|z_i^v,\Psi_m^v)$ with respect to $z_i^h$ is
 \begin{equation} \label{eqn:asp_utilitu_def_firstderiv}
@@ -198,10 +217,14 @@ According to (\ref{eqn:asp_def_subobjective_unfold}) and (\ref{eqn:asp_def_subob
 \begin{equation}\label{eqn:asp_case1_utility}
 Y_i^1(z_i^v|\Psi_m^v) \triangleq \sum_{j \in \mathrm{U}_i^n}\Psi_{ij}(1-\frac{T_{ij}^t + T_{i,1}^p(z_i^v)-a_i}{b_i-a_i}) - \Psi_m^vz_i^v
 \end{equation}
-If we optimize (\ref{eqn:asp_case1_utility}), we can observe how the ASP reacts to different $z_i^v$ and $\Psi_m^v$ in order to reach the highest utility. However, we won't try to do so since the case doesn't happen based on the initial assumption of $H(x) = \eta{x}$. We briefly explain the property in the following.
+If we optimize (\ref{eqn:asp_case1_utility}), we can observe how the ASP reacts to different $z_i^v$ and $\Psi_m^v$ in order to reach the highest utility. However, we won't try to do so since the case doesn't happen based on the initial assumption of $H(x) = \eta{x}$. We explain the property in the following lemma.
 \begin{lemma} \label{lemma:asp_case1_not_exist}
-$X_1(z_i^h|z_i^v,\Psi_m^v)$ doesn't have extreme point in feasible $z_i^h$ if $H(x) = \eta{x}$.
+$Y_1(z_i^h|z_i^v,\Psi_m^v)$ doesn't have extreme point in feasible $z_i^h$ if $H(x) = \eta{x}$. The proof is omitted due to page limitation.
 \end{lemma}
+
+
+% Comment Out
+\iffalse
 \begin{proof}
 From (\ref{eqn:asp_utilitu_def_firstderiv}),  we substitute $\eta{z_i^h}$ into $H(z_i^h)$, then we can obtain
 \begin{equation} \label{eqn:asp_utilitu_simplified}
@@ -211,6 +234,9 @@ Obviously, no matter what the value of $z_i^h$ is, (\ref{eqn:asp_utilitu_simplif
 Now we know that the extreme point of (\ref{eqn:asp_utility_def_opti_obj}) does not exist in feasible $z_i^h$, so the maximum value of $X_1(z_i^h|z_i^v,\Psi_m^v)$ only happens at the boundary points of feasible $z_i^h$.
 \qedhere
 \end{proof}
+\fi
+% Comment Out
+
 \textbf{Case 2}: The optimal point of (\ref{eqn:asp_utility_def_opti}) happens at the right boundary of (\ref{eqn:asp_utility_def_opti_const1}). That is, when the purchased number of VM is $z_i^v$, the ASP $i$'s optimal number of VMs devoted to the IPS is
 \begin{equation} \label{eqn:asp_utility_def_first_boundary}
 (z_i^h)^* = \xi_i z_i^v
@@ -223,7 +249,11 @@ according to (\ref{eqn:asp_def_subobjective_unfold}) and (\ref{eqn:asp_def_subob
 \begin{equation} \label{eqn:asp_case2_objective}
 Y_i^2(z_i^v|\Psi_m^v) \triangleq \sum_{j \in \mathrm{U}_i^n}\Psi_{ij}(1-\frac{T_{ij}^t + T_{i,2}^p(z_i^v)-a_i}{b_i-a_i}) - \Psi_m^vz_i^v
 \end{equation}
-If $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to solve the optimization problem (\ref{eqn:asp_utility_opti}) with the objective being $Y_i^2(z_i^v|\Psi_m^v)$. We prove this properties in the following.
+If $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to solve the optimization problem (\ref{eqn:asp_utility_opti}) with the objective being $Y_i^2(z_i^v|\Psi_m^v)$. The proof of convexity is omitted due to page limitation.
+
+% Comment Out
+\iffalse
+We prove this properties in the following.
 \begin{lemma} \label{lemma:asp_case2_utility_concave}
 $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.
 \end{lemma}
@@ -238,7 +268,11 @@ If $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^2(z_i^v|\Psi_m^v)$ is 
 \end{equation}
 Since $(z_i^h)^* = \xi_i z_i^v$ satisfies the constraint (\ref{eqn:asp_utility_def_opti_const2}), $(1-\xi_i)\mu_i^v z_i^v - \lambda_i + H(\xi_i z_i^v)$ is always positive. Moreover, as $H(\cdot)$ is concave, $H''(\xi_i z_i^v)$ is non-positive. The first term of (\ref{eqn:asp_case2_mm1_delay_second_deriv}) is positive, and the second term of (\ref{eqn:asp_case2_mm1_delay_second_deriv}) is non-positive. Therefore, (\ref{eqn:asp_case2_mm1_delay_second_deriv}) is non-negative, which means $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$. Hence, $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. \qedhere
 \end{proof}
-With \Cref{lemma:asp_case2_utility_concave}, we can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^2(z_i^v|\Psi_m^v)$ in the following theorem with a specific form of $H(\cdot)$. Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const1}) as $\Upsilon_i$ for ASP i while the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^2$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^2(z_i^v|\Psi_m^v)$.
+With \Cref{lemma:asp_case2_utility_concave},
+\fi
+% Comment Out
+
+We can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^2(z_i^v|\Psi_m^v)$ in the following theorem with a specific form of $H(\cdot)$. Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const1}) as $\Upsilon_i$ for ASP i while the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^2$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^2(z_i^v|\Psi_m^v)$.
 \begin{theorem}\label{thm:asp_case2_optimal}
 The solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^2(z_i^v|\Psi_m^v)$ and $H(x)=\eta x$ is $(z_{i,2}^v(\Psi_m^v))^*$ if $\Upsilon_i \cap \Upsilon_i^2 \neq \emptyset $
 \begin{subnumcases}{=\label{eqn:asp_case2_optimal_solution}}
@@ -258,8 +292,12 @@ and if $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$
     (z_{i,2}^{v}(\Psi_m^v))^*=0
 \end{aligned}
 \end{equation}
-
+The proof is omitted due to page limitation.
 \end{theorem}
+
+
+% Comment Out
+\iffalse
 \begin{proof}
 We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^2(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case2_utility_concave}, $\Upsilon_i^2$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^2$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case2_utility_concave}, $Y_i^2(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^2(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
 \begin{equation} \label{eqn:asp_case2_utility_first_deriv}
@@ -267,6 +305,8 @@ We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a conve
 \end{equation}
 Using (\ref{eqn:asp_case2_mm1_delay}), (\ref{eqn:asp_case2_objective}), and $H(x)=\eta x$, it only takes simple algebraic operations to have the expression for the extreme point in (\ref{eqn:asp_case2_utility_extreme}). \qedhere
 \end{proof}
+\fi
+% Comment Out
 
 From \Cref{thm:asp_case2_optimal}, we can obtain the MPO's price per VM $\Psi_m^i$ which makes the ASP $i$'s optimal response switch among (\ref{eqn:asp_case2_optimal_solution_individual_rationality}), (\ref{eqn:asp_case2_optimal_solution_lower_boundary}) and (\ref{eqn:asp_case2_optimal_solution_extreme})by solving the $\Psi_m^v$ that satisfies $Y_i^2(\frac{\lambda_i+\gamma_i}{\mu_i^v}|\Psi_m^v) = 0$ and $(z_{i,2}^{v,e}(\Psi_m^v))^* = \frac{\lambda_i+\gamma_i}{\mu_i^v}$.
 \begin{equation}
@@ -281,6 +321,8 @@ From \Cref{thm:asp_case2_optimal}, we can obtain the MPO's price per VM $\Psi_m^
 \end{aligned}
 \end{equation}
 \iffalse
+% Comment Out
+
 The $z_i^v$ will switch from $0$ to $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ at $\Psi_{m,2}^{i,z}$ and $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to$(z_{i,2}^{v,e}(\Psi_m^v))^*$ at $\Psi_{m,2}^{i,l}$.
 \fi
 
@@ -296,7 +338,11 @@ According to (\ref{eqn:asp_def_subobjective_unfold}) and (\ref{eqn:asp_def_subob
 \begin{equation}\label{eqn:asp_case3_objective}
 Y_i^3(z_i^v|\Psi_m^v) \triangleq \sum_{j \in \mathrm{U}_i^n}\Psi_{ij}(1-\frac{T_{ij}^t + T_{i,3}^p(z_i^v)-a_i}{b_i-a_i}) - \Psi_m^vz_i^v
 \end{equation}
-If $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to solve the optimization problem (\ref{eqn:asp_utility_opti}) with the objective being $Y_i^3(z_i^v|\Psi_m^v)$. We prove this properties in the following.
+If $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to solve the optimization problem (\ref{eqn:asp_utility_opti}) with the objective being $Y_i^3(z_i^v|\Psi_m^v)$. The proof of convexity is omitted due to page limitation.
+
+% Comment Out
+\iffalse
+We prove this properties in the following.
 \begin{lemma} \label{lemma:asp_case3_utility_concave}
 $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.
 \end{lemma}
@@ -310,7 +356,11 @@ If $T_{i,3}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^3(z_i^v|\Psi_m^v)$ is 
 \end{equation}
 The first term of (\ref{eqn:asp_case3_mm1_delay_second_deriv}) is positive. Moreover, $(z_i^v)\mu_i^v - \lambda_i$ is larger than $0$ to satisfy the constraint (\ref{eqn:asp_utility_def_opti_const1}), so the second term of (\ref{eqn:asp_utility_def_opti_const1}) is always positive. Therefore, (\ref{eqn:asp_case3_mm1_delay_second_deriv}) is non-negative, which means $T_{i,3}^p(z_i^v)$ is convex in feasible $z_i^v$. Hence, $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. \qedhere
 \end{proof}
-With \Cref{lemma:asp_case3_utility_concave}, we can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^3(z_i^v|\Psi_m^v)$ in the following theorem with a specific form of $H(\cdot)$. Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^3$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^3(z_i^v|\Psi_m^v)$.
+With \Cref{lemma:asp_case3_utility_concave},
+\fi
+% Comment Out
+
+We can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^3(z_i^v|\Psi_m^v)$ in the following theorem with a specific form of $H(\cdot)$. Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^3$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^3(z_i^v|\Psi_m^v)$.
 \begin{theorem}\label{thm:asp_case3_optimal}
 The solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^3(z_i^v|\Psi_m^v)$ and $H(x)=\eta x$ is $(z_{i,3}^v(\Psi_m^v))^*$ and if $\Upsilon_i \cap \Upsilon_i^3 \neq \emptyset $
 \begin{subnumcases}{=\label{eqn:asp_case3_optimal_solution}}
@@ -329,7 +379,11 @@ and if $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$
     (z_{i,3}^{v}(\Psi_m^v))^*=0
 \end{aligned}
 \end{equation}
+The proof is omitted due to page limitation.
 \end{theorem}
+
+% Comment Out
+\iffalse
 \begin{proof}
 We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^3(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case3_utility_concave}, $\Upsilon_i^3$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^3$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case3_utility_concave}, $Y_i^3(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^3(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
 \begin{equation} \label{eqn:asp_case3_utility_first_deriv}
@@ -337,6 +391,8 @@ We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a conve
 \end{equation}
 Using (\ref{eqn:asp_case3_mm1_delay}), (\ref{eqn:asp_case3_objective}), and $H(x)=\eta x $, it only takes simple algebraic operations to have the expression for the extreme point in (\ref{eqn:asp_case3_utility_extreme}). \qedhere
 \end{proof}
+\fi
+% Comment Out
 
 From \Cref{thm:asp_case3_optimal}, we can obtain the MPO's price per VM $\Psi_m^i$ which makes the ASP $i$'s optimal response switch among (\ref{eqn:asp_case3_optimal_solution_individual_rationality}), (\ref{eqn:asp_case3_optimal_solution_lower_boundary}) and (\ref{eqn:asp_case3_optimal_solution_extreme}) by solving the $\Psi_m^v$ that satisfies $Y_i^3(\frac{\lambda_i+\gamma_i}{\mu_i^v}|\Psi_m^v) = 0$ and $(z_{i,3}^{v,e}(\Psi_m^v))^* = \frac{\lambda_i+\gamma_i}{\mu_i^v}$.
 \begin{equation}
@@ -382,14 +438,14 @@ Let's compare the value of (\ref{eqn:asp_case4_mm1_delay}) with the value of  (\
 \end{aligned}
 \end{equation}
 \fi
-% Conment out
+% Comment out
 
 
 
 Based on the analysis above, the MPO can predict how many VMs every ASP will buy given an arbitrary price per VM in each case, which make MPO can optimize its utility by setting $\Psi_m^v$. We will optimize the utility of MPO in the next subsection.
 
 \subsection{MPO Optimization Problem}
-In this section, we solve the optimization problem (\ref{eqn:mpo_utility_opti}). For every ASP, the optimal solution is either case2 or case3. That is, $\mathcal{I}_{case2} \cup \mathcal{I}_{case3} = \mathcal{I}$, where $\mathcal{I}_{case2}$ indicates the ASP set which its optimal solution is in case 2, and $\mathcal{I}_{case3}$ indicates the ASP set which its optimal solution is in case 3. The boundary set of all ASP is $\{\Psi_{m,2}^{i,z}, \Psi_{m,2}^{i,l}, i\in \mathcal{I}_{case2} \}\cup \{\Psi_{m,3}^{j,z}, \Psi_{m,3}^{j,l}, j\in \mathcal{I}_{case3}\}$.
+In this section, we solve the optimization problem (\ref{eqn:mpo_utility_opti}). For every ASP, the optimal solution is either case2 or case3, that is, $\mathcal{I}_{case2} \cup \mathcal{I}_{case3} = \mathcal{I}$, where $\mathcal{I}_{case2}$ indicates the ASP set which its optimal solution is in case 2, and $\mathcal{I}_{case3}$ indicates the ASP set which its optimal solution is in case 3. The boundary set of all ASP is $\{\Psi_{m,2}^{i,z}, \Psi_{m,2}^{i,l}, i\in \mathcal{I}_{case2} \}\cup \{\Psi_{m,3}^{j,z}, \Psi_{m,3}^{j,l}, j\in \mathcal{I}_{case3}\}$.
 The boundary sequence partitions the space of the MPO's price per VM $\Psi_m^v$ into $2I + 1$ intervals.
 \begin{equation}
 0 \cup \mathbb{R}^{+} = \mathcal{M}^1 \cup \mathcal{M}^2 \cdots \cup \mathcal{M}^{2I+1}
@@ -411,7 +467,7 @@ These four sets form a partition of the all ASPs. That is, $\mathcal{I} = \Omega
 & + \sum_{i\in \Omega^{k,e}_{2}}(z_{i,2}^{v,e}(\Psi_m^v))^* + \sum_{i \in \Omega_3^{k,e}}(z_{i,3}^{v,e}(\Psi_m^v))^*
 \end{aligned}
 \end{equation}
-With the expression (\ref{eqn:total_number_VM}), the MPO's optimization problem in each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ is
+Finally, the MPO's optimization problem in each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ is
 \begin{maxi!}[2]
   {\Psi_m^v}
   {\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^* - C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*\big) \label{eqn:f_mpo_utility_opti_obj}}
@@ -421,8 +477,12 @@ With the expression (\ref{eqn:total_number_VM}), the MPO's optimization problem 
   \addConstraint{\Psi_m^v \in \mathcal{M}^k}{\label{eqn:f_mpo_utility_opti_const2}}
 \end{maxi!}
 \begin{theorem} \label{thm:f_mpo_convex_optimization}
-In each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$, the MPO's optimization problem (\ref{eqn:f_mpo_utility_opti}) is a convex optimization problem. The MPO's optimal price per VM $\Psi_m^v$ is one of the optimal prices in each $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ that gives the highest utility.
+In each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$, the MPO's optimization problem (\ref{eqn:f_mpo_utility_opti}) is a convex optimization problem. The MPO's optimal price per VM $\Psi_m^v$ is one of the optimal prices in each $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ that gives the highest utility. The proof of convexity is omitted due to page limitation.
 \end{theorem}
+
+
+% Comment Out
+\iffalse
 \begin{proof}
 We start by proving that $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v$ when $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \mathcal{I}$. In (\ref{eqn:total_number_VM}), only the second and third term pertains to $\Psi_m^v$. As the summation of convex function is also a convex function, it suffices to prove that $(z_{i,2}^{v,e}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_2^{k,e}$ and $(z_{i,3}^{v,e}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_3^{k,e}$. Taking the second derivative of (\ref{eqn:asp_case2_utility_extreme}) with respect to $\Psi_m^v$, we have
 \begin{equation}
@@ -448,7 +508,10 @@ And the second derivative of the third term is
 \end{equation}
 Therefore, (\ref{eqn:mpo_utility_first_term}) is concave in $\Psi_m^v$. The second term of (\ref{eqn:f_mpo_utility_opti_obj}), $C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$, is convex in $\Psi_m^v$ as it is a composition of $C_m^v$ and $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v)$ where $C_m^v$ is convex and non-decreasing, and $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))$ is convex in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1, \cdots, 2I+1\}$. Since a concave function minus a convex function yields a concave function, (\ref{eqn:f_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \mathcal{I}$. In sum, the MPO's optimization problem (\ref{eqn:f_mpo_utility_opti}) in each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ is a convex optimization problem. \qedhere
 \end{proof}
-By comparing the optimal value in every interval, we can find the largest value among every interval to find the best $\Psi_m^v$ for MPO.
+\fi
+ % Comment Out
+
+By the properties mentioned in \Cref{thm:f_mpo_convex_optimization}, we can find the largest utility of MPO among every interval. By comparing them, we can find the best $\Psi_m^v$ for MPO.
 
 % Comment out
 \iffalse
@@ -465,47 +528,47 @@ Because of \Cref{thm:mpo_case1_convex_optimization}, \Cref{thm:mpo_case2_convex_
 
 \section{Simulation} \label{sec:simulation}
 \subsection{Simulation Setup}
-In the simulation, we choose the cost function $C_m^v(\cdot)$ to be $C_m^v(x) = 100e^x$, which is convex and non-decreasing. For path loss model, we choose $g(d)=22log_{10}(d)+28+20log_{10}(f_c)$\cite{3gpp.36.814}, where $d$ is the distance between EUs and ASPs, and $f_c$ is the frequency band. Except (\ref{mal_ratio}), all the ratio of malicious users to normal users are set to 0.5. For every section except (\ref{num_cmp}), the number of end users are set to 100 per ASP. The key parameters are presented in \Cref{parameterlist}, and $U(a, b)$ represents the uniform distribution in $[a, b]$.
+In the simulation, we set the cost function $C_m^v(\cdot)$ to be $C_m^v(x) = 100e^x$, which is convex and non-decreasing. For path loss model, we use $g(d)=22log_{10}(d)+28+20log_{10}(f_c)$\cite{3gpp.36.814}, where $d$ is the distance between EUs and ASPs, and $f_c$ is the frequency band. Except (\ref{mal_ratio}), all the ratio of malicious users to normal users are set to 0.5. For every section except (\ref{num_cmp}), the number of end users are set to 100 per ASP. The key parameters are presented in \Cref{parameterlist}, and $U(a, b)$ represents the uniform distribution in $[a, b]$.
 \begin{table}[!htb]
 \caption{System Parameters}
-\begin{tabular}{|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
- $\eta$ &$N_o$ & $p_i$ &$\chi_{ij}(MHz)$&$\lambda_i$ \\ \hline
- 3500 & -100dBM\cite{chen2015efficient} & 23dBM\cite{3gpp.36.101}&$U(0.5, 0.6)$&$U(1, 3)$\cite{fan2018application}\cite{sun2016primal} \\ \hline
-$|\mathcal{I}|$& $d_{ij}(ms)$ &$B_i$ &$f_m^v(GHz)$&$s_{ij}(kB)$ \\ \hline
-5&$U(5, 100)$&20MHz&$U(0.6, 0.9)$&$U(4, 5)$\\ \hline
-$\gamma_i$&distance&$\xi_i$&$\phi_i$ &$\Psi_{ij}$  \\ \hline
-100&$U(50, 100)$&0.999&0.05&$U(4, 5)$\\ \hline
+ Parameters&$\eta$ &$N_o$ & $p_i$ &$\chi_{ij}(MHz)$&$\lambda_i$ \\ \hline
+ Values&3500 & -100dBM& 23dBM&$U(0.5, 0.6)$&$U(1, 3)$\\ \hline
+Parameters&$|\mathcal{I}|$& $d_{ij}(ms)$ &$B_i$ &$f_m^v(GHz)$&$s_{ij}(kB)$ \\ \hline
+Values&5&$U(5, 100)$&20MHz&$U(0.6, 0.9)$&$U(4, 5)$\\ \hline
+Parameters&$\gamma_i$&distance&$\xi_i$&$\phi_i$ &$\Psi_{ij}$  \\ \hline
+Values&100&$U(50, 100)$&0.999&0.05&$U(4, 5)$\\ \hline
 \end{tabular}
 \label{parameterlist}
 \end{table}
 
-\begin{figure}
+\begin{figure}[!ht]
   \includegraphics[width=0.45\textwidth]{5GDDoS_Game_vm_number.pdf}
   \caption{Total Purchased VM v.s. MPO Price}
   \label{subfig-1:VMnum}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!ht]
   \includegraphics[width=0.45\textwidth]{5GDDoS_Game_utility.pdf}
 \caption{MPO Utility v.s. MPO Price}
 \label{subfig-2:MPOutil}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!ht]
   \includegraphics[width=0.45\textwidth]{5GDDoS_Game_social_ratio.pdf}
     \caption{Different Malicious Users to Normal Users Ratio}
 \label{subfig-1:ratio}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!ht]
   \includegraphics[width=0.45\textwidth]{5GDDoS_Game_social_device.pdf}
 \caption{Different Number of End users}
 \label{subfig-2:num_cmp}
 \end{figure}
 \subsection{The Boundary of MPO Optimization Problem}
 \label{MPO_opti}
-As seen in \Cref{subfig-1:VMnum} and \Cref{subfig-2:MPOutil}, the boundary has been plot and shown in the figures. The ASP has the same optimal response in every interval. As the MPO price increases, the optimal responses by the ASPs changes from a decreasing, convex function ((\ref{eqn:asp_case2_utility_extreme}) and (\ref{eqn:asp_case3_utility_extreme})) to a constant. The MPO utility shown in \Cref{subfig-2:MPOutil} is a concave function in every interval, which is proven in the previous section.
+As seen in \Cref{subfig-1:VMnum} and \Cref{subfig-2:MPOutil}, the boundary has been plot and shown in the figures. The ASP has the same optimal response in every interval. As the MPO price increases, the optimal responses by the ASPs changes from a decreasing, convex function ((\Cref{eqn:asp_case2_utility_extreme}) and (\Cref{eqn:asp_case3_utility_extreme})) to a constant. Moreover, the MPO utility shown in \Cref{subfig-2:MPOutil} is a concave function in every interval. Thus, we can solve the MPO optimization problem by solving the convex optimization problem in every interval.
 
 \subsection{Comparison Between Different Ratio of Malicious Users and Normal Users}\label{mal_ratio}
 We compare different rules of IPS VM allocation in scenarios of different malicious to normal users. In this simulation, the number of normal users is fixed to 100. As seen in \Cref{subfig-1:ratio}, if the ratio increases, the social welfare declines. As the ratio increases, ASP has to devote more VMs to intercept unnecessary tasks instead of serving end-users, hence the decline in social welfare. In addition, our proposed scheme has the highest social welfare in contrast to other ways in different scenarios.
@@ -515,7 +578,7 @@ We compare different rules of IPS VM allocation in scenarios of different malici
 We compare different allocation rules of IPS VM in scenarios of various numbers of end-users. These rules include $0\%$, $30\%$ IPS VM. As seen in \Cref{subfig-2:num_cmp}, when the number of devices increases, the social welfare increases initially, but then decreases after the device number exceeds 150. As the devices number started to exceed the optimal value, ASP cannot serve excess EUs in time, thus the social welfare drops. Moreover, our proposed rule has the best social welfare compare with other allocation rules in different scenarios.
 
 \section{Conclusion} \label{sec:conclusion}
-In the paper, we proposed an optimal allocation rule to allocate the IPS VM to mitigate DDoS attacks. In addition, we solve the optimization problem of ASP and MPO by formulating the hierarchy relationship between the two users into a Stackelberg game.
+In the paper, we proposed an optimal allocation rule to allocate the IPS VM to mitigate DDoS attacks. In addition, we solve the optimization problem of ASP and MPO by formulating the hierarchy relationship between the two users into a Stackelberg game. In the simulation section, we found out that our proposed method to allocate IPS VMs has better social welfare than the fixed ratio methods.
 
 
 \bibliographystyle{IEEEtran}
