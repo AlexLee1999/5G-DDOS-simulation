@@ -132,7 +132,7 @@ class ASP():
         color_dict = {100: 'red', 300: 'darkorange', 500: 'indigo', 700: 'darkgreen', 900: 'darkblue'}
         if GLOBAL_ETA > self.service_rate:
 
-            plt.figure(figsize=(30, 16), dpi=400)
+            plt.figure(figsize=(42, 25), dpi=400)
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
                 self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
@@ -153,16 +153,16 @@ class ASP():
                 plt.legend(loc="best")
                 z_v = []
                 ut = []
-            plt.xlabel(r'$\bf{Purchased\ VM}$', fontsize=60)
-            plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=60)
-            plt.xticks(fontsize=50)
-            plt.yticks(fontsize=50)
-            plt.legend(loc="best", fontsize=60)
+            plt.xlabel(r'$\bf{Purchased\ VM}$', fontsize=100)
+            plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
+            plt.xticks(fontsize=80)
+            plt.yticks(fontsize=80)
+            plt.legend(loc="best", fontsize=100)
             plt.savefig('./5GDDoS_Game_asp_utility_case1.pdf')
             plt.savefig('./5GDDoS_Game_asp_utility_case1.jpg')
             plt.close()
         else:
-            plt.figure(figsize=(30, 16), dpi=400)
+            plt.figure(figsize=(42, 25), dpi=400)
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
                 self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
@@ -183,11 +183,11 @@ class ASP():
                 plt.legend(loc="best")
                 ut = []
                 z_v = []
-            plt.xlabel(r'$\bf{Purchased\ VM}$', fontsize=60)
-            plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=60)
-            plt.xticks(fontsize=50)
-            plt.yticks(fontsize=50)
-            plt.legend(loc="best", fontsize=60)
+            plt.xlabel(r'$\bf{Purchased\ VM}$', fontsize=100)
+            plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
+            plt.xticks(fontsize=80)
+            plt.yticks(fontsize=80)
+            plt.legend(loc="best", fontsize=100)
             plt.savefig('./5GDDoS_Game_asp_utility_case2.pdf')
             plt.savefig('./5GDDoS_Game_asp_utility_case2.jpg')
             plt.close()
@@ -197,7 +197,7 @@ class ASP():
             self.mpo_price = 100
             ut = []
             z_h = []
-            plt.figure(figsize=(30, 16), dpi=400)
+            plt.figure(figsize=(42, 25), dpi=400)
             for z in range(1000, 1005, 1):
                 self.z_v = z / 1000
                 for i in range(11):
@@ -207,14 +207,14 @@ class ASP():
                     self.set_utility()
                     z_h.append(i)
                     ut.append(self.utility)
-                plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}")
+                plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}", linewidth=7)
                 ut = []
                 z_h = []
-            plt.xlabel(r'$\bf{IPS\ VM\ ratio}$', fontsize=60)
-            plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=60)
-            plt.xticks(fontsize=50)
-            plt.yticks(fontsize=50)
-            plt.legend(loc="best", fontsize=60)
+            plt.xlabel(r'$\bf{IPS\ VM\ ratio}$', fontsize=100)
+            plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
+            plt.xticks(fontsize=80)
+            plt.yticks(fontsize=80)
+            plt.legend(loc="best", fontsize=100)
             plt.savefig('./5GDDoS_Game_asp_utility_z_h_case1.pdf')
             plt.savefig('./5GDDoS_Game_asp_utility_z_h_case1.jpg')
             plt.close()
@@ -222,7 +222,7 @@ class ASP():
             self.mpo_price = 100
             ut = []
             z_h = []
-            plt.figure(figsize=(30, 16), dpi=400)
+            plt.figure(figsize=(42, 25), dpi=400)
             for z in range(1000, 1005, 1):
                 self.z_v = z / 1000
                 for i in range(11):
@@ -232,14 +232,14 @@ class ASP():
                     self.set_utility()
                     z_h.append(i)
                     ut.append(self.utility)
-                plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}")
+                plt.plot(z_h, ut, marker='.', linestyle='-.', label=f"VM :{self.z_v}", linewidth=7)
                 ut = []
                 z_h = []
-            plt.xlabel(r'$\bf{IPS\ VM\ ratio}$', fontsize=60)
-            plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=60)
-            plt.xticks(fontsize=50)
-            plt.yticks(fontsize=50)
-            plt.legend(loc="best", fontsize=60)
+            plt.xlabel(r'$\bf{IPS\ VM\ ratio}$', fontsize=100)
+            plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
+            plt.xticks(fontsize=80)
+            plt.yticks(fontsize=80)
+            plt.legend(loc="best", fontsize=100)
             plt.savefig('./5GDDoS_Game_asp_utility_z_h_case2.pdf')
             plt.savefig('./5GDDoS_Game_asp_utility_z_h_case2.jpg')
             plt.close()
