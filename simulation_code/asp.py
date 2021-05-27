@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 class ASP():
     def __init__(self, ratio, num):
         self.bandwidth = ASP_BANDWIDTH
-        self.frequency = MPO_VM_CPU_FREQUENCY
+        self.frequency = uniform(MPO_CPU_FREQUENCY_LOWER, MPO_CPU_FREQUENCY_UPPER)
         self.device_list = []
         self.mal_device_list = []
         self.malicious_ratio = ratio
