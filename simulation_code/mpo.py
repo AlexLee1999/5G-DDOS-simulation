@@ -98,7 +98,7 @@ class MPO():
         return util, util + asp_util, asp_util
 
     def plot_phi(self):
-        phi = 10
+        phi = 30
         step = 5
         pr = []
         ut = []

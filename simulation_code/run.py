@@ -7,7 +7,7 @@ from tqdm import tqdm
 ITER = 1000
 
 def plot_utility_device_num():
-    num = [i for i in range(50, 250, 20)]
+    num = [i for i in range(50, 300, 50)]
     util_proposed = []
     social_proposed = []
     asp_util_proposed = []
@@ -207,12 +207,17 @@ def plot_different_ratio():
     plt.close()
 
 if __name__ == '__main__':
-    mpo = MPO(0.5, 100)
-    mpo.plot_phi()
-    mpo.plot_social_welfare()
-    asp = ASP(0.5, 100)
-    asp.plot_max()
-    asp.plot_max_zh()
-    plot_different_ratio()
+    # mpo = MPO(0.5, 100)
+    # mpo.plot_phi()
+    # mpo.plot_social_welfare()
+    # asp = ASP(0.5, 100)
+    # asp.plot_max()
+    # asp.plot_max_zh()
+    # plot_different_ratio()
     plot_utility_device_num()
     plot_utility_ratio()
+    # lst = []
+    # for _ in range(100):
+    #     asp = ASP(0.5, 100)
+    #     lst.append(asp.service_rate)
+    # print(sum(lst)/100)

@@ -3,7 +3,7 @@ from math import exp
 # These are the parameters of Global
 # Prefix with GLOBAL_
 ########################################
-GLOBAL_ETA = 3500
+GLOBAL_ETA = 5000
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_
@@ -16,8 +16,8 @@ DEVICE_DISTANCE_LOWER = 50
 # frequency
 DEVICE_FREQUENCY = 2.1
 # required cpu cycle
-DEVICE_REQUIRED_CPU_CYCLE_UPPER = 0.6E6
-DEVICE_REQUIRED_CPU_CYCLE_LOWER = 0.5E6
+DEVICE_REQUIRED_CPU_CYCLE_UPPER = 0.9E6
+DEVICE_REQUIRED_CPU_CYCLE_LOWER = 0.1E6
 # task size
 DEVICE_TASK_SIZE_UPPER = 5  # 5 kB
 DEVICE_TASK_SIZE_LOWER = 4  # 4 kB
@@ -25,8 +25,8 @@ DEVICE_TASK_SIZE_LOWER = 4  # 4 kB
 DEVICE_ARRIVAL_RATE_UPPER = 3
 DEVICE_ARRIVAL_RATE_LOWER = 1
 # price per task
-DEVICE_PRICE_PER_TASK_UPPER = 5
-DEVICE_PRICE_PER_TASK_LOWER = 4
+DEVICE_PRICE_PER_TASK_UPPER = 10
+DEVICE_PRICE_PER_TASK_LOWER = 1
 
 ########################################
 # These are the parameters of ASP
@@ -58,8 +58,7 @@ MPO_NUM_OF_ASP_LOWER = 5
 MPO_NUM_OF_VM_LOWER = 1.2
 MPO_NUM_OF_VM_UPPER = 1.5
 
-MPO_CPU_FREQUENCY_UPPER = 0.3 * 10E9
-MPO_CPU_FREQUENCY_LOWER = 0.1 * 10E9
+MPO_CPU_FREQUENCY = 0.25 * 10E9
 
 def MPO_cost(x):
     return 100 * exp(x)

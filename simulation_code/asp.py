@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 class ASP():
     def __init__(self, ratio, num):
         self.bandwidth = ASP_BANDWIDTH
-        self.frequency = uniform(MPO_CPU_FREQUENCY_LOWER, MPO_CPU_FREQUENCY_UPPER)
+        self.frequency = MPO_CPU_FREQUENCY
         self.device_list = []
         self.mal_device_list = []
         self.malicious_ratio = ratio
@@ -21,7 +21,7 @@ class ASP():
         self.mpo_price = None
         self.chi = 0.999
         self.gamma = 100
-        self.phi = 0.05
+        self.phi = 0
 
     def set_users(self):
         for i in range(self.num_of_normal_users):
