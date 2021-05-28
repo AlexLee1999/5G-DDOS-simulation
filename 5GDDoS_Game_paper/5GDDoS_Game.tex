@@ -35,14 +35,13 @@
 \makeatother
 \renewcommand{\arraystretch}{1.2}
 \begin{document}
-\title{5G DDoS}
-\author{\IEEEauthorblockN{Zhan-Lun Chang\IEEEauthorrefmark{1}, Chih-Yu Wang\IEEEauthorrefmark{2}, Hung-Yu Wei\IEEEauthorrefmark{3}}
+\title{Game-Theoretic Intrusion Prevention System Deployment for Mobile Edge Computing}
+\author{\IEEEauthorblockN{Zhan-Lun Chang\IEEEauthorrefmark{1}, Chun-Yen Lee\IEEEauthorrefmark{2}, Chia-Hung Lin\IEEEauthorrefmark{2},
+Chih-Yu Wang\IEEEauthorrefmark{1}, Hung-Yu Wei\IEEEauthorrefmark{2}}
 \IEEEauthorblockA{
-\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}Research Center for Information Technology Innovation, Academia Sinica\\
-\IEEEauthorrefmark{3}Graduate Institute of Electrical Engineering, National Taiwan University\\
-\IEEEauthorrefmark{1}zhc915@citi.sinica.edu.tw,
-\IEEEauthorrefmark{2}cywang@citi.sinica.edu.tw,
-\IEEEauthorrefmark{3}hywei@ntu.edu.tw,
+\IEEEauthorrefmark{1}Research Center for Information Technology Innovation, Academia Sinica\\
+\IEEEauthorrefmark{2}Department of Electrical Engineering, National Taiwan University\\
+zhc915@citi.sinica.edu.tw, b06203017@ntu.edu.tw, b06504016@ntu.edu.tw, cywang@citi.sinica.edu.tw, hywei@ntu.edu.tw,
 }}
 \maketitle
 
@@ -51,20 +50,28 @@ To be added ...
 \end{abstract}
 
 \section{Introduction}
-Mobile edge computing (MEC) is a promising technique to provide ultra-low-latency computing services for latency-critical applications such as Vehicle Automation, AR/VR, Artificial Intelligent Internet of Things (AIoT), etc. MEC platform providers (MPOs) deploy MEC servers at the network edge, such as base stations, to provide computation resources. Application service providers (ASPs) may rent those resources to deploy their latency-critical applications and provide services to the end users. This architecture will be the foundation of 5G/B5G killer applications and is expected to play a major role of 5G/B5G ecosystem.
+Mobile edge computing (MEC) is a promising technique to provide ultra-low-latency computing services for latency-critical applications. MEC platform providers (MPOs) deploy MEC servers at the network edge, such as base stations, to provide computation resources for latency-critical tasks. Application service providers (ASPs) may rent or buy those resources to deploy their latency-critical applications and provide services to the end users. This architecture will play a major role of 5G/B5G ecosystem as it serves as the foundation of 5G/B5G killer applications such as Vehicle Automation, AR/VR, Artificial Intelligent Internet of Things (AIoT), etc.
 
-The network attack has been considered as a serious threat to most network services, from the global web services to local IoT networks. One of the most common attacks is the Distributed Denial-of-Service (DDoS) attack, which is performed by a significant number of infected devices to send fake requests to the victim service to occupy the resource. The service requests of true end users will then be denied afterward due to that the victim service is out of resources. We observe that DDoS would be critical in MEC architecture, as the available resource at the MEC servers are significantly less than the traditional cloud architecture, while the deployed applications are mostly latency-critical and cannot tolerant service denial even for a short period of time. A defensive measurement is necessary to guarantee the MEC service quality even under the foreseen DDoS attacks.
+Nevertheless, the network attack has been considered as a serious threat to most network services, from the global web services to local IoT networks. One of the most common attacks is the Distributed Denial-of-Service (DDoS) attack, which is performed by a significant number of infected devices to send fake requests to the victim service to occupy the resource. The service requests of true end users will be denied afterward due to that the victim service is out of resources. We observe that DDoS would be critical in the MEC architecture, as the available resource at the MEC servers are significantly less than the traditional cloud architecture, while the deployed applications are mostly latency-critical and cannot tolerant service denial even for a short period of time. A defensive measurement is necessary to guarantee the MEC service quality even under the foreseen DDoS attacks.
 
-Intrusion prevention system (IPS) is an effective measurement to identify and respond to the malicious behaviors performed by the attackers. In DDoS attack, for instance, an effective IPS can identify those malicious requests and isolate them from the service requests from the normal end users. Nevertheless, such a system also requires computation resources
+Intrusion prevention system (IPS) is an effective measurement to identify and respond to the malicious behaviors performed by the attackers. In DDoS attack, for instance, an effective IPS instance can identify those malicious requests and isolate them from the service requests from the normal end users. Nevertheless, due to the deployment limitation of network edge environment, the candidate IPS for MEC is likely to be software-based, which means there will be a trade-off between IPS deployment and application resource reservation: The deployment of IPS will reduce the amount of computation resource for applications as some are occupied by the IPS instances, and thus the service latency may increase accordingly. On the other hand, lacking sufficient IPS will make the application vulnerable to DDoS attack. The optimal configuration of IPS given the latency requirements, available resource, and expected attack strength, becomes critical for the ASP when deploying its application at the MEC offered by the MPO.
 
-\section{Related Works}
-Several studies have been conducted to fight against DDoS attacks.  Alharbi \emph{et al.} introduced NFV and edge computing architecture to design a two-stage DDoS mitigation network\cite{Alharbi}. Santoyo \emph{et al.} presented an edged based detection scheme ensuring fast detection of DDoS attacks from IoT devices\cite{Santoyo}. Mert \emph{et al.}  provided a similar paradigm that security function on a edge computing defend the DDoS attack\cite{Mert}. A multi-level DDoS mitigation framework \cite{Yan} was proposed by Yan \emph{et al.}  to mitigate the DDoS attack to IoT. In \cite{Ali}, Ali \emph{et al.} illustrated a three-tier intrusion detection and prevention system in SDN-IoT environment to assure security. Shen \emph{et al.} \cite{Shen} implemented a Two-Phase DDoS detection system and showed that it can detect attacks with little overhead.
+In this paper, we proposed a game-theoretic framework to study the joint computation resource allocation and IPS deployment in the MEC architecture, from the economic perspective. Specifically, the MPO provides the MEC computation resource in the form of virtual machine with a price. The ASPs buy the VM from the MPO to deploy their applications, and the IPS can be optionally deployed if the DDoS attack is expected. In the proposed framework, we study the pricing strategy of the MPO and optimal amount of VMs for application and IPS deployment of the ASPs by forming the problem as a Stackelberg game. The best responses of both MPO and ASPs are derived theoretically, while an effective algorithm is proposed to identify the Stackelberg equilibrium. The simulation results confirm that the proposed solutions significantly increase the social welfare of the system, that is, the total benefit of the whole MEC system, compared with the conventional solutions.
 
-Some papers enhanced intrusion detection with different methods. For example, several papers adopted the entropy-based methods to identify the DDoS attack and achieve a decent detection rate\cite{Wang}\cite{Xuanyuan}. Liu \emph{et al.} developed a Deep Convolution Neural Network Q-learning model to prevent Mirai botnet\cite{Liu}. Zhang \emph{et al.} built dynamic deployment of classifiers based on reinforcement learning model to detect DDoS attacks\cite{Zhang}.
+The main contributions of this work is as follows:
+\begin{enumerate}
+    \item To the best of our knowledge, we are the first group to study the DDoS attack and defense measurement in the MEC environment in the game-theoretic approach. This approach will help both MPO and ASPs to optimize their configurations in terms of their economic benefits and overall social welfare.
+    \item We propose a flexible IPS deployment strategy as a response to the potential DDoS attack targeting the MEC architecture by allowing ASPs to determine the allocation of VM resource for IPS and services according to the expected attack strength.
+    \item The optimal straregy of both MPO and ASPs are analyzed through the proposed Stackelberg game model. We proved the existence of the Stackelberg equilibrium and designed an algorithm which can identify the equilibrium in polynomial time. The simulation results verify the effectiveness of the proposed solution in maintaining the service quality and social welfare.
+\end{enumerate}
 
-Collaborative frameworks also provided a possible solution. Yang \emph{et al.} devised a collaborative task offloading scheme to balance the task load between overloaded and underloaded cloudlets, which can improve the overall performance without additional security frameworks\cite{Yang}. Li \emph{et al.} explored the cooperative defense strategy and provided an online cooperative defense framework\cite{Li}. Introduced by Mtibaa \emph{et al.} \cite{Mtibaa}, detecting and isolating malicious nodes for D2D communication was proposed as another solution to DDoS attacks.
+\section{Related Work}
+The intrusion detection has been studied in the literature with different approaches. Wang \emph{et al.} adopted the entropy-based methods to identify the DDoS attack\cite{Wang}. Liu \emph{et al.} developed a Deep Convolution Neural Network Q-learning model to prevent Mirai botnet\cite{Liu}. Zhang \emph{et al.} built dynamic deployment of classifiers based on reinforcement learning model\cite{Zhang}.
 
-Distinguished from previous works, we focus on the resource allocation problems when defending DDoS attacks in this paper. We use the Stackelberg game model to formulate the relationships between MPO and ASPs and solve the subsequent optimization problems to maximize the utility of both sides under the DDoS attacks.
+Several studies have been conducted to defend DDoS attacks in the MEC environment.  Alharbi \emph{et al.} introduced NFV and edge computing architecture to design a two-stage DDoS mitigation network\cite{Alharbi}. Mert \emph{et al.}  provided a similar paradigm that security function on a edge computing defend the DDoS attack\cite{Mert}. A multi-level DDoS mitigation framework \cite{Yan} was proposed by Yan \emph{et al.}  to mitigate the DDoS attack to IoT. Shen \emph{et al.} \cite{Shen} implemented a Two-Phase DDoS detection system and showed that it can detect attacks with smaller overhead. Furthermore. Yang \emph{et al.} devised a collaborative task offloading scheme to balance the task load between overloaded and underloaded cloudlets \cite{Yang}. Li \emph{et al.} explored the cooperative defense strategy and provided an online cooperative defense framework\cite{Li}. Introduced by Mtibaa \emph{et al.} , detecting and isolating malicious nodes for D2D communication was proposed as another solution to DDoS attacks\cite{Mtibaa}.
+
+Distinguished from previous works, we focus on the resource allocation problems when defending DDoS attacks from the economic perspective of both MPO and ASPs. We use the Stackelberg game model to formulate the relationships between MPO and ASPs and solve the subsequent optimization problems to maximize the utility of both sides under the DDoS attacks.
+
 \section{System Model}
 \begin{figure}[!ht]
 \centering
@@ -72,20 +79,24 @@ Distinguished from previous works, we focus on the resource allocation problems 
 \caption{System Architecture}
 \label{fig:system}
 \end{figure}
-We illustrate our system architecture in Fig~\ref{fig:system}. There are three types of entities in our system: the MEC platform operator (MPO), application service providers (ASPs), and end-users (EUs). The MPO manages the computation resources in terms of virtual machines (VMs) of geographically distributed edge servers. Since the ASPs do not have the computation resources to process the application tasks, they have strong demands for the MPO's VMs whose total number is $\mathcal{Q}_{V}$. The goal of the MPO is to maximize its profit by finding the optimal unit selling price $\Psi_{m}^v$ per VM. We denote the set of ASPs as $\mathcal{I}=\{1, \cdots, I\}$. The ASPs determine the number of VMs to buy (denoted by $z_i^v$) from MPO to maximize their profit too. The ASPs utilize these purchased VMs to either run the application service or mitigate the DDoS security attacks. If ASPs devote most of their VMs to running the application service, they are prone to DDoS security attacks. The security threat would damage the users' quality of experience (QoE) and thus the revenue of ASPs. Even worse, it would paralyze the application service such that the ASPs have no revenue. On the other hand, if the ASPs devote most of their VMs to mitigating the DDoS attack, they can not ensure good satisfaction to the users (e.g., users' latency requirements can not be satisfied) even though the ASPs are immune from the DDoS attacks. Therefore, it is crucial to find an optimal resource allocation between running the application service and mitigating the DDoS attacks. We denote the set of EUs associated with ASP $i \in \mathcal{I}$ as $\mathrm{U}_i$ and further categorize it into two kinds: normal users (NUs) $\mathrm{U}_i^n$ and malicious users (MUs) $\mathrm{U}_i^m$. Each MU $j \in \mathrm{U}_i$ has the Poisson task arrival rate $\lambda_{ij}$, latency requirement $d_{ij}$, and task size $s_{ij}$. We consider the situation that the EUs do not have enough computation resources or needed resources such as Graphics Processing Unit (GPU) resources to process the application tasks. Therefore, they will offload the tasks out to the MPO.
+We consider a system with three types of entities: the MEC platform operator (MPO), a set of application service providers (ASPs) $\mathcal{I}=\{1, \cdots, I\}$, and end-users (EUs) (Fig~\ref{fig:system}). The MPO manages the computation resources in terms of virtual machines (VMs) of geographically distributed edge servers. Since the ASPs do not have the computation resources to process the application tasks, they have strong demands for the MPO's VMs. The goal of the MPO is to maximize its profit by finding the optimal unit selling price $\Psi_{m}^v$ per VM.  The ASPs determine the number of VMs to buy (denoted by $z_i^v$) from MPO to maximize their profit. Then, we denote the set of EUs associated with ASP $i \in \mathcal{I}$ as $\mathrm{U}_i$ and further categorize it into two kinds: normal users (NUs) $\mathrm{U}_i^n$ and malicious users (MUs) $\mathrm{U}_i^m$. NUs seeks the service from the ASPs with latency requirements, while the MUs aim to interrupt the service through sending fake tasks. Each EU $j \in \mathrm{U}_i$ has the Poisson task arrival rate $\lambda_{ij}$, latency requirement $d_{ij}$, and task size $s_{ij}$. We assume the EUs cannot handle these tasks locally because they rely on the computation resources and backbone model/database offered by the ASPs to process the tasks.
 
-The DDoS attacks happen when the AUs flood into the edge servers. The ASPs can intercept some malicious requests by employing open-source intrusion prevention system (IPS) such as Suricata \cite{Suricata}. The IPS of all ASPs monitors and filters all task requests, and all VMs devoted to running the application service process the filtered task requests. We assume the IPS does not classify the normal task requests as malicious, but it can not discern all malicious requests and would classify some malicious task requests as normal. How many malicious requests can the IPS filter depends on how many VMs the ASPs dedicate to the IPS. We use $H(\cdot)$ to represent the relationship between the quantity of intercepted malicious requests and the number of devoted VMs. $H(\cdot)$ is assumed to be nondecreasing and concave. Also, $H(0)=0$. In this paper, we recommend a linear function form of $H(x) = \eta{x}$ so that the closed form solutions can be derived in the following optimization problems. The cost of using IPS only comes from the devoted VMs and does not include any payment because it is open-source.
 
-We consider orthogonal frequency-division multiple access (OFDMA) system and thus the bandwidth of the edge servers whose computation resources are allocated to ASP $i$ denoted by $B_i$ can be divided into $|\mathrm{U}_i|$ sub-bands of size $W_{i} = B_i/|\mathrm{U}_i|$. Each MU $j\in \mathrm{U}_i$ transmits the data over each of $|\mathrm{U}_i|$ sub-bands, and hence they would not cause interference to other EUs while transmitting. The maximum achievable uplink data transmission rate $R_{ij}$ between ASP $i$ and MU $j \in \mathrm{U}_i$ is
+The ASPs utilize these purchased VMs to either run the application service for NUs or mitigate the DDoS security attacks from MUs. If ASPs devote most of their VMs to running the application service, they are prone to DDoS security attacks from MUs. The security threat would damage the quality of experience (QoE) of NUs and thus the revenue of ASPs. On the other hand, if the ASPs devote most of their VMs to mitigating the DDoS attack, the latency requirements of NUs may still not be satisfied if the available resource is not enough. Therefore, it is crucial to find an optimal resource allocation between running the application service and mitigating the DDoS attacks.
+
+Specifically, the ASPs can intercept malicious requests by employing software-based intrusion prevention system (IPS) \cite{Suricata}. The IPS of all ASPs monitors and filters all task requests, and all VMs devoted to running the application service process the filtered task requests. We assume the IPS can perfectly identify the normal task requests, but it may classify some malicious task requests as normal. The number of malicious requests the IPS filter can filter depends on the number of VMs the ASPs dedicate to the IPS. We use $H(\cdot)$ to represent the relationship between the quantity of intercepted malicious requests and the number of devoted VMs. $H(\cdot)$ is assumed to be non-decreasing and concave. Also, $H(0)=0$. In this paper, we consider a linear function form of $H(x) = \eta{x}$. %so that the closed form solutions can be derived in the following optimization problems.
+%The cost of using IPS only comes from the devoted VMs and does not include any payment because it is open-source.
+
+We consider orthogonal frequency-division multiple access (OFDMA) system and thus the bandwidth of the edge servers whose computation resources are allocated to ASP $i$ denoted by $B_i$ can be divided into $|\mathrm{U}_i|$ sub-bands of size $W_{i} = B_i/|\mathrm{U}_i|$. Each EU $j\in \mathrm{U}_i$ transmits the data at a dedicated sub-band to avoid interference. The maximum achievable uplink data transmission rate $R_{ij}$ between ASP $i$ and EU $j \in \mathrm{U}_i$ is
 \begin{equation} \label{eqn:shannon}
-R_{ij}=W_i \cdot log_2\Big(1+\frac{p_{ij}g_{ij}}{N_{0}}\Big)
+R_{ij}=W_i \cdot log_2\Big(1+\frac{p_{ij}g_{ij}}{N_{0}}\Big),
 \end{equation}
-where $p_{ij}$ is the maximum transmission power of MU $j$ in $\mathrm{U}_i$, and $g_{ij}$ denotes the uplink channel gain between ASP $i$ and MU $j$. $N_0$ is the background noise power. Based on this rate, we can calculate the mean transmission time of workload consisting of tasks with size $s_{ij}$ from MU $j \in \mathrm{U}_i$ to ASP $i$.
+where $p_{ij}$ is the maximum transmission power of EU $j$ in $\mathrm{U}_i$, and $g_{ij}$ denotes the uplink channel gain between ASP $i$ and EU $j$. $N_0$ is the background noise power. The mean transmission time of workload consisting of tasks with size $s_{ij}$ from EU $j \in \mathrm{U}_i$ to ASP $i$ is
 \begin{equation}
-T_{ij}^t=\frac{\lambda_{ij} \cdot s_{ij}}{R_{ij}}
+T_{ij}^t=\frac{\lambda_{ij} \cdot s_{ij}}{R_{ij}}.
 \end{equation}
 
-The task arrival process at ASP $i$ still follows the Poisson process according to the Poisson process's stationary property. Furthermore, the mean arriving rate of the Poisson process at ASP $i$ can be expressed as $\lambda_i = \sum_{j \in \mathrm{U}_i} \lambda_{ij}$ based on the superposition property of the Poisson process. Since the ASPs buy VMs from MPO whose overall computation resources are still limited compared to the cloud platform such as Google cloud platform or Amazon EC2 platform, we model the meaning processing delay of all VMs purchased by ASPs using $M/M/1$ queue. Each VM of MPO is homogeneous and can process $f_m^v$ CPU cycles per second. As the average required CPU cyles for a task of ASP $i$ may be different, the mean service rate of the queue at ASP $i$ denoted by $\mu_i^v$ (the number of tasks that a VM can process on average per second) is different for every ASP $i$. We denote the required CPU cycles of user $j \in \mathsf{U}_i$ as $\chi_{ij}$. The relationship between $f_m^v$ and $\mu_i^v$ is
+The task arrival process at ASP $i$ also follows the Poisson process according to the Poisson process's stationary property. Specifically, the mean arriving rate of the Poisson process at ASP $i$ can be expressed as $\lambda_i = \sum_{j \in \mathrm{U}_i} \lambda_{ij}$ based on the superposition property of the Poisson process. Since the ASPs buy VMs from the MPO whose overall computation resources are still limited compared to the cloud platform, we model the meaning processing delay of all VMs purchased by ASPs using $M/M/1$ queue. Each VM of MPO is homogeneous and can process $f_m^v$ CPU cycles per second. As the average required CPU cyles for a task of ASP $i$ may be different, the mean service rate of the queue at ASP $i$ denoted by $\mu_i^v$ (the number of tasks that a VM can process on average per second) is different for every ASP $i$. We denote the required CPU cycles of user $j \in \mathsf{U}_i$ as $\chi_{ij}$. The relationship between $f_m^v$ and $\mu_i^v$ is
 \begin{equation}
 \mu_i^v = f_m^v/(\frac{\sum_{j \in \mathsf{U}_i} \chi_{ij}}{|\mathrm{U}_i|})
 \end{equation}
@@ -94,7 +105,9 @@ If the ASP $i$ devotes $z_i^h$ out of $z_i^v$ VMs to IPS, the intercepted quanti
 T_i^p(z_i^v, z_i^h) = \frac{1}{(z_i^v - z_i^h)\mu_i^v - \big(\lambda_i - H(z_i^h)\big)}
 \end{equation}
 
-The payment from the NU $j \in \mathrm{U}_i^n$ to the ASP $i$ depends on whether the latency requirements $d_{ij} \, \forall j \in \mathrm{U}_i^n$ are satisfied or not. If latency requirements $d_{ij}$ are met, NU $j \in \mathrm{U}_i^n$ pays a price $\Psi_{ij}$ to ASP $i$. The heterogeneity of the payment reflects the different characteristics of NUs. The NUs with different latency requirements may have different level of satisfaction with the same service provided by the ASP $i$. If latency requirements $d_{ij}$ are not met, NU $j \in \mathrm{U}_i^n$ does not pay ASP $i$. The MUs $j \in \mathrm{U}_i^m$ will not pay any money to the ASP $i$ no matter whether their latency requirement are satisfied or not. We represent the payment of EU $j \in \mathrm{U}_i$ as follows:
+The payment from the NU $j \in \mathrm{U}_i^n$ to the ASP $i$ depends on whether the latency requirements $d_{ij} \, \forall j \in \mathrm{U}_i^n$ are satisfied or not. If latency requirements $d_{ij}$ are met, NU $j \in \mathrm{U}_i^n$ pays a price $\Psi_{ij}$ to ASP $i$. The heterogeneity of the payment reflects the different characteristics of NUs. The NUs with different latency requirements may have different level of satisfaction with the same service provided by the ASP $i$. If latency requirements $d_{ij}$ are not met, NU $j \in \mathrm{U}_i^n$ does not pay ASP $i$.
+
+The MUs $j \in \mathrm{U}_i^m$, on the other hand, will not pay any money to the ASP $i$ no matter whether their latency requirement are satisfied or not. We represent the payment of EU $j \in \mathrm{U}_i$ as follows:
 \begin{subnumcases}{\mathcal{K}_{ij}(z_i^v, z_i^h)=\label{eqn:devicepayment}}
   \Psi_{ij} & \hspace*{-1.7mm}if $T_{ij}^t + T_i^p(z_i^v, z_i^h) \leq d_{ij}$, $j \in \mathrm{U}_i^n$\\
   0 & \hspace*{-1.7mm}if $T_{ij}^t + T_i^p(z_i^v, z_i^h) > d_{ij}$, $j \in \mathrm{U}_i^n$ \\
@@ -102,33 +115,45 @@ The payment from the NU $j \in \mathrm{U}_i^n$ to the ASP $i$ depends on whether
 \end{subnumcases}
 
 \section{Game Formulation}
-Because of the rationalities of both MPO and ASPs, the intrinsic hierarchy between MPO and ASPs, and the influence of one ASP's action on other ASPs' profits, we model the interaction between MPO and ASPs as a two-stage single-leader-multi-followers Stackelberg game. Both the MPO and ASPs are rational players and have the ultimate goal of maximizing their profits by adjusting their actions. The MPO can select a price per VM $\Psi_{m}^v$ that maximizes its profit, and the ASPs determine how many VMs to buy from MPO $z_i^v \, \forall i$ to maximize its profit too. The MPO's selection of price per VM affects how many VMs those ASPs would buy, which in turn has an impact on the selection of price. Since the ASPs need to buy the computation resources from MPO to maintain their application services, the MPO has an advantage over the ASPs. Moreover, due to MPO's finite number of VMs, the more one ASP buys, the less other ASPs can buy. The action of one ASP affects other ASPs' profit. The Stackelberg game where the MPO acts as the leader and all ASPs are the followers can capture the coupled and hierarchical relationship between MPO and ASPs, the self-interests of both MPO and ASPs, and the implicit influence among ASPs. We illustrate the actions and utilities of MPO and ASPs in the following first and then formulate the optimization problems for both players.
+We model the interaction between MPO and ASPs as a two-stage single-leader-multi-followers Stackelberg game to capture the intrinsic hierarchy between MPO and ASPs and the influence between ASPs in the competition for the VMs.
+
+In the proposed Stackelberg game, the MPO first decides the price per VM $\Psi_{m}^v$, and then the ASPs determine how many VMs to buy from MPO $z_i^v \, \forall i$. The MPO's selection of price per VM affects how many VMs those ASPs would buy, which in turn has an impact on the profit of the MPO. %Since the ASPs need to buy the computation resources from MPO to maintain their application services, the MPO has an advantage over the ASPs.
+Due to the finite number of available VMs offered by the MPO, the number of VMs one ASP can buy is influenced by the decisions of other ASPs. % The Stackelberg game where the MPO acts as the leader and all ASPs are the followers can capture the coupled and hierarchical relationship between MPO and ASPs, the self-interests of both MPO and ASPs, and the implicit influence among ASPs.
+We illustrate the actions and utilities of MPO and ASPs in the following first and then formally formulate the optimization problems for each player.
 
 \subsection{The Action and The Utility of ASPs}
-Given the MPO's price per VM $\Psi_m^v$, each ASP $i$ chooses how many VMs to buy from the MPO $z_i^v$ to maximize its profit which is the revenue accrued from the normal MU $j \in \mathrm{U}_i^n$ minus the payment to the MPO for purchasing $z_i^v$ VMs. The natural candidate for the utility is the profit. However, even with the same $z_i^v$, the revenue of ASP $i$ hinges on how many VMs it dedicates to the IPS, distribution of latency requirements $d_{ij}$, and the different payments of heterogeneous NU $j \in \mathrm{U}_i^n$. We define the utility of ASP $i$ when it purchases $z_i^v$ VMs from MPO as the maximum expected profit across the different number of VMs dedicates to the IPS $z_i^h$ with respect to the distribution of latency requirement $d_{ij}$. Furthermore, to make the optimization problem tractable, we assume that the latency requirements $d_{ij} \, \forall j \in \mathrm{U}_i$ are drawn from the same uniform distribution indexed by $i$ over interval $[a_i, b_i]$ denoted by $\mathcal{U}(a_i,b_i)$ and relax the variables of ASPs $z_i^v, z_i^h \, \forall i \in \mathcal{I}$ to real numbers. The utility of ASP $i$ given $\Psi_m^v$ is
+Given the MPO's price per VM $\Psi_m^v$, each ASP $i$ decides the number of VMs to buy from the MPO $z_i^v$ to maximize its profit, which is the revenue accrued from the NU $j \in \mathrm{U}_i^n$ minus the payment to the MPO for purchasing $z_i^v$ VMs.
+%The natural candidate for the utility is the profit. However, even with the same $z_i^v$, the revenue of ASP $i$ hinges on how many VMs it dedicates to the IPS, distribution of latency requirements $d_{ij}$, and the different payments of heterogeneous NU $j \in \mathrm{U}_i^n$.
+We define the utility of ASP $i$ when it purchases $z_i^v$ VMs from MPO as the maximum expected profit across the different number of VMs dedicates to the IPS $z_i^h$ with respect to the distribution of latency requirement $d_{ij}$. We assume that the latency requirements $d_{ij} \, \forall j \in \mathrm{U}_i$ of NUs served by ASP $i$ follow the uniform distribution over the interval $[a_i, b_i]$ denoted by $\mathcal{U}(a_i,b_i)$. %We further relax the variables of ASPs $z_i^v, z_i^h \, \forall i \in \mathcal{I}$ to real numbers.
+The utility of ASP $i$ given $\Psi_m^v$ is
 \begin{align}
 &Y_i(z_i^v|\Psi_m^v) \triangleq \max_{z_i^h} \mathsf{E}_{d_{ij}}\Big[\sum_{j \in \mathrm{U}_i^n} \mathcal{K}_{ij}(z_i^v, z_i^h) - \Psi_m^v z_i^v\Big] \\
-&\hspace*{-1mm}=\max_{z_i^h} \mathsf{E}_{d_{ij}}[\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}\mathds{1}\{T_{ij}^t + T_i^p(z_i^v, z_i^h) \leq d_{ij}\} - \Psi_m^vz_i^v] \nonumber \\
 &\hspace*{-1mm}=\max_{z_i^h} [\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}(1-\frac{T_{ij}^t + T_i^p(z_i^v, z_i^h)-a_i}{b_i-a_i}) - \Psi_m^vz_i^v] \label{eqn:asp_def_subobjective_unfold} \\
 &\hspace*{-1mm}\triangleq \max_{z_i^h} X_i(z_i^h|z_i^v,\Psi_m^v) \label{eqn:asp_def_subobjective}
 \end{align}
-$\mathsf{E}_{d_{ij}}$ means taking expectation with respect to the distribution of $d_{ij}$, and $\mathds{1}\{\cdot\}$ is the indicator function. Given $z_i^v$, we have two constraints on $z_i^h$. First, the number of VMs dedicated to IPS $z_i^h$ must be no larger than the number of purchased VMs $z_i^v$. Second, to make the processing queue stable, the mean service rate by the VMs dedicated to running the service must be higher than the mean arrival rate for EUs $j \in \mathrm{U}_i$. To define the utility of ASP $i$ when the purchased VMs from the MPO is $z_i^v$, we have to solve the following optimization problem.
+$\mathsf{E}_{d_{ij}}$ means taking expectation with respect to the distribution of $d_{ij}$.
+%, and $\mathds{1}\{\cdot\}$ is the indicator function.
+Given $z_i^v$, we have two constraints on $z_i^h$. First, the number of VMs dedicated to IPS $z_i^h$ must be no larger than the number of purchased VMs $z_i^v$. Second, the mean service rate by the VMs dedicated to running the service must be higher than the mean arrival rate for EUs $j \in \mathrm{U}_i$ for stable processing queue. To define the utility of ASP $i$ when the purchased VMs from the MPO is $z_i^v$, we have to solve the following optimization problem.
 \begin{maxi!}[2]
   {z_i^h \in \mathbb{R}}
   {X_i(z_i^h|z_i^v,\Psi_m^v) \label{eqn:asp_utility_def_opti_obj}}
   {\label{eqn:asp_utility_def_opti}}
   {}
   \addConstraint{0 \leq z_i^h \leq \xi_i z_i^v}{\label{eqn:asp_utility_def_opti_const1}}
-  \addConstraint{\phi_i z_i^v \mu_i^v \leq (z_i^v-z_i^h)\mu_i^v - \lambda_i + H(z_i^h) }{\label{eqn:asp_utility_def_opti_const2}}
+  \addConstraint{0 < (z_i^v-z_i^h)\mu_i^v - \lambda_i + H(z_i^h) }{\label{eqn:asp_utility_def_opti_const2}}
 \end{maxi!}
-In (\ref{eqn:asp_utility_def_opti_const1}), we further introduce a system parameter $\xi_i\in[0, 1]$ to control the feasible range of $z_i^h$. Similarly, in (\ref{eqn:asp_utility_def_opti_const2}), we use another system parameter $\phi_i$ to specify the quantity by which the mean service rate must exceed the mean arrival rate. The observation that both (\ref{eqn:asp_utility_def_opti_const1}) and (\ref{eqn:asp_utility_def_opti_const2}) impose upper bounds on the range of $z_i^h$ will simplify the characterization of the optimal $z_i^h$. Showing the utility of the ASP $i$, $Y_i(z_i^v)$, is well-defined is equivalent to proving the optimization problem (\ref{eqn:asp_utility_def_opti}) has at lease one solution. If there are multiple optimal points that have the same values of $X_i(z_i^h|z_i^v,\Psi_m^v)$, we randomly select one to be the solution to (\ref{eqn:asp_utility_def_opti}).
+In (\ref{eqn:asp_utility_def_opti_const1}), we introduce $\xi_i\in[0, 1]$ as the upper bound of $z_i^h$ to reserve computation resource for basic service. Similarly, in (\ref{eqn:asp_utility_def_opti_const2}), the service rate must exceed the arrival rate to make the queue stable.
+%we use another system parameter $\phi_i$ to specify the quantity by which the mean service rate must exceed the mean arrival rate. %The observation that both (\ref{eqn:asp_utility_def_opti_const1}) and (\ref{eqn:asp_utility_def_opti_const2}) impose upper bounds on the range of $z_i^h$ will simplify the characterization of the optimal $z_i^h$.
+Showing the utility of the ASP $i$, $Y_i(z_i^v)$, is well-defined is equivalent to proving the optimization problem (\ref{eqn:asp_utility_def_opti}) has at lease one solution, which can be proved by showing it is a convex optimization problem. The proof is omitted due to the page limitation.
+%If there are multiple optimal points that have the same values of $X_i(z_i^h|z_i^v,\Psi_m^v)$, we randomly select one to be the solution to (\ref{eqn:asp_utility_def_opti}).
+% Comment Out
+\iffalse
 \begin{lemma}
 The utility of ASP $i$, $Y_i(z_i^v)$, is well defined. That is, the optimization problem (\ref{eqn:asp_utility_def_opti}) has at least one optimal point. Moreover, the optimization problem (\ref{eqn:asp_utility_def_opti}) is a convex optimization problem.
 \end{lemma}
-The proof of convexity is omitted due to page limitation.
 
-% Comment Out
-\iffalse
+
+
 \begin{proof}
 The feasible region imposed by (\ref{eqn:asp_utility_def_opti_const1}) and (\ref{eqn:asp_utility_def_opti_const2}) is a closed and bounded interval in $\mathbb{R}$ and thus is a convex set. As the objective function (\ref{eqn:asp_utility_def_opti_obj}) is continuous in $z_i^h$, the existence of the optimal solution then comes from the Extreme Value Theorem. If (\ref{eqn:asp_utility_def_opti_obj}) is concave at each feasible $z_i^h$, optimization problem (\ref{eqn:asp_utility_def_opti}) is a convex optimization problem. It remains to show that the objective function (\ref{eqn:asp_utility_def_opti_obj}) is concave in feasible $z_i^h$. By rearranging the terms, we express $X_i(z_i^h|z_i^v,\Psi_m^v)$ as
 \begin{equation}
@@ -146,7 +171,7 @@ $H'(z_i^h)$ and $H''(z_i^h)$ stand for first and second derivative with respect 
 \fi
 %Comment Out
 
-After defining the utility of ASP $i$, $Y_i(z_i^v)$, we can now formulate the optimization problem of ASP $i$ given the MPO's price per VM $\Psi_m^v$.
+We then formulate the optimization problem of ASP $i$ given the MPO's price per VM $\Psi_m^v$.
 \begin{maxi!}[2]
   {z_i^v \in \mathbb{R}}
   {Y_i(z_i^v|\Psi_m^v) \label{eqn:asp_utility_opti_obj}}
@@ -155,21 +180,26 @@ After defining the utility of ASP $i$, $Y_i(z_i^v)$, we can now formulate the op
   \addConstraint{\lambda_i+ \gamma_i \leq z_i^v \mu_i^v}{\label{eqn:asp_utility_opti_const1}}
   \addConstraint{0 \leq Y_i(z_i^v|\Psi_m^v)}{\label{eqn:asp_utility_opti_const2}}
 \end{maxi!}
-The constraint (\ref{eqn:asp_utility_opti_const1}) regulates that when the ASP $i$ dedicates all purchased VMs to running the application service, the mean service rate must be larger than the mean arrival rate by at least $\gamma_i$, where $\gamma_i\geq 0$. (\ref{eqn:asp_utility_opti_const1}) also ensures that the feasible region of (\ref{eqn:asp_utility_def_opti}) is non-empty because under this constraint, there is at least one $z_i^h$ that satisfies (\ref{eqn:asp_utility_def_opti_const2}). The constraint (\ref{eqn:asp_utility_opti_const2}) represents the individual rationality for every ASP. That is, when making the processing queue stable gives a negative utility, the ASPs would rather choose not to serve the users' requests and do not buy any VMs from the MPO, which has zero utility. We defer the analysis of solutions to both optimization problems (\ref{eqn:asp_utility_def_opti}) and (\ref{eqn:asp_utility_opti}) to the \Cref{sec:game_optimization}. We denote the solution to (\ref{eqn:asp_utility_opti}) as $(z_i^v(\Psi_m^v))^*$ to emphasize the dependence on the MPO's price per VM $\Psi_m^v$.
+The constraint (\ref{eqn:asp_utility_opti_const1}) regulates that when the ASP $i$ dedicates all purchased VMs to running the application service, the mean service rate must be larger than the mean arrival rate by at least $\gamma_i$, where $\gamma_i\geq 0$, as reserve computation resources for IPS.% (\ref{eqn:asp_utility_opti_const1}) also ensures that the feasible region of (\ref{eqn:asp_utility_def_opti}) is non-empty because under this constraint, there is at least one $z_i^h$ that satisfies (\ref{eqn:asp_utility_def_opti_const2}).
+The constraint (\ref{eqn:asp_utility_opti_const2}) represents the individual rationality for every ASP. That is, when making the processing queue stable gives a negative utility, the ASPs would rather choose to end its service and receive zero utility. %We defer the analysis of solutions to both optimization problems (\ref{eqn:asp_utility_def_opti}) and (\ref{eqn:asp_utility_opti}) to the \Cref{sec:game_optimization}.
+We denote the solution to (\ref{eqn:asp_utility_opti}) as $(z_i^v(\Psi_m^v))^*$ to emphasize the dependence on the MPO's price per VM $\Psi_m^v$.
 
 \subsection{The Action and The Utility of The MPO}
-With the prediction about the number of VMs purchased by ASPs $(z_i^v(\Psi_m^v))^* \, \forall i \in \mathcal{I}$, the MPO chooses the price per VM $\Psi_m^v$ to maximize its utility which is defined as the MPO's profit. The revenue of the MPO is the sum of payments from all ASPs. Although the ASPs buy the VMs from the MPO, it is the infrastructure of the MPO that processes the application requests. As a result, the MPO has an operating cost for keeping the VMs working. We represent the cost for operating $\sum_{i \in \mathcal{I}} (z_i^v(\Psi_m^v))^*$ VMs by $C_m^v\big(\sum_{i \in \mathcal{I}} (z_i^v(\Psi_m^v))^*\big)$. The function $C_m^v(\cdot)$ is assumed to be convex and non-decreasing, which means that both the marginal cost and the cost increase as the number of VMs that the MPO has to keep running increases. We denote the MPO's utility as $Y_m(\Psi_m^v)$ and formulate the MPO's optimization problem.
+%With the prediction about the number of VMs purchased by ASPs $(z_i^v(\Psi_m^v))^* \, \forall i \in \mathcal{I}$,
+The MPO chooses the price per VM $\Psi_m^v$ to maximize its utility which is defined as the MPO's profit, which is its revenue minus the operating cost of the deployed VMs. The revenue of the MPO is the sum of payments from all ASPs. %Although the ASPs buy the VMs from the MPO, it is the infrastructure of the MPO that processes the application requests.
+The cost for operating $\sum_{i \in \mathcal{I}} (z_i^v(\Psi_m^v))^*$ VMs is denoted as $C_m^v\big(\sum_{i \in \mathcal{I}} (z_i^v(\Psi_m^v))^*\big)$. The function $C_m^v(\cdot)$ is assumed to be convex and non-decreasing.%, which means that both the marginal cost and the cost increase as the number of VMs that the MPO has to keep running increases.
+We then denote the MPO's utility as $Y_m(\Psi_m^v)$ and formulate the MPO's optimization problem.
 \begin{maxi!}[2]
-  {\Psi_m^v}
+  {\Psi_m^v \in 0 \cup \mathbb{R}^{+}}
   {\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_i^v(\Psi_m^v))^* - C_m^v\big(\sum_{i \in \mathcal{I}} (z_i^v(\Psi_m^v))^*\big) \label{eqn:mpo_utility_opti_obj}}
   {\label{eqn:mpo_utility_opti}}
   {}
   \addConstraint{\sum_{i \in \mathcal{I}} (z_i^v(\Psi_m^v))^* \leq \mathcal{Q}_v}{\label{eqn:mpo_utility_opti_const1}}
-  \addConstraint{0 \leq \Psi_m^v}{\label{eqn:mpo_utility_opti_const2}}
 \end{maxi!}
-The constraint (\ref{eqn:mpo_utility_opti_const1}) mandates that the MPO can not sell more VMs than the total number of VMs $\mathcal{Q}_v$ that the MPO has. The constraint (\ref{eqn:mpo_utility_opti_const1}) imposes a lower bound for MPO's price per VM. The constraint (\ref{eqn:mpo_utility_opti_const2}) requires the MPO's price per VM must be non-negative. The property of this optimization (\ref{eqn:mpo_utility_opti}) relies on the solution $(z_i^v(\Psi_m^v))^*$, and we defer the analysis to \Cref{sec:game_optimization}.
-\section{Game Optimization} \label{sec:game_optimization}
-We would leverage the backward induction principle to solve the formulated Stackelberg game. In this principle, we solve the followers' (ASPs') optimization problems first and then the leader's (the MPO's) optimization problem based on responses of ASPs to the MPO's price per VM, i.e., $(z_i^v(\Psi_m^v))^* \, \forall i \in \mathcal{I}$. We analyze the ASP Optimization problem according to whether the solution to (\ref{eqn:asp_utility_def_opti}) is the extreme point or boundary point of the constraint.
+The constraint (\ref{eqn:mpo_utility_opti_const1}) mandates the maximum number of available VMs. The constraint (\ref{eqn:mpo_utility_opti_const1}) imposes a lower bound for MPO's price per VM. %The property of this optimization (\ref{eqn:mpo_utility_opti}) relies on the solution $(z_i^v(\Psi_m^v))^*$, and we defer the analysis to \Cref{sec:game_optimization}.
+
+\section{Stackelberg Equilibrium} \label{sec:game_optimization}
+We would leverage the backward induction principle to solve the formulated Stackelberg game to find the Stackelberg equilibrium. In this principle, we solve the followers' (ASPs') optimization problems first and then the leader's (MPO's) optimization problem based on responses of ASPs to the MPO's price per VM, i.e., $(z_i^v(\Psi_m^v))^* \, \forall i \in \mathcal{I}$. %We analyze the ASP Optimization problem according to whether the solution to (\ref{eqn:asp_utility_def_opti}) is the extreme point or boundary point of the constraint.
 
 % Comment Out
 \iffalse
@@ -200,8 +230,16 @@ If $\mathcal{B}_{m}$ and $\mathcal{B}^R(\Psi_m^v)$ are both non-empty, the Stack
 We analyze the solution process of the formulated Stackelberg game according to whether the solution to (\ref{eqn:asp_utility_def_opti}) is the extreme point or boundary point of the constraint.
 \fi
 % Comment Out
+
 \subsection{ASP Optimization Problem}
-\textbf{Case 1}: The optimal point of (\ref{eqn:asp_utility_def_opti}) is the extreme point whose first derivative with respect to $z_i^h$. The first derivative of $X_i(z_i^h|z_i^v,\Psi_m^v)$ with respect to $z_i^h$ is
+We analyze the solution process of the formulated Stackelberg game according to whether the solution to (\ref{eqn:asp_utility_def_opti}) is at the extreme point or boundary point of the constraint.
+
+\textbf{Case 1}: The optimal point of (\ref{eqn:asp_utility_def_opti}) is the extreme point whose first derivative with respect to $z_i^h$ equals zero.
+
+% Comment Out
+
+
+\iffalse
 \begin{equation} \label{eqn:asp_utilitu_def_firstderiv}
 [(z_i^v - z_i^h) - \lambda_i + H(z_i^h)]^{-2} \cdot (-\mu_i^v + H'(z_i^h))
 \end{equation}
@@ -217,39 +255,50 @@ According to (\ref{eqn:asp_def_subobjective_unfold}) and (\ref{eqn:asp_def_subob
 \begin{equation}\label{eqn:asp_case1_utility}
 Y_i^1(z_i^v|\Psi_m^v) \triangleq \sum_{j \in \mathrm{U}_i^n}\Psi_{ij}(1-\frac{T_{ij}^t + T_{i,1}^p(z_i^v)-a_i}{b_i-a_i}) - \Psi_m^vz_i^v
 \end{equation}
-If we optimize (\ref{eqn:asp_case1_utility}), we can observe how the ASP reacts to different $z_i^v$ and $\Psi_m^v$ in order to reach the highest utility. However, we won't try to do so since the case doesn't happen based on the initial assumption of $H(x) = \eta{x}$. We explain the property in the following lemma.
+
+If we optimize (\ref{eqn:asp_case1_utility}), we can observe how the ASP reacts to different $z_i^v$ and $\Psi_m^v$ in order to reach the highest utility.
+\fi
+ % Comment Out
+However, this case doesn't happen with $H(x) = \eta{x}$. %The proof is omitted due to page limitation.
+We explain the property in the following lemma.
+% Comment Out
+
+
 \begin{lemma} \label{lemma:asp_case1_not_exist}
-$Y_1(z_i^h|z_i^v,\Psi_m^v)$ doesn't have extreme point in feasible $z_i^h$ if $H(x) = \eta{x}$. The proof is omitted due to page limitation.
+$X_i(z_i^h|z_i^v,\Psi_m^v)$ doesn't have extreme point in feasible $z_i^h$ if $H(x) = \eta{x}$.
 \end{lemma}
 
 
 % Comment Out
-\iffalse
+
 \begin{proof}
-From (\ref{eqn:asp_utilitu_def_firstderiv}),  we substitute $\eta{z_i^h}$ into $H(z_i^h)$, then we can obtain
+The first derivative of $X_i(z_i^h|z_i^v,\Psi_m^v)$ with respect to $z_i^h$ is
+%From (\ref{eqn:asp_utilitu_def_firstderiv}),  we substitute $\eta{z_i^h}$ into $H(z_i^h)$, then we can obtain
 \begin{equation} \label{eqn:asp_utilitu_simplified}
 [(z_i^v - z_i^h) - \lambda_i + \eta{z_i^h}]^{-2} \cdot (-\mu_i^v + \eta)
 \end{equation}
-Obviously, no matter what the value of $z_i^h$ is, (\ref{eqn:asp_utilitu_simplified}) equaling zero will never be satisfied. Therefore, the extreme point of (\ref{eqn:asp_case1_utility}) does not exist.
-Now we know that the extreme point of (\ref{eqn:asp_utility_def_opti_obj}) does not exist in feasible $z_i^h$, so the maximum value of $X_1(z_i^h|z_i^v,\Psi_m^v)$ only happens at the boundary points of feasible $z_i^h$.
+Obviously, no matter what the value of $z_i^h$ is, (\ref{eqn:asp_utilitu_simplified}) equaling zero will never be satisfied. Therefore, the extreme point of (\ref{eqn:asp_utility_def_opti_obj}) does not exist in feasible $z_i^h$, so the maximum value of $X_1(z_i^h|z_i^v,\Psi_m^v)$ only happens at the boundary points of feasible $z_i^h$.
 \qedhere
 \end{proof}
-\fi
+
 % Comment Out
 
 \textbf{Case 2}: The optimal point of (\ref{eqn:asp_utility_def_opti}) happens at the right boundary of (\ref{eqn:asp_utility_def_opti_const1}). That is, when the purchased number of VM is $z_i^v$, the ASP $i$'s optimal number of VMs devoted to the IPS is
 \begin{equation} \label{eqn:asp_utility_def_first_boundary}
 (z_i^h)^* = \xi_i z_i^v
 \end{equation}
-When we substitute (\ref{eqn:asp_utility_def_first_boundary}) into (\ref{eqn:asp_mm1_delay}), the mean processing delay in this case denoted as $T_{i,2}^p(z_i^v)$ is
+When we substitute (\ref{eqn:asp_utility_def_first_boundary}) into (\ref{eqn:asp_mm1_delay}), the mean processing delay in this case denoted as $T_{i,2}^p(z_i^v) = [(1-\xi_i)z_i^v\mu_i^v - \big(\lambda_i - H(\xi_iz_i^v)\big)]^{-1}$
+
+\iffalse
 \begin{equation} \label{eqn:asp_case2_mm1_delay}
 T_{i,2}^p(z_i^v) =  \frac{1}{(1-\xi_i)z_i^v\mu_i^v - \big(\lambda_i - H(\xi_iz_i^v)\big)}
 \end{equation}
-according to (\ref{eqn:asp_def_subobjective_unfold}) and (\ref{eqn:asp_def_subobjective}), the objective function (\ref{eqn:asp_utility_opti_obj}) becomes
+\fi
+
+According to (\ref{eqn:asp_def_subobjective_unfold}) and (\ref{eqn:asp_def_subobjective}), the objective function (\ref{eqn:asp_utility_opti_obj}) becomes
 \begin{equation} \label{eqn:asp_case2_objective}
 Y_i^2(z_i^v|\Psi_m^v) \triangleq \sum_{j \in \mathrm{U}_i^n}\Psi_{ij}(1-\frac{T_{ij}^t + T_{i,2}^p(z_i^v)-a_i}{b_i-a_i}) - \Psi_m^vz_i^v
 \end{equation}
-If $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to solve the optimization problem (\ref{eqn:asp_utility_opti}) with the objective being $Y_i^2(z_i^v|\Psi_m^v)$. The proof of convexity is omitted due to page limitation.
 
 % Comment Out
 \iffalse
@@ -274,7 +323,7 @@ With \Cref{lemma:asp_case2_utility_concave},
 
 We can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^2(z_i^v|\Psi_m^v)$ in the following theorem with a specific form of $H(\cdot)$. Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const1}) as $\Upsilon_i$ for ASP i while the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^2$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^2(z_i^v|\Psi_m^v)$.
 \begin{theorem}\label{thm:asp_case2_optimal}
-The solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^2(z_i^v|\Psi_m^v)$ and $H(x)=\eta x$ is $(z_{i,2}^v(\Psi_m^v))^*$ if $\Upsilon_i \cap \Upsilon_i^2 \neq \emptyset $
+The solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^2(z_i^v|\Psi_m^v)$ and $H(x)=\eta x$ is $(z_{i,2}^v(\Psi_m^v))^*$, if $\Upsilon_i \cap \Upsilon_i^2 \neq \emptyset $
 \begin{subnumcases}{=\label{eqn:asp_case2_optimal_solution}}
   \frac{\lambda_i+\gamma_i}{\mu_i^v} & $(z_{i,2}^{v,e}(\Psi_m^v))^* < \frac{\lambda_i+\gamma_i}{\mu_i^v}$ \label{eqn:asp_case2_optimal_solution_lower_boundary} \\
   (z_{i,2}^{v,e}(\Psi_m^v))^* & $(z_{i,2}^{v,e}(\Psi_m^v))^* \geq \frac{\lambda_i+\gamma_i}{\mu_i^v}$ \label{eqn:asp_case2_optimal_solution_extreme}
@@ -292,7 +341,7 @@ and if $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$
     (z_{i,2}^{v}(\Psi_m^v))^*=0
 \end{aligned}
 \end{equation}
-The proof is omitted due to page limitation.
+The proof is omitted due to page limitation. A sketch of the proof is that we can first show that $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. Then, we show the feasible region is a convex set. Finally, we provide case-by-case discussions to show the optimal solution in each sub-region.
 \end{theorem}
 
 
@@ -330,15 +379,18 @@ The $z_i^v$ will switch from $0$ to $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ at $\Ps
 \begin{equation} \label{eqn:asp_utility_def_first_boundary_2}
 (z_i^h)^* = 0
 \end{equation}
-When we substitute (\ref{eqn:asp_utility_def_first_boundary_2}) into (\ref{eqn:asp_mm1_delay}), the mean processing delay denoted as $T_{i,3}^p(z_i^v)$ depends only on $z_i^v$ and is
+When we substitute (\ref{eqn:asp_utility_def_first_boundary_2}) into (\ref{eqn:asp_mm1_delay}), the mean processing delay denoted as $T_{i,3}^p(z_i^v) = [z_i^v \mu_i^v-\lambda_i]^{-1}$
+
+\iffalse
 \begin{equation}\label{eqn:asp_case3_mm1_delay}
 T_{i,3}^p(z_i^v) = \frac{1}{z_i^v \mu_i^v-\lambda_i}
 \end{equation}
+\fi
 According to (\ref{eqn:asp_def_subobjective_unfold}) and (\ref{eqn:asp_def_subobjective}), the objective function (\ref{eqn:asp_utility_opti_obj}) becomes
 \begin{equation}\label{eqn:asp_case3_objective}
 Y_i^3(z_i^v|\Psi_m^v) \triangleq \sum_{j \in \mathrm{U}_i^n}\Psi_{ij}(1-\frac{T_{ij}^t + T_{i,3}^p(z_i^v)-a_i}{b_i-a_i}) - \Psi_m^vz_i^v
 \end{equation}
-If $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to solve the optimization problem (\ref{eqn:asp_utility_opti}) with the objective being $Y_i^3(z_i^v|\Psi_m^v)$. The proof of convexity is omitted due to page limitation.
+%If $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to solve the optimization problem (\ref{eqn:asp_utility_opti}) with the objective being $Y_i^3(z_i^v|\Psi_m^v)$. The proof of convexity is omitted due to page limitation.
 
 % Comment Out
 \iffalse
@@ -360,7 +412,7 @@ With \Cref{lemma:asp_case3_utility_concave},
 \fi
 % Comment Out
 
-We can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^3(z_i^v|\Psi_m^v)$ in the following theorem with a specific form of $H(\cdot)$. Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^3$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^3(z_i^v|\Psi_m^v)$.
+Similarly, We can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^3(z_i^v|\Psi_m^v)$ in the following theorem with a specific form of $H(\cdot)$. Similarly in Case 2, we define the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^3$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^3(z_i^v|\Psi_m^v)$.
 \begin{theorem}\label{thm:asp_case3_optimal}
 The solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^3(z_i^v|\Psi_m^v)$ and $H(x)=\eta x$ is $(z_{i,3}^v(\Psi_m^v))^*$ and if $\Upsilon_i \cap \Upsilon_i^3 \neq \emptyset $
 \begin{subnumcases}{=\label{eqn:asp_case3_optimal_solution}}
@@ -379,7 +431,7 @@ and if $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$
     (z_{i,3}^{v}(\Psi_m^v))^*=0
 \end{aligned}
 \end{equation}
-The proof is omitted due to page limitation.
+The proof, following the same flow as of \Cref{thm:asp_case2_optimal}, is omitted due to page limitation.
 \end{theorem}
 
 % Comment Out
@@ -442,10 +494,10 @@ Let's compare the value of (\ref{eqn:asp_case4_mm1_delay}) with the value of  (\
 
 
 
-Based on the analysis above, the MPO can predict how many VMs every ASP will buy given an arbitrary price per VM in each case, which make MPO can optimize its utility by setting $\Psi_m^v$. We will optimize the utility of MPO in the next subsection.
+%Based on the analysis above, the MPO can predict how many VMs every ASP will buy given an arbitrary price per VM in each case, which make MPO can optimize its utility by setting $\Psi_m^v$. We will optimize the utility of MPO in the next subsection.
 
 \subsection{MPO Optimization Problem}
-In this section, we solve the optimization problem (\ref{eqn:mpo_utility_opti}). For every ASP, the optimal solution is either case2 or case3, that is, $\mathcal{I}_{case2} \cup \mathcal{I}_{case3} = \mathcal{I}$, where $\mathcal{I}_{case2}$ indicates the ASP set which its optimal solution is in case 2, and $\mathcal{I}_{case3}$ indicates the ASP set which its optimal solution is in case 3. The boundary set of all ASP is $\{\Psi_{m,2}^{i,z}, \Psi_{m,2}^{i,l}, i\in \mathcal{I}_{case2} \}\cup \{\Psi_{m,3}^{j,z}, \Psi_{m,3}^{j,l}, j\in \mathcal{I}_{case3}\}$.
+In this section, we solve the optimization problem (\ref{eqn:mpo_utility_opti}). For every ASP, the optimal solution is either Case 2 or Case 3, that is, $\mathcal{I}_{case2} \cup \mathcal{I}_{case3} = \mathcal{I}$, where $\mathcal{I}_{case2}$ indicates the ASP set which its optimal solution is in Case 2, and $\mathcal{I}_{case3}$ indicates the ASP set which its optimal solution is in Case 3. The boundary set of all ASP is $\{\Psi_{m,2}^{i,z}, \Psi_{m,2}^{i,l}, i\in \mathcal{I}_{case2} \}\cup \{\Psi_{m,3}^{j,z}, \Psi_{m,3}^{j,l}, j\in \mathcal{I}_{case3}\}$.
 The boundary sequence partitions the space of the MPO's price per VM $\Psi_m^v$ into $2I + 1$ intervals.
 \begin{equation}
 0 \cup \mathbb{R}^{+} = \mathcal{M}^1 \cup \mathcal{M}^2 \cdots \cup \mathcal{M}^{2I+1}
@@ -469,12 +521,11 @@ These four sets form a partition of the all ASPs. That is, $\mathcal{I} = \Omega
 \end{equation}
 Finally, the MPO's optimization problem in each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ is
 \begin{maxi!}[2]
-  {\Psi_m^v}
+  {\Psi_m^v \in \mathcal{M}^k}
   {\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^* - C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*\big) \label{eqn:f_mpo_utility_opti_obj}}
   {\label{eqn:f_mpo_utility_opti}}
   {}
   \addConstraint{\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^* \leq \mathcal{Q}_v}{\label{eqn:f_mpo_utility_opti_const1}}
-  \addConstraint{\Psi_m^v \in \mathcal{M}^k}{\label{eqn:f_mpo_utility_opti_const2}}
 \end{maxi!}
 \begin{theorem} \label{thm:f_mpo_convex_optimization}
 In each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$, the MPO's optimization problem (\ref{eqn:f_mpo_utility_opti}) is a convex optimization problem. The MPO's optimal price per VM $\Psi_m^v$ is one of the optimal prices in each $\mathcal{M}^k, \forall k \in \{1, \cdots, 2I+1\}$ that gives the highest utility. The proof of convexity is omitted due to page limitation.
@@ -516,10 +567,10 @@ By the properties mentioned in \Cref{thm:f_mpo_convex_optimization}, we can find
 % Comment out
 \iffalse
 \begin{theorem} \label{thm:stackelberg_game_equilibrium}
-There are at lease one Stackelberg game equlibrium in our system after the modifications.
+There are at lease one Stackelberg game equilibrium in our system after the modifications.
 \end{theorem}
 \begin{proof}
-In Case 1, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case1_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists becasue when (\ref{eqn:case1_mpo_utility_opti_const2}) becomes $\Psi_m^v \in \mathcal{M}_1^{k'}$, MPO's optimization problem is a convex optimization problem proved in \Cref{thm:mpo_case1_convex_optimization} with a compact feasible region. Thus, the MPO's best response set definded in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there are at least one Stackelberg game equlibrium in Case 1. Similarly, in Case 2, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case2_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists becasue becasue when (\ref{eqn:case2_mpo_utility_opti_const2}) becomes $\Psi_m^v \in \mathcal{M}_2^{k'}$, MPO's optimization problem is a convex optimization problem proved in \Cref{thm:mpo_case2_convex_optimization} with a compact feasible region. Thus, the MPO's best response set definded in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there are at least one Stackelberg game equlibrium in Case 2. Finally, in Case 3, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case4_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists becasue becasue when (\ref{eqn:case4_mpo_utility_opti_const2}) becomes $\Psi_m^v \in \mathcal{M}_3^{k'}$, MPO's optimization problem is a convex optimization problem proved in \Cref{thm:mpo_case4_convex_optimization} with a compact feasible region. Thus, the MPO's best response set definded in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there are at least one Stackelberg game equlibrium in Case 3.
+In Case 1, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case1_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists becasue when (\ref{eqn:case1_mpo_utility_opti_const2}) becomes $\Psi_m^v \in \mathcal{M}_1^{k'}$, MPO's optimization problem is a convex optimization problem proved in \Cref{thm:mpo_case1_convex_optimization} with a compact feasible region. Thus, the MPO's best response set definded in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there are at least one Stackelberg game equlibrium in Case 1. Similarly, in Case 2, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case2_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists becasue becasue when (\ref{eqn:case2_mpo_utility_opti_const2}) becomes $\Psi_m^v \in \mathcal{M}_2^{k'}$, MPO's optimization problem is a convex optimization problem proved in \Cref{thm:mpo_case2_convex_optimization} with a compact feasible region. Thus, the MPO's best response set definded in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there are at least one Stackelberg game equlibrium in Case 2. Finally, in Case 3, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case4_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists becasue becasue when (\ref{eqn:case4_mpo_utility_opti_const2}) becomes $\Psi_m^v \in \mathcal{M}_3^{k'}$, MPO's optimization problem is a convex optimization problem proved in \Cref{thm:mpo_case4_convex_optimization} with a compact feasible region. Thus, the MPO's best response set definded in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there are at least one Stackelberg game equilibrium in Case 3.
 \end{proof}
 Because of \Cref{thm:mpo_case1_convex_optimization}, \Cref{thm:mpo_case2_convex_optimization}, and \Cref{thm:mpo_case4_convex_optimization}, if the specific form of $C_m^v(\cdot)$ is given, we can solve the exact form of the solution to the MPO's optimization problem. We will select some specific forms for $C_m^v(\cdot)$ in the \Cref{sec:simulation}.
 \fi
@@ -527,21 +578,32 @@ Because of \Cref{thm:mpo_case1_convex_optimization}, \Cref{thm:mpo_case2_convex_
 
 
 \section{Simulation} \label{sec:simulation}
-\subsection{Simulation Setup}
-In the simulation, we set the cost function $C_m^v(\cdot)$ to be $C_m^v(x) = 100e^x$, which is convex and non-decreasing. For path loss model, we use $g(d)=22log_{10}(d)+28+20log_{10}(f_c)$\cite{3gpp.36.814}, where $d$ is the distance between EUs and ASPs, and $f_c$ is the frequency band. Except (\ref{mal_ratio}), all the ratio of malicious users to normal users are set to 0.5. For every section except (\ref{num_cmp}), the number of end users are set to 100 per ASP. The key parameters are presented in \Cref{parameterlist}, and $U(a, b)$ represents the uniform distribution in $[a, b]$.
-\begin{table}[!htb]
-\caption{System Parameters}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
- Parameters&$\eta$ &$N_o$ & $p_i$ &$\chi_{ij}(MHz)$&$\lambda_i$ \\ \hline
- Values&3500 & -100dBM& 23dBM&$U(0.5, 0.6)$&$U(1, 3)$\\ \hline
-Parameters&$|\mathcal{I}|$& $d_{ij}(ms)$ &$B_i$ &$f_m^v(GHz)$&$s_{ij}(kB)$ \\ \hline
-Values&5&$U(5, 100)$&20MHz&$U(0.6, 0.9)$&$U(4, 5)$\\ \hline
-Parameters&$\gamma_i$&distance&$\xi_i$&$\phi_i$ &$\Psi_{ij}$  \\ \hline
-Values&100&$U(50, 100)$&0.999&0.05&$U(4, 5)$\\ \hline
-\end{tabular}
-\label{parameterlist}
-\end{table}
+%\subsection{Simulation Setup}
+We evaluate the performance of the proposed solutions with simulations. We simulate a MEC system with one MPO and five ASPs. For the MPO, the CPU frequency per VM $f_m^v$ is 0.25GHz, and the cost function is set to be $C_m^v(x) = 100e^x$. For each ASP, the bandwidth $B_i$ is 20MHz, the transmission power $p_i$ is 23dBm\cite{3gpp.36.101}, the background noise power $N_0$ is -100dBm\cite{chen2015efficient}. For path loss model, we use $g(d)=22log_{10}(d)+28+20log_{10}(f_c)$ \cite{3gpp.36.814}, where $d$ is the distance between EUs and ASPs, and $f_c$ is the frequency band. As for other system parameters, $\xi_{i}$ is 0.999, $\gamma_i$ is 100, and the frequency band $f_c$ is 2.1GHz.
+
+For EUs, the distance between EU and ASP is uniformly chosen from 50m to 100m, the task size $s_{ij}$ is uniformly chosen from 4kB to 5kB, the latency requirements of the EU are chosen uniformly between 5ms to 100ms, the required CPU cycles $\chi_{ij}$ are chosen uniform between 0.1 and 0.9 Megacycles, the arrival rate $\lambda_{ij}$ is chosen uniformly between 1 and 3\cite{fan2018application}, the payment of the EUs $\Psi_{ij}$ are chosen uniformly between 1 and 10.
+
+If not specified, the ratio of malicious users to normal users are set to 0.5, and the number of end users are set to 100 per ASP. $\eta$ is set to be 5000.
+
+\iffalse
+\begin{figure}[!ht]
+     \subfloat[Total Purchased VM v.s. MPO Price\label{subfig-1:VMnum}]{%
+       \includegraphics[width=0.24\textwidth]{5GDDoS_Game_vm_number.pdf}
+     }
+     \subfloat[MPO Utility v.s. MPO Price\label{subfig-2:MPOutil}]{%
+       \includegraphics[width=0.24\textwidth]{5GDDoS_Game_utility.pdf}
+     }
+     \\
+     \subfloat[Different Malicious Users to Normal Users Ratio\label{subfig-1:ratio}]{%
+       \includegraphics[width=0.24\textwidth]{5GDDoS_Game_social_ratio.pdf}
+     }
+     \subfloat[Different Number of End users\label{subfig-2:num_cmp}]{%
+       \includegraphics[width=0.24\textwidth]{5GDDoS_Game_social_device.pdf}
+     }
+     \caption{Simulation Result}
+     \label{fig:sim}
+  \end{figure}
+\fi
 
 \begin{figure}[!ht]
   \includegraphics[width=0.45\textwidth]{5GDDoS_Game_vm_number.pdf}
@@ -566,16 +628,12 @@ Values&100&$U(50, 100)$&0.999&0.05&$U(4, 5)$\\ \hline
 \caption{Different Number of End users}
 \label{subfig-2:num_cmp}
 \end{figure}
-\subsection{The Boundary of MPO Optimization Problem}
-\label{MPO_opti}
+
 As seen in \Cref{subfig-1:VMnum} and \Cref{subfig-2:MPOutil}, the boundary has been plot and shown in the figures. The ASP has the same optimal response in every interval. As the MPO price increases, the optimal responses by the ASPs changes from a decreasing, convex function ((\Cref{eqn:asp_case2_utility_extreme}) and (\Cref{eqn:asp_case3_utility_extreme})) to a constant. Moreover, the MPO utility shown in \Cref{subfig-2:MPOutil} is a concave function in every interval. Thus, we can solve the MPO optimization problem by solving the convex optimization problem in every interval.
 
-\subsection{Comparison Between Different Ratio of Malicious Users and Normal Users}\label{mal_ratio}
-We compare different rules of IPS VM allocation in scenarios of different malicious to normal users. In this simulation, the number of normal users is fixed to 100. As seen in \Cref{subfig-1:ratio}, if the ratio increases, the social welfare declines. As the ratio increases, ASP has to devote more VMs to intercept unnecessary tasks instead of serving end-users, hence the decline in social welfare. In addition, our proposed scheme has the highest social welfare in contrast to other ways in different scenarios.
+We compare different rules of IPS VM allocation in scenarios of different malicious to normal users. These rules include $0\%$, $30\%$ IPS VM. As seen in \Cref{subfig-1:ratio}, if the ratio increases, ASPs have to devote more VMs to intercept unnecessary tasks instead of serving end-users, hence the decline in social welfare. In addition, our proposed scheme has the highest social welfare in contrast to other ways in different scenarios.
 
-\subsection{Comparison Between Different Numbers of End Users}
-\label{num_cmp}
-We compare different allocation rules of IPS VM in scenarios of various numbers of end-users. These rules include $0\%$, $30\%$ IPS VM. As seen in \Cref{subfig-2:num_cmp}, when the number of devices increases, the social welfare increases initially, but then decreases after the device number exceeds 150. As the devices number started to exceed the optimal value, ASP cannot serve excess EUs in time, thus the social welfare drops. Moreover, our proposed rule has the best social welfare compare with other allocation rules in different scenarios.
+We also compare different allocation rules in scenarios of various numbers of end-users. As seen in \Cref{subfig-2:num_cmp}, when the number of devices increases, the social welfare increases initially, but then decreases after the device number exceeds 150. As the device number started to exceed the optimal value, ASP cannot serve excess EUs in time, thus the social welfare drops. Moreover, our proposed rule has the best social welfare compare with other allocation rules in different scenarios.
 
 \section{Conclusion} \label{sec:conclusion}
 In the paper, we proposed an optimal allocation rule to allocate the IPS VM to mitigate DDoS attacks. In addition, we solve the optimization problem of ASP and MPO by formulating the hierarchy relationship between the two users into a Stackelberg game. In the simulation section, we found out that our proposed method to allocate IPS VMs has better social welfare than the fixed ratio methods.
