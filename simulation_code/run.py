@@ -213,9 +213,9 @@ if __name__ == '__main__':
     # asp = ASP(0.5, 100)
     # asp.plot_max()
     # asp.plot_max_zh()
-    # plot_different_ratio()
-    plot_utility_device_num()
-    plot_utility_ratio()
+    plot_different_ratio()
+    # plot_utility_device_num()
+    # plot_utility_ratio()
     # lst = []
     # for _ in range(100):
     #     asp = ASP(0.5, 100)
