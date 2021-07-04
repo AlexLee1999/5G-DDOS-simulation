@@ -207,15 +207,15 @@ def plot_different_ratio():
     plt.close()
 
 if __name__ == '__main__':
-    # mpo = MPO(0.5, 100)
+    # mpo = MPO(0.1, 1000)
     # mpo.plot_phi()
     # mpo.plot_social_welfare()
-    # asp = ASP(0.5, 100)
-    # asp.plot_max()
-    # asp.plot_max_zh()
+    asp = ASP(0.1, 1000)
+    asp.plot_max()
+    asp.plot_max_zh()
     # plot_different_ratio()
-    plot_utility_device_num()
-    plot_utility_ratio()
+    # plot_utility_device_num()
+    # plot_utility_ratio()
     # lst = []
     # for _ in range(100):
     #     asp = ASP(0.5, 100)

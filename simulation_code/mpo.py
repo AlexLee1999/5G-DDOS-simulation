@@ -99,7 +99,7 @@ class MPO():
 
     def plot_phi(self):
         phi = 30
-        step = 5
+        step = 1.5
         pr = []
         ut = []
         bound = []

@@ -142,8 +142,8 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(90, 300):
-                    self.z_v = i / 1000
+                for i in range(450, 1000):
+                    self.z_v = i / 10
                     self.z_h = self.chi * self.z_v
                     self.set_process_time()
                     self.set_utility()
@@ -172,8 +172,8 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 plt.scatter(self.z_v, self.utility, color=color_dict[mpo_price], marker='^')
-                for i in range(80, 300):
-                    self.z_v = i / 1000
+                for i in range(450, 1000):
+                    self.z_v = i /10
                     self.z_h = 0
                     self.set_process_time()
                     self.set_utility()
