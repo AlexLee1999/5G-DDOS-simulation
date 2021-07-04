@@ -4,10 +4,10 @@ from device import Device
 from mpo import MPO
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-ITER = 1000
+ITER = 200
 
 def plot_utility_device_num():
-    num = [i for i in range(50, 300, 50)]
+    num = [i for i in range(700, 1300, 100)]
     util_proposed = []
     social_proposed = []
     asp_util_proposed = []
@@ -28,7 +28,7 @@ def plot_utility_device_num():
         soc_three = 0
         asp_u_three = 0
         for _ in tqdm(range(ITER)):
-            mpo = MPO(0.5, n)
+            mpo = MPO(0.1, n)
             util, max_phi, social, asp_u = mpo.optimize_phi()
             u_proposed += util
             soc_proposed += social
@@ -90,7 +90,7 @@ def plot_utility_device_num():
     plt.close()
 
 def plot_utility_ratio():
-    ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
+    ratio = [0.01, 0.05, 0.1, 0.5, 0.9]
     util_proposed = []
     social_proposed = []
     asp_util_proposed = []
@@ -111,7 +111,7 @@ def plot_utility_ratio():
         soc_three = 0
         asp_u_three = 0
         for _ in tqdm(range(ITER)):
-            mpo = MPO(r, 100)
+            mpo = MPO(r, 1000)
             util, max_phi, social, asp_u = mpo.optimize_phi()
             u_proposed += util
             soc_proposed += social
@@ -177,12 +177,12 @@ def plot_utility_ratio():
 def plot_different_ratio():
     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
     plt.figure(figsize=(42, 25), dpi=400)
-    step = 0.5
+    step = 1.5
     for ra in ratio:
         ut = []
         pr = []
         phi = 10
-        mpo = MPO(ra, 100)
+        mpo = MPO(ra, 1000)
         vm_prior = float('inf')
         for _ in range(1000):
             mpo.set_and_check_required_vm(phi)
@@ -210,12 +210,12 @@ if __name__ == '__main__':
     # mpo = MPO(0.1, 1000)
     # mpo.plot_phi()
     # mpo.plot_social_welfare()
-    asp = ASP(0.1, 1000)
-    asp.plot_max()
-    asp.plot_max_zh()
+    # asp = ASP(0.1, 1000)
+    # asp.plot_max()
+    # asp.plot_max_zh()
     # plot_different_ratio()
-    # plot_utility_device_num()
-    # plot_utility_ratio()
+    plot_utility_device_num()
+    plot_utility_ratio()
     # lst = []
     # for _ in range(100):
     #     asp = ASP(0.5, 100)

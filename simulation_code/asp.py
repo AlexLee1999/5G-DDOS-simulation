@@ -20,7 +20,7 @@ class ASP():
         self.total_pay()
         self.mpo_price = None
         self.chi = 0.999
-        self.gamma = 100
+        self.gamma = 30
         self.phi = 0
 
     def set_users(self):

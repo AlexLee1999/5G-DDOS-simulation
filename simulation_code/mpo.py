@@ -17,6 +17,7 @@ class MPO():
         self.set_asp()
         self.set_bd()
         self.get_queue_bound()
+        self.constraint_phi = None
 
     def set_asp(self):
         for i in range(self.num_of_asp):
@@ -70,11 +71,12 @@ class MPO():
         return
 
     def optimize_phi(self):
-        phi = 0.01
-        step = 5
+        self.find_optimize_phi()
+        phi = self.constraint_phi
+        step = 1
         max = 0
         max_phi = 0
-        for _ in range(10000):
+        for _ in range(50000):
             self.set_and_check_required_vm(phi)
             vm_num = self.total_vm()
             uti = phi * vm_num - MPO_cost(vm_num)
@@ -98,6 +100,7 @@ class MPO():
         return util, util + asp_util, asp_util
 
     def plot_phi(self):
+        self.find_optimize_phi()
         phi = 30
         step = 1.5
         pr = []
@@ -120,7 +123,8 @@ class MPO():
         plt.plot(pr, ut, marker='.', linestyle='-.', label='Utility', linewidth=7)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
-        plt.vlines(self.bd + self.qbd, ymin=min(ut), ymax=max(ut), linestyle='-', color='red', label='Boundary', linewidth=4)
+        plt.vlines(self.bd + self.qbd, ymin=min(ut), ymax=max(ut), linestyle='-', color='gray', label='Boundary', linewidth=4)
+        plt.vlines(self.constraint_phi, ymin=min(ut), ymax=max(ut), linestyle='-', color='yellow', label='Constraint', linewidth=4)
         plt.legend(loc="best", fontsize=100)
         plt.xticks(fontsize=80)
         plt.yticks(fontsize=80)
@@ -130,7 +134,8 @@ class MPO():
 
         plt.figure(figsize=(42, 25), dpi=400)
         plt.plot(pr, num, marker='.', linestyle='-.', label='Purchased VM', linewidth=7)
-        plt.vlines(self.bd + self.qbd, ymin=min(num), ymax=max(num), linestyle='-', color='red', label='Boundary', linewidth=4)
+        plt.vlines(self.bd + self.qbd, ymin=min(num), ymax=max(num), linestyle='-', color='gray', label='Boundary', linewidth=4)
+        plt.vlines(self.constraint_phi, ymin=min(num), ymax=max(num), linestyle='-', color='yellow', label='Constraint', linewidth=4)
         plt.legend(loc="best", fontsize=100)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
@@ -141,9 +146,40 @@ class MPO():
         plt.close()
 
 
+    def find_optimize_phi(self):
+        vm_prior = float('inf')
+        phi_prior = 0.01
+        for bd in self.bd:
+            self.set_and_check_required_vm(bd)
+            vm_after = self.total_vm()
+            phi_after = bd
+            if vm_after < self.num_of_vm and vm_prior > self.num_of_vm:
+                break
+            vm_prior = vm_after
+            phi_prior = phi_after
+        if phi_prior > max(self.qbd):
+            self.constraint_phi = phi_prior
+        else:
+            upper = phi_after
+            lower = phi_prior
+            mid = (upper + lower) / 2
+            self.set_and_check_required_vm(lower)
+            vm_num = self.total_vm()
+            while abs(vm_num - self.num_of_vm) > 0.001 and abs(upper - lower) > 1E-8:
+                mid = (upper + lower) / 2
+                self.set_and_check_required_vm(mid)
+                vm_num = self.total_vm()
+                if vm_num > self.num_of_vm:
+                    lower = mid
+                else:
+                    upper = mid
+            self.set_and_check_required_vm(mid)
+            vm = self.total_vm()
+            self.constraint_phi = mid
+
     def plot_social_welfare(self):
-        phi = 10
-        step = 0.5
+        phi = 30
+        step = 1.5
         pr = []
         pr_zh1 = []
         pr_zh2 = []
