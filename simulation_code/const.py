@@ -26,7 +26,7 @@ DEVICE_ARRIVAL_RATE_UPPER = 3
 DEVICE_ARRIVAL_RATE_LOWER = 1
 # price per task
 DEVICE_PRICE_PER_TASK_UPPER = 100
-DEVICE_PRICE_PER_TASK_LOWER = 10
+DEVICE_PRICE_PER_TASK_LOWER = 1
 
 ########################################
 # These are the parameters of ASP
@@ -34,7 +34,7 @@ DEVICE_PRICE_PER_TASK_LOWER = 10
 ########################################
 # latency
 ASP_DEVICE_LATENCY_UPPER = 1000E-3
-ASP_DEVICE_LATENCY_LOWER = 1E-3
+ASP_DEVICE_LATENCY_LOWER = 5E-3
 
 ASP_BANDWIDTH = 20 * 10E8
 
@@ -59,4 +59,4 @@ MPO_NUM_OF_VM_UPPER = 250
 MPO_CPU_FREQUENCY = 0.25 * 10E9
 
 def MPO_cost(x):
-    return 10 * x**(1.2)
+    return 0.01 * x ** 2

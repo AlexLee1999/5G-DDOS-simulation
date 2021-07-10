@@ -102,13 +102,13 @@ class MPO():
     def plot_phi(self):
         self.find_optimize_phi()
         phi = 30
-        step = 1.5
+        step = 1
         pr = []
         ut = []
         bound = []
         num = []
         vm_prior = float('inf')
-        for _ in range(1000):
+        for _ in range(3000):
             self.set_and_check_required_vm(phi)
             vm_after = self.total_vm()
             pr.append(phi)
@@ -120,11 +120,11 @@ class MPO():
             vm_prior = vm_after
 
         plt.figure(figsize=(42, 25), dpi=400)
-        plt.plot(pr, ut, marker='.', linestyle='-.', label='Utility', linewidth=7)
+        plt.plot(pr, ut, marker='.', linestyle='-', label='Utility', linewidth=7)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
-        plt.vlines(self.bd + self.qbd, ymin=min(ut), ymax=max(ut), linestyle='-', color='gray', label='Boundary', linewidth=4)
-        plt.vlines(self.constraint_phi, ymin=min(ut), ymax=max(ut), linestyle='-', color='yellow', label='Constraint', linewidth=4)
+        plt.vlines(self.bd + self.qbd, ymin=min(ut), ymax=max(ut), linestyle='-.', color='gray', label='Boundary', linewidth=4)
+        plt.vlines(self.constraint_phi, ymin=min(ut), ymax=max(ut), linestyle='-.', color='red', label='Constraint', linewidth=4)
         plt.legend(loc="best", fontsize=100)
         plt.xticks(fontsize=80)
         plt.yticks(fontsize=80)
@@ -133,12 +133,12 @@ class MPO():
         plt.close()
 
         plt.figure(figsize=(42, 25), dpi=400)
-        plt.plot(pr, num, marker='.', linestyle='-.', label='Purchased VM', linewidth=7)
-        plt.vlines(self.bd + self.qbd, ymin=min(num), ymax=max(num), linestyle='-', color='gray', label='Boundary', linewidth=4)
-        plt.vlines(self.constraint_phi, ymin=min(num), ymax=max(num), linestyle='-', color='yellow', label='Constraint', linewidth=4)
+        plt.plot(pr, num, marker='.', linestyle='-', label='Purchased VM', linewidth=7)
+        plt.vlines(self.bd + self.qbd, ymin=min(num), ymax=max(num), linestyle='-.', color='gray', label='Boundary', linewidth=4)
+        plt.vlines(self.constraint_phi, ymin=min(num), ymax=max(num), linestyle='-.', color='red', label='Constraint', linewidth=4)
         plt.legend(loc="best", fontsize=100)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
-        plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
+        plt.ylabel(r'$\bf{Total\ Purchased\ VM}$', fontsize=100)
         plt.xticks(fontsize=80)
         plt.yticks(fontsize=80)
         plt.savefig('./5GDDoS_Game_vm_number.pdf')
