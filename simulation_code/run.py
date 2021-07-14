@@ -172,6 +172,65 @@ def plot_utility_ratio():
     plt.savefig('./5GDDoS_Game_asp_ratio.pdf')
     plt.close()
 
+def plot_different_step():
+    num = [500, 750, 1000, 1250]
+    phi_step_1_lst = []
+    social_step_1_lst = []
+    phi_step_5_lst = []
+    social_step_5_lst = []
+    phi_step_10_lst = []
+    social_step_10_lst = []
+    for n in num:
+        phi_step_1 = 0
+        soc_step_1 = 0
+        phi_step_5 = 0
+        soc_step_5 = 0
+        phi_step_10 = 0
+        soc_step_10 = 0
+        for _ in tqdm(range(ITER)):
+            mpo = MPO(0.1, n)
+            _, max_phi, social, _ = mpo.optimize_phi_with_step(1)
+            phi_step_1 += max_phi
+            soc_step_1 += social
+            _, max_phi, social, _ = mpo.optimize_phi_with_step(5)
+            phi_step_5 += max_phi
+            soc_step_5 += social
+            _, max_phi, social, _ = mpo.optimize_phi_with_step(10)
+            phi_step_10 += max_phi
+            soc_step_10 += social
+        phi_step_1_lst.append(phi_step_1 / ITER)
+        social_step_1_lst.append(soc_step_1 / ITER)
+        phi_step_5_lst.append(phi_step_5 / ITER)
+        social_step_5_lst.append(soc_step_5 / ITER)
+        phi_step_10_lst.append(phi_step_10 / ITER)
+        social_step_10_lst.append(soc_step_10 / ITER)
+    plt.figure(figsize=(42, 25), dpi=400)
+    plt.plot(num, phi_step_1_lst, marker='o', linestyle='-.', label='Step = 1', linewidth=7, markersize=30)
+    plt.plot(num, phi_step_5_lst, marker='^', linestyle='-.', label='Step = 5', linewidth=7, markersize=30)
+    plt.plot(num, phi_step_10_lst, marker='s', linestyle='-.', label='Step = 10', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{Optimal\ MPO\ Price}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_price_device_with_step.jpg')
+    plt.savefig('./5GDDoS_Game_price_device_with_step.pdf')
+    plt.close()
+
+    plt.figure(figsize=(42, 25), dpi=400)
+    plt.plot(num, social_step_1_lst, marker='o', linestyle='-.', label='Step = 1', linewidth=7, markersize=30)
+    plt.plot(num, social_step_5_lst, marker='^', linestyle='-.', label='Step = 5', linewidth=7, markersize=30)
+    plt.plot(num, social_step_10_lst, marker='s', linestyle='-.', label='Step = 10', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{Social\ Utility}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_social_device_with_step.jpg')
+    plt.savefig('./5GDDoS_Game_social_device_with_step.pdf')
+    plt.close()
+
+
 
 
 def plot_different_ratio():
@@ -214,10 +273,6 @@ if __name__ == '__main__':
     # asp.plot_max()
     # asp.plot_max_zh()
     # plot_different_ratio()
-    plot_utility_device_num()
-    plot_utility_ratio()
-    # lst = []
-    # for _ in range(100):
-    #     asp = ASP(0.5, 100)
-    #     lst.append(asp.service_rate)
-    # print(sum(lst)/100)
+    # plot_utility_device_num()
+    # plot_utility_ratio()
+    plot_different_step()

@@ -71,12 +71,32 @@ class MPO():
         return
 
     def optimize_phi(self):
-        self.find_optimize_phi()
+        self.find_constraint_phi()
         phi = self.constraint_phi
         step = 1
         max = 0
         max_phi = 0
         for _ in range(50000):
+            self.set_and_check_required_vm(phi)
+            vm_num = self.total_vm()
+            uti = phi * vm_num - MPO_cost(vm_num)
+            if uti > max:
+                max = uti
+                max_phi = phi
+            phi += step
+        self.set_and_check_required_vm(max_phi)
+        asp_util = 0
+        for asp in self.asp_lst:
+            asp_util += asp.utility
+        return max, max_phi, asp_util + max, asp_util
+
+    def optimize_phi_with_step(self, step):
+        self.find_constraint_phi()
+        phi = self.constraint_phi
+        max = 0
+        max_phi = 0
+        iter = int(50000 / step)
+        for _ in range(iter):
             self.set_and_check_required_vm(phi)
             vm_num = self.total_vm()
             uti = phi * vm_num - MPO_cost(vm_num)
@@ -100,7 +120,7 @@ class MPO():
         return util, util + asp_util, asp_util
 
     def plot_phi(self):
-        self.find_optimize_phi()
+        self.find_constraint_phi()
         phi = 30
         step = 1
         pr = []
@@ -146,7 +166,7 @@ class MPO():
         plt.close()
 
 
-    def find_optimize_phi(self):
+    def find_constraint_phi(self):
         vm_prior = float('inf')
         phi_prior = 0.01
         for bd in self.bd:
