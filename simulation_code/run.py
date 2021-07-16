@@ -90,7 +90,7 @@ def plot_utility_device_num():
     plt.close()
 
 def plot_utility_ratio():
-    ratio = [0.01, 0.05, 0.1, 0.5, 0.9]
+    ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
     util_proposed = []
     social_proposed = []
     asp_util_proposed = []
