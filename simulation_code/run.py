@@ -5,7 +5,7 @@ from mpo import MPO
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
-ITER = 500
+ITER = 300
 
 def plot_utility_device_num():
     num = [500, 750, 1000, 1250]
@@ -233,18 +233,74 @@ def plot_different_step():
     plt.savefig('./5GDDoS_Game_social_device_with_step.pdf')
     plt.close()
 
-def plot_flat_price():
-    price = [i for i in range(700, 1500, 20)]
+def plot_max_vm():
+    num = [500, 750, 1000, 1250]
     util_proposed = []
     social_proposed = []
     asp_util_proposed = []
-    util_flat_1000 = []
-    social_flat_1000 = []
-    asp_util_flat_1000 = []
-    util_flat_1500 = []
-    social_flat_1500 = []
-    asp_util_flat_1500 = []
+    util_max_num = []
+    social_max_num = []
+    asp_util_max_num = []
+    for n in num:
+        u_max_num = 0
+        soc_max_num = 0
+        asp_u_max_num = 0
+        u_proposed = 0
+        soc_proposed = 0
+        asp_u_proposed = 0
+        for _ in tqdm(range(ITER)):
+            mpo = MPO(0.1, n)
+            util, max_phi, social, asp_u = mpo.optimize_phi()
+            u_proposed += util
+            soc_proposed += social
+            asp_u_proposed += asp_u
+            mpo.find_constraint_phi()
+            phi = mpo.constraint_phi
+            util, social, asp_u = mpo.optimize_phi_with_price(phi)
+            u_max_num += util
+            soc_max_num += social
+            asp_u_max_num += asp_u
+        util_proposed.append(u_proposed / ITER)
+        social_proposed.append(soc_proposed / ITER)
+        asp_util_proposed.append(asp_u_proposed / ITER)
+        util_max_num.append(u_max_num / ITER)
+        social_max_num.append(soc_max_num / ITER)
+        asp_util_max_num.append(asp_u_max_num / ITER)
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(num, util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(num, util_max_num, marker='^', linestyle='-.', label='Max VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_MPO_device_max_num.jpg')
+    plt.savefig('./5GDDoS_Game_MPO_device_max_num.pdf')
+    plt.close()
 
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(num, social_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(num, social_max_num, marker='^', linestyle='-.', label='Max VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_social_device_max_num.jpg')
+    plt.savefig('./5GDDoS_Game_social_device_max_num.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(num, asp_util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(num, asp_util_max_num, marker='^', linestyle='-.', label='Max VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_asp_device_max_num.jpg')
+    plt.savefig('./5GDDoS_Game_asp_device_max_num.pdf')
+    plt.close()
 
 def plot_different_ratio():
     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
@@ -286,6 +342,7 @@ if __name__ == '__main__':
     # asp.plot_max()
     # asp.plot_max_zh()
     # plot_different_ratio()
-    # plot_utility_device_num()
-    # plot_utility_ratio()
+    plot_utility_device_num()
+    plot_utility_ratio()
     plot_different_step()
+    plot_max_vm()

@@ -119,6 +119,15 @@ class MPO():
             asp_util += asp.utility
         return util, util + asp_util, asp_util
 
+    def optimize_phi_with_price(self, price):
+        self.set_and_check_required_vm(price)
+        vm = self.total_vm()
+        util = price * vm - MPO_cost(vm)
+        asp_util = 0
+        for asp in self.asp_lst:
+            asp_util += asp.utility
+        return util, util + asp_util, asp_util
+
     def plot_phi(self):
         self.find_constraint_phi()
         phi = 30
