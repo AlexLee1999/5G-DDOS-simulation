@@ -4,6 +4,7 @@ from device import Device
 from mpo import MPO
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+import numpy as np
 ITER = 500
 
 def plot_utility_device_num():
@@ -204,10 +205,11 @@ def plot_different_step():
         social_step_5_lst.append(soc_step_5 / ITER)
         phi_step_10_lst.append(phi_step_10 / ITER)
         social_step_10_lst.append(soc_step_10 / ITER)
-    plt.figure(figsize=(42, 25), dpi=400)
-    plt.plot(num, phi_step_1_lst, marker='o', linestyle='-.', label='Step = 1', linewidth=7, markersize=30)
-    plt.plot(num, phi_step_5_lst, marker='^', linestyle='-.', label='Step = 5', linewidth=7, markersize=30)
-    plt.plot(num, phi_step_10_lst, marker='s', linestyle='-.', label='Step = 10', linewidth=7, markersize=30)
+    X = np.arange(4)
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(num, phi_step_1_lst, marker='o', linestyle='-.', label='Step = 1', linewidth=1, markersize=30)
+    plt.plot(num, phi_step_5_lst, marker='^', linestyle='-.', label='Step = 5', linewidth=1, markersize=30)
+    plt.plot(num, phi_step_10_lst, marker='s', linestyle='-.', label='Step = 10', linewidth=1, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
     plt.ylabel(r'$\bf{Optimal\ MPO\ Price}$', fontsize=100)
@@ -217,11 +219,12 @@ def plot_different_step():
     plt.savefig('./5GDDoS_Game_price_device_with_step.pdf')
     plt.close()
 
-    plt.figure(figsize=(42, 25), dpi=400)
-    plt.plot(num, social_step_1_lst, marker='o', linestyle='-.', label='Step = 1', linewidth=7, markersize=30)
-    plt.plot(num, social_step_5_lst, marker='^', linestyle='-.', label='Step = 5', linewidth=7, markersize=30)
-    plt.plot(num, social_step_10_lst, marker='s', linestyle='-.', label='Step = 10', linewidth=7, markersize=30)
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.bar(X + 0.00, social_step_1_lst, label='Step = 1', width=0.25)
+    plt.bar(X + 0.25, social_step_5_lst, label='Step = 5', width=0.25)
+    plt.bar(X + 0.50, social_step_10_lst, label='Step = 10', width=0.25)
     plt.legend(loc="best", fontsize=100)
+    plt.xticks(X + (0.375 / 2), (500, 750, 1000, 1250))
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
     plt.ylabel(r'$\bf{Social\ Utility}$', fontsize=100)
     plt.xticks(fontsize=80)
@@ -230,7 +233,17 @@ def plot_different_step():
     plt.savefig('./5GDDoS_Game_social_device_with_step.pdf')
     plt.close()
 
-
+def plot_flat_price():
+    num = [500, 750, 1000, 1250]
+    util_proposed = []
+    social_proposed = []
+    asp_util_proposed = []
+    util_flat_1000 = []
+    social_flat_1000 = []
+    asp_util_flat_1000 = []
+    util_flat_1500 = []
+    social_flat_1500 = []
+    asp_util_flat_1500 = []
 
 
 def plot_different_ratio():
