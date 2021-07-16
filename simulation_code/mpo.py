@@ -139,7 +139,7 @@ class MPO():
                 print('Total VM is not non-increasing')
             vm_prior = vm_after
 
-        plt.figure(figsize=(42, 25), dpi=400)
+        plt.figure(figsize=(45, 25), dpi=400)
         plt.plot(pr, ut, marker='.', linestyle='-', label='Utility', linewidth=7)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
@@ -152,7 +152,7 @@ class MPO():
         plt.savefig('./5GDDoS_Game_utility.jpg')
         plt.close()
 
-        plt.figure(figsize=(42, 25), dpi=400)
+        plt.figure(figsize=(45, 25), dpi=400)
         plt.plot(pr, num, marker='.', linestyle='-', label='Purchased VM', linewidth=7)
         plt.vlines(self.bd + self.qbd, ymin=min(num), ymax=max(num), linestyle='-.', color='gray', label='Boundary', linewidth=4)
         plt.vlines(self.constraint_phi, ymin=min(num), ymax=max(num), linestyle='-.', color='red', label='Constraint', linewidth=4)
@@ -284,7 +284,7 @@ class MPO():
             if vm_prior < vm_after:
                 print('Total VM is not non-increasing')
             vm_prior = vm_after
-        plt.figure(figsize=(42, 25), dpi=400)
+        plt.figure(figsize=(45, 25), dpi=400)
         plt.plot(pr, ut, marker='.', linestyle='-.', label='Proposed', linewidth=7)
         plt.plot(pr_zh1, ut_zh1, marker='.', linestyle='-.', label='No IPS VM', linewidth=7)
         plt.plot(pr_zh2, ut_zh2, marker='.', linestyle='-.', label='30% IPS VM', linewidth=7)

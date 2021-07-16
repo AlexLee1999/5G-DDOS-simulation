@@ -51,7 +51,7 @@ def plot_utility_device_num():
         util_fix_three.append(u_three / ITER)
         social_fix_three.append(soc_three / ITER)
         asp_util_fix_three.append(asp_u_three / ITER)
-    plt.figure(figsize=(42, 25), dpi=400)
+    plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(num, util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(num, util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(num, util_fix_three, marker='s', linestyle='-.', label='30% IPS VM', linewidth=7, markersize=30)
@@ -64,7 +64,7 @@ def plot_utility_device_num():
     plt.savefig('./5GDDoS_Game_MPO_device.pdf')
     plt.close()
 
-    plt.figure(figsize=(42, 25), dpi=400)
+    plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(num, social_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(num, social_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(num, social_fix_three, marker='s', linestyle='-.', label='30% IPS VM', linewidth=7, markersize=30)
@@ -77,7 +77,7 @@ def plot_utility_device_num():
     plt.savefig('./5GDDoS_Game_social_device.pdf')
     plt.close()
 
-    plt.figure(figsize=(42, 25), dpi=400)
+    plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(num, asp_util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(num, asp_util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(num, asp_util_fix_three, marker='s', linestyle='-.', label='30% IPS VM', linewidth=7, markersize=30)
@@ -134,7 +134,7 @@ def plot_utility_ratio():
         util_fix_three.append(u_three / ITER)
         social_fix_three.append(soc_three / ITER)
         asp_util_fix_three.append(asp_u_three / ITER)
-    plt.figure(figsize=(42, 25), dpi=400)
+    plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(ratio, util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, util_fix_three, marker='s', linestyle='-.', label='30% IPS VM', linewidth=7, markersize=30)
@@ -147,7 +147,7 @@ def plot_utility_ratio():
     plt.savefig('./5GDDoS_Game_MPO_ratio.pdf')
     plt.close()
 
-    plt.figure(figsize=(42, 25), dpi=400)
+    plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(ratio, social_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, social_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, social_fix_three, marker='s', linestyle='-.', label='30% IPS VM', linewidth=7, markersize=30)
@@ -160,7 +160,7 @@ def plot_utility_ratio():
     plt.savefig('./5GDDoS_Game_social_ratio.pdf')
     plt.close()
 
-    plt.figure(figsize=(42, 25), dpi=400)
+    plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(ratio, asp_util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, asp_util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, asp_util_fix_three, marker='s', linestyle='-.', label='30% IPS VM', linewidth=7, markersize=30)
@@ -234,7 +234,7 @@ def plot_different_step():
     plt.close()
 
 def plot_flat_price():
-    num = [500, 750, 1000, 1250]
+    price = [i for i in range(700, 1500, 20)]
     util_proposed = []
     social_proposed = []
     asp_util_proposed = []
@@ -248,7 +248,7 @@ def plot_flat_price():
 
 def plot_different_ratio():
     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
-    plt.figure(figsize=(42, 25), dpi=400)
+    plt.figure(figsize=(45, 25), dpi=400)
     step = 1.5
     for ra in ratio:
         ut = []
