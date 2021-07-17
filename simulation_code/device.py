@@ -29,4 +29,4 @@ class Malicious_Device():
         self.log_snr = math.log2(1 + self.tx_power * 10**10 * 10 ** (-(22 * math.log10(self.distance) + 28 + 20 * math.log10(self.frequency)) / 10))
         self.shannon_rate = self.bandwidth * self.log_snr
         self.transmission_time_to_asp = self.arrival_rate * self.task_size / self.shannon_rate
-        self.price_per_task = uniform(DEVICE_PRICE_PER_TASK_LOWER, DEVICE_PRICE_PER_TASK_UPPER)
+        self.price_per_task = 0

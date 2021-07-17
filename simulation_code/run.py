@@ -305,14 +305,14 @@ def plot_max_vm():
 def plot_different_ratio():
     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
     plt.figure(figsize=(45, 25), dpi=400)
-    step = 1.5
+    step = 1
     for ra in ratio:
         ut = []
         pr = []
-        phi = 10
+        phi = 30
         mpo = MPO(ra, 1000)
         vm_prior = float('inf')
-        for _ in range(1000):
+        for _ in range(3000):
             mpo.set_and_check_required_vm(phi)
             vm_after = mpo.total_vm()
             welfare = 0
@@ -335,14 +335,14 @@ def plot_different_ratio():
     plt.close()
 
 if __name__ == '__main__':
-    # mpo = MPO(0.1, 1000)
-    # mpo.plot_phi()
-    # mpo.plot_social_welfare()
+    mpo = MPO(0.1, 1000)
+    # mpo.plot_MPO_utility()
+    mpo.plot_social_welfare()
     # asp = ASP(0.1, 1000)
     # asp.plot_max()
     # asp.plot_max_zh()
     # plot_different_ratio()
-    plot_utility_device_num()
-    plot_utility_ratio()
-    plot_different_step()
-    plot_max_vm()
+    # plot_utility_device_num()
+    # plot_utility_ratio()
+    # plot_different_step()
+    # plot_max_vm()

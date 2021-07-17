@@ -4,6 +4,11 @@ from const import *
 from device import Device, Malicious_Device
 import matplotlib.pyplot as plt
 
+"""
+bandwidth : total bandwidth of ASP_
+frequency : CPU frequency of a VM
+"""
+
 
 class ASP():
     def __init__(self, ratio, num):
@@ -22,18 +27,24 @@ class ASP():
         self.chi = 0.999
         self.gamma = 30
         self.phi = 0
-
+    """
+    set_users : initial users
+    """
     def set_users(self):
         for i in range(self.num_of_normal_users):
             self.device_list.append(Device(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
         for i in range(self.num_of_malicious_users):
             self.mal_device_list.append(Malicious_Device(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
-
+    """
+    total_pay : calculate the total payment from device
+    """
     def total_pay(self):
         self.total_payment = 0
         for dev in self.device_list:
             self.total_payment += dev.price_per_task
-
+    """
+    set_service_rate : initial the service rate
+    """
     def set_service_rate(self):
         tot_cpu_cycle = 0
         for dev in self.device_list:
@@ -41,27 +52,42 @@ class ASP():
         for dev in self.mal_device_list:
             tot_cpu_cycle += dev.required_cpu_cycle
         self.service_rate = self.frequency / (tot_cpu_cycle / (self.num_of_normal_users + self.num_of_malicious_users))
-
+    """
+    set_arrival_rate : initial the arrival rate
+    """
     def set_arrival_rate(self):
         self.arrival_rate = 0
         for dev in self.device_list:
             self.arrival_rate += dev.arrival_rate
         for dev in self.mal_device_list:
             self.arrival_rate += dev.arrival_rate
-
+    """
+    set_mpo_price : get mpo price from mpo
+    """
     def set_mpo_price(self, price):
         self.mpo_price = price
-
+    """
+    set_malicious_ratio : set malicious ratio of an ASP
+    """
+    def set_malicious_ratio(self, ratio):
+        self.malicious_ratio = ratio
+    """
+    set_utility : calculate the utility
+    """
     def set_utility(self):
         util = 0
         for dev in self.device_list:
             util += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.process_time - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
         self.utility = util - self.mpo_price * self.z_v
         return
-
+    """
+    time : calculate processing time with z_v and z_h
+    """
     def time(self, z_v, z_h):
         return 1 / ((z_v - z_h) * self.service_rate - (self.arrival_rate - ASP_H(z_h)))
-
+    """
+    set_boundary : calculate the boundary
+    """
     def set_boundary(self):
         z_v = (self.arrival_rate + self.gamma) / self.service_rate
         z_h = self.chi * z_v
@@ -77,10 +103,14 @@ class ASP():
             self.bound = util2 / z_v
             self.qbound = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1) * self.service_rate)) / (z_v - self.arrival_rate / ((1) * self.service_rate)) ** 2
         return
-
+    """
+    set_process_time : set the process_time with existing z_v and z_h
+    """
     def set_process_time(self):
         self.process_time = 1 / ((self.z_v - self.z_h) * self.service_rate - (self.arrival_rate - ASP_H(self.z_h)))
-
+    """
+    optimize_zv : set the optimize z_v and calculate utility
+    """
     def optimize_zv(self):
         if GLOBAL_ETA > self.service_rate:
             self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
@@ -94,7 +124,6 @@ class ASP():
             if self.utility < 0:
                 self.z_v = 0
                 self.utility = 0
-
         else:
             self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
             self.z_h = 0
@@ -108,11 +137,9 @@ class ASP():
             if self.utility < 0:
                 self.z_v = 0
                 self.utility = 0
-
-
-    def set_malicious_ratio(self, ratio):
-        self.malicious_ratio = ratio
-
+    """
+    set_zv_zh : set the asp with chi
+    """
     def set_zv_zh(self, chi):
         self.chi = chi
         self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
@@ -131,7 +158,6 @@ class ASP():
         mpo_lst = [100, 300, 500, 700, 900]
         color_dict = {100: 'red', 300: 'darkorange', 500: 'indigo', 700: 'darkgreen', 900: 'darkblue'}
         if GLOBAL_ETA > self.service_rate:
-
             plt.figure(figsize=(45, 25), dpi=400)
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price

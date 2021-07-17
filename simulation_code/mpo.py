@@ -16,24 +16,32 @@ class MPO():
         self.num = num
         self.set_asp()
         self.set_bd()
-        self.get_queue_bound()
+        self.set_queue_bound()
         self.constraint_phi = None
-
+    """
+    set_asp : initial asp
+    """
     def set_asp(self):
         for i in range(self.num_of_asp):
             self.asp_lst.append(ASP(self.ratio, self.num))
-
+    """
+    set_price_per_vm : initial mpo price
+    """
     def set_price_per_vm(self, price):
         self.price_per_vm = price
         for asp in self.asp_lst:
             asp.set_mpo_price(price)
-
+    """
+    total_vm : calculate and return total vm
+    """
     def total_vm(self):
         tot = 0
         for asp in self.asp_lst:
             tot += asp.z_v
         return tot
-
+    """
+    set_bd : add boundary points to the list
+    """
     def set_bd(self):
         self.bd = []
         for asp in self.asp_lst:
@@ -41,27 +49,35 @@ class MPO():
             self.bd.append(asp.bound)
         self.bd.sort()
         return
-
-    def get_queue_bound(self):
+    """
+    set_queue_bound : add queuing boundary points to the list
+    """
+    def set_queue_bound(self):
         self.qbd = []
         for asp in self.asp_lst:
             asp.set_boundary()
             self.qbd.append(asp.qbound)
         self.qbd.sort()
         return
-
+    """
+    set_and_check_required_vm : set price and optimize the asp
+    """
     def set_and_check_required_vm(self, price):
         self.set_price_per_vm(price)
         for asp in self.asp_lst:
             asp.optimize_zv()
         return
-
+    """
+    set_and_check_required_vm_with_chi : set price and IPS ratio and optimize the asp
+    """
     def set_and_check_required_vm_with_chi(self, price, chi):
         self.set_price_per_vm(price)
         for asp in self.asp_lst:
             asp.set_zv_zh(chi)
         return
-
+    """
+    set_and_check_required_vm_with_chi_random : set price and IPS ratio (array) and optimize the asp
+    """
     def set_and_check_required_vm_with_chi_random(self, price, chi):
         self.set_price_per_vm(price)
         i = 0
@@ -69,7 +85,9 @@ class MPO():
             asp.set_zv_zh(chi[i])
             i += 1
         return
-
+    """
+    optimize_phi : find the optimize phi
+    """
     def optimize_phi(self):
         self.find_constraint_phi()
         phi = self.constraint_phi
@@ -89,7 +107,9 @@ class MPO():
         for asp in self.asp_lst:
             asp_util += asp.utility
         return max, max_phi, asp_util + max, asp_util
-
+    """
+    optimize_phi_with_step : find the optimize phi with different step
+    """
     def optimize_phi_with_step(self, step):
         self.find_constraint_phi()
         phi = self.constraint_phi
@@ -109,7 +129,9 @@ class MPO():
         for asp in self.asp_lst:
             asp_util += asp.utility
         return max, max_phi, asp_util + max, asp_util
-
+    """
+    optimize_phi_with_chi : calculate the overall utility with input (MPO price, IPS ratio)
+    """
     def optimize_phi_with_chi(self, chi, phi):
         self.set_and_check_required_vm_with_chi(phi, chi)
         vm = self.total_vm()
@@ -118,7 +140,9 @@ class MPO():
         for asp in self.asp_lst:
             asp_util += asp.utility
         return util, util + asp_util, asp_util
-
+    """
+    optimize_phi_with_price : calculate the overall utility with input (MPO price)
+    """
     def optimize_phi_with_price(self, price):
         self.set_and_check_required_vm(price)
         vm = self.total_vm()
@@ -127,8 +151,10 @@ class MPO():
         for asp in self.asp_lst:
             asp_util += asp.utility
         return util, util + asp_util, asp_util
-
-    def plot_phi(self):
+    """
+    plot the MPO utility
+    """
+    def plot_MPO_utility(self):
         self.find_constraint_phi()
         phi = 30
         step = 1
@@ -173,8 +199,9 @@ class MPO():
         plt.savefig('./5GDDoS_Game_vm_number.pdf')
         plt.savefig('./5GDDoS_Game_vm_number.jpg')
         plt.close()
-
-
+    """
+    find_constraint_phi : find the lowest price that satisfy the total vm constraint
+    """
     def find_constraint_phi(self):
         vm_prior = float('inf')
         phi_prior = 0.01
@@ -205,10 +232,12 @@ class MPO():
             self.set_and_check_required_vm(mid)
             vm = self.total_vm()
             self.constraint_phi = mid
-
+    """
+    plot_social_welfare : plot
+    """
     def plot_social_welfare(self):
         phi = 30
-        step = 1.5
+        step = 1
         pr = []
         pr_zh1 = []
         pr_zh2 = []
@@ -220,7 +249,7 @@ class MPO():
         ut_zh3 = []
         ut_zh4 = []
         vm_prior = float('inf')
-        for _ in range(1000):
+        for _ in range(3000):
             self.set_and_check_required_vm(phi)
             vm_after = self.total_vm()
             pr.append(phi)
@@ -234,8 +263,8 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 10
-        for _ in range(1000):
+        phi = 30
+        for _ in range(3000):
             self.set_and_check_required_vm_with_chi(phi, 0)
             vm_after = self.total_vm()
             pr_zh1.append(phi)
@@ -249,8 +278,8 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 10
-        for _ in range(1000):
+        phi = 30
+        for _ in range(3000):
             self.set_and_check_required_vm_with_chi(phi, 0.3)
             vm_after = self.total_vm()
             pr_zh2.append(phi)
@@ -264,9 +293,9 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 10
-        ratio = np.random.rand(self.num_of_asp) * 0.9
-        for _ in range(1000):
+        phi = 30
+        ratio = np.random.rand(self.num_of_asp) * 0.999
+        for _ in range(3000):
             self.set_and_check_required_vm_with_chi_random(phi, ratio)
             vm_after = self.total_vm()
             pr_zh3.append(phi)
@@ -280,9 +309,9 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 10
-        for _ in range(1000):
-            self.set_and_check_required_vm_with_chi(phi, 0.9)
+        phi = 30
+        for _ in range(3000):
+            self.set_and_check_required_vm_with_chi(phi, 0.999)
             vm_after = self.total_vm()
             pr_zh4.append(phi)
             welfare = 0
@@ -298,7 +327,7 @@ class MPO():
         plt.plot(pr_zh1, ut_zh1, marker='.', linestyle='-.', label='No IPS VM', linewidth=7)
         plt.plot(pr_zh2, ut_zh2, marker='.', linestyle='-.', label='30% IPS VM', linewidth=7)
         plt.plot(pr_zh3, ut_zh3, marker='.', linestyle='-.', label='random IPS VM', linewidth=7)
-        plt.plot(pr_zh4, ut_zh4, marker='.', linestyle='-.', label='90% IPS VM', linewidth=7)
+        plt.plot(pr_zh4, ut_zh4, marker='.', linestyle='-.', label='99.9% IPS VM', linewidth=7)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{Social\ welfare}$', fontsize=100)
         plt.xticks(fontsize=80)
