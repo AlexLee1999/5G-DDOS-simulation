@@ -5,9 +5,10 @@ from mpo import MPO
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
-ITER = 1
+ITER = 300
 
 def plot_utility_device_num():
+    print("device")
     num = [500, 750, 1000, 1250]
     util_proposed = []
     social_proposed = []
@@ -107,6 +108,7 @@ def plot_utility_device_num():
     plt.close()
 
 def plot_utility_ratio():
+    print("ratio")
     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
     util_proposed = []
     social_proposed = []
@@ -166,7 +168,8 @@ def plot_utility_ratio():
     plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(ratio, util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
-    plt.plot(ratio, util_fix_three, marker='s', linestyle='-.', label='30% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, util_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, util_fix_nine, marker='8', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
@@ -179,7 +182,8 @@ def plot_utility_ratio():
     plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(ratio, social_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, social_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
-    plt.plot(ratio, social_fix_three, marker='s', linestyle='-.', label='30% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, social_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, social_fix_nine, marker='8', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
@@ -192,7 +196,8 @@ def plot_utility_ratio():
     plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(ratio, asp_util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, asp_util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
-    plt.plot(ratio, asp_util_fix_three, marker='s', linestyle='-.', label='30% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, asp_util_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, asp_util_fix_nine, marker='8', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
@@ -202,7 +207,77 @@ def plot_utility_ratio():
     plt.savefig('./5GDDoS_Game_asp_ratio.pdf')
     plt.close()
 
+def plot_ratio_with_same_IPS_ratio():
+    print("same ratio")
+    ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
+    util_proposed = []
+    social_proposed = []
+    asp_util_proposed = []
+    util_fix = []
+    social_fix = []
+    asp_util_fix = []
+    for r in ratio:
+        u_fix = 0
+        soc_fix = 0
+        asp_u_fix = 0
+        u_proposed = 0
+        soc_proposed = 0
+        asp_u_proposed = 0
+        for _ in tqdm(range(ITER)):
+            mpo = MPO(r, 1000)
+            if r > 0.999:
+                r = 0.999
+            util, max_phi, social, asp_u = mpo.optimize_phi()
+            u_proposed += util
+            soc_proposed += social
+            asp_u_proposed += asp_u
+            util, social, asp_u = mpo.optimize_phi_with_chi(r, max_phi)
+            u_fix += util
+            soc_fix += social
+            asp_u_fix += asp_u
+        util_proposed.append(u_proposed / ITER)
+        social_proposed.append(soc_proposed / ITER)
+        asp_util_proposed.append(asp_u_proposed / ITER)
+        util_fix.append(u_fix / ITER)
+        social_fix.append(soc_fix / ITER)
+        asp_util_fix.append(asp_u_fix / ITER)
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(ratio, util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(ratio, util_fix, marker='^', linestyle='-.', label='IPS ratio', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
+    plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_MPO_ratio_with_same_IPS_ratio.jpg')
+    plt.savefig('./5GDDoS_Game_MPO_ratio_with_same_IPS_ratio.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(ratio, social_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(ratio, social_fix, marker='^', linestyle='-.', label='IPS ratio', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
+    plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_social_ratio_with_same_IPS_ratio.jpg')
+    plt.savefig('./5GDDoS_Game_social_ratio_with_same_IPS_ratio.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(ratio, asp_util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(ratio, asp_util_fix, marker='^', linestyle='-.', label='IPS ratio', linewidth=7, markersize=30)
+    plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
+    plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_asp_ratio_with_same_IPS_ratio.jpg')
+    plt.savefig('./5GDDoS_Game_asp_ratio_with_same_IPS_ratio.pdf')
+    plt.close()
+
 def plot_different_step():
+    print("step")
     num = [500, 750, 1000, 1250]
     phi_step_1_lst = []
     social_step_1_lst = []
@@ -263,6 +338,7 @@ def plot_different_step():
     plt.close()
 
 def plot_max_vm():
+    print("max vm")
     num = [500, 750, 1000, 1250]
     util_proposed = []
     social_proposed = []
@@ -364,15 +440,16 @@ def plot_different_ratio():
     plt.close()
 
 if __name__ == '__main__':
-    mpo = MPO(0.1, 1000)
+    # mpo = MPO(0.1, 1000)
     # mpo.plot_MPO_utility()
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
     # asp = ASP(0.1, 1000)
     # asp.plot_max()
     # asp.plot_max_zh()
-    plot_different_ratio()
-    plot_utility_device_num()
+    # plot_different_ratio()
+    # plot_utility_device_num()
     # plot_utility_ratio()
     # plot_different_step()
     # plot_max_vm()
+    # plot_ratio_with_same_IPS_ratio()
