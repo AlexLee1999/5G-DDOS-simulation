@@ -10,7 +10,7 @@ class MPO():
     def __init__(self, ratio, num):
         self.price_per_vm = None
         self.asp_lst = []
-        self.num_of_asp = randint(MPO_NUM_OF_ASP_LOWER, MPO_NUM_OF_ASP_UPPER)
+        self.num_of_asp = MPO_NUM_OF_ASP
         self.num_of_vm = uniform(MPO_NUM_OF_VM_LOWER, MPO_NUM_OF_VM_UPPER)
         self.ratio = ratio
         self.num = num
@@ -91,7 +91,7 @@ class MPO():
     def optimize_phi(self):
         self.find_constraint_phi()
         phi = self.constraint_phi
-        step = 1
+        step = 0.5
         max = 0
         max_phi = 0
         for _ in range(50000):
@@ -102,6 +102,8 @@ class MPO():
                 max = uti
                 max_phi = phi
             phi += step
+            if uti == 0:
+                break
         self.set_and_check_required_vm(max_phi)
         asp_util = 0
         for asp in self.asp_lst:
@@ -115,7 +117,7 @@ class MPO():
         phi = self.constraint_phi
         max = 0
         max_phi = 0
-        iter = int(50000 / step)
+        iter = int(25000 / step)
         for _ in range(iter):
             self.set_and_check_required_vm(phi)
             vm_num = self.total_vm()
@@ -124,6 +126,8 @@ class MPO():
                 max = uti
                 max_phi = phi
             phi += step
+            if uti == 0:
+                break
         self.set_and_check_required_vm(max_phi)
         asp_util = 0
         for asp in self.asp_lst:
@@ -236,7 +240,7 @@ class MPO():
     plot_social_welfare : plot
     """
     def plot_social_welfare(self):
-        phi = 1000
+        phi = 900
         step = 5
         pr = []
         pr_zh1 = []
@@ -263,7 +267,7 @@ class MPO():
             vm_prior = vm_after
     
         vm_prior = float('inf')
-        phi = 1000
+        phi = 900
         for _ in range(20):
             self.set_and_check_required_vm_with_chi(phi, 0)
             vm_after = self.total_vm()
@@ -278,7 +282,7 @@ class MPO():
             vm_prior = vm_after
     
         vm_prior = float('inf')
-        phi = 1000
+        phi = 900
         for _ in range(20):
             self.set_and_check_required_vm_with_chi(phi, 0.5)
             vm_after = self.total_vm()
@@ -293,7 +297,7 @@ class MPO():
             vm_prior = vm_after
     
         vm_prior = float('inf')
-        phi = 1000
+        phi = 900
         for _ in range(20):
             self.set_and_check_required_vm_with_chi(phi, 0.999)
             vm_after = self.total_vm()
@@ -321,7 +325,7 @@ class MPO():
         plt.close()
 
     def plot_asp_utility(self):
-        phi = 1000
+        phi = 900
         step = 5
         pr = []
         pr_zh1 = []
@@ -348,7 +352,7 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 1000
+        phi = 900
         for _ in range(20):
             self.set_and_check_required_vm_with_chi(phi, 0)
             vm_after = self.total_vm()
@@ -363,7 +367,7 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 1000
+        phi = 900
         for _ in range(20):
             self.set_and_check_required_vm_with_chi(phi, 0.5)
             vm_after = self.total_vm()
@@ -378,7 +382,7 @@ class MPO():
             vm_prior = vm_after
 
         vm_prior = float('inf')
-        phi = 1000
+        phi = 900
         for _ in range(20):
             self.set_and_check_required_vm_with_chi(phi, 0.999)
             vm_after = self.total_vm()

@@ -5,7 +5,7 @@ from mpo import MPO
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
-ITER = 300
+ITER = 1000
 
 def plot_utility_device_num():
     print("device")
@@ -297,10 +297,10 @@ def plot_different_step():
             _, max_phi, social, _ = mpo.optimize_phi_with_step(1)
             phi_step_1 += max_phi
             soc_step_1 += social
-            _, max_phi, social, _ = mpo.optimize_phi_with_step(5)
+            _, max_phi, social, _ = mpo.optimize_phi_with_step(2)
             phi_step_5 += max_phi
             soc_step_5 += social
-            _, max_phi, social, _ = mpo.optimize_phi_with_step(10)
+            _, max_phi, social, _ = mpo.optimize_phi_with_step(0.5)
             phi_step_10 += max_phi
             soc_step_10 += social
         phi_step_1_lst.append(phi_step_1 / ITER)
@@ -311,9 +311,9 @@ def plot_different_step():
         social_step_10_lst.append(soc_step_10 / ITER)
     X = np.arange(4)
     plt.figure(figsize=(45, 25), dpi=400)
-    plt.plot(num, phi_step_1_lst, marker='o', linestyle='-.', label='Step = 1', linewidth=1, markersize=30)
-    plt.plot(num, phi_step_5_lst, marker='^', linestyle='-.', label='Step = 5', linewidth=1, markersize=30)
-    plt.plot(num, phi_step_10_lst, marker='s', linestyle='-.', label='Step = 10', linewidth=1, markersize=30)
+    plt.plot(num, phi_step_10_lst, marker='s', linestyle='-.', label='Step = 0.5', linewidth=7, markersize=30)
+    plt.plot(num, phi_step_1_lst, marker='o', linestyle='-.', label='Step = 1', linewidth=7, markersize=30)
+    plt.plot(num, phi_step_5_lst, marker='^', linestyle='-.', label='Step = 2', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
     plt.ylabel(r'$\bf{Optimal\ MPO\ Price}$', fontsize=100)
@@ -324,9 +324,9 @@ def plot_different_step():
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
-    plt.bar(X + 0.00, social_step_1_lst, label='Step = 1', width=0.25)
-    plt.bar(X + 0.25, social_step_5_lst, label='Step = 5', width=0.25)
-    plt.bar(X + 0.50, social_step_10_lst, label='Step = 10', width=0.25)
+    plt.bar(X + 0.00, social_step_10_lst, label='Step = 10', width=0.25)
+    plt.bar(X + 0.25, social_step_1_lst, label='Step = 1', width=0.25)
+    plt.bar(X + 0.50, social_step_5_lst, label='Step = 2', width=0.25)
     plt.legend(loc="best", fontsize=100)
     plt.xticks(X + (0.375 / 2), (500, 750, 1000, 1250))
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
@@ -439,17 +439,46 @@ def plot_different_ratio():
     plt.savefig('./5GDDoS_Game_utility_ratio.jpg')
     plt.close()
 
+def plot_flat_price():
+    price = [i for i in range(50, 2000, 50)]
+    mpo = MPO(0.1, 1000)
+    util_proposed, max_phi, _, _ = mpo.optimize_phi()
+    print(util_proposed, max_phi)
+    ut_lst_proposed = []
+    ut_lst_flat = []
+    for p in price:
+        mpo.set_and_check_required_vm(p)
+        vm_num = mpo.total_vm()
+        uti = p * vm_num - MPO_cost(vm_num)
+        ut_lst_flat.append(uti)
+        ut_lst_proposed.append(util_proposed)
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(price, ut_lst_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(price, ut_lst_flat, marker='^', linestyle='-.', label='Flat Price', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Flat\ Price}$', fontsize=100)
+    plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_utility_flat.jpg')
+    plt.savefig('./5GDDoS_Game_utility_flat.pdf')
+    plt.close()
+
+
+
 if __name__ == '__main__':
-    # mpo = MPO(0.1, 1000)
-    # mpo.plot_MPO_utility()
-    # mpo.plot_social_welfare()
-    # mpo.plot_asp_utility()
-    # asp = ASP(0.1, 1000)
-    # asp.plot_max()
-    # asp.plot_max_zh()
-    # plot_different_ratio()
-    # plot_utility_device_num()
-    # plot_utility_ratio()
-    # plot_different_step()
-    # plot_max_vm()
-    # plot_ratio_with_same_IPS_ratio()
+    mpo = MPO(0.1, 1000)
+    mpo.plot_MPO_utility()
+    mpo.plot_social_welfare()
+    mpo.plot_asp_utility()
+    asp = ASP(0.1, 1000)
+    asp.plot_max()
+    asp.plot_max_zh()
+    plot_different_ratio()
+    plot_utility_device_num()
+    plot_utility_ratio()
+    plot_different_step()
+    plot_max_vm()
+    plot_ratio_with_same_IPS_ratio()
+    plot_flat_price()
+

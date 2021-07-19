@@ -50,8 +50,7 @@ def ASP_H(x):
 # These are the parameters of MPO
 # Prefix with MPO_
 ########################################
-MPO_NUM_OF_ASP_UPPER = 5
-MPO_NUM_OF_ASP_LOWER = 5
+MPO_NUM_OF_ASP = 5
 
 MPO_NUM_OF_VM_LOWER = 150
 MPO_NUM_OF_VM_UPPER = 300

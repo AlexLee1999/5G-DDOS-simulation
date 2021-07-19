@@ -12,7 +12,7 @@ frequency : CPU frequency of a VM
 
 class ASP():
     def __init__(self, ratio, num):
-        self.bandwidth = ASP_BANDWIDTH
+        self.bandwidth = ASP_BANDWIDTH / MPO_NUM_OF_ASP
         self.frequency = MPO_CPU_FREQUENCY
         self.device_list = []
         self.mal_device_list = []
