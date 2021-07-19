@@ -467,18 +467,18 @@ def plot_flat_price():
 
 
 if __name__ == '__main__':
-    mpo = MPO(0.1, 1000)
-    mpo.plot_MPO_utility()
-    mpo.plot_social_welfare()
-    mpo.plot_asp_utility()
-    asp = ASP(0.1, 1000)
-    asp.plot_max()
-    asp.plot_max_zh()
-    plot_different_ratio()
+    #mpo = MPO(0.1, 1000)
+    #mpo.plot_MPO_utility()
+    #mpo.plot_social_welfare()
+    #mpo.plot_asp_utility()
+    #asp = ASP(0.1, 1000)
+    #asp.plot_max()
+    #asp.plot_max_zh()
+    #plot_different_ratio()
     plot_utility_device_num()
     plot_utility_ratio()
     plot_different_step()
     plot_max_vm()
     plot_ratio_with_same_IPS_ratio()
-    plot_flat_price()
+    #plot_flat_price()
 
