@@ -2,6 +2,7 @@ from asp import ASP
 from const import *
 from device import Device
 from mpo import MPO
+from convex_solver import *
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
@@ -37,7 +38,7 @@ def plot_utility_device_num():
         asp_u_nine = 0
         for _ in tqdm(range(ITER)):
             mpo = MPO(0.1, n)
-            util, max_phi, social, asp_u = mpo.optimize_phi()
+            util, max_phi, social, asp_u = mpo.optimize_phi_with_step(0.5)
             u_proposed += util
             soc_proposed += social
             asp_u_proposed += asp_u
@@ -137,7 +138,7 @@ def plot_utility_ratio():
         asp_u_nine = 0
         for _ in tqdm(range(ITER)):
             mpo = MPO(r, 1000)
-            util, max_phi, social, asp_u = mpo.optimize_phi()
+            util, max_phi, social, asp_u = mpo.optimize_phi_with_step(0.5)
             u_proposed += util
             soc_proposed += social
             asp_u_proposed += asp_u
@@ -227,7 +228,7 @@ def plot_ratio_with_same_IPS_ratio():
             mpo = MPO(r, 1000)
             if r > 0.999:
                 r = 0.999
-            util, max_phi, social, asp_u = mpo.optimize_phi()
+            util, max_phi, social, asp_u = mpo.optimize_phi_with_step(0.5)
             u_proposed += util
             soc_proposed += social
             asp_u_proposed += asp_u
@@ -324,7 +325,7 @@ def plot_different_step():
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
-    plt.bar(X + 0.00, social_step_10_lst, label='Step = 10', width=0.25)
+    plt.bar(X + 0.00, social_step_10_lst, label='Step = 0.5', width=0.25)
     plt.bar(X + 0.25, social_step_1_lst, label='Step = 1', width=0.25)
     plt.bar(X + 0.50, social_step_5_lst, label='Step = 2', width=0.25)
     plt.legend(loc="best", fontsize=100)
@@ -355,7 +356,7 @@ def plot_max_vm():
         asp_u_proposed = 0
         for _ in tqdm(range(ITER)):
             mpo = MPO(0.1, n)
-            util, max_phi, social, asp_u = mpo.optimize_phi()
+            util, _, social, asp_u = mpo.optimize_phi_with_step(0.5)
             u_proposed += util
             soc_proposed += social
             asp_u_proposed += asp_u
@@ -467,18 +468,22 @@ def plot_flat_price():
 
 
 if __name__ == '__main__':
-    #mpo = MPO(0.1, 1000)
-    #mpo.plot_MPO_utility()
-    #mpo.plot_social_welfare()
-    #mpo.plot_asp_utility()
-    #asp = ASP(0.1, 1000)
-    #asp.plot_max()
-    #asp.plot_max_zh()
-    #plot_different_ratio()
-    plot_utility_device_num()
+    # mpo = MPO(0.1, 1000)
+    # mpo.plot_MPO_utility()
+    # mpo.plot_social_welfare()
+    # mpo.plot_asp_utility()
+    # asp = ASP(0.1, 1000)
+    # for i in range(50, 1500, 10):
+    #     print(asp.report_asp(i), asp.res(i))
+    # asp.plot_max()
+    # asp.plot_max_zh()
+    # plot_different_ratio()
+    # plot_utility_device_num()
     plot_utility_ratio()
     plot_different_step()
     plot_max_vm()
     plot_ratio_with_same_IPS_ratio()
-    #plot_flat_price()
+    # plot_flat_price()
+
+
 

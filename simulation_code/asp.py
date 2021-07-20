@@ -27,6 +27,15 @@ class ASP():
         self.chi = 0.999
         self.gamma = 30
         self.phi = 0
+        if self.service_rate < GLOBAL_ETA:
+            self.sqrt_coff = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)))
+            self.coff = self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+        else:
+            self.sqrt_coff = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.service_rate))
+            self.coff = self.arrival_rate / self.service_rate
+        self.queue_coff = (self.gamma + self.arrival_rate) / self.service_rate
+        self.set_boundary()
+
     """
     set_users : initial users
     """
@@ -137,6 +146,47 @@ class ASP():
             if self.utility < 0:
                 self.z_v = 0
                 self.utility = 0
+        
+    def report_asp(self, price):
+        self.mpo_price = price
+        case = 'e'
+        if GLOBAL_ETA > self.service_rate:
+            self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+            if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
+                self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+                case = 'q'
+            self.z_h = self.chi * self.z_v
+            self.set_process_time()
+            self.set_utility()
+            if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                print('infeasible')
+            if self.utility < 0:
+                self.z_v = 0
+                self.utility = 0
+                case = 'z'
+        else:
+            self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
+            self.z_h = 0
+            if self.z_v < ((self.gamma + self.arrival_rate) / self.service_rate):
+                self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+                case = 'q'
+            if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                print('infeasible')
+                self.z_h = 0
+            self.set_process_time()
+            self.set_utility()
+            if self.utility < 0:
+                self.z_v = 0
+                self.utility = 0
+                case = 'z'
+        return case
+    def res(self, price):
+        if price > self.bound:
+            return 'z'
+        elif price < self.qbound:
+            return 'e'
+        else:
+            return 'q'
     """
     set_zv_zh : set the asp with chi
     """

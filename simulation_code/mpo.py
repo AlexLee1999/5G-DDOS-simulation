@@ -2,6 +2,7 @@ import math
 from random import randint, uniform
 from const import *
 from asp import ASP
+from convex_solver import convex_solve
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -10,6 +11,8 @@ class MPO():
     def __init__(self, ratio, num):
         self.price_per_vm = None
         self.asp_lst = []
+        self.asp_case_lst = []
+        self.asp_response = []
         self.num_of_asp = MPO_NUM_OF_ASP
         self.num_of_vm = uniform(MPO_NUM_OF_VM_LOWER, MPO_NUM_OF_VM_UPPER)
         self.ratio = ratio
@@ -17,13 +20,32 @@ class MPO():
         self.set_asp()
         self.set_bd()
         self.set_queue_bound()
-        self.constraint_phi = None
+        self.bound = self.bd + self.qbd
+        self.bound.sort()
+        self.find_constraint_phi()
+        self.bound = [b for b in self.bound if b > self.constraint_phi]
+        self.bound.append(self.constraint_phi)
+        self.bound.sort()
+        self.syn_bound = []
+        for b in self.bound:
+            if b in self.qbd:
+                self.syn_bound.append(str(b) + 'q')
+            elif b in self.bd:
+                self.syn_bound.append(str(b) + 'b')
+            else:
+                self.syn_bound.append(str(b))
+        self.check_asp_response()
     """
     set_asp : initial asp
     """
     def set_asp(self):
         for i in range(self.num_of_asp):
-            self.asp_lst.append(ASP(self.ratio, self.num))
+            asp = ASP(self.ratio, self.num)
+            self.asp_lst.append(asp)
+            if asp.service_rate > GLOBAL_ETA:
+                self.asp_case_lst.append('3')
+            else:
+                self.asp_case_lst.append('2')
     """
     set_price_per_vm : initial mpo price
     """
@@ -85,25 +107,19 @@ class MPO():
             asp.set_zv_zh(chi[i])
             i += 1
         return
+
+    def check_asp_response(self):
+        for i in range(len(self.bound) - 1):
+            mid = (self.bound[i] + self.bound[i + 1]) / 2.0
+            res = []
+            for asp in self.asp_lst:
+                res.append(asp.res(mid))
+            self.asp_response.append(res)
     """
     optimize_phi : find the optimize phi
     """
     def optimize_phi(self):
-        self.find_constraint_phi()
-        phi = self.constraint_phi
-        step = 0.5
-        max = 0
-        max_phi = 0
-        for _ in range(50000):
-            self.set_and_check_required_vm(phi)
-            vm_num = self.total_vm()
-            uti = phi * vm_num - MPO_cost(vm_num)
-            if uti > max:
-                max = uti
-                max_phi = phi
-            phi += step
-            if uti == 0:
-                break
+        max, max_phi = convex_solve(self)
         self.set_and_check_required_vm(max_phi)
         asp_util = 0
         for asp in self.asp_lst:
