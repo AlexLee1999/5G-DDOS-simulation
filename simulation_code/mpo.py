@@ -133,6 +133,7 @@ class MPO():
         phi = self.constraint_phi
         max = 0
         max_phi = 0
+        pre = 0
         iter = int(25000 / step)
         for _ in range(iter):
             self.set_and_check_required_vm(phi)
@@ -144,6 +145,7 @@ class MPO():
             phi += step
             if uti == 0:
                 break
+            pre = uti
         self.set_and_check_required_vm(max_phi)
         asp_util = 0
         for asp in self.asp_lst:

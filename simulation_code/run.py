@@ -478,7 +478,7 @@ if __name__ == '__main__':
     # asp.plot_max()
     # asp.plot_max_zh()
     # plot_different_ratio()
-    # plot_utility_device_num()
+    plot_utility_device_num()
     plot_utility_ratio()
     plot_different_step()
     plot_max_vm()
