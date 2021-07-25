@@ -122,9 +122,11 @@ class MPO():
         max, max_phi = convex_solve(self)
         self.set_and_check_required_vm(max_phi)
         asp_util = 0
+        asp_vm = 0
         for asp in self.asp_lst:
             asp_util += asp.utility
-        return max, max_phi, asp_util + max, asp_util
+            asp_vm += asp.z_v
+        return max, max_phi, asp_util + max, asp_util, asp_vm
     """
     optimize_phi_with_step : find the optimize phi with different step
     """
@@ -148,9 +150,11 @@ class MPO():
             pre = uti
         self.set_and_check_required_vm(max_phi)
         asp_util = 0
+        asp_vm = 0
         for asp in self.asp_lst:
             asp_util += asp.utility
-        return max, max_phi, asp_util + max, asp_util
+            asp_vm += asp.z_v
+        return max, max_phi, asp_util + max, asp_util, asp_vm
     """
     optimize_phi_with_chi : calculate the overall utility with input (MPO price, IPS ratio)
     """
@@ -159,9 +163,11 @@ class MPO():
         vm = self.total_vm()
         util = phi * vm - MPO_cost(vm)
         asp_util = 0
+        asp_vm = 0
         for asp in self.asp_lst:
             asp_util += asp.utility
-        return util, util + asp_util, asp_util
+            asp_vm += asp.z_v
+        return util, util + asp_util, asp_util, asp_vm
     """
     optimize_phi_with_price : calculate the overall utility with input (MPO price)
     """

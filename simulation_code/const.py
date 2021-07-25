@@ -1,4 +1,7 @@
 from math import exp
+from cvxpy import CVXOPT
+
+from cvxpy.settings import CVXOPT
 ########################################
 # These are the parameters of Global
 # Prefix with GLOBAL_
@@ -52,10 +55,12 @@ def ASP_H(x):
 ########################################
 MPO_NUM_OF_ASP = 5
 
-MPO_NUM_OF_VM_LOWER = 150
-MPO_NUM_OF_VM_UPPER = 300
+MPO_NUM_OF_VM_LOWER = 250
+MPO_NUM_OF_VM_UPPER = 250
 
 MPO_CPU_FREQUENCY = 0.25 * 10E9
 
 def MPO_cost(x):
     return 0.01 * x ** 2
+
+CVX_SLOVER = CVXOPT

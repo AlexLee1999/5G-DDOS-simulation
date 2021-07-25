@@ -1,6 +1,9 @@
 from math import sqrt
+from typing import Optional
 import cvxpy as cp
+from cvxpy.settings import CONVEX, OPTIMAL
 from mpo import *
+from const import *
 import pickle
 
 def convex_solve(mpo):
@@ -39,10 +42,10 @@ def convex_opt(sq, li, low, up):
     linear_c = li
     upper = up
     lower = low
-    obj = cp.Maximize(cp.sqrt(x) * sqrt_c + x * linear_c - (0.01 * cp.power(x, 2)))
+    obj = cp.Maximize(cp.sqrt(x) * sqrt_c + x * linear_c - (0.01 * cp.power(sqrt_c *cp.inv_pos(cp.sqrt(x)) + linear_c, 2)))
     constraint = [lower <= x, x <= upper]
-
     prob = cp.Problem(obj, constraint)
-    res = prob.solve(solver=cp.CVXOPT)
-    print(prob.status)
+    res = prob.solve(solver=CVX_SLOVER)
+    if prob.status != OPTIMAL:
+        raise ArithmeticError("Not Optimal")
     return res, x.value[0]

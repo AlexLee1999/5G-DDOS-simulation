@@ -6,7 +6,7 @@ from convex_solver import *
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
-ITER = 1000
+ITER = 1
 
 def plot_utility_device_num():
     print("device")
@@ -14,63 +14,87 @@ def plot_utility_device_num():
     util_proposed = []
     social_proposed = []
     asp_util_proposed = []
+    vm_lst_proposed = []
     util_fix_zero = []
     social_fix_zero = []
     asp_util_fix_zero = []
+    vm_lst_fix_zero = []
     util_fix_five = []
     social_fix_five = []
     asp_util_fix_five = []
+    vm_lst_fix_five = []
     util_fix_nine = []
     social_fix_nine = []
     asp_util_fix_nine = []
+    vm_lst_fix_nine = []
     for n in num:
         u_zero = 0
         soc_zero = 0
         asp_u_zero = 0
+        vm_zero = 0
         u_proposed = 0
         soc_proposed = 0
         asp_u_proposed = 0
+        vm_proposed = 0
         u_five = 0
         soc_five = 0
         asp_u_five = 0
+        vm_five = 0
         u_nine = 0
         soc_nine = 0
         asp_u_nine = 0
-        for _ in tqdm(range(ITER)):
-            mpo = MPO(0.1, n)
-            util, max_phi, social, asp_u = mpo.optimize_phi_with_step(0.5)
-            u_proposed += util
-            soc_proposed += social
-            asp_u_proposed += asp_u
-            util, social, asp_u = mpo.optimize_phi_with_chi(0, max_phi)
-            u_zero += util
-            soc_zero += social
-            asp_u_zero += asp_u
-            util, social, asp_u = mpo.optimize_phi_with_chi(0.5, max_phi)
-            u_five += util
-            soc_five += social
-            asp_u_five += asp_u
-            util, social, asp_u = mpo.optimize_phi_with_chi(0.999, max_phi)
-            u_nine += util
-            soc_nine += social
-            asp_u_nine += asp_u
+        vm_nine = 0
+        i = 0
+        pbar = tqdm(total=ITER)
+        while i < ITER:
+            try:
+                mpo = MPO(0.1, n)
+                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi()
+                u_proposed += util
+                soc_proposed += social
+                asp_u_proposed += asp_u
+                vm_proposed += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0, max_phi)
+                u_zero += util
+                soc_zero += social
+                asp_u_zero += asp_u
+                vm_zero += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.5, max_phi)
+                u_five += util
+                soc_five += social
+                asp_u_five += asp_u
+                vm_five += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.9, max_phi)
+                u_nine += util
+                soc_nine += social
+                asp_u_nine += asp_u
+                vm_nine += vm_num
+                i += 1
+                pbar.update(1)
+            except ArithmeticError as e:
+                print(e)
+        pbar.close()
         util_proposed.append(u_proposed / ITER)
         social_proposed.append(soc_proposed / ITER)
         asp_util_proposed.append(asp_u_proposed / ITER)
+        vm_lst_proposed.append(vm_proposed / ITER)
         util_fix_zero.append(u_zero / ITER)
         social_fix_zero.append(soc_zero / ITER)
         asp_util_fix_zero.append(asp_u_zero / ITER)
+        vm_lst_fix_zero.append(vm_zero / ITER)
         util_fix_five.append(u_five / ITER)
         social_fix_five.append(soc_five / ITER)
         asp_util_fix_five.append(asp_u_five / ITER)
+        vm_lst_fix_five.append(vm_five / ITER)
         util_fix_nine.append(u_nine / ITER)
         social_fix_nine.append(soc_nine / ITER)
         asp_util_fix_nine.append(asp_u_nine / ITER)
+        vm_lst_fix_nine.append(vm_nine / ITER)
     plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(num, util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(num, util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(num, util_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-    plt.plot(num, util_fix_nine, marker='8', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(num, util_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
@@ -84,7 +108,7 @@ def plot_utility_device_num():
     plt.plot(num, social_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(num, social_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(num, social_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-    plt.plot(num, social_fix_nine, marker='8', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(num, social_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
@@ -98,7 +122,7 @@ def plot_utility_device_num():
     plt.plot(num, asp_util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(num, asp_util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(num, asp_util_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-    plt.plot(num, asp_util_fix_nine, marker='8', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(num, asp_util_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
@@ -108,69 +132,250 @@ def plot_utility_device_num():
     plt.savefig('./5GDDoS_Game_asp_device.pdf')
     plt.close()
 
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(num, vm_lst_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(num, vm_lst_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
+    plt.plot(num, vm_lst_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(num, vm_lst_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_total_vm_device.jpg')
+    plt.savefig('./5GDDoS_Game_total_vm_device.pdf')
+    plt.close()
+
+
+
+def plot_utility_device_num_step():
+    print("device")
+    num = [500, 750, 1000, 1250]
+    util_proposed = []
+    social_proposed = []
+    asp_util_proposed = []
+    vm_lst_proposed = []
+    util_fix_zero = []
+    social_fix_zero = []
+    asp_util_fix_zero = []
+    vm_lst_fix_zero = []
+    util_fix_five = []
+    social_fix_five = []
+    asp_util_fix_five = []
+    vm_lst_fix_five = []
+    util_fix_nine = []
+    social_fix_nine = []
+    asp_util_fix_nine = []
+    vm_lst_fix_nine = []
+    for n in num:
+        u_zero = 0
+        soc_zero = 0
+        asp_u_zero = 0
+        vm_zero = 0
+        u_proposed = 0
+        soc_proposed = 0
+        asp_u_proposed = 0
+        vm_proposed = 0
+        u_five = 0
+        soc_five = 0
+        asp_u_five = 0
+        vm_five = 0
+        u_nine = 0
+        soc_nine = 0
+        asp_u_nine = 0
+        vm_nine = 0
+        i = 0
+        pbar = tqdm(total=ITER)
+        while i < ITER:
+            try:
+                mpo = MPO(0.1, n)
+                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(0.5)
+                u_proposed += util
+                soc_proposed += social
+                asp_u_proposed += asp_u
+                vm_proposed += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0, max_phi)
+                u_zero += util
+                soc_zero += social
+                asp_u_zero += asp_u
+                vm_zero += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.5, max_phi)
+                u_five += util
+                soc_five += social
+                asp_u_five += asp_u
+                vm_five += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.9, max_phi)
+                u_nine += util
+                soc_nine += social
+                asp_u_nine += asp_u
+                vm_nine += vm_num
+                i += 1
+                pbar.update(1)
+            except ArithmeticError as e:
+                print(e)
+        pbar.close()
+        util_proposed.append(u_proposed / ITER)
+        social_proposed.append(soc_proposed / ITER)
+        asp_util_proposed.append(asp_u_proposed / ITER)
+        vm_lst_proposed.append(vm_proposed / ITER)
+        util_fix_zero.append(u_zero / ITER)
+        social_fix_zero.append(soc_zero / ITER)
+        asp_util_fix_zero.append(asp_u_zero / ITER)
+        vm_lst_fix_zero.append(vm_zero / ITER)
+        util_fix_five.append(u_five / ITER)
+        social_fix_five.append(soc_five / ITER)
+        asp_util_fix_five.append(asp_u_five / ITER)
+        vm_lst_fix_five.append(vm_five / ITER)
+        util_fix_nine.append(u_nine / ITER)
+        social_fix_nine.append(soc_nine / ITER)
+        asp_util_fix_nine.append(asp_u_nine / ITER)
+        vm_lst_fix_nine.append(vm_nine / ITER)
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(num, util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(num, util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
+    plt.plot(num, util_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(num, util_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_MPO_device_step.jpg')
+    plt.savefig('./5GDDoS_Game_MPO_device_step.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(num, social_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(num, social_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
+    plt.plot(num, social_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(num, social_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_social_device_step.jpg')
+    plt.savefig('./5GDDoS_Game_social_device_step.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(num, asp_util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(num, asp_util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
+    plt.plot(num, asp_util_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(num, asp_util_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_asp_device_step.jpg')
+    plt.savefig('./5GDDoS_Game_asp_device_step.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(num, vm_lst_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(num, vm_lst_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
+    plt.plot(num, vm_lst_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(num, vm_lst_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_total_vm_device_step.jpg')
+    plt.savefig('./5GDDoS_Game_total_vm_device_step.pdf')
+    plt.close()
+
 def plot_utility_ratio():
     print("ratio")
     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
     util_proposed = []
     social_proposed = []
     asp_util_proposed = []
+    vm_lst_proposed = []
     util_fix_zero = []
     social_fix_zero = []
     asp_util_fix_zero = []
+    vm_lst_fix_zero = []
     util_fix_five = []
     social_fix_five = []
     asp_util_fix_five = []
+    vm_lst_fix_five = []
     util_fix_nine = []
     social_fix_nine = []
     asp_util_fix_nine = []
+    vm_lst_fix_nine = []
     for r in ratio:
         u_zero = 0
         soc_zero = 0
         asp_u_zero = 0
+        vm_zero = 0
+
         u_proposed = 0
         soc_proposed = 0
         asp_u_proposed = 0
+        vm_proposed = 0
+
         u_five = 0
         soc_five = 0
         asp_u_five = 0
+        vm_five = 0
+
         u_nine = 0
         soc_nine = 0
         asp_u_nine = 0
-        for _ in tqdm(range(ITER)):
-            mpo = MPO(r, 1000)
-            util, max_phi, social, asp_u = mpo.optimize_phi_with_step(0.5)
-            u_proposed += util
-            soc_proposed += social
-            asp_u_proposed += asp_u
-            util, social, asp_u = mpo.optimize_phi_with_chi(0, max_phi)
-            u_zero += util
-            soc_zero += social
-            asp_u_zero += asp_u
-            util, social, asp_u = mpo.optimize_phi_with_chi(0.5, max_phi)
-            u_five += util
-            soc_five += social
-            asp_u_five += asp_u
-            util, social, asp_u = mpo.optimize_phi_with_chi(0.999, max_phi)
-            u_nine += util
-            soc_nine += social
-            asp_u_nine += asp_u
+        vm_nine = 0
+        i = 0
+        pbar = tqdm(total=ITER)
+        while i < ITER:
+            try:
+                mpo = MPO(r, 1000)
+                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi()
+                u_proposed += util
+                soc_proposed += social
+                asp_u_proposed += asp_u
+                vm_proposed += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0, max_phi)
+                u_zero += util
+                soc_zero += social
+                asp_u_zero += asp_u
+                vm_zero += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.5, max_phi)
+                u_five += util
+                soc_five += social
+                asp_u_five += asp_u
+                vm_five += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.9, max_phi)
+                u_nine += util
+                soc_nine += social
+                asp_u_nine += asp_u
+                vm_nine += vm_num
+                i += 1
+                pbar.update(1)
+            except ArithmeticError as e:
+                print(e)
+        pbar.close()
         util_proposed.append(u_proposed / ITER)
         social_proposed.append(soc_proposed / ITER)
         asp_util_proposed.append(asp_u_proposed / ITER)
+        vm_lst_proposed.append(vm_proposed / ITER)
         util_fix_zero.append(u_zero / ITER)
         social_fix_zero.append(soc_zero / ITER)
         asp_util_fix_zero.append(asp_u_zero / ITER)
+        vm_lst_fix_zero.append(vm_zero / ITER)
         util_fix_five.append(u_five / ITER)
         social_fix_five.append(soc_five / ITER)
         asp_util_fix_five.append(asp_u_five / ITER)
+        vm_lst_fix_five.append(vm_five / ITER)
         util_fix_nine.append(u_nine / ITER)
         social_fix_nine.append(soc_nine / ITER)
         asp_util_fix_nine.append(asp_u_nine / ITER)
+        vm_lst_fix_nine.append(vm_nine / ITER)
     plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(ratio, util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, util_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-    plt.plot(ratio, util_fix_nine, marker='8', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, util_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
@@ -184,7 +389,7 @@ def plot_utility_ratio():
     plt.plot(ratio, social_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, social_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, social_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-    plt.plot(ratio, social_fix_nine, marker='8', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, social_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
@@ -198,7 +403,7 @@ def plot_utility_ratio():
     plt.plot(ratio, asp_util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, asp_util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, asp_util_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-    plt.plot(ratio, asp_util_fix_nine, marker='8', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, asp_util_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
@@ -206,6 +411,160 @@ def plot_utility_ratio():
     plt.yticks(fontsize=80)
     plt.savefig('./5GDDoS_Game_asp_ratio.jpg')
     plt.savefig('./5GDDoS_Game_asp_ratio.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(ratio, vm_lst_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(ratio, vm_lst_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
+    plt.plot(ratio, vm_lst_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, vm_lst_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
+    plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_total_vm_ratio.jpg')
+    plt.savefig('./5GDDoS_Game_total_vm_ratio.pdf')
+    plt.close()
+
+def plot_utility_ratio_step():
+    print("ratio")
+    ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
+    util_proposed = []
+    social_proposed = []
+    asp_util_proposed = []
+    vm_lst_proposed = []
+    util_fix_zero = []
+    social_fix_zero = []
+    asp_util_fix_zero = []
+    vm_lst_fix_zero = []
+    util_fix_five = []
+    social_fix_five = []
+    asp_util_fix_five = []
+    vm_lst_fix_five = []
+    util_fix_nine = []
+    social_fix_nine = []
+    asp_util_fix_nine = []
+    vm_lst_fix_nine = []
+    for r in ratio:
+        u_zero = 0
+        soc_zero = 0
+        asp_u_zero = 0
+        vm_zero = 0
+        u_proposed = 0
+        soc_proposed = 0
+        asp_u_proposed = 0
+        vm_proposed = 0
+        u_five = 0
+        soc_five = 0
+        asp_u_five = 0
+        vm_five = 0
+
+        u_nine = 0
+        soc_nine = 0
+        asp_u_nine = 0
+        vm_nine = 0
+
+        i = 0
+        pbar = tqdm(total=ITER)
+        while i < ITER:
+            try:
+                mpo = MPO(r, 1000)
+                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(0.5)
+                u_proposed += util
+                soc_proposed += social
+                asp_u_proposed += asp_u
+                vm_proposed += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0, max_phi)
+                u_zero += util
+                soc_zero += social
+                asp_u_zero += asp_u
+                vm_zero += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.5, max_phi)
+                u_five += util
+                soc_five += social
+                asp_u_five += asp_u
+                vm_five += vm_num
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.9, max_phi)
+                u_nine += util
+                soc_nine += social
+                asp_u_nine += asp_u
+                vm_nine += vm_num
+                i += 1
+                pbar.update(1)
+            except ArithmeticError as e:
+                print(e)
+        pbar.close()
+        util_proposed.append(u_proposed / ITER)
+        social_proposed.append(soc_proposed / ITER)
+        asp_util_proposed.append(asp_u_proposed / ITER)
+        vm_lst_proposed.append(vm_proposed / ITER)
+        util_fix_zero.append(u_zero / ITER)
+        social_fix_zero.append(soc_zero / ITER)
+        asp_util_fix_zero.append(asp_u_zero / ITER)
+        vm_lst_fix_zero.append(vm_zero / ITER)
+        util_fix_five.append(u_five / ITER)
+        social_fix_five.append(soc_five / ITER)
+        asp_util_fix_five.append(asp_u_five / ITER)
+        vm_lst_fix_five.append(vm_five / ITER)
+        util_fix_nine.append(u_nine / ITER)
+        social_fix_nine.append(soc_nine / ITER)
+        asp_util_fix_nine.append(asp_u_nine / ITER)
+        vm_lst_fix_nine.append(vm_nine / ITER)
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(ratio, util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(ratio, util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
+    plt.plot(ratio, util_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, util_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
+    plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_MPO_ratio_step.jpg')
+    plt.savefig('./5GDDoS_Game_MPO_ratio_step.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(ratio, social_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(ratio, social_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
+    plt.plot(ratio, social_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, social_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
+    plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_social_ratio_step.jpg')
+    plt.savefig('./5GDDoS_Game_social_ratio_step.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(ratio, asp_util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(ratio, asp_util_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
+    plt.plot(ratio, asp_util_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, asp_util_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
+    plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_asp_ratio_step.jpg')
+    plt.savefig('./5GDDoS_Game_asp_ratio_step.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(ratio, vm_lst_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+    plt.plot(ratio, vm_lst_fix_zero, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
+    plt.plot(ratio, vm_lst_fix_five, marker='s', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, vm_lst_fix_nine, marker='8', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
+    plt.legend(loc="best", fontsize=100)
+    plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
+    plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./5GDDoS_Game_total_vm_ratio_step.jpg')
+    plt.savefig('./5GDDoS_Game_total_vm_ratio_step.pdf')
     plt.close()
 
 def plot_ratio_with_same_IPS_ratio():
@@ -224,18 +583,26 @@ def plot_ratio_with_same_IPS_ratio():
         u_proposed = 0
         soc_proposed = 0
         asp_u_proposed = 0
-        for _ in tqdm(range(ITER)):
-            mpo = MPO(r, 1000)
-            if r > 0.999:
-                r = 0.999
-            util, max_phi, social, asp_u = mpo.optimize_phi_with_step(0.5)
-            u_proposed += util
-            soc_proposed += social
-            asp_u_proposed += asp_u
-            util, social, asp_u = mpo.optimize_phi_with_chi(r, max_phi)
-            u_fix += util
-            soc_fix += social
-            asp_u_fix += asp_u
+        i = 0
+        pbar = tqdm(total=1000)
+        while i < ITER:
+            try:
+                mpo = MPO(r, 1000)
+                if r > 0.9:
+                    r = 0.9
+                util, max_phi, social, asp_u = mpo.optimize_phi()
+                u_proposed += util
+                soc_proposed += social
+                asp_u_proposed += asp_u
+                util, social, asp_u = mpo.optimize_phi_with_chi(r, max_phi)
+                u_fix += util
+                soc_fix += social
+                asp_u_fix += asp_u
+                i += 1
+                pbar.update(1)
+            except ArithmeticError as e:
+                print(e)
+        pbar.close()
         util_proposed.append(u_proposed / ITER)
         social_proposed.append(soc_proposed / ITER)
         asp_util_proposed.append(asp_u_proposed / ITER)
@@ -473,17 +840,18 @@ if __name__ == '__main__':
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
     # asp = ASP(0.1, 1000)
-    # for i in range(50, 1500, 10):
-    #     print(asp.report_asp(i), asp.res(i))
     # asp.plot_max()
     # asp.plot_max_zh()
     # plot_different_ratio()
     plot_utility_device_num()
+    plot_utility_device_num_step()
     plot_utility_ratio()
-    plot_different_step()
-    plot_max_vm()
-    plot_ratio_with_same_IPS_ratio()
+    plot_utility_ratio_step()
+    # plot_different_step()
+    # plot_max_vm()
+    # plot_ratio_with_same_IPS_ratio()
     # plot_flat_price()
+
 
 
 

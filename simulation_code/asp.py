@@ -24,7 +24,7 @@ class ASP():
         self.set_arrival_rate()
         self.total_pay()
         self.mpo_price = None
-        self.chi = 0.999
+        self.chi = 0.9
         self.gamma = 30
         self.phi = 0
         if self.service_rate < GLOBAL_ETA:
