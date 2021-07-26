@@ -6,7 +6,7 @@ from convex_solver import *
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
-ITER = 1
+ITER = 1000
 
 def plot_utility_device_num():
     print("device")
