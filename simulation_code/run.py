@@ -76,9 +76,9 @@ def plot_different_step():
 # def plot_max_vm():
 #     print("max vm")
 #     num = [500, 750, 1000, 1250]
-#     util_proposed = []
-#     social_proposed = []
-#     asp_util_proposed = []
+#     utility_proposed_lst = []
+#     social_proposed_lst = []
+#     asp_utility_proposed_lst = []
 #     util_max_num = []
 #     social_max_num = []
 #     asp_util_max_num = []
@@ -86,29 +86,29 @@ def plot_different_step():
 #         u_max_num = 0
 #         soc_max_num = 0
 #         asp_u_max_num = 0
-#         u_proposed = 0
-#         soc_proposed = 0
-#         asp_u_proposed = 0
+#         utility_proposed = 0
+#         social_proposed = 0
+#         asp_utility_proposed = 0
 #         for _ in tqdm(range(ITER)):
 #             mpo = MPO(0.1, n)
 #             util, _, social, asp_u = mpo.optimize_phi_with_step(0.5)
-#             u_proposed += util
-#             soc_proposed += social
-#             asp_u_proposed += asp_u
+#             utility_proposed += util
+#             social_proposed += social
+#             asp_utility_proposed += asp_u
 #             mpo.find_constraint_phi()
 #             phi = mpo.constraint_phi
 #             util, social, asp_u = mpo.optimize_phi_with_price(phi)
 #             u_max_num += util
 #             soc_max_num += social
 #             asp_u_max_num += asp_u
-#         util_proposed.append(u_proposed / ITER)
-#         social_proposed.append(soc_proposed / ITER)
-#         asp_util_proposed.append(asp_u_proposed / ITER)
+#         utility_proposed_lst.append(utility_proposed / ITER)
+#         social_proposed_lst.append(social_proposed / ITER)
+#         asp_utility_proposed_lst.append(asp_utility_proposed / ITER)
 #         util_max_num.append(u_max_num / ITER)
 #         social_max_num.append(soc_max_num / ITER)
 #         asp_util_max_num.append(asp_u_max_num / ITER)
 #     plt.figure(figsize=(45, 25), dpi=400)
-#     plt.plot(num, util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+#     plt.plot(num, utility_proposed_lst, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
 #     plt.plot(num, util_max_num, marker='^', linestyle='-.', label='Max VM', linewidth=7, markersize=30)
 #     plt.legend(loc="best", fontsize=100)
 #     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
@@ -120,7 +120,7 @@ def plot_different_step():
 #     plt.close()
 
 #     plt.figure(figsize=(45, 25), dpi=400)
-#     plt.plot(num, social_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+#     plt.plot(num, social_proposed_lst, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
 #     plt.plot(num, social_max_num, marker='^', linestyle='-.', label='Max VM', linewidth=7, markersize=30)
 #     plt.legend(loc="best", fontsize=100)
 #     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
@@ -132,7 +132,7 @@ def plot_different_step():
 #     plt.close()
 
 #     plt.figure(figsize=(45, 25), dpi=400)
-#     plt.plot(num, asp_util_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
+#     plt.plot(num, asp_utility_proposed_lst, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
 #     plt.plot(num, asp_util_max_num, marker='^', linestyle='-.', label='Max VM', linewidth=7, markersize=30)
 #     plt.legend(loc="best", fontsize=100)
 #     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
@@ -178,8 +178,7 @@ def plot_different_ratio():
 def plot_flat_price():
     price = [i for i in range(50, 2000, 50)]
     mpo = MPO(0.1, 1000)
-    util_proposed, max_phi, _, _, _ = mpo.optimize_phi()
-    print(util_proposed, max_phi)
+    utility_proposed_lst, max_phi, _, _, _ = mpo.optimize_phi()
     ut_lst_proposed = []
     ut_lst_flat = []
     for p in price:
@@ -187,7 +186,7 @@ def plot_flat_price():
         vm_num = mpo.total_vm()
         uti = p * vm_num - MPO_cost(vm_num)
         ut_lst_flat.append(uti)
-        ut_lst_proposed.append(util_proposed)
+        ut_lst_proposed.append(utility_proposed_lst)
     plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(price, ut_lst_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(price, ut_lst_flat, marker='^', linestyle='-.', label='Flat Price', linewidth=7, markersize=30)
@@ -219,7 +218,7 @@ if __name__ == '__main__':
     plot_utility_device_num_step_low()
     plot_utility_ratio()
     plot_utility_ratio_step()
-    # plot_different_step()
+    plot_different_step()
     plot_ratio_with_same_IPS_ratio()
     plot_ratio_with_same_IPS_ratio_step()
     # plot_flat_price()
