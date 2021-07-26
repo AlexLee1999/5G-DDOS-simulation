@@ -45,7 +45,11 @@ def convex_opt(sq, li, low, up):
     obj = cp.Maximize(cp.sqrt(x) * sqrt_c + x * linear_c - (0.01 * cp.power(sqrt_c *cp.inv_pos(cp.sqrt(x)) + linear_c, 2)))
     constraint = [lower <= x, x <= upper]
     prob = cp.Problem(obj, constraint)
-    res = prob.solve(solver=CVX_SLOVER)
+    try:
+        res = prob.solve(solver=CVX_SLOVER)
+    except cp.error.SolverError:
+        raise ArithmeticError("Solver Error")
+
     if prob.status != OPTIMAL:
         raise ArithmeticError("Not Optimal")
     return res, x.value[0]
