@@ -1,12 +1,13 @@
 from math import exp
 from cvxpy import CVXOPT
-
 from cvxpy.settings import CVXOPT
+
 ########################################
 # These are the parameters of Global
 # Prefix with GLOBAL_
 ########################################
 GLOBAL_ETA = 50
+ITER = 1
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_
@@ -21,6 +22,10 @@ DEVICE_FREQUENCY = 2.1
 # required cpu cycle
 DEVICE_REQUIRED_CPU_CYCLE_UPPER = 0.9E8
 DEVICE_REQUIRED_CPU_CYCLE_LOWER = 0.1E8
+DEVICE_REQUIRED_CPU_CYCLE_HIGH_UPPER = 0.9E8
+DEVICE_REQUIRED_CPU_CYCLE_HIGH_LOWER = 0.7E8
+DEVICE_REQUIRED_CPU_CYCLE_LOW_UPPER = 0.3E8
+DEVICE_REQUIRED_CPU_CYCLE_LOW_LOWER = 0.1E8
 # task size
 DEVICE_TASK_SIZE_UPPER = 50  # 5 kB
 DEVICE_TASK_SIZE_LOWER = 40  # 4 kB
@@ -55,8 +60,8 @@ def ASP_H(x):
 ########################################
 MPO_NUM_OF_ASP = 5
 
-MPO_NUM_OF_VM_LOWER = 250
-MPO_NUM_OF_VM_UPPER = 250
+MPO_NUM_OF_VM_LOWER = 240
+MPO_NUM_OF_VM_UPPER = 240
 
 MPO_CPU_FREQUENCY = 0.25 * 10E9
 
