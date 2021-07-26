@@ -187,7 +187,7 @@ def plot_utility_ratio_step():
         while i < ITER:
             try:
                 mpo = MPO(r, 1000)
-                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(0.5)
+                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(1)
                 utility_proposed += util
                 social_proposed += social
                 asp_utility_proposed += asp_u

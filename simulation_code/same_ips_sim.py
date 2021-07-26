@@ -106,7 +106,7 @@ def plot_ratio_with_same_IPS_ratio_step():
             try:
                 mpo = MPO(r, 1000)
                 ips = 0.5 * r
-                util, max_phi, social, asp_u, _ = mpo.optimize_phi_with_step(0.5)
+                util, max_phi, social, asp_u, _ = mpo.optimize_phi_with_step(1)
                 utility_proposed += util
                 social_proposed += social
                 asp_utility_proposed += asp_u

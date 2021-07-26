@@ -188,7 +188,7 @@ def plot_utility_device_num_step_high():
         while i < ITER:
             try:
                 mpo = MPO_high_load(0.1, n)
-                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(0.5)
+                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(1)
                 utility_proposed += util
                 social_proposed += social
                 asp_utility_proposed += asp_u
