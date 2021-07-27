@@ -232,7 +232,7 @@ class MPO():
     """
     def find_constraint_phi(self):
         vm_prior = float('inf')
-        phi_prior = 0.01
+        phi_prior = 0.00000000001
         for bd in self.bd:
             self.set_and_check_required_vm(bd)
             vm_after = self.total_vm()
@@ -241,8 +241,8 @@ class MPO():
                 break
             vm_prior = vm_after
             phi_prior = phi_after
-        if phi_prior > max(self.qbd):
-            self.constraint_phi = phi_prior
+        if phi_prior > min(self.bd):
+            self.constraint_phi = phi_after
         else:
             upper = phi_after
             lower = phi_prior
@@ -323,7 +323,7 @@ class MPO():
         vm_prior = float('inf')
         phi = 900
         for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0.999)
+            self.set_and_check_required_vm_with_chi(phi, 0.9)
             vm_after = self.total_vm()
             pr_zh4.append(phi)
             welfare = 0
@@ -338,7 +338,7 @@ class MPO():
         plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed', linewidth=7, markersize=30)
         plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM', linewidth=7, markersize=30)
         plt.plot(pr_zh2, ut_zh2, marker='8', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{Social\ welfare}$', fontsize=100)
         plt.xticks(fontsize=80)
@@ -408,7 +408,7 @@ class MPO():
         vm_prior = float('inf')
         phi = 900
         for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0.999)
+            self.set_and_check_required_vm_with_chi(phi, 0.9)
             vm_after = self.total_vm()
             pr_zh4.append(phi)
             welfare = 0
@@ -423,7 +423,7 @@ class MPO():
         plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed', linewidth=7, markersize=30)
         plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM', linewidth=7, markersize=30)
         plt.plot(pr_zh2, ut_zh2, marker='8', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
         plt.xticks(fontsize=80)
@@ -751,7 +751,7 @@ class MPO_high_load():
         vm_prior = float('inf')
         phi = 900
         for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0.999)
+            self.set_and_check_required_vm_with_chi(phi, 0.9)
             vm_after = self.total_vm()
             pr_zh4.append(phi)
             welfare = 0
@@ -766,7 +766,7 @@ class MPO_high_load():
         plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed', linewidth=7, markersize=30)
         plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM', linewidth=7, markersize=30)
         plt.plot(pr_zh2, ut_zh2, marker='8', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{Social\ welfare}$', fontsize=100)
         plt.xticks(fontsize=80)
@@ -836,7 +836,7 @@ class MPO_high_load():
         vm_prior = float('inf')
         phi = 900
         for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0.999)
+            self.set_and_check_required_vm_with_chi(phi, 0.9)
             vm_after = self.total_vm()
             pr_zh4.append(phi)
             welfare = 0
@@ -851,7 +851,7 @@ class MPO_high_load():
         plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed', linewidth=7, markersize=30)
         plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM', linewidth=7, markersize=30)
         plt.plot(pr_zh2, ut_zh2, marker='8', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
         plt.xticks(fontsize=80)
@@ -1177,7 +1177,7 @@ class MPO_low_load():
         vm_prior = float('inf')
         phi = 900
         for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0.999)
+            self.set_and_check_required_vm_with_chi(phi, 0.9)
             vm_after = self.total_vm()
             pr_zh4.append(phi)
             welfare = 0
@@ -1192,7 +1192,7 @@ class MPO_low_load():
         plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed', linewidth=7, markersize=30)
         plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM', linewidth=7, markersize=30)
         plt.plot(pr_zh2, ut_zh2, marker='8', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{Social\ welfare}$', fontsize=100)
         plt.xticks(fontsize=80)
@@ -1262,7 +1262,7 @@ class MPO_low_load():
         vm_prior = float('inf')
         phi = 900
         for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0.999)
+            self.set_and_check_required_vm_with_chi(phi, 0.9)
             vm_after = self.total_vm()
             pr_zh4.append(phi)
             welfare = 0
@@ -1277,7 +1277,7 @@ class MPO_low_load():
         plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed', linewidth=7, markersize=30)
         plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM', linewidth=7, markersize=30)
         plt.plot(pr_zh2, ut_zh2, marker='8', linestyle='-.', label='50% IPS VM', linewidth=7, markersize=30)
-        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='99.9% IPS VM', linewidth=7, markersize=30)
+        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='90% IPS VM', linewidth=7, markersize=30)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
         plt.xticks(fontsize=80)

@@ -6,6 +6,7 @@ from convex_solver import *
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
+import time
 from device_num_sim import *
 from device_num_sim_high import *
 from device_num_sim_low import *
@@ -199,9 +200,55 @@ def plot_flat_price():
     plt.savefig('./5GDDoS_Game_utility_flat.pdf')
     plt.close()
 
+def plot_asp_utility():
+    asp = ASP(0.1, 1000)
+    utility_lst = []
+    purchased_vm_lst = []
+    utility_lst_without_constraint = []
+    purchased_vm_lst_without_constraint = []
+    price = [i for i in range(20, 2000)]
+    for i in range(20, 2000):
+        asp.mpo_price = i
+        asp.optimize_zv()
+        utility_lst.append(asp.utility)
+        purchased_vm_lst.append(asp.z_v)
+        asp.optimize_zv_without_constraint()
+        utility_lst_without_constraint.append(asp.utility)
+        purchased_vm_lst_without_constraint.append(asp.z_v)
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(price, utility_lst, marker='.', linestyle='-.', label='With Constraint', linewidth=7, markersize=30)
+    plt.plot(price, utility_lst_without_constraint, marker='.', linestyle='-.', label='Without Constraint', linewidth=7, markersize=30)
+    plt.vlines(asp.bound, ymin=min(utility_lst_without_constraint), ymax=max(utility_lst_without_constraint), linewidth=7)
+    plt.vlines(asp.qbound, ymin=min(utility_lst_without_constraint), ymax=max(utility_lst_without_constraint), linewidth=7)
+
+    plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
+    plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
+    plt.legend(loc="best", fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./image/asp/5GDDoS_Game_ASP_price.jpg')
+    plt.savefig('./image/asp/5GDDoS_Game_ASP_price.pdf')
+    plt.close()
+
+    plt.figure(figsize=(45, 25), dpi=400)
+    plt.plot(price, purchased_vm_lst, marker='.', linestyle='-.', label='With Constraint', linewidth=7, markersize=30)
+    plt.plot(price, purchased_vm_lst_without_constraint, marker='.', linestyle='-.', label='Without Constraint', linewidth=7, markersize=30)
+    plt.vlines(asp.bound, ymin=min(purchased_vm_lst_without_constraint), ymax=max(purchased_vm_lst_without_constraint), linewidth=7)
+    plt.vlines(asp.qbound, ymin=min(purchased_vm_lst_without_constraint), ymax=max(purchased_vm_lst_without_constraint), linewidth=7)
+    plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
+    plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
+    plt.legend(loc="best", fontsize=100)
+    plt.xticks(fontsize=80)
+    plt.yticks(fontsize=80)
+    plt.savefig('./image/asp/5GDDoS_Game_ASP_vm.jpg')
+    plt.savefig('./image/asp/5GDDoS_Game_ASP_vm.pdf')
+    plt.close()
+
 
 
 if __name__ == '__main__':
+    tic = time.perf_counter()
+    # plot_asp_utility()
     # mpo = MPO(0.1, 1000)
     # mpo.plot_MPO_utility()
     # mpo.plot_social_welfare()
@@ -222,6 +269,8 @@ if __name__ == '__main__':
     plot_ratio_with_same_IPS_ratio()
     plot_ratio_with_same_IPS_ratio_step()
     # plot_flat_price()
+    toc = time.perf_counter()
+    print(f"Total {toc - tic} seconds")
 
 
 

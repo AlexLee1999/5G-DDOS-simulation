@@ -140,12 +140,27 @@ class ASP():
                 self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
             if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
                 print('infeasible')
-                self.z_h = 0
             self.set_process_time()
             self.set_utility()
             if self.utility < 0:
                 self.z_v = 0
                 self.utility = 0
+
+    def optimize_zv_without_constraint(self):
+        if GLOBAL_ETA > self.service_rate:
+            self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+            self.z_h = self.chi * self.z_v
+            self.set_process_time()
+            self.set_utility()
+            if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                print('infeasible')
+        else:
+            self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
+            self.z_h = 0
+            self.set_process_time()
+            self.set_utility()
+            if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                print('infeasible')
         
     def report_asp(self, price):
         self.mpo_price = price

@@ -7,7 +7,7 @@ from cvxpy.settings import CVXOPT, ECOS
 # Prefix with GLOBAL_
 ########################################
 GLOBAL_ETA = 50
-ITER = 1000
+ITER = 1
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_
@@ -60,12 +60,12 @@ def ASP_H(x):
 ########################################
 MPO_NUM_OF_ASP = 5
 
-MPO_NUM_OF_VM_LOWER = 240
-MPO_NUM_OF_VM_UPPER = 240
+MPO_NUM_OF_VM_LOWER = 1000
+MPO_NUM_OF_VM_UPPER = 1000
 
 MPO_CPU_FREQUENCY = 0.25 * 10E9
 
 def MPO_cost(x):
     return 0.01 * x ** 2
 
-CVX_SLOVER = ECOS
+CVX_SLOVER = CVXOPT
