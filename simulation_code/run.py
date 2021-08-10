@@ -201,25 +201,29 @@ def plot_flat_price():
     plt.close()
 
 def plot_asp_utility():
-    asp = ASP(0.1, 1000)
+    asp = ASP(0.1, 1000, load_type.AVERAGE)
     utility_lst = []
     purchased_vm_lst = []
     utility_lst_without_constraint = []
     purchased_vm_lst_without_constraint = []
-    price = [i for i in range(20, 2000)]
-    for i in range(20, 2000):
+    price = [i for i in range(20, 5000, 10)]
+    print(asp.malicious_arrival_rate/(asp.chi * GLOBAL_ETA))
+    for i in range(20, 5000, 10):
         asp.mpo_price = i
         asp.optimize_zv()
         utility_lst.append(asp.utility)
         purchased_vm_lst.append(asp.z_v)
+        # print(asp.z_h, asp.z_v)
         asp.optimize_zv_without_constraint()
         utility_lst_without_constraint.append(asp.utility)
         purchased_vm_lst_without_constraint.append(asp.z_v)
+        
     plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(price, utility_lst, marker='.', linestyle='-.', label='With Constraint', linewidth=7, markersize=30)
     plt.plot(price, utility_lst_without_constraint, marker='.', linestyle='-.', label='Without Constraint', linewidth=7, markersize=30)
-    plt.vlines(asp.bound, ymin=min(utility_lst_without_constraint), ymax=max(utility_lst_without_constraint), linewidth=7)
-    plt.vlines(asp.qbound, ymin=min(utility_lst_without_constraint), ymax=max(utility_lst_without_constraint), linewidth=7)
+    plt.vlines(asp.bound, ymin=min(utility_lst_without_constraint + utility_lst), ymax=max(utility_lst_without_constraint + utility_lst), linewidth=7)
+    plt.vlines(asp.qbound, ymin=min(utility_lst_without_constraint + utility_lst), ymax=max(utility_lst_without_constraint + utility_lst), linewidth=7)
+    
 
     plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
@@ -233,8 +237,8 @@ def plot_asp_utility():
     plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(price, purchased_vm_lst, marker='.', linestyle='-.', label='With Constraint', linewidth=7, markersize=30)
     plt.plot(price, purchased_vm_lst_without_constraint, marker='.', linestyle='-.', label='Without Constraint', linewidth=7, markersize=30)
-    plt.vlines(asp.bound, ymin=min(purchased_vm_lst_without_constraint), ymax=max(purchased_vm_lst_without_constraint), linewidth=7)
-    plt.vlines(asp.qbound, ymin=min(purchased_vm_lst_without_constraint), ymax=max(purchased_vm_lst_without_constraint), linewidth=7)
+    plt.vlines(asp.bound, ymin=min(purchased_vm_lst_without_constraint + purchased_vm_lst), ymax=max(purchased_vm_lst_without_constraint + purchased_vm_lst), linewidth=7)
+    plt.vlines(asp.qbound, ymin=min(purchased_vm_lst_without_constraint + purchased_vm_lst), ymax=max(purchased_vm_lst_without_constraint + purchased_vm_lst), linewidth=7)
     plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
     plt.legend(loc="best", fontsize=100)
@@ -247,30 +251,31 @@ def plot_asp_utility():
 
 
 if __name__ == '__main__':
+    print("\n")
     tic = time.perf_counter()
     # plot_asp_utility()
-    # mpo = MPO(0.1, 1000)
+    # mpo = MPO(0.1, 1000, load_type.AVERAGE)
     # mpo.plot_MPO_utility()
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
-    # asp = ASP(0.1, 1000)
+    # asp = ASP(0.1, 1000, load_type.AVERAGE)
     # asp.plot_max()
     # asp.plot_max_zh()
     # plot_different_ratio()
-    plot_utility_device_num()
+    # plot_utility_device_num()
     plot_utility_device_num_step()
-    plot_utility_device_num_high()
-    plot_utility_device_num_step_high()
-    plot_utility_device_num_low()
-    plot_utility_device_num_step_low()
-    plot_utility_ratio()
-    plot_utility_ratio_step()
-    plot_different_step()
-    plot_ratio_with_same_IPS_ratio()
-    plot_ratio_with_same_IPS_ratio_step()
+    # plot_utility_device_num_high()
+    # plot_utility_device_num_step_high()
+    # plot_utility_device_num_low()
+    # plot_utility_device_num_step_low()
+    # plot_utility_ratio()
+    # plot_utility_ratio_step()
+    # plot_different_step()
+    # plot_ratio_with_same_IPS_ratio()
+    # plot_ratio_with_same_IPS_ratio_step()
     # plot_flat_price()
     toc = time.perf_counter()
-    print(f"Total {toc - tic} seconds")
+    print(f"\nTotal {toc - tic} seconds")
 
 
 

@@ -1,6 +1,7 @@
 from math import exp
 from cvxpy import CVXOPT
 from cvxpy.settings import CVXOPT, ECOS
+from enum import Enum
 
 ########################################
 # These are the parameters of Global
@@ -68,4 +69,9 @@ MPO_CPU_FREQUENCY = 0.25 * 10E9
 def MPO_cost(x):
     return 0.01 * x ** 2
 
-CVX_SLOVER = CVXOPT
+CVX_SOLVER = CVXOPT
+
+class load_type(Enum):
+    HIGH = 1
+    AVERAGE = 2
+    LOW = 3

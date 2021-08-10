@@ -47,7 +47,7 @@ def plot_utility_device_num():
         pbar = tqdm(total=ITER)
         while i < ITER:
             try:
-                mpo = MPO(0.1, n)
+                mpo = MPO(0.1, n, load_type.AVERAGE)
                 util, max_phi, social, asp_u, vm_num = mpo.optimize_phi()
                 utility_proposed += util
                 social_proposed += social
@@ -187,7 +187,7 @@ def plot_utility_device_num_step():
         pbar = tqdm(total=ITER)
         while i < ITER:
             try:
-                mpo = MPO(0.1, n)
+                mpo = MPO(0.1, n, load_type.AVERAGE)
                 util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(1)
                 utility_proposed += util
                 social_proposed += social
