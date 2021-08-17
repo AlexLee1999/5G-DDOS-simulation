@@ -25,7 +25,7 @@ class ASP():
         self.set_arrival_rate()
         self.total_pay()
         self.mpo_price = None
-        self.chi = 0.3
+        self.chi = 0.1
         self.gamma = 30
         self.phi = 0
         if self.service_rate < GLOBAL_ETA:
@@ -148,22 +148,26 @@ class ASP():
                     self.bound = (A * C * D + 2 * B * C - 2 * C * sqrt(B ** 2 + A * B * D)) / (D ** 2)
                     self.qbound = None
                     print(4)
+                    self.case = 4
                 else:
                     self.bound = phi
                     self.change_point = phi
                     self.qbound = None
                     print(2)
+                    self.case = 2
             else:
                 if (self.arrival_rate + self.gamma) / self.service_rate > (self.malicious_arrival_rate / (GLOBAL_ETA * self.chi)):
                     self.bound = bound_case4
                     self.qbound = qbound_case4
                     self.change_point = bound_case4
                     print(1)
+                    self.case = 1
                 else:
                     self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
                     self.bound = bound_case2
                     self.qbound = qbound_case2
                     print(3)
+                    self.case = 3
 
         else: # case3
             bound = util2 / z_v
@@ -191,20 +195,72 @@ class ASP():
     """
     def optimize_zv(self):
         if GLOBAL_ETA > self.service_rate:
-            self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
-            if self.z_v < (self.malicious_arrival_rate / (GLOBAL_ETA * self.chi)):
-                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
-            if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
-                self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
-            self.z_h = min(self.chi * self.z_v, self.malicious_arrival_rate / GLOBAL_ETA)
-            self.set_process_time()
-            self.set_utility()
-            if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
-                print('infeasible')
-            if self.utility < 0:
-                self.z_v = 0
-                self.z_h = 0
-                self.utility = 0
+            if self.case == 1:
+                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
+                    self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+                self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
+                self.set_process_time()
+                self.set_utility()
+                if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                    print('infeasible')
+                if self.utility < 0:
+                    self.z_v = 0
+                    self.z_h = 0
+                    self.utility = 0
+            elif self.case == 2:
+                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
+                self.set_process_time()
+                self.set_utility()
+                if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                    print('infeasible')
+                if self.utility < 0:
+                    self.z_v = 0
+                    self.z_h = 0
+                    self.utility = 0
+            elif self.case == 3:
+                if self.z_v > self.malicious_arrival_rate / (self.chi * GLOBAL_ETA):
+                    self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                    self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
+                    self.set_process_time()
+                    self.set_utility()
+                    if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                        print('infeasible')
+                else:
+                    self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+                    self.z_h = self.chi * self.z_v
+                    if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
+                        self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+                        self.z_h = self.z_h = self.chi * self.z_v
+                    self.set_process_time()
+                    self.set_utility()
+                    if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                        print('infeasible')
+                    if self.utility < 0:
+                        self.z_v = 0
+                        self.z_h = 0
+                        self.utility = 0
+            elif self.case == 4:
+                if self.z_v > self.malicious_arrival_rate / (self.chi * GLOBAL_ETA):
+                    self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                    self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
+                    self.set_process_time()
+                    self.set_utility()
+                    if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                        print('infeasible')
+                else:
+                    self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+                    self.z_h = self.chi * self.z_v
+                    self.set_process_time()
+                    self.set_utility()
+                    if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
+                        print('infeasible')
+                    if self.utility < 0:
+                        self.z_v = 0
+                        self.z_h = 0
+                        self.utility = 0
+            
         else:
             self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
             self.z_h = 0
