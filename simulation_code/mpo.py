@@ -1,4 +1,3 @@
-import math
 from random import randint, uniform
 from const import *
 from asp import *
@@ -96,16 +95,6 @@ class MPO():
         self.set_price_per_vm(price)
         for asp in self.asp_lst:
             asp.set_zv_zh(chi)
-        return
-    """
-    set_and_check_required_vm_with_chi_random : set price and IPS ratio (array) and optimize the asp
-    """
-    def set_and_check_required_vm_with_chi_random(self, price, chi):
-        self.set_price_per_vm(price)
-        i = 0
-        for asp in self.asp_lst:
-            asp.set_zv_zh(chi[i])
-            i += 1
         return
 
     def check_asp_response(self):

@@ -220,6 +220,7 @@ class ASP():
                     self.z_h = 0
                     self.utility = 0
             elif self.case == 3:
+                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
                 if self.z_v > self.malicious_arrival_rate / (self.chi * GLOBAL_ETA):
                     self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
                     self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
@@ -242,6 +243,7 @@ class ASP():
                         self.z_h = 0
                         self.utility = 0
             elif self.case == 4:
+                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
                 if self.z_v > self.malicious_arrival_rate / (self.chi * GLOBAL_ETA):
                     self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
                     self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
@@ -348,6 +350,7 @@ class ASP():
         if self.utility < 0:
             self.z_v = 0
             self.utility = 0
+            
 
     def plot_max(self):
         mpo_lst = [100, 300, 500, 700, 900]
