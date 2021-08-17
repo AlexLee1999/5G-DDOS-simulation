@@ -147,26 +147,26 @@ class ASP():
                     D = self.arrival_rate
                     self.bound = (A * C * D + 2 * B * C - 2 * C * sqrt(B ** 2 + A * B * D)) / (D ** 2)
                     self.qbound = None
-                    print(4)
+                    # print(4)
                     self.case = 4
                 else:
                     self.bound = phi
                     self.change_point = phi
                     self.qbound = None
-                    print(2)
+                    # print(2)
                     self.case = 2
             else:
                 if (self.arrival_rate + self.gamma) / self.service_rate > (self.malicious_arrival_rate / (GLOBAL_ETA * self.chi)):
                     self.bound = bound_case4
                     self.qbound = qbound_case4
                     self.change_point = bound_case4
-                    print(1)
+                    # print(1)
                     self.case = 1
                 else:
                     self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
                     self.bound = bound_case2
                     self.qbound = qbound_case2
-                    print(3)
+                    # print(3)
                     self.case = 3
 
         else: # case3
