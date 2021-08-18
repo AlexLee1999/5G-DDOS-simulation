@@ -202,6 +202,7 @@ class MPO():
         plt.yticks(fontsize=80)
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_MPO_utility.pdf')
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_MPO_utility.jpg')
+        plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_MPO_utility.eps')
         plt.close()
 
         plt.figure(figsize=(45, 25), dpi=400)
@@ -215,6 +216,7 @@ class MPO():
         plt.yticks(fontsize=80)
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.pdf')
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.jpg')
+        plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.eps')
         plt.close()
     """
     find_constraint_phi : find the lowest price that satisfy the total vm constraint

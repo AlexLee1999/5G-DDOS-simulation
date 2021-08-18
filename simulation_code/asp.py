@@ -342,7 +342,7 @@ class ASP():
         self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
         if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
             self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
-        self.z_h = self.chi * self.z_v
+        self.z_h = min(self.chi * self.z_v, self.malicious_arrival_rate / GLOBAL_ETA)
         self.set_process_time()
         self.set_utility()
         if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h):
@@ -466,4 +466,5 @@ class ASP():
             plt.legend(loc="best", fontsize=100)
             plt.savefig('./5GDDoS_Game_asp_utility_z_h_case2.pdf')
             plt.savefig('./5GDDoS_Game_asp_utility_z_h_case2.jpg')
+            plt.savefig('./5GDDoS_Game_asp_utility_z_h_case2.eps')
             plt.close()
