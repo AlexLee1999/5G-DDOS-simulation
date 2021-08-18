@@ -415,6 +415,7 @@ class ASP():
             plt.legend(loc="best", fontsize=100)
             plt.savefig('./5GDDoS_Game_asp_utility_case2.pdf')
             plt.savefig('./5GDDoS_Game_asp_utility_case2.jpg')
+            plt.savefig('./5GDDoS_Game_asp_utility_case2.eps')
             plt.close()
 
     def plot_max_zh(self):

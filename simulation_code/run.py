@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
 import time
+import datetime
+import warnings
+
 from device_num_sim import *
 from device_num_sim_high import *
 from device_num_sim_low import *
@@ -252,10 +255,11 @@ def plot_asp_utility():
 
 if __name__ == '__main__':
     print("\n")
+    warnings.filterwarnings("ignore")
     tic = time.perf_counter()
     # plot_asp_utility()
-    mpo = MPO(0.1, 1000, load_type.AVERAGE)
-    mpo.plot_MPO_utility()
+    # mpo = MPO(0.1, 1000, load_type.AVERAGE)
+    # mpo.plot_MPO_utility()
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
     # asp = ASP(0.1, 1000, load_type.AVERAGE)
@@ -275,7 +279,7 @@ if __name__ == '__main__':
     plot_ratio_with_same_IPS_ratio_step()
     # plot_flat_price()
     toc = time.perf_counter()
-    print(f"\nTotal {toc - tic} seconds")
+    print(f"\nTotal {str(datetime.timedelta(seconds=int(toc - tic)))} seconds")
 
 
 
