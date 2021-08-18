@@ -337,6 +337,7 @@ class MPO():
         plt.legend(loc="best", fontsize=100)
         plt.savefig('./5GDDoS_Game_utility_cmp.pdf')
         plt.savefig('./5GDDoS_Game_utility_cmp.jpg')
+        plt.savefig('./5GDDoS_Game_utility_cmp.eps')
         plt.close()
 
     def plot_asp_utility(self):
@@ -422,6 +423,7 @@ class MPO():
         plt.legend(loc="best", fontsize=100)
         plt.savefig('./5GDDoS_Game_asp_utility_cmp.pdf')
         plt.savefig('./5GDDoS_Game_asp_utility_cmp.jpg')
+        plt.savefig('./5GDDoS_Game_asp_utility_cmp.eps')
         plt.close()
 
 

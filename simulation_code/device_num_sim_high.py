@@ -101,6 +101,7 @@ def plot_utility_device_num_high():
     plt.yticks(fontsize=80)
     plt.savefig('./image/device_number_high/5GDDoS_Game_MPO_device_high.jpg')
     plt.savefig('./image/device_number_high/5GDDoS_Game_MPO_device_high.pdf')
+    plt.savefig('./image/device_number_high/5GDDoS_Game_MPO_device_high.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -115,6 +116,7 @@ def plot_utility_device_num_high():
     plt.yticks(fontsize=80)
     plt.savefig('./image/device_number_high/5GDDoS_Game_social_device_high.jpg')
     plt.savefig('./image/device_number_high/5GDDoS_Game_social_device_high.pdf')
+    plt.savefig('./image/device_number_high/5GDDoS_Game_social_device_high.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -129,6 +131,7 @@ def plot_utility_device_num_high():
     plt.yticks(fontsize=80)
     plt.savefig('./image/device_number_high/5GDDoS_Game_asp_device_high.jpg')
     plt.savefig('./image/device_number_high/5GDDoS_Game_asp_device_high.pdf')
+    plt.savefig('./image/device_number_high/5GDDoS_Game_asp_device_high.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -143,6 +146,7 @@ def plot_utility_device_num_high():
     plt.yticks(fontsize=80)
     plt.savefig('./image/device_number_high/5GDDoS_Game_total_vm_device_high.jpg')
     plt.savefig('./image/device_number_high/5GDDoS_Game_total_vm_device_high.pdf')
+    plt.savefig('./image/device_number_high/5GDDoS_Game_total_vm_device_high.eps')
     plt.close()
 
 
@@ -241,6 +245,7 @@ def plot_utility_device_num_step_high():
     plt.yticks(fontsize=80)
     plt.savefig('./image/device_number_high/5GDDoS_Game_MPO_device_step_high.jpg')
     plt.savefig('./image/device_number_high/5GDDoS_Game_MPO_device_step_high.pdf')
+    plt.savefig('./image/device_number_high/5GDDoS_Game_MPO_device_step_high.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -255,6 +260,7 @@ def plot_utility_device_num_step_high():
     plt.yticks(fontsize=80)
     plt.savefig('./image/device_number_high/5GDDoS_Game_social_device_step_high.jpg')
     plt.savefig('./image/device_number_high/5GDDoS_Game_social_device_step_high.pdf')
+    plt.savefig('./image/device_number_high/5GDDoS_Game_social_device_step_high.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -269,6 +275,7 @@ def plot_utility_device_num_step_high():
     plt.yticks(fontsize=80)
     plt.savefig('./image/device_number_high/5GDDoS_Game_asp_device_step_high.jpg')
     plt.savefig('./image/device_number_high/5GDDoS_Game_asp_device_step_high.pdf')
+    plt.savefig('./image/device_number_high/5GDDoS_Game_asp_device_step_high.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -283,4 +290,5 @@ def plot_utility_device_num_step_high():
     plt.yticks(fontsize=80)
     plt.savefig('./image/device_number_high/5GDDoS_Game_total_vm_device_step_high.jpg')
     plt.savefig('./image/device_number_high/5GDDoS_Game_total_vm_device_step_high.pdf')
+    plt.savefig('./image/device_number_high/5GDDoS_Game_total_vm_device_step_high.eps')
     plt.close()

@@ -384,6 +384,7 @@ class ASP():
             plt.legend(loc="best", fontsize=100)
             plt.savefig('./5GDDoS_Game_asp_utility_case1.pdf')
             plt.savefig('./5GDDoS_Game_asp_utility_case1.jpg')
+            plt.savefig('./5GDDoS_Game_asp_utility_case1.eps')
             plt.close()
         else:
             plt.figure(figsize=(45, 25), dpi=400)
@@ -441,6 +442,7 @@ class ASP():
             plt.legend(loc="best", fontsize=100)
             plt.savefig('./5GDDoS_Game_asp_utility_z_h_case1.pdf')
             plt.savefig('./5GDDoS_Game_asp_utility_z_h_case1.jpg')
+            plt.savefig('./5GDDoS_Game_asp_utility_z_h_case1.eps')
             plt.close()
         else:
             self.mpo_price = 100

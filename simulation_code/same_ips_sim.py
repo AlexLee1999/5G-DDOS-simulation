@@ -59,6 +59,7 @@ def plot_ratio_with_same_IPS_ratio():
     plt.yticks(fontsize=80)
     plt.savefig('./image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio.jpg')
     plt.savefig('./image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio.pdf')
+    plt.savefig('./image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -71,6 +72,7 @@ def plot_ratio_with_same_IPS_ratio():
     plt.yticks(fontsize=80)
     plt.savefig('./image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio.jpg')
     plt.savefig('./image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio.pdf')
+    plt.savefig('./image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -82,6 +84,7 @@ def plot_ratio_with_same_IPS_ratio():
     plt.yticks(fontsize=80)
     plt.savefig('./image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio.jpg')
     plt.savefig('./image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio.pdf')
+    plt.savefig('./image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio.eps')
     plt.close()
 
 def plot_ratio_with_same_IPS_ratio_step():
@@ -135,6 +138,7 @@ def plot_ratio_with_same_IPS_ratio_step():
     plt.yticks(fontsize=80)
     plt.savefig('./image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio_step.jpg')
     plt.savefig('./image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio_step.pdf')
+    plt.savefig('./image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio_step.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -147,6 +151,7 @@ def plot_ratio_with_same_IPS_ratio_step():
     plt.yticks(fontsize=80)
     plt.savefig('./image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio_step.jpg')
     plt.savefig('./image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio_step.pdf')
+    plt.savefig('./image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio_step.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -158,4 +163,5 @@ def plot_ratio_with_same_IPS_ratio_step():
     plt.yticks(fontsize=80)
     plt.savefig('./image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio_step.jpg')
     plt.savefig('./image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio_step.pdf')
+    plt.savefig('./image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio_step.eps')
     plt.close()

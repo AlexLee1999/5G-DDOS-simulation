@@ -102,6 +102,7 @@ def plot_utility_ratio():
     plt.yticks(fontsize=80)
     plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio.jpg')
     plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -116,6 +117,7 @@ def plot_utility_ratio():
     plt.yticks(fontsize=80)
     plt.savefig('./image/ratio/5GDDoS_Game_social_ratio.jpg')
     plt.savefig('./image/ratio/5GDDoS_Game_social_ratio.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_social_ratio.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -130,6 +132,7 @@ def plot_utility_ratio():
     plt.yticks(fontsize=80)
     plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio.jpg')
     plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -144,6 +147,7 @@ def plot_utility_ratio():
     plt.yticks(fontsize=80)
     plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio.jpg')
     plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio.eps')
     plt.close()
 
 def plot_utility_ratio_step():
@@ -240,6 +244,7 @@ def plot_utility_ratio_step():
     plt.yticks(fontsize=80)
     plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio_step.jpg')
     plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio_step.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio_step.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -254,6 +259,7 @@ def plot_utility_ratio_step():
     plt.yticks(fontsize=80)
     plt.savefig('./image/ratio/5GDDoS_Game_social_ratio_step.jpg')
     plt.savefig('./image/ratio/5GDDoS_Game_social_ratio_step.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_social_ratio_step.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -268,6 +274,7 @@ def plot_utility_ratio_step():
     plt.yticks(fontsize=80)
     plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio_step.jpg')
     plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio_step.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio_step.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -282,4 +289,5 @@ def plot_utility_ratio_step():
     plt.yticks(fontsize=80)
     plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio_step.jpg')
     plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio_step.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio_step.eps')
     plt.close()
