@@ -8,49 +8,55 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: 5GDDoS_Game.bib
+Warning--I didn't find a database entry for "Zhang"
+Warning--I didn't find a database entry for "Liu"
+Warning--I didn't find a database entry for "Yang"
+Warning--I didn't find a database entry for "Li"
+Warning--I didn't find a database entry for "Mtibaa"
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 1 entry,
+You've used 10 entries,
             4087 wiz_defined-function locations,
-            824 strings with 7377 characters,
-and the built_in function-call counts, 437 in all, are:
-= -- 22
-> -- 4
-< -- 0
-+ -- 2
-- -- 1
-* -- 30
-:= -- 90
-add.period$ -- 2
-call.type$ -- 1
-change.case$ -- 1
-chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 29
-empty$ -- 36
-format.name$ -- 1
-if$ -- 74
+            896 strings with 9204 characters,
+and the built_in function-call counts, 7572 in all, are:
+= -- 612
+> -- 160
+< -- 61
++ -- 90
+- -- 27
+* -- 372
+:= -- 1169
+add.period$ -- 20
+call.type$ -- 10
+change.case$ -- 12
+chr.to.int$ -- 135
+cite$ -- 10
+duplicate$ -- 541
+empty$ -- 607
+format.name$ -- 34
+if$ -- 1751
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 7
-newline$ -- 28
-num.names$ -- 1
-pop$ -- 24
+int.to.str$ -- 10
+missing$ -- 101
+newline$ -- 59
+num.names$ -- 10
+pop$ -- 218
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 24
+skip$ -- 585
 stack$ -- 0
-substring$ -- 1
-swap$ -- 14
-text.length$ -- 0
+substring$ -- 329
+swap$ -- 443
+text.length$ -- 16
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 1
+type$ -- 10
 warning$ -- 0
-while$ -- 1
-width$ -- 2
-write$ -- 31
+while$ -- 33
+width$ -- 12
+write$ -- 127
+(There were 5 warnings)

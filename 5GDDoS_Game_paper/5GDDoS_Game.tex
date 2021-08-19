@@ -99,11 +99,12 @@ where $p_{ij}$ is the maximum transmission power of EU $j$ in $\mathrm{U}_i$, an
 T_{ij}^t=\frac{\lambda_{ij} \cdot s_{ij}}{R_{ij}}.
 \end{equation}
 
-The task arrival process at ASP $i$ also follows the Poisson process according to the Poisson process's stationary property. Specifically, the mean arriving rate of the Poisson process at ASP $i$ can be expressed as $\lambda_i = \sum_{j \in \mathrm{U}_i} \lambda_{ij}$ based on the superposition property of the Poisson process. Since the ASPs buy VMs from the MPO whose overall computation resources are still limited compared to the cloud platform, we model the meaning processing delay of all VMs purchased by ASPs using the $M/M/1$ queue. Each VM of MPO is homogeneous and can process $f_m^v$ CPU cycles per second. As the average required CPU cyles for a task of ASP $i$ may be different, the mean service rate of the queue at ASP $i$ denoted by $\mu_i^v$ (in task per second) is different for every ASP $i$. We denote the required CPU cycles of user $j \in \mathsf{U}_i$ as $\chi_{ij}$. The relationship between $f_m^v$ and $\mu_i^v$ is
+The task arrival process at ASP $i$ also follows the Poisson process according to the Poisson process's stationary property. Specifically, the mean arriving rate of the Poisson process at ASP $i$ can be expressed as $\lambda_i = \sum_{j \in \mathrm{U}_i} \lambda_{ij}$ based on the superposition property of the Poisson process. Since the ASPs buy VMs from the MPO whose overall computation resources are still limited compared to the cloud platform, we model the meaning processing delay of all VMs purchased by ASPs using the $M/M/1$ queue. Each VM of MPO is homogeneous and can process $f_m^v$ CPU cycles per second. As the average required CPU cyles for a task of ASP $i$ may be different, the mean service rate of the queue at ASP $i$ denoted by $\mu_i^v$ (in task per second) is different for every ASP $i$. We denote the required CPU cycles of user $j \in \mathsf{U}_i$ as $\chi_{ij}$. Thus, we have
 \begin{equation}
 \mu_i^v = f_m^v/(\frac{\sum_{j \in \mathsf{U}_i} \chi_{ij}}{|\mathrm{U}_i|})
 \end{equation}
-If the ASP $i$ devotes $z_i^h$ out of $z_i^v$ VMs to IPS, the intercepted quantity of malicious requests is $H(z_i^h)$. When ASP $i$ buys $z_i^v$ VMs from the MPO and devotes $z_i^h$ to IPS, those VMs' mean processing delay is
+%If the ASP $i$ devotes $z_i^h$ out of $z_i^v$ VMs to IPS, the intercepted quantity of malicious requests is $H(z_i^h)$. 
+When ASP $i$ buys $z_i^v$ VMs from the MPO and devotes $z_i^h$ to IPS, the mean processing delay is
 \begin{equation} \label{eqn:asp_mm1_delay}
 T_i^p(z_i^v, z_i^h) = \frac{1}{(z_i^v - z_i^h)\mu_i^v - \big(\lambda_i - H(z_i^h)\big)}
 \end{equation}
@@ -119,8 +120,8 @@ The payment from NU $j \in \mathrm{U}_i^n$ to the ASP $i$ depends on whether the
 We model the interaction between MPO and ASPs as a two-stage single-leader-multi-followers Stackelberg game to capture the intrinsic hierarchy between MPO and ASPs and the influence between ASPs in the competition for the VMs.
 
 In the proposed Stackelberg game, the MPO first decides the price per VM $\Psi_{m}^v$, and then the ASPs determine how many VMs to buy from MPO $z_i^v \, \forall i$. The MPO's selection of price per VM affects how many VMs those ASPs would buy, which in turn has an impact on the profit of the MPO. %Since the ASPs need to buy the computation resources from MPO to maintain their application services, the MPO has an advantage over the ASPs. 
-Due to the finite number of available VMs offered by the MPO, the number of VMs one ASP can buy is influenced by the decisions of other ASPs. % The Stackelberg game where the MPO acts as the leader and all ASPs are the followers can capture the coupled and hierarchical relationship between MPO and ASPs, the self-interests of both MPO and ASPs, and the implicit influence among ASPs. 
-We illustrate the actions and utilities of MPO and ASPs in the following first and then formally formulate the optimization problems for each player.
+Due to the finite number of available VMs, the number of VMs one ASP can buy is influenced by the decisions of other ASPs. % The Stackelberg game where the MPO acts as the leader and all ASPs are the followers can capture the coupled and hierarchical relationship between MPO and ASPs, the self-interests of both MPO and ASPs, and the implicit influence among ASPs. 
+We illustrate the actions and utilities of MPO and ASPs and then formulate the optimization problems.% for each player.
 
 \subsection{The Action and The Utility of ASPs}
 Given the MPO's price per VM $\Psi_m^v$, each ASP $i$ decides the number of VMs to buy from the MPO $z_i^v$ to maximize its profit, which is the revenue accrued from the NU $j \in \mathrm{U}_i^n$ minus the payment to the MPO for purchasing $z_i^v$ VMs. 
@@ -579,14 +580,14 @@ Because of \Cref{thm:mpo_case1_convex_optimization}, \Cref{thm:mpo_case2_convex_
 
 \begin{figure}
     \centering
-  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_vm_number.pdf}
+  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_vm_number_conf.pdf}
   \caption{Total Purchased VM v.s. MPO Price}
 \vspace{-0.8em}
   \label{subfig-1:VMnum}
 \end{figure}
 \begin{figure}
     \centering
-  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_utility.pdf}
+  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_utility_conf.pdf}
 \caption{MPO Utility v.s. MPO Price}
 \vspace{-0.8em}
 \label{subfig-2:MPOutil}
@@ -600,27 +601,6 @@ For EUs, the distance between EU and ASP is uniformly chosen from 50m to 100m, t
 
 If not specified, the ratio of malicious users to normal users is set to 0.5, and the number of EUs is set to 100 per ASP. The IPS efficiency $\eta$ is set to be 5000. 
 
-\iffalse
-\begin{figure}[!ht]
-     \subfloat[Total Purchased VM v.s. MPO Price\label{subfig-1:VMnum}]{%
-       \includegraphics[width=0.24\textwidth]{5GDDoS_Game_vm_number.pdf}
-     }
-     \subfloat[MPO Utility v.s. MPO Price\label{subfig-2:MPOutil}]{%
-       \includegraphics[width=0.24\textwidth]{5GDDoS_Game_utility.pdf}
-     }
-     \\
-     \subfloat[Different Malicious Users to Normal Users Ratio\label{subfig-1:ratio}]{%
-       \includegraphics[width=0.24\textwidth]{5GDDoS_Game_social_ratio.pdf}
-     }
-     \subfloat[Different Number of End users\label{subfig-2:num_cmp}]{%
-       \includegraphics[width=0.24\textwidth]{5GDDoS_Game_social_device.pdf}
-     }
-     \caption{Simulation Result}
-     \label{fig:sim}
-  \end{figure}
-\fi
-
-
 
 We first verify the convexity of the MPO optimization problem. The boundaries of price interval have been plot and shown in \Cref{subfig-1:VMnum} and \Cref{subfig-2:MPOutil}. The ASP has the same optimal response in every interval. As the MPO price increases, the optimal responses by the ASPs changes from a decreasing, convex function ((\Cref{eqn:asp_case2_utility_extreme}) and (\Cref{eqn:asp_case3_utility_extreme})) to a constant. Moreover, the MPO utility shown in \Cref{subfig-2:MPOutil} is a concave function in every interval. %Thus, we can solve the MPO optimization problem by solving the convex optimization problem in every interval. 
 
@@ -631,7 +611,7 @@ We further compare different IPS allocation schemes in scenarios of various numb
 
 \begin{figure}
     \centering
-  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_social_ratio.pdf}
+  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_social_ratio_conf.pdf}
     \caption{Different Malicious Users to Normal Users Ratio}
 \vspace{-0.8em}
 \label{subfig-1:ratio}
@@ -639,7 +619,7 @@ We further compare different IPS allocation schemes in scenarios of various numb
 
 \begin{figure}
     \centering
-  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_social_device.pdf}
+  \includegraphics[width=0.45\textwidth]{5GDDoS_Game_social_device_conf.pdf}
 \caption{Different Number of End users}
 \vspace{-0.8em}
 \label{subfig-2:num_cmp}
@@ -647,6 +627,9 @@ We further compare different IPS allocation schemes in scenarios of various numb
 
 \section{Conclusion} \label{sec:conclusion}
 In the paper, we proposed a flexible IPS deployment strategy for ASPs to determine the allocation of VM resources for IPS and services to mitigate the expected DDoS attacks. The joint optimization problem of ASP and MPO is formulated as a Stackelberg game to capture the hierarchy relationship. The optimal pricing strategy of MPO and the optimal amount of purchased MV along with the ratio of IPS VM for ASPs are derived. The simulation results verify the effectiveness of the proposed solution in maintaining the service quality and social welfare compared with other baseline schemes.
+
+\section{Acknowledgement}
+This work was supported by the Ministry of Science and Technology under Grant MOST 108-2628-E-001-003-MY3, MOST 109-2221-E-002-148-MY2 and MOST 109-2218-E-002-018- and the Academia Sinica under Thematic Research Grant AS-TP-110-M07-2.
 
 
 \bibliographystyle{IEEEtran}
