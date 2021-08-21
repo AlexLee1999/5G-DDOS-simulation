@@ -272,17 +272,23 @@ if __name__ == '__main__':
     # asp.plot_max()
     # asp.plot_max_zh()
     # plot_different_ratio()
-    # plot_utility_device_num()
+    
     plot_utility_device_num_step()
-    # plot_utility_device_num_high()
+    
     plot_utility_device_num_step_high()
-    # plot_utility_device_num_low()
+    
     plot_utility_device_num_step_low()
-    # plot_utility_ratio()
+   
     plot_utility_ratio_step()
-    # plot_different_step()
-    # plot_ratio_with_same_IPS_ratio()
+
     plot_ratio_with_same_IPS_ratio_step()
+
+    # plot_different_step()
+    # plot_utility_device_num_high()
+    # plot_utility_ratio()
+    # plot_utility_device_num()
+    # plot_utility_device_num_low()
+    # plot_ratio_with_same_IPS_ratio()
     # plot_flat_price()
     toc = time.perf_counter()
     print(f"\nTotal {str(datetime.timedelta(seconds=int(toc - tic)))} seconds")

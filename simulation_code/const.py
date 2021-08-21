@@ -46,14 +46,15 @@ ASP_DEVICE_LATENCY_UPPER = 1000E-3
 ASP_DEVICE_LATENCY_LOWER = 5E-3
 
 ASP_BANDWIDTH = 20 * 10E8
-
+ASP_CHI_LOWER = 0.01
+ASP_CHI_UPPER = 0.1
 
 ###################################################
 # H function
 
 
-def ASP_H(x):
-    return GLOBAL_ETA * x
+def ASP_H(x, lambda_m):
+    return min(GLOBAL_ETA * x, lambda_m)
 
 ########################################
 # These are the parameters of MPO
