@@ -1,11 +1,10 @@
-from asp import ASP
 from const import *
-from device import Device
 from mpo import MPO
 from convex_solver import *
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-import numpy as np
 
 
 def plot_utility_ratio():

@@ -1,7 +1,9 @@
-from math import sqrt, floor
-from random import random, uniform, randint
+from math import sqrt
+from random import uniform
 from const import *
 from device import *
+import matplotlib
+matplotlib.use('agg') 
 import matplotlib.pyplot as plt
 
 """
@@ -196,7 +198,6 @@ class ASP():
     def optimize_zv(self):
         if GLOBAL_ETA > self.service_rate:
             if self.case == 1:
-                
                 self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
                 if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                     self.z_v = (self.gamma + self.arrival_rate) / self.service_rate

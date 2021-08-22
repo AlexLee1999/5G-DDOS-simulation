@@ -1,4 +1,3 @@
-from math import exp
 from cvxpy import CVXOPT
 from cvxpy.settings import CVXOPT, ECOS
 from enum import Enum
@@ -8,7 +7,7 @@ from enum import Enum
 # Prefix with GLOBAL_
 ########################################
 GLOBAL_ETA = 50
-ITER = 1000
+ITER = 1
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_

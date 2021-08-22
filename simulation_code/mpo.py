@@ -2,8 +2,9 @@ from random import randint, uniform
 from const import *
 from asp import *
 from convex_solver import convex_solve
+import matplotlib
+matplotlib.use('agg') 
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 class MPO():
