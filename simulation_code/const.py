@@ -7,7 +7,7 @@ from enum import Enum
 # Prefix with GLOBAL_
 ########################################
 GLOBAL_ETA = 50
-ITER = 1
+ITER = 1000
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_
