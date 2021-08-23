@@ -8,6 +8,8 @@ from enum import Enum
 ########################################
 GLOBAL_ETA = 50
 ITER = 1000
+DEFAULT_DEVICE_NUM = 1000
+DEFAULT_DEVICE_RATIO = 0.1
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_

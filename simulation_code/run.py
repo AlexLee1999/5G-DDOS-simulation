@@ -34,7 +34,7 @@ def plot_different_step():
         phi_step_10 = 0
         soc_step_10 = 0
         for _ in tqdm(range(ITER)):
-            mpo = MPO(0.1, n)
+            mpo = MPO(DEFAULT_DEVICE_RATIO, n)
             _, max_phi, social, _, _ = mpo.optimize_phi_with_step(1)
             phi_step_1 += max_phi
             soc_step_1 += social
@@ -158,7 +158,7 @@ def plot_different_ratio():
         ut = []
         pr = []
         phi = 30
-        mpo = MPO(ra, 1000)
+        mpo = MPO(ra, DEFAULT_DEVICE_NUM)
         vm_prior = float('inf')
         for _ in range(3000):
             mpo.set_and_check_required_vm(phi)
@@ -185,7 +185,7 @@ def plot_different_ratio():
 
 def plot_flat_price():
     price = [i for i in range(50, 2000, 50)]
-    mpo = MPO(0.1, 1000)
+    mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM)
     utility_proposed_lst, max_phi, _, _, _ = mpo.optimize_phi()
     ut_lst_proposed = []
     ut_lst_flat = []
@@ -209,7 +209,7 @@ def plot_flat_price():
     plt.close()
 
 def plot_asp_utility():
-    asp = ASP(0.1, 1000, load_type.AVERAGE)
+    asp = ASP(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.AVERAGE)
     utility_lst = []
     purchased_vm_lst = []
     utility_lst_without_constraint = []
