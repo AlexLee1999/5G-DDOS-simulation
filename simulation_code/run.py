@@ -275,13 +275,9 @@ if __name__ == '__main__':
     # plot_different_ratio()
     
     plot_utility_device_num_step()
-    
     plot_utility_device_num_step_high()
-    
     plot_utility_device_num_step_low()
-   
     plot_utility_ratio_step()
-
     plot_ratio_with_same_IPS_ratio_step()
 
     # plot_different_step()
