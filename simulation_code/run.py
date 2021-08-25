@@ -273,7 +273,7 @@ if __name__ == '__main__':
     plot_utility_device_num_high_step()
     plot_utility_device_num_low_step()
     plot_utility_ratio_step()
-    plot_ratio_with_same_IPS_ratio_step()
+    # plot_ratio_with_same_IPS_ratio_step()
     toc = time.perf_counter()
     print(f"\nTotal {str(datetime.timedelta(seconds=int(toc - tic)))} seconds")
 

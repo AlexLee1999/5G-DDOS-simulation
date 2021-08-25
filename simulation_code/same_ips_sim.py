@@ -6,7 +6,7 @@ matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
-
+import traceback
 
 def plot_ratio_with_same_IPS_ratio_cvx():
     print("same ratio")
@@ -123,6 +123,7 @@ def plot_ratio_with_same_IPS_ratio_step():
                 pbar.update(1)
             except ArithmeticError as e:
                 print(e)
+                traceback.print_exc()
         pbar.close()
         utility_proposed_lst.append(utility_proposed / ITER)
         social_proposed_lst.append(social_proposed / ITER)

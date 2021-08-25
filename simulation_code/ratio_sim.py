@@ -26,6 +26,10 @@ def plot_utility_ratio_cvx():
     social_nine_lst = []
     asp_utility_nine_lst = []
     vm_nine_lst = []
+    utility_ips_lst = []
+    social_ips_lst = []
+    asp_utility_ips_lst = []
+    vm_ips_lst = []
     for r in ratio:
         utility_zero = 0
         social_zero = 0
@@ -43,6 +47,10 @@ def plot_utility_ratio_cvx():
         social_nine = 0
         asp_utility_nine = 0
         vm_nine = 0
+        utility_ips = 0
+        social_ips = 0
+        asp_utility_ips = 0
+        vm_ips = 0
         i = 0
         pbar = tqdm(total=ITER)
         while i < ITER:
@@ -68,6 +76,12 @@ def plot_utility_ratio_cvx():
                 social_nine += social
                 asp_utility_nine += asp_u
                 vm_nine += vm_num
+                ips = 0.05 * r
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(ips, max_phi)
+                utility_ips += util
+                social_ips += social
+                asp_utility_ips += asp_u
+                vm_ips += vm_num
                 i += 1
                 pbar.update(1)
             except ArithmeticError as e:
@@ -89,11 +103,16 @@ def plot_utility_ratio_cvx():
         social_nine_lst.append(social_nine / ITER)
         asp_utility_nine_lst.append(asp_utility_nine / ITER)
         vm_nine_lst.append(vm_nine / ITER)
+        utility_ips_lst.append(utility_ips / ITER)
+        social_ips_lst.append(social_ips / ITER)
+        asp_utility_ips_lst.append(asp_utility_ips / ITER)
+        vm_ips_lst.append(vm_ips / ITER)
     plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(ratio, utility_proposed_lst, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, utility_zero_lst, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, utility_five_lst, marker='s', linestyle='-.', label='5% IPS VM', linewidth=7, markersize=30)
     plt.plot(ratio, utility_nine_lst, marker='8', linestyle='-.', label='9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, utility_ips_lst, marker='^', linestyle='-.', label='Propotional IPS ratio', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
@@ -109,6 +128,7 @@ def plot_utility_ratio_cvx():
     plt.plot(ratio, social_zero_lst, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, social_five_lst, marker='s', linestyle='-.', label='5% IPS VM', linewidth=7, markersize=30)
     plt.plot(ratio, social_nine_lst, marker='8', linestyle='-.', label='9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, social_ips_lst, marker='^', linestyle='-.', label='Propotional IPS ratio', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
@@ -124,6 +144,7 @@ def plot_utility_ratio_cvx():
     plt.plot(ratio, asp_utility_zero_lst, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, asp_utility_five_lst, marker='s', linestyle='-.', label='5% IPS VM', linewidth=7, markersize=30)
     plt.plot(ratio, asp_utility_nine_lst, marker='8', linestyle='-.', label='9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, asp_utility_ips_lst, marker='^', linestyle='-.', label='Propotional IPS ratio', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
@@ -139,6 +160,7 @@ def plot_utility_ratio_cvx():
     plt.plot(ratio, vm_zero_lst, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, vm_five_lst, marker='s', linestyle='-.', label='5% IPS VM', linewidth=7, markersize=30)
     plt.plot(ratio, vm_nine_lst, marker='8', linestyle='-.', label='9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, vm_ips_lst, marker='^', linestyle='-.', label='Propotional IPS ratio', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=100)
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
@@ -168,6 +190,10 @@ def plot_utility_ratio_step():
     social_nine_lst = []
     asp_utility_nine_lst = []
     vm_nine_lst = []
+    utility_ips_lst = []
+    social_ips_lst = []
+    asp_utility_ips_lst = []
+    vm_ips_lst = []
     for r in ratio:
         utility_zero = 0
         social_zero = 0
@@ -185,6 +211,10 @@ def plot_utility_ratio_step():
         social_nine = 0
         asp_utility_nine = 0
         vm_nine = 0
+        utility_ips = 0
+        social_ips = 0
+        asp_utility_ips = 0
+        vm_ips = 0
         i = 0
         pbar = tqdm(total=ITER)
         while i < ITER:
@@ -210,6 +240,12 @@ def plot_utility_ratio_step():
                 social_nine += social
                 asp_utility_nine += asp_u
                 vm_nine += vm_num
+                ips = 0.05 * r
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(ips, max_phi)
+                utility_ips += util
+                social_ips += social
+                asp_utility_ips += asp_u
+                vm_ips += vm_num
                 i += 1
                 pbar.update(1)
             except ArithmeticError as e:
@@ -232,11 +268,16 @@ def plot_utility_ratio_step():
         social_nine_lst.append(social_nine / ITER)
         asp_utility_nine_lst.append(asp_utility_nine / ITER)
         vm_nine_lst.append(vm_nine / ITER)
+        utility_ips_lst.append(utility_ips / ITER)
+        social_ips_lst.append(social_ips / ITER)
+        asp_utility_ips_lst.append(asp_utility_ips / ITER)
+        vm_ips_lst.append(vm_ips / ITER)
     plt.figure(figsize=(45, 25), dpi=400)
     plt.plot(ratio, utility_proposed_lst, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
     plt.plot(ratio, utility_zero_lst, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, utility_five_lst, marker='s', linestyle='-.', label='5% IPS VM', linewidth=7, markersize=30)
     plt.plot(ratio, utility_nine_lst, marker='8', linestyle='-.', label='9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, utility_ips_lst, marker='^', linestyle='-.', label='Propotional IPS ratio', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
@@ -252,6 +293,7 @@ def plot_utility_ratio_step():
     plt.plot(ratio, social_zero_lst, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, social_five_lst, marker='s', linestyle='-.', label='5% IPS VM', linewidth=7, markersize=30)
     plt.plot(ratio, social_nine_lst, marker='8', linestyle='-.', label='9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, social_ips_lst, marker='^', linestyle='-.', label='Propotional IPS ratio', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
@@ -267,6 +309,7 @@ def plot_utility_ratio_step():
     plt.plot(ratio, asp_utility_zero_lst, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, asp_utility_five_lst, marker='s', linestyle='-.', label='5% IPS VM', linewidth=7, markersize=30)
     plt.plot(ratio, asp_utility_nine_lst, marker='8', linestyle='-.', label='9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, asp_utility_ips_lst, marker='^', linestyle='-.', label='Propotional IPS ratio', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
@@ -282,6 +325,7 @@ def plot_utility_ratio_step():
     plt.plot(ratio, vm_zero_lst, marker='^', linestyle='-.', label='No IPS', linewidth=7, markersize=30)
     plt.plot(ratio, vm_five_lst, marker='s', linestyle='-.', label='5% IPS VM', linewidth=7, markersize=30)
     plt.plot(ratio, vm_nine_lst, marker='8', linestyle='-.', label='9% IPS VM', linewidth=7, markersize=30)
+    plt.plot(ratio, vm_ips_lst, marker='^', linestyle='-.', label='Propotional IPS ratio', linewidth=7, markersize=30)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=100)
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
