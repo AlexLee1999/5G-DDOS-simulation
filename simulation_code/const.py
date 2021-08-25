@@ -7,9 +7,12 @@ from enum import Enum
 # Prefix with GLOBAL_
 ########################################
 GLOBAL_ETA = 50
-ITER = 1000
+# Conference 5000
+ITER = 1
 DEFAULT_DEVICE_NUM = 1000
+# Conference 100
 DEFAULT_DEVICE_RATIO = 0.1
+# COnference 0.5
 ########################################
 # These are the parameters of Device
 # Prefix with DEVICE_
@@ -23,19 +26,24 @@ DEVICE_DISTANCE_LOWER = 50
 DEVICE_FREQUENCY = 2.1
 # required cpu cycle
 DEVICE_REQUIRED_CPU_CYCLE_UPPER = 0.9E8
+# Conference 0.9E6
 DEVICE_REQUIRED_CPU_CYCLE_LOWER = 0.1E8
+# Conference 0.1E6
 DEVICE_REQUIRED_CPU_CYCLE_HIGH_UPPER = 0.9E8
 DEVICE_REQUIRED_CPU_CYCLE_HIGH_LOWER = 0.7E8
 DEVICE_REQUIRED_CPU_CYCLE_LOW_UPPER = 0.3E8
 DEVICE_REQUIRED_CPU_CYCLE_LOW_LOWER = 0.1E8
 # task size
 DEVICE_TASK_SIZE_UPPER = 50  # 5 kB
+# Conference 5
 DEVICE_TASK_SIZE_LOWER = 40  # 4 kB
+# Conference 4
 # arrival rate
 DEVICE_ARRIVAL_RATE_UPPER = 3
 DEVICE_ARRIVAL_RATE_LOWER = 1
 # price per task
 DEVICE_PRICE_PER_TASK_UPPER = 100
+# COnference 10
 DEVICE_PRICE_PER_TASK_LOWER = 1
 
 ########################################
@@ -44,16 +52,22 @@ DEVICE_PRICE_PER_TASK_LOWER = 1
 ########################################
 # latency
 ASP_DEVICE_LATENCY_UPPER = 1000E-3
+# Confernece 100E-3
 ASP_DEVICE_LATENCY_LOWER = 5E-3
 
 ASP_BANDWIDTH = 20 * 10E8
+# Conference 20 * 10E6
 ASP_CHI_LOWER = 0.01
+# Conference 0.999
 ASP_CHI_UPPER = 0.1
+# Conference 0.999
+ASP_GAMMA_LOWER = 20
+# COnference 100
+ASP_GAMMA_UPPER = 40
+# Conference 100
 
 ###################################################
 # H function
-
-
 def ASP_H(x, lambda_m):
     return min(GLOBAL_ETA * x, lambda_m)
 

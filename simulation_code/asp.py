@@ -28,7 +28,7 @@ class ASP():
         self.total_pay()
         self.mpo_price = None
         self.chi = uniform(ASP_CHI_LOWER, ASP_CHI_UPPER)
-        self.gamma = 30
+        self.gamma = uniform(ASP_GAMMA_LOWER, ASP_GAMMA_UPPER)
         self.phi = 0
         if self.service_rate < GLOBAL_ETA:
             self.sqrt_coff = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)))
@@ -113,6 +113,14 @@ class ASP():
     """
     def time(self, z_v, z_h):
         return 1 / ((z_v - z_h) * self.service_rate - (self.arrival_rate - ASP_H(z_h, self.malicious_arrival_rate)))
+
+    def uniform_cdf(self, time):
+        if time > ASP_DEVICE_LATENCY_UPPER:
+            return 0
+        elif time < ASP_DEVICE_LATENCY_LOWER:
+            return 1
+        else:
+            return (1 - ((time - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)))
     """
     set_boundary : calculate the boundary
     """
@@ -123,9 +131,9 @@ class ASP():
         util2 = 0
         util3 = 0
         for dev in self.device_list:
-            util1 += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.time(z_v, z_h) - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
-            util2 += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.time(z_v, 0) - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
-            util3 += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.time(z_v, self.malicious_arrival_rate / GLOBAL_ETA) - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
+            util1 += (dev.price_per_task * (self.uniform_cdf(dev.transmission_time_to_asp + self.time(z_v, z_h))))
+            util2 += (dev.price_per_task * (self.uniform_cdf(dev.transmission_time_to_asp + self.time(z_v, 0))))
+            util3 += (dev.price_per_task * (self.uniform_cdf(dev.transmission_time_to_asp + self.time(z_v, self.malicious_arrival_rate / GLOBAL_ETA))))
         if GLOBAL_ETA > self.service_rate: # case 2 & 4
             bound_case2 = util1 / z_v
             bound_case4 = util3 / z_v
@@ -197,7 +205,7 @@ class ASP():
     optimize_zv : set the optimize z_v and calculate utility
     """
     def optimize_zv(self):
-        if GLOBAL_ETA > self.service_rate:
+        if GLOBAL_ETA > self.service_rate and self.chi != 0:
             if self.case == 1:
                 # print(self.case)
                 self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate

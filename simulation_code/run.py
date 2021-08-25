@@ -10,7 +10,6 @@ import numpy as np
 import time
 import datetime
 import warnings
-
 from device_num_sim import *
 from device_num_sim_high import *
 from device_num_sim_low import *
@@ -269,24 +268,12 @@ if __name__ == '__main__':
     # mpo.plot_MPO_utility()
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
-    # asp = ASP(0.1, 1000, load_type.AVERAGE)
-    # asp.plot_max()
-    # asp.plot_max_zh()
-    # plot_different_ratio()
     
     plot_utility_device_num_step()
-    plot_utility_device_num_step_high()
-    plot_utility_device_num_step_low()
+    plot_utility_device_num_high_step()
+    plot_utility_device_num_low_step()
     plot_utility_ratio_step()
     plot_ratio_with_same_IPS_ratio_step()
-
-    # plot_different_step()
-    # plot_utility_device_num_high()
-    # plot_utility_ratio()
-    # plot_utility_device_num()
-    # plot_utility_device_num_low()
-    # plot_ratio_with_same_IPS_ratio()
-    # plot_flat_price()
     toc = time.perf_counter()
     print(f"\nTotal {str(datetime.timedelta(seconds=int(toc - tic)))} seconds")
 

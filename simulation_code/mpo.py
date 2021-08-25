@@ -1,4 +1,4 @@
-from random import randint, uniform
+from random import uniform
 from const import *
 from asp import *
 from convex_solver import convex_solve
@@ -125,7 +125,6 @@ class MPO():
         phi = self.constraint_phi
         max = 0
         max_phi = 0
-        pre = 0
         iter = int(25000 / step)
         for _ in range(iter):
             self.set_and_check_required_vm(phi)
@@ -158,6 +157,30 @@ class MPO():
             asp_util += asp.utility
             asp_vm += asp.z_v
         return util, util + asp_util, asp_util, asp_vm
+    
+    def optimize_phi_with_step_chi(self, step, chi):
+        self.find_constraint_phi()
+        phi = self.constraint_phi
+        max = 0
+        max_phi = 0
+        iter = int(25000 / step)
+        for _ in range(iter):
+            self.set_and_check_required_vm_with_chi(phi, chi)
+            vm_num = self.total_vm()
+            uti = phi * vm_num - MPO_cost(vm_num)
+            if uti > max:
+                max = uti
+                max_phi = phi
+            phi += step
+            if uti == 0:
+                break
+        self.set_and_check_required_vm_with_chi(max_phi, chi)
+        asp_util = 0
+        asp_vm = 0
+        for asp in self.asp_lst:
+            asp_util += asp.utility
+            asp_vm += asp.z_v
+        return max, asp_util + max, asp_util, asp_vm
     """
     optimize_phi_with_price : calculate the overall utility with input (MPO price)
     """

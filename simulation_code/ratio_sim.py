@@ -5,9 +5,9 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+import traceback
 
-
-def plot_utility_ratio():
+def plot_utility_ratio_cvx():
     print("ratio")
     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
     utility_proposed_lst = []
@@ -99,9 +99,9 @@ def plot_utility_ratio():
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio.jpg')
-    plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio.pdf')
-    plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio.eps')
+    plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio_cvx.jpg')
+    plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio_cvx.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_MPO_ratio_cvx.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -114,9 +114,9 @@ def plot_utility_ratio():
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/ratio/5GDDoS_Game_social_ratio.jpg')
-    plt.savefig('./image/ratio/5GDDoS_Game_social_ratio.pdf')
-    plt.savefig('./image/ratio/5GDDoS_Game_social_ratio.eps')
+    plt.savefig('./image/ratio/5GDDoS_Game_social_ratio_cvx.jpg')
+    plt.savefig('./image/ratio/5GDDoS_Game_social_ratio_cvx.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_social_ratio_cvx.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -129,9 +129,9 @@ def plot_utility_ratio():
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio.jpg')
-    plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio.pdf')
-    plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio.eps')
+    plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio_cvx.jpg')
+    plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio_cvx.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_asp_ratio_cvx.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -144,9 +144,9 @@ def plot_utility_ratio():
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio.jpg')
-    plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio.pdf')
-    plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio.eps')
+    plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio_cvx.jpg')
+    plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio_cvx.pdf')
+    plt.savefig('./image/ratio/5GDDoS_Game_total_vm_ratio_cvx.eps')
     plt.close()
 
 def plot_utility_ratio_step():
@@ -214,6 +214,7 @@ def plot_utility_ratio_step():
                 pbar.update(1)
             except ArithmeticError as e:
                 print(e)
+                traceback.print_exc()
         pbar.close()
         utility_proposed_lst.append(utility_proposed / ITER)
         social_proposed_lst.append(social_proposed / ITER)

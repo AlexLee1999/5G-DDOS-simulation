@@ -5,9 +5,9 @@ import matplotlib
 matplotlib.use('agg') 
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+import traceback
 
-
-def plot_utility_device_num_low():
+def plot_utility_device_num_low_cvx():
     print("device low")
     num = [600, 800, 1000, 1200, 1400]
     utility_proposed_lst = []
@@ -99,9 +99,9 @@ def plot_utility_device_num_low():
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low.jpg')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low.pdf')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low.eps')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.jpg')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.pdf')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -114,9 +114,9 @@ def plot_utility_device_num_low():
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_low.jpg')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_low.pdf')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_low.eps')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_low_cvx.jpg')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_low_cvx.pdf')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_low_cvx.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -129,9 +129,9 @@ def plot_utility_device_num_low():
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low.jpg')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low.pdf')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low.eps')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.jpg')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.pdf')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -144,14 +144,14 @@ def plot_utility_device_num_low():
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_low.jpg')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_low.pdf')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_low.eps')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_low_cvx.jpg')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_low_cvx.pdf')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_low_cvx.eps')
     plt.close()
 
 
 
-def plot_utility_device_num_step_low():
+def plot_utility_device_num_low_step():
     print("device low step")
     num = [600, 800, 1000, 1200, 1400]
     utility_proposed_lst = []
@@ -198,16 +198,19 @@ def plot_utility_device_num_step_low():
                 asp_utility_proposed += asp_u
                 vm_proposed += vm_num
                 util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0, max_phi)
+                # util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(1, 0)
                 utility_zero += util
                 social_zero += social
                 asp_utility_zero += asp_u
                 vm_zero += vm_num
                 util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.05, max_phi)
+                # util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(1, 0.05)
                 utility_five += util
                 social_five += social
                 asp_utility_five += asp_u
                 vm_five += vm_num
                 util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.09, max_phi)
+                # util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(1, 0.09)
                 utility_nine += util
                 social_nine += social
                 asp_utility_nine += asp_u
@@ -216,6 +219,7 @@ def plot_utility_device_num_step_low():
                 pbar.update(1)
             except ArithmeticError as e:
                 print(e)
+                traceback.print_exc()
         pbar.close()
         utility_proposed_lst.append(utility_proposed / ITER)
         social_proposed_lst.append(social_proposed / ITER)
@@ -243,9 +247,9 @@ def plot_utility_device_num_step_low():
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_step_low.jpg')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_step_low.pdf')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_step_low.eps')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_step.jpg')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_step.pdf')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_step.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -258,9 +262,9 @@ def plot_utility_device_num_step_low():
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_step_low.jpg')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_step_low.pdf')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_step_low.eps')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_low_step.jpg')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_low_step.pdf')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_social_device_low_step.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -273,9 +277,9 @@ def plot_utility_device_num_step_low():
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_step_low.jpg')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_step_low.pdf')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_step_low.eps')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_step.jpg')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_step.pdf')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_step.eps')
     plt.close()
 
     plt.figure(figsize=(45, 25), dpi=400)
@@ -288,7 +292,7 @@ def plot_utility_device_num_step_low():
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=100)
     plt.xticks(fontsize=80)
     plt.yticks(fontsize=80)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_step_low.jpg')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_step_low.pdf')
-    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_step_low.eps')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_low_step.jpg')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_low_step.pdf')
+    plt.savefig('./image/device_number_low/5GDDoS_Game_total_vm_device_low_step.eps')
     plt.close()
