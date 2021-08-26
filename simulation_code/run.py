@@ -269,9 +269,9 @@ if __name__ == '__main__':
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
     
-    plot_utility_device_num_step()
-    plot_utility_device_num_high_step()
-    plot_utility_device_num_low_step()
+    # plot_utility_device_num_step()
+    # plot_utility_device_num_high_step()
+    # plot_utility_device_num_low_step()
     plot_utility_ratio_step()
     # plot_ratio_with_same_IPS_ratio_step()
     toc = time.perf_counter()
