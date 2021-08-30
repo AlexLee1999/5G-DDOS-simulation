@@ -264,8 +264,8 @@ if __name__ == '__main__':
     warnings.filterwarnings("ignore")
     tic = time.perf_counter()
     # plot_asp_utility()
-    # mpo = MPO(0.1, 1000, load_type.AVERAGE)
-    # mpo.plot_MPO_utility()
+    mpo = MPO(0.1, 1000, load_type.AVERAGE)
+    mpo.plot_MPO_utility()
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
     

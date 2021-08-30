@@ -105,7 +105,7 @@ class ASP():
     def set_utility(self):
         util = 0
         for dev in self.device_list:
-            util += (dev.price_per_task * (1 - ((dev.transmission_time_to_asp + self.process_time - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))))
+            util += (dev.price_per_task * self.uniform_cdf(self.process_time + dev.transmission_time_to_asp))
         self.utility = util - self.mpo_price * self.z_v
         return
     """
