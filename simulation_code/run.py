@@ -33,7 +33,7 @@ def plot_different_step():
         phi_step_10 = 0
         soc_step_10 = 0
         for _ in tqdm(range(ITER)):
-            mpo = MPO(DEFAULT_DEVICE_RATIO, n)
+            mpo = MPO(DEFAULT_DEVICE_RATIO, n, load_type.AVERAGE)
             _, max_phi, social, _, _ = mpo.optimize_phi_with_step(1)
             phi_step_1 += max_phi
             soc_step_1 += social
@@ -157,7 +157,7 @@ def plot_different_ratio():
         ut = []
         pr = []
         phi = 30
-        mpo = MPO(ra, DEFAULT_DEVICE_NUM)
+        mpo = MPO(ra, DEFAULT_DEVICE_NUM, load_type.AVERAGE)
         vm_prior = float('inf')
         for _ in range(3000):
             mpo.set_and_check_required_vm(phi)
@@ -183,9 +183,9 @@ def plot_different_ratio():
     plt.close()
 
 def plot_flat_price():
-    price = [i for i in range(50, 2000, 50)]
-    mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM)
-    utility_proposed_lst, max_phi, _, _, _ = mpo.optimize_phi()
+    price = [i for i in range(50, 2000, 10)]
+    mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.AVERAGE)
+    utility_proposed_lst, _, _, _, _ = mpo.optimize_phi_with_step(1)
     ut_lst_proposed = []
     ut_lst_flat = []
     for p in price:
@@ -195,8 +195,8 @@ def plot_flat_price():
         ut_lst_flat.append(uti)
         ut_lst_proposed.append(utility_proposed_lst)
     plt.figure(figsize=(45, 25), dpi=400)
-    plt.plot(price, ut_lst_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=30)
-    plt.plot(price, ut_lst_flat, marker='^', linestyle='-.', label='Flat Price', linewidth=7, markersize=30)
+    plt.plot(price, ut_lst_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=7, markersize=10)
+    plt.plot(price, ut_lst_flat, marker='^', linestyle='-.', label='Flat Price', linewidth=7, markersize=10)
     plt.legend(loc="best", fontsize=100)
     plt.xlabel(r'$\bf{Flat\ Price}$', fontsize=100)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
@@ -264,16 +264,21 @@ if __name__ == '__main__':
     warnings.filterwarnings("ignore")
     tic = time.perf_counter()
     # plot_asp_utility()
-    mpo = MPO(0.1, 1000, load_type.AVERAGE)
-    mpo.plot_MPO_utility()
+    mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.AVERAGE)
+    # mpo.plot_MPO_utility()
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
+    asp = ASP(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.AVERAGE)
+    # asp.plot_max_zh()
+    asp.plot_max()
+    print(asp.case)
     
-    plot_utility_device_num_step()
-    plot_utility_device_num_high_step()
-    plot_utility_device_num_low_step()
-    plot_utility_ratio_step()
+    # plot_utility_device_num_step()
+    # plot_utility_device_num_high_step()
+    # plot_utility_device_num_low_step()
+    # plot_utility_ratio_step()
     # plot_ratio_with_same_IPS_ratio_step()
+    # plot_flat_price()
     toc = time.perf_counter()
     print(f"\nTotal {str(datetime.timedelta(seconds=int(toc - tic)))} seconds")
 

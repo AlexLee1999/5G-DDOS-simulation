@@ -183,6 +183,7 @@ class ASP():
         else: # case3
             bound = util2 / z_v
             qbound = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1) * self.service_rate)) / (z_v - self.arrival_rate / ((1) * self.service_rate)) ** 2
+            self.case = 5
             if bound < qbound:
                 A = 0
                 for dev in self.device_list:
@@ -384,8 +385,7 @@ class ASP():
             plt.figure(figsize=(45, 25), dpi=400)
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
-                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
-                self.z_h = self.chi * self.z_v
+                self.optimize_zv()
                 ut = []
                 z_v = []
                 self.set_process_time()
@@ -407,16 +407,15 @@ class ASP():
             plt.xticks(fontsize=80)
             plt.yticks(fontsize=80)
             plt.legend(loc="best", fontsize=100)
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case1.pdf')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case1.jpg')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case1.eps')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case2.pdf')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case2.jpg')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case2.eps')
             plt.close()
         else:
             plt.figure(figsize=(45, 25), dpi=400)
             for mpo_price in mpo_lst:
                 self.mpo_price = mpo_price
-                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
-                self.z_h = 0
+                self.optimize_zv()
                 ut = []
                 z_v = []
                 self.set_process_time()
@@ -438,9 +437,9 @@ class ASP():
             plt.xticks(fontsize=80)
             plt.yticks(fontsize=80)
             plt.legend(loc="best", fontsize=100)
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case2.pdf')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case2.jpg')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case2.eps')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case3.pdf')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case3.jpg')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case3.eps')
             plt.close()
 
     def plot_max_zh(self):
@@ -466,9 +465,9 @@ class ASP():
             plt.xticks(fontsize=80)
             plt.yticks(fontsize=80)
             plt.legend(loc="best", fontsize=100)
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case1.pdf')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case1.jpg')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case1.eps')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case2.pdf')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case2.jpg')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case2.eps')
             plt.close()
         else:
             self.mpo_price = 100
@@ -492,7 +491,7 @@ class ASP():
             plt.xticks(fontsize=80)
             plt.yticks(fontsize=80)
             plt.legend(loc="best", fontsize=100)
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case2.pdf')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case2.jpg')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case2.eps')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case3.pdf')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case3.jpg')
+            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case3.eps')
             plt.close()
