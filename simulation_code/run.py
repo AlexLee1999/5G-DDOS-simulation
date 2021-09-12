@@ -264,15 +264,21 @@ if __name__ == '__main__':
     warnings.filterwarnings("ignore")
     tic = time.perf_counter()
     # plot_asp_utility()
-    mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.AVERAGE)
-    # mpo.plot_MPO_utility()
+    mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.HIGH, MPO_NUM_OF_ASP)
+    for asp in mpo.asp_lst:
+        print(asp.case)
+    mpo.plot_MPO_utility()
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
-    asp = ASP(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.AVERAGE)
+    asp = ASP(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.LOW)
     # asp.plot_max_zh()
-    asp.plot_max()
-    print(asp.case)
-    
+    # asp.plot_max()
+    # lst = []
+    # for dev in asp.device_list:
+    #     lst.append(dev.transmission_time_to_asp)
+    # print(min(lst))
+    # print(max(lst))
+    # print(ASP_DEVICE_LATENCY_LOWER)
     # plot_utility_device_num_step()
     # plot_utility_device_num_high_step()
     # plot_utility_device_num_low_step()

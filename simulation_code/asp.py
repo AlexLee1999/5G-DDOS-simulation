@@ -15,7 +15,7 @@ frequency : CPU frequency of a VM
 class ASP():
     def __init__(self, ratio, num, ASP_type):
         self.type = ASP_type
-        self.bandwidth = ASP_BANDWIDTH / MPO_NUM_OF_ASP
+        self.bandwidth = ASP_BANDWIDTH
         self.frequency = MPO_CPU_FREQUENCY
         self.device_list = []
         self.mal_device_list = []
@@ -45,19 +45,19 @@ class ASP():
     """
     def set_users(self):
         if self.type == load_type.AVERAGE:
-            for i in range(self.num_of_normal_users):
+            for _ in range(self.num_of_normal_users):
                 self.device_list.append(Device(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
-            for i in range(self.num_of_malicious_users):
+            for _ in range(self.num_of_malicious_users):
                 self.mal_device_list.append(Malicious_Device(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
         elif self.type == load_type.HIGH:
-            for i in range(self.num_of_normal_users):
+            for _ in range(self.num_of_normal_users):
                 self.device_list.append(Device_high_load(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
-            for i in range(self.num_of_malicious_users):
+            for _ in range(self.num_of_malicious_users):
                 self.mal_device_list.append(Malicious_Device_high_load(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
         elif self.type == load_type.LOW:
-            for i in range(self.num_of_normal_users):
+            for _ in range(self.num_of_normal_users):
                 self.device_list.append(Device_low_load(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
-            for i in range(self.num_of_malicious_users):
+            for _ in range(self.num_of_malicious_users):
                 self.mal_device_list.append(Malicious_Device_low_load(self.bandwidth / (self.num_of_normal_users + self.num_of_malicious_users)))
     """
     total_pay : calculate the total payment from device
@@ -112,7 +112,8 @@ class ASP():
     time : calculate processing time with z_v and z_h
     """
     def time(self, z_v, z_h):
-        return 1 / ((z_v - z_h) * self.service_rate - (self.arrival_rate - ASP_H(z_h, self.malicious_arrival_rate)))
+        t = 1 / ((z_v - z_h) * self.service_rate - (self.arrival_rate - ASP_H(z_h, self.malicious_arrival_rate)))
+        return t
 
     def uniform_cdf(self, time):
         if time > ASP_DEVICE_LATENCY_UPPER:
@@ -139,7 +140,7 @@ class ASP():
             bound_case4 = util3 / z_v
             qbound_case2 = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) / (z_v - self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) ** 2
             qbound_case4 = self.total_payment / (self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)) * ((self.malicious_arrival_rate + self.gamma) / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
-            if bound_case4 < qbound_case4: # No queuing
+            if bound_case2 < qbound_case2: # No queuing
                 A = 0
                 for dev in self.device_list:
                     A += (dev.price_per_task * (ASP_DEVICE_LATENCY_UPPER - dev.transmission_time_to_asp) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))
@@ -170,6 +171,7 @@ class ASP():
                 if (self.arrival_rate + self.gamma) / self.service_rate > (self.malicious_arrival_rate / (GLOBAL_ETA * self.chi)):
                     self.bound = bound_case4
                     self.qbound = qbound_case4
+                    print(self.qbound, self.bound)
                     self.change_point = bound_case4
                     # print(1)
                     self.case = 1
@@ -177,6 +179,7 @@ class ASP():
                     self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
                     self.bound = bound_case2
                     self.qbound = qbound_case2
+                    print(self.qbound, self.bound)
                     # print(3)
                     self.case = 3
 

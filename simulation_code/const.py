@@ -55,7 +55,7 @@ ASP_DEVICE_LATENCY_UPPER = 1000E-3
 # Confernece 100E-3
 ASP_DEVICE_LATENCY_LOWER = 5E-3
 
-ASP_BANDWIDTH = 20 * 10E8
+ASP_BANDWIDTH = 4 * 10E8
 # Conference 20 * 10E6
 ASP_CHI_LOWER = 0.01
 # Conference 0.999
@@ -75,7 +75,7 @@ def ASP_H(x, lambda_m):
 # These are the parameters of MPO
 # Prefix with MPO_
 ########################################
-MPO_NUM_OF_ASP = 5
+MPO_NUM_OF_ASP = 1
 
 MPO_NUM_OF_VM_LOWER = 1000
 MPO_NUM_OF_VM_UPPER = 1000

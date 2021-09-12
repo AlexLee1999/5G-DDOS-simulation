@@ -48,7 +48,7 @@ def plot_utility_device_num_cvx():
         pbar = tqdm(total=ITER)
         while i < ITER:
             try:
-                mpo = MPO(DEFAULT_DEVICE_RATIO, n, load_type.AVERAGE)
+                mpo = MPO(DEFAULT_DEVICE_RATIO, n, load_type.AVERAGE, MPO_NUM_OF_ASP)
                 util, max_phi, social, asp_u, vm_num = mpo.optimize_phi()
                 utility_proposed += util
                 social_proposed += social
@@ -193,7 +193,7 @@ def plot_utility_device_num_step():
         pbar = tqdm(total=ITER)
         while i < ITER:
             try:
-                mpo = MPO(DEFAULT_DEVICE_RATIO, n, load_type.AVERAGE)
+                mpo = MPO(DEFAULT_DEVICE_RATIO, n, load_type.AVERAGE, MPO_NUM_OF_ASP)
                 util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(1)
                 utility_proposed += util
                 social_proposed += social

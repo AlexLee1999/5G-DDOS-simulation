@@ -8,13 +8,13 @@ import matplotlib.pyplot as plt
 
 
 class MPO():
-    def __init__(self, ratio, num, mpo_type):
+    def __init__(self, ratio, num, mpo_type, asp_num):
         self.price_per_vm = None
         self.type = mpo_type
         self.asp_lst = []
         self.asp_case_lst = []
         self.asp_response = []
-        self.num_of_asp = MPO_NUM_OF_ASP
+        self.num_of_asp = asp_num
         self.num_of_vm = uniform(MPO_NUM_OF_VM_LOWER, MPO_NUM_OF_VM_UPPER)
         self.ratio = ratio
         self.num = num
@@ -201,7 +201,6 @@ class MPO():
         step = 1
         pr = []
         ut = []
-        bound = []
         num = []
         vm_prior = float('inf')
         for _ in range(2000):
