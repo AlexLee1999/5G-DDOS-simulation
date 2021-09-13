@@ -116,11 +116,11 @@ class ASP():
         return t
 
     def uniform_cdf(self, time):
-        if time > ASP_DEVICE_LATENCY_UPPER:
-            return 0
-        elif time < ASP_DEVICE_LATENCY_LOWER:
-            return 1
-        else:
+        # if time > ASP_DEVICE_LATENCY_UPPER:
+        #     return 0
+        # elif time < ASP_DEVICE_LATENCY_LOWER:
+        #     return 1
+        # else:
             return (1 - ((time - ASP_DEVICE_LATENCY_LOWER) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)))
     """
     set_boundary : calculate the boundary
@@ -140,7 +140,7 @@ class ASP():
             bound_case4 = util3 / z_v
             qbound_case2 = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) / (z_v - self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) ** 2
             qbound_case4 = self.total_payment / (self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)) * ((self.malicious_arrival_rate + self.gamma) / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
-            if bound_case2 < qbound_case2: # No queuing
+            if bound_case2 < qbound_case2 and bound_case4 < qbound_case4: # No queuing
                 A = 0
                 for dev in self.device_list:
                     A += (dev.price_per_task * (ASP_DEVICE_LATENCY_UPPER - dev.transmission_time_to_asp) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))
@@ -167,11 +167,12 @@ class ASP():
                     self.qbound = None
                     # print(2)
                     self.case = 2
-            else:
+            elif bound_case2 > qbound_case2 and bound_case4 > qbound_case4:
                 if (self.arrival_rate + self.gamma) / self.service_rate > (self.malicious_arrival_rate / (GLOBAL_ETA * self.chi)):
                     self.bound = bound_case4
                     self.qbound = qbound_case4
-                    print(self.qbound, self.bound)
+                    if self.qbound > self.bound:
+                        print(self.qbound, self.bound)
                     self.change_point = bound_case4
                     # print(1)
                     self.case = 1
@@ -179,14 +180,60 @@ class ASP():
                     self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
                     self.bound = bound_case2
                     self.qbound = qbound_case2
-                    print(self.qbound, self.bound)
+                    if self.qbound > self.bound:
+                        print(self.qbound, self.bound)
                     # print(3)
                     self.case = 3
+            elif bound_case2 < qbound_case2 and bound_case4 > qbound_case4: #1 & 4
+                if (self.arrival_rate + self.gamma) / self.service_rate > (self.malicious_arrival_rate / (GLOBAL_ETA * self.chi)):
+                    self.bound = bound_case4
+                    self.qbound = qbound_case4
+                    if self.qbound > self.bound:
+                        print(self.qbound, self.bound)
+                    self.change_point = bound_case4
+                    # print(1)
+                    self.case = 1
+                else:
+                    self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
+                    A = 0
+                    for dev in self.device_list:
+                        A += (dev.price_per_task * (ASP_DEVICE_LATENCY_UPPER - dev.transmission_time_to_asp) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))
+                    B = self.total_payment / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)
+                    C = self.service_rate * (1 - self.chi) + self.chi * GLOBAL_ETA
+                    D = self.arrival_rate
+                    self.bound = (A * C * D + 2 * B * C - 2 * C * sqrt(B ** 2 + A * B * D)) / (D ** 2)
+                    self.qbound = None
+                    # print(4)
+                    self.case = 4
+            else:
+                A = 0
+                for dev in self.device_list:
+                    A += (dev.price_per_task * (ASP_DEVICE_LATENCY_UPPER - dev.transmission_time_to_asp) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))
+                B = self.total_payment / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)
+                C = self.service_rate
+                D = self.malicious_arrival_rate * self.service_rate / GLOBAL_ETA + self.arrival_rate - self.malicious_arrival_rate
+                phi = (A * C * D + 2 * B * C - 2 * C * sqrt(B ** 2 + A * B * D)) / (D ** 2)
+                z_v_zero = sqrt(self.total_payment / ((self.arrival_rate) * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * phi)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                if z_v_zero < (self.malicious_arrival_rate / (GLOBAL_ETA * self.chi)):
+                    self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
+                    self.bound = bound_case2
+                    self.qbound = qbound_case2
+                    if self.qbound > self.bound:
+                        print(self.qbound, self.bound)
+                    # print(3)
+                    self.case = 3
+                else:
+                    self.bound = phi
+                    self.change_point = phi
+                    self.qbound = None
+                    # print(2)
+                    self.case = 2
 
         else: # case3
             bound = util2 / z_v
             qbound = self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1) * self.service_rate)) / (z_v - self.arrival_rate / ((1) * self.service_rate)) ** 2
             self.case = 5
+            self.change_point = None
             if bound < qbound:
                 A = 0
                 for dev in self.device_list:
@@ -239,7 +286,7 @@ class ASP():
             elif self.case == 3:
                 # print(self.case)
                 self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
-                if self.z_v < self.malicious_arrival_rate / (self.chi * GLOBAL_ETA):
+                if self.z_v > self.malicious_arrival_rate / (self.chi * GLOBAL_ETA):
                     self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
                     self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
                     self.set_process_time()

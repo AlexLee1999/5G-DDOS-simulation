@@ -27,7 +27,7 @@ def plot_utility_device_num_cvx():
     asp_utility_seven_lst = []
     vm_seven_lst = []
     for n in num:
-        print(n)
+        print(n, flush=True)
         utility_zero = 0
         social_zero = 0
         asp_utility_zero = 0
@@ -172,7 +172,7 @@ def plot_utility_device_num_step():
     asp_utility_seven_lst = []
     vm_seven_lst = []
     for n in num:
-        print(n)
+        print(n, flush=True)
         utility_zero = 0
         social_zero = 0
         asp_utility_zero = 0

@@ -20,6 +20,7 @@ class MPO():
         self.num = num
         self.set_asp()
         self.set_bd()
+        self.set_change_point()
         self.set_queue_bound()
         self.bound = self.bd + self.qbd
         self.bound.sort()
@@ -80,6 +81,13 @@ class MPO():
             if asp.qbound is not None:
                 self.qbd.append(asp.qbound)
         self.qbd.sort()
+        return
+    def set_change_point(self):
+        self.cp = []
+        for asp in self.asp_lst:
+            if asp.change_point is not None:
+                self.cp.append(asp.change_point)
+        self.cp.sort()
         return
     """
     set_and_check_required_vm : set price and optimize the asp
@@ -230,8 +238,9 @@ class MPO():
 
         plt.figure(figsize=(45, 25), dpi=400)
         plt.plot(pr, num, marker='.', linestyle='-', label='Purchased VM', linewidth=7)
-        plt.vlines(self.bd + self.qbd, ymin=min(num), ymax=max(num), linestyle='-.', color='gray', label='Boundary', linewidth=4)
+        plt.vlines(self.bd + self.qbd, ymin=min(num), ymax=max(num), linestyle='-.', color='black', label='Boundary', linewidth=4)
         plt.vlines(self.constraint_phi, ymin=min(num), ymax=max(num), linestyle='-.', color='red', label='Constraint', linewidth=4)
+        plt.vlines(self.cp, ymin=min(num), ymax=max(num), linestyle='-.', color='green', label='Switch', linewidth=4)
         plt.legend(loc="best", fontsize=100)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{Total\ Purchased\ VM}$', fontsize=100)

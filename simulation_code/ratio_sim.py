@@ -31,7 +31,7 @@ def plot_utility_ratio_cvx():
     asp_utility_ips_lst = []
     vm_ips_lst = []
     for r in ratio:
-        print(r)
+        print(r, flush=True)
         utility_zero = 0
         social_zero = 0
         asp_utility_zero = 0
@@ -196,7 +196,7 @@ def plot_utility_ratio_step():
     asp_utility_ips_lst = []
     vm_ips_lst = []
     for r in ratio:
-        print(r)
+        print(r, flush=True)
         utility_zero = 0
         social_zero = 0
         asp_utility_zero = 0
