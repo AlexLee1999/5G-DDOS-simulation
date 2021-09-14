@@ -75,7 +75,7 @@ def ASP_H(x, lambda_m):
 # These are the parameters of MPO
 # Prefix with MPO_
 ########################################
-MPO_NUM_OF_ASP = 1
+MPO_NUM_OF_ASP = 5
 
 MPO_NUM_OF_VM_LOWER = 1000
 MPO_NUM_OF_VM_UPPER = 1000
