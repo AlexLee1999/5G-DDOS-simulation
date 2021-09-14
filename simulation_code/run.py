@@ -264,7 +264,17 @@ if __name__ == '__main__':
     warnings.filterwarnings("ignore")
     tic = time.perf_counter()
     # plot_asp_utility()
-    # mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.AVERAGE, MPO_NUM_OF_ASP)
+    # mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.HIGH, MPO_NUM_OF_ASP)
+    # for asp in mpo.asp_lst:
+    #     print(asp.case)
+    #     print(asp)
+    # util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(1)
+    # print(util, social, asp_u, vm_num)
+    # for asp in mpo.asp_lst:
+    #     print(asp)
+    # print(mpo.optimize_phi_with_chi(0.05, max_phi))
+    # for asp in mpo.asp_lst:
+    #     print(asp)
     # for asp in mpo.asp_lst:
     #     print(asp.case)
     # mpo.plot_MPO_utility()

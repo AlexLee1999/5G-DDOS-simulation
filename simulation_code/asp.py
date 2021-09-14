@@ -39,7 +39,15 @@ class ASP():
         self.queue_coff = (self.gamma + self.arrival_rate) / self.service_rate
         self.set_boundary()
         
-
+    def __str__(self):
+        return f'''
+            arrival rate          : {self.arrival_rate}
+            malcious arrival rate : {self.malicious_arrival_rate}
+            normal arrival rate   : {self.normal_arrival_rate}
+            purchased vm          : {self.z_v}
+            IPS vm                : {self.z_h}
+            Blocked mal request   : {ASP_H(self.z_h, self.malicious_arrival_rate)}
+        '''
     """
     set_users : initial users
     """
@@ -82,10 +90,10 @@ class ASP():
     def set_arrival_rate(self):
         self.arrival_rate = 0
         self.malicious_arrival_rate = 0
-        self.normal_rate = 0
+        self.normal_arrival_rate = 0
         for dev in self.device_list:
             self.arrival_rate += dev.arrival_rate
-            self.normal_rate += dev.arrival_rate
+            self.normal_arrival_rate += dev.arrival_rate
         for dev in self.mal_device_list:
             self.arrival_rate += dev.arrival_rate
             self.malicious_arrival_rate += dev.arrival_rate
@@ -148,9 +156,9 @@ class ASP():
                 C = self.service_rate
                 D = self.malicious_arrival_rate * self.service_rate / GLOBAL_ETA + self.arrival_rate - self.malicious_arrival_rate
                 phi = (A * C * D + 2 * B * C - 2 * C * sqrt(B ** 2 + A * B * D)) / (D ** 2)
-                z_v_zero = sqrt(self.total_payment / ((self.arrival_rate) * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * phi)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                z_v_zero = sqrt(self.total_payment / ((self.arrival_rate) * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * phi)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
                 if z_v_zero < (self.malicious_arrival_rate / (GLOBAL_ETA * self.chi)):
-                    self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
+                    self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_arrival_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
                     A = 0
                     for dev in self.device_list:
                         A += (dev.price_per_task * (ASP_DEVICE_LATENCY_UPPER - dev.transmission_time_to_asp) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))
@@ -177,7 +185,7 @@ class ASP():
                     # print(1)
                     self.case = 1
                 else:
-                    self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
+                    self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_arrival_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
                     self.bound = bound_case2
                     self.qbound = qbound_case2
                     if self.qbound > self.bound:
@@ -194,7 +202,7 @@ class ASP():
                     # print(1)
                     self.case = 1
                 else:
-                    self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
+                    self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_arrival_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
                     A = 0
                     for dev in self.device_list:
                         A += (dev.price_per_task * (ASP_DEVICE_LATENCY_UPPER - dev.transmission_time_to_asp) / (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER))
@@ -213,9 +221,9 @@ class ASP():
                 C = self.service_rate
                 D = self.malicious_arrival_rate * self.service_rate / GLOBAL_ETA + self.arrival_rate - self.malicious_arrival_rate
                 phi = (A * C * D + 2 * B * C - 2 * C * sqrt(B ** 2 + A * B * D)) / (D ** 2)
-                z_v_zero = sqrt(self.total_payment / ((self.arrival_rate) * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * phi)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                z_v_zero = sqrt(self.total_payment / ((self.arrival_rate) * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * phi)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
                 if z_v_zero < (self.malicious_arrival_rate / (GLOBAL_ETA * self.chi)):
-                    self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
+                    self.change_point = self.total_payment / self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (self.malicious_arrival_rate / (self.chi * GLOBAL_ETA) - self.normal_arrival_rate / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
                     self.bound = bound_case2
                     self.qbound = qbound_case2
                     if self.qbound > self.bound:
@@ -259,7 +267,7 @@ class ASP():
         if GLOBAL_ETA > self.service_rate and self.chi != 0:
             if self.case == 1:
                 # print(self.case)
-                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
                 if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                     self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
                 self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
@@ -273,7 +281,7 @@ class ASP():
                     self.utility = 0
             elif self.case == 2:
                 # print(self.case)
-                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
                 self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
                 self.set_process_time()
                 self.set_utility()
@@ -285,9 +293,9 @@ class ASP():
                     self.utility = 0
             elif self.case == 3:
                 # print(self.case)
-                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
                 if self.z_v > self.malicious_arrival_rate / (self.chi * GLOBAL_ETA):
-                    self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                    self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
                     self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
                     self.set_process_time()
                     self.set_utility()
@@ -314,9 +322,9 @@ class ASP():
                         self.utility = 0
             elif self.case == 4:
                 # print(self.case)
-                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
                 if self.z_v < self.malicious_arrival_rate / (self.chi * GLOBAL_ETA):
-                    self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_rate / self.service_rate
+                    self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
                     self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
                     self.set_process_time()
                     self.set_utility()
