@@ -96,6 +96,8 @@ class MPO():
         self.set_price_per_vm(price)
         for asp in self.asp_lst:
             asp.optimize_zv()
+            # if asp.z_h != 0:
+            #     print(price, asp.z_v, asp.z_h, ASP_H(asp.z_h, asp.malicious_arrival_rate), asp.malicious_arrival_rate)
         return
     """
     set_and_check_required_vm_with_chi : set price and IPS ratio and optimize the asp
@@ -205,7 +207,7 @@ class MPO():
     """
     def plot_MPO_utility(self):
         self.find_constraint_phi()
-        phi = 30
+        phi = 1
         step = 1
         pr = []
         ut = []
@@ -226,8 +228,9 @@ class MPO():
         plt.plot(pr, ut, marker='.', linestyle='-', label='Utility', linewidth=7)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
-        plt.vlines(self.bd + self.qbd, ymin=min(ut), ymax=max(ut), linestyle='-.', color='gray', label='Boundary', linewidth=4)
+        plt.vlines(self.bd + self.qbd, ymin=min(ut), ymax=max(ut), linestyle='-.', color='black', label='Boundary', linewidth=4)
         plt.vlines(self.constraint_phi, ymin=min(ut), ymax=max(ut), linestyle='-.', color='red', label='Constraint', linewidth=4)
+        plt.vlines(self.cp, ymin=min(ut), ymax=max(ut), linestyle='-.', color='green', label='Switch', linewidth=4)
         plt.legend(loc="best", fontsize=100)
         plt.xticks(fontsize=80)
         plt.yticks(fontsize=80)

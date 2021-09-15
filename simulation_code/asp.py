@@ -323,7 +323,7 @@ class ASP():
             elif self.case == 4:
                 # print(self.case)
                 self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
-                if self.z_v < self.malicious_arrival_rate / (self.chi * GLOBAL_ETA):
+                if self.z_v > self.malicious_arrival_rate / (self.chi * GLOBAL_ETA):
                     self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * self.service_rate)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
                     self.z_h = self.malicious_arrival_rate / GLOBAL_ETA
                     self.set_process_time()
