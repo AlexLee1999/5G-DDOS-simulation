@@ -30,13 +30,13 @@ class ASP():
         self.chi = uniform(ASP_CHI_LOWER, ASP_CHI_UPPER)
         self.gamma = uniform(ASP_GAMMA_LOWER, ASP_GAMMA_UPPER)
         self.phi = 0
-        if self.service_rate < GLOBAL_ETA:
-            self.sqrt_coff = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)))
-            self.coff = self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
-        else:
-            self.sqrt_coff = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.service_rate))
-            self.coff = self.arrival_rate / self.service_rate
-        self.queue_coff = (self.gamma + self.arrival_rate) / self.service_rate
+        # if self.service_rate < GLOBAL_ETA:
+        #     self.sqrt_coff = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)))
+        #     self.coff = self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+        # else:
+        #     self.sqrt_coff = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.service_rate))
+        #     self.coff = self.arrival_rate / self.service_rate
+        # self.queue_coff = (self.gamma + self.arrival_rate) / self.service_rate
         self.set_boundary()
         
     def __str__(self):
@@ -274,6 +274,7 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
+                    print((self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate))
                     print('infeasible')
                 if self.utility < 0:
                     self.z_v = 0
@@ -286,6 +287,7 @@ class ASP():
                 self.set_process_time()
                 self.set_utility()
                 if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
+                    print((self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate))
                     print('infeasible')
                 if self.utility < 0:
                     self.z_v = 0
@@ -300,6 +302,7 @@ class ASP():
                     self.set_process_time()
                     self.set_utility()
                     if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
+                        print((self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate))
                         print('infeasible')
                     if self.utility < 0:
                         self.z_v = 0
@@ -315,6 +318,7 @@ class ASP():
                     self.set_process_time()
                     self.set_utility()
                     if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
+                        print((self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate))
                         print('infeasible')
                     if self.utility < 0:
                         self.z_v = 0
@@ -329,6 +333,7 @@ class ASP():
                     self.set_process_time()
                     self.set_utility()
                     if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
+                        print((self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate))
                         print('infeasible')
                     if self.utility < 0:
                         self.z_v = 0
@@ -340,6 +345,7 @@ class ASP():
                     self.set_process_time()
                     self.set_utility()
                     if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
+                        print((self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate))
                         print('infeasible')
                     if self.utility < 0:
                         self.z_v = 0
@@ -352,6 +358,7 @@ class ASP():
             if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
                 self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
             if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
+                print((self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate))
                 print('infeasible')
             self.set_process_time()
             self.set_utility()
@@ -429,6 +436,8 @@ class ASP():
         self.set_process_time()
         self.set_utility()
         if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
+            print((self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate))
+            # print(self.z_v, self.z_h, self.arrival_rate, ASP_H(self.z_h, self.malicious_arrival_rate), self.malicious_arrival_rate)
             print('infeasible')
         if self.utility < 0:
             self.z_v = 0

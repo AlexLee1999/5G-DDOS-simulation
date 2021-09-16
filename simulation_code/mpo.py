@@ -25,29 +25,29 @@ class MPO():
         self.bound = self.bd + self.qbd
         self.bound.sort()
         self.find_constraint_phi()
-        self.bound = [b for b in self.bound if b > self.constraint_phi]
-        self.bound.append(self.constraint_phi)
-        self.bound.sort()
-        self.syn_bound = []
-        for b in self.bound:
-            if b in self.qbd:
-                self.syn_bound.append(str(b) + 'q')
-            elif b in self.bd:
-                self.syn_bound.append(str(b) + 'b')
-            else:
-                self.syn_bound.append(str(b))
-        self.check_asp_response()
+        # self.bound = [b for b in self.bound if b > self.constraint_phi]
+        # self.bound.append(self.constraint_phi)
+        # self.bound.sort()
+        # self.syn_bound = []
+        # for b in self.bound:
+        #     if b in self.qbd:
+        #         self.syn_bound.append(str(b) + 'q')
+        #     elif b in self.bd:
+        #         self.syn_bound.append(str(b) + 'b')
+        #     else:
+        #         self.syn_bound.append(str(b))
+        # self.check_asp_response()
     """
     set_asp : initial asp
     """
     def set_asp(self):
-        for i in range(self.num_of_asp):
+        for _ in range(self.num_of_asp):
             asp = ASP(self.ratio, self.num, self.type)
             self.asp_lst.append(asp)
-            if asp.service_rate > GLOBAL_ETA:
-                self.asp_case_lst.append('3')
-            else:
-                self.asp_case_lst.append('2')
+            # if asp.service_rate > GLOBAL_ETA:
+            #     self.asp_case_lst.append('3')
+            # else:
+            #     self.asp_case_lst.append('2')
     """
     set_price_per_vm : initial mpo price
     """
