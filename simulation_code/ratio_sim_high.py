@@ -9,7 +9,7 @@ import traceback
 
 def plot_utility_ratio_high_cvx():
     print("ratio high")
-    ratio = [0.07, 0.08, 0.09, 0.1, 0.11, 0.12]
+    ratio = [0.08, 0.09, 0.1, 0.11, 0.12]
     utility_proposed_lst = []
     social_proposed_lst = []
     asp_utility_proposed_lst = []
@@ -174,7 +174,7 @@ def plot_utility_ratio_high_cvx():
 
 def plot_utility_ratio_high_step():
     print("ratio high step")
-    ratio = [0.07, 0.08, 0.09, 0.1, 0.11, 0.12]
+    ratio = [0.08, 0.09, 0.1, 0.11, 0.12]
     utility_proposed_lst = []
     social_proposed_lst = []
     asp_utility_proposed_lst = []
