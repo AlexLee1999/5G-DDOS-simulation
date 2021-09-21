@@ -17,6 +17,7 @@ from ratio_sim import *
 from ratio_sim_high import *
 from ratio_sim_low import *
 from same_ips_sim import *
+from high_low_ratio_sim import *
 
 def plot_different_step():
     print("step")
@@ -277,8 +278,9 @@ if __name__ == '__main__':
     # plot_utility_device_num_high_step()
     # plot_utility_device_num_low_step()
     plot_utility_ratio_step()
-    plot_utility_ratio_high_step()
-    plot_utility_ratio_low_step()
+    # plot_utility_ratio_high_step()
+    # plot_utility_ratio_low_step()
+    plot_utility_high_low_ratio_step()
     # plot_ratio_with_same_IPS_ratio_step()
     # plot_flat_price()
     toc = time.perf_counter()

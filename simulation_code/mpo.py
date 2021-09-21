@@ -8,9 +8,11 @@ import matplotlib.pyplot as plt
 
 
 class MPO():
-    def __init__(self, ratio, num, mpo_type, asp_num):
+    def __init__(self, ratio, num, mpo_type, asp_num, high_num=0, low_num=0):
         self.price_per_vm = None
         self.type = mpo_type
+        self.high_num = high_num
+        self.low_num = low_num
         self.asp_lst = []
         self.asp_case_lst = []
         self.asp_response = []
@@ -41,13 +43,21 @@ class MPO():
     set_asp : initial asp
     """
     def set_asp(self):
-        for _ in range(self.num_of_asp):
-            asp = ASP(self.ratio, self.num, self.type)
-            self.asp_lst.append(asp)
-            # if asp.service_rate > GLOBAL_ETA:
-            #     self.asp_case_lst.append('3')
-            # else:
-            #     self.asp_case_lst.append('2')
+        if self.type == load_type.RATIO:
+            for _ in range(self.high_num):
+                asp = ASP(self.ratio, self.num, load_type.HIGH)
+                self.asp_lst.append(asp)
+            for _ in range(self.low_num):
+                asp = ASP(self.ratio, self.num, load_type.LOW)
+                self.asp_lst.append(asp)
+        else:
+            for _ in range(self.num_of_asp):
+                asp = ASP(self.ratio, self.num, self.type)
+                self.asp_lst.append(asp)
+                # if asp.service_rate > GLOBAL_ETA:
+                #     self.asp_case_lst.append('3')
+                # else:
+                #     self.asp_case_lst.append('2')
     """
     set_price_per_vm : initial mpo price
     """

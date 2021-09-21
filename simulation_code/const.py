@@ -91,3 +91,4 @@ class load_type(Enum):
     HIGH = 1
     AVERAGE = 2
     LOW = 3
+    RATIO = 4
