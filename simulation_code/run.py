@@ -277,7 +277,7 @@ if __name__ == '__main__':
     # plot_utility_device_num_step()
     # plot_utility_device_num_high_step()
     # plot_utility_device_num_low_step()
-    plot_utility_ratio_step()
+    # plot_utility_ratio_step()
     # plot_utility_ratio_high_step()
     # plot_utility_ratio_low_step()
     plot_utility_high_low_ratio_step()
