@@ -222,16 +222,21 @@ class MPO():
         pr = []
         ut = []
         num = []
+        asp_ut = []
         vm_prior = float('inf')
-        for _ in range(2000):
+        for _ in range(5000):
             self.set_and_check_required_vm(phi)
             vm_after = self.total_vm()
             pr.append(phi)
             ut.append(phi * vm_after - MPO_cost(vm_after))
             num.append(vm_after)
+            asp_u = 0
+            for asp in self.asp_lst:
+                asp_u += asp.utility
+            asp_ut.append(asp_u)
             phi += step
             if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
+                print(f'Total VM is not non-increasing {vm_prior} -> {vm_after}')
             vm_prior = vm_after
 
         plt.figure(figsize=(45, 25), dpi=400)
@@ -262,6 +267,21 @@ class MPO():
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.pdf')
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.jpg')
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.eps')
+        plt.close()
+
+        plt.figure(figsize=(45, 25), dpi=400)
+        plt.plot(pr, asp_ut, marker='.', linestyle='-', label='Purchased VM', linewidth=7)
+        plt.vlines(self.bd + self.qbd, ymin=min(asp_ut), ymax=max(asp_ut), linestyle='-.', color='black', label='Boundary', linewidth=4)
+        plt.vlines(self.constraint_phi, ymin=min(asp_ut), ymax=max(asp_ut), linestyle='-.', color='red', label='Constraint', linewidth=4)
+        plt.vlines(self.cp, ymin=min(asp_ut), ymax=max(asp_ut), linestyle='-.', color='green', label='Switch', linewidth=4)
+        plt.legend(loc="best", fontsize=100)
+        plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
+        plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
+        plt.xticks(fontsize=80)
+        plt.yticks(fontsize=80)
+        plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_asp_utility.pdf')
+        plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_asp_utility.jpg')
+        plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_asp_utility.eps')
         plt.close()
     """
     find_constraint_phi : find the lowest price that satisfy the total vm constraint

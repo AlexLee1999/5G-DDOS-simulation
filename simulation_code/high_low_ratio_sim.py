@@ -8,7 +8,7 @@ from tqdm import tqdm
 import traceback
 
 def plot_utility_high_low_ratio_cvx():
-    print("high_low_ratio")
+    print("high low ratio")
     num = [[0, 5], [1, 4], [2, 3], [3, 2], [4, 1], [5, 0]]
     utility_proposed_lst = []
     social_proposed_lst = []
@@ -153,7 +153,7 @@ def plot_utility_high_low_ratio_cvx():
 
 
 def plot_utility_high_low_ratio_step():
-    print("high_low_ratio step")
+    print("high low ratio step")
     values = ["0:5", "1:4", "2:3", "3:2", "4:1", "5:0"]
     x = [0, 1, 2, 3, 4, 5]
     num = [[0, 5], [1, 4], [2, 3], [3, 2], [4, 1], [5, 0]]

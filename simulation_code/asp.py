@@ -47,6 +47,7 @@ class ASP():
             purchased vm          : {self.z_v}
             IPS vm                : {self.z_h}
             Blocked mal request   : {ASP_H(self.z_h, self.malicious_arrival_rate)}
+            Case                  : {self.case}
         '''
     """
     set_users : initial users
