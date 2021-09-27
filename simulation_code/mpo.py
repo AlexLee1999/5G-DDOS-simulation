@@ -243,9 +243,9 @@ class MPO():
         plt.plot(pr, ut, marker='.', linestyle='-', label='Utility', linewidth=7)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=100)
-        plt.vlines(self.bd + self.qbd, ymin=min(ut), ymax=max(ut), linestyle='-.', color='black', label='Boundary', linewidth=4)
-        plt.vlines(self.constraint_phi, ymin=min(ut), ymax=max(ut), linestyle='-.', color='red', label='Constraint', linewidth=4)
-        plt.vlines(self.cp, ymin=min(ut), ymax=max(ut), linestyle='-.', color='green', label='Switch', linewidth=4)
+        plt.vlines(self.bd + self.qbd, ymin=min(ut), ymax=max(ut), linestyle='dashed', color='black', label='Boundary', linewidth=4)
+        plt.vlines(self.constraint_phi, ymin=min(ut), ymax=max(ut), linestyle='dashdotdotted', color='red', label='Constraint', linewidth=4)
+        plt.vlines(self.cp, ymin=min(ut), ymax=max(ut), linestyle='dashdotted', color='green', label='Switch', linewidth=4)
         plt.legend(loc="best", fontsize=100)
         plt.xticks(fontsize=80)
         plt.yticks(fontsize=80)
@@ -256,9 +256,9 @@ class MPO():
 
         plt.figure(figsize=(45, 25), dpi=400)
         plt.plot(pr, num, marker='.', linestyle='-', label='Purchased VM', linewidth=7)
-        plt.vlines(self.bd + self.qbd, ymin=min(num), ymax=max(num), linestyle='-.', color='black', label='Boundary', linewidth=4)
-        plt.vlines(self.constraint_phi, ymin=min(num), ymax=max(num), linestyle='-.', color='red', label='Constraint', linewidth=4)
-        plt.vlines(self.cp, ymin=min(num), ymax=max(num), linestyle='-.', color='green', label='Switch', linewidth=4)
+        plt.vlines(self.bd + self.qbd, ymin=min(num), ymax=max(num), linestyle='dashed', color='black', label='Boundary', linewidth=4)
+        plt.vlines(self.constraint_phi, ymin=min(num), ymax=max(num), linestyle='dashdotdotted', color='red', label='Constraint', linewidth=4)
+        plt.vlines(self.cp, ymin=min(num), ymax=max(num), linestyle='dashdotted', color='green', label='Switch', linewidth=4)
         plt.legend(loc="best", fontsize=100)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{Total\ Purchased\ VM}$', fontsize=100)
@@ -271,9 +271,9 @@ class MPO():
 
         plt.figure(figsize=(45, 25), dpi=400)
         plt.plot(pr, asp_ut, marker='.', linestyle='-', label='Purchased VM', linewidth=7)
-        plt.vlines(self.bd + self.qbd, ymin=min(asp_ut), ymax=max(asp_ut), linestyle='-.', color='black', label='Boundary', linewidth=4)
-        plt.vlines(self.constraint_phi, ymin=min(asp_ut), ymax=max(asp_ut), linestyle='-.', color='red', label='Constraint', linewidth=4)
-        plt.vlines(self.cp, ymin=min(asp_ut), ymax=max(asp_ut), linestyle='-.', color='green', label='Switch', linewidth=4)
+        plt.vlines(self.bd + self.qbd, ymin=min(asp_ut), ymax=max(asp_ut), linestyle='dashed', color='black', label='Boundary', linewidth=4)
+        plt.vlines(self.constraint_phi, ymin=min(asp_ut), ymax=max(asp_ut), linestyle='dashdotdotted', color='red', label='Constraint', linewidth=4)
+        plt.vlines(self.cp, ymin=min(asp_ut), ymax=max(asp_ut), linestyle='dashdotted', color='green', label='Switch', linewidth=4)
         plt.legend(loc="best", fontsize=100)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=100)
         plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=100)
@@ -283,6 +283,7 @@ class MPO():
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_asp_utility.jpg')
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_asp_utility.eps')
         plt.close()
+
     """
     find_constraint_phi : find the lowest price that satisfy the total vm constraint
     """
