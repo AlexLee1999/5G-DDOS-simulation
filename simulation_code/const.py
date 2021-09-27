@@ -8,7 +8,7 @@ from enum import Enum
 ########################################
 GLOBAL_ETA = 50
 # Conference 5000
-ITER = 1000
+ITER = 1
 DEFAULT_DEVICE_NUM = 1000
 # Conference 100
 DEFAULT_DEVICE_RATIO = 0.1
@@ -92,3 +92,14 @@ class load_type(Enum):
     AVERAGE = 2
     LOW = 3
     RATIO = 4
+
+
+# PLOT config
+
+FIG_SIZE = (45, 25)
+DPI = 400
+LINE_WIDTH = 4
+LABEL_FONT_SIZE = 100
+LEGEND_FONT_SIZE = 100
+TICKS_FONT_SIZE = 80
+MARKER_SIZE = 30
