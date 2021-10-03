@@ -27,11 +27,11 @@ if __name__ == '__main__':
     warnings.filterwarnings("ignore")
     tic = time.perf_counter()
     # plot_asp_utility()
-    # mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.RATIO, MPO_NUM_OF_ASP, 5, 0)
+    mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.AVERAGE, MPO_NUM_OF_ASP)
     
-    # for asp in mpo.asp_lst:
-    #     print(asp)
-    # mpo.plot_MPO_utility()
+    for asp in mpo.asp_lst:
+        print(asp)
+    mpo.plot_MPO_utility(1500)
     
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
@@ -45,8 +45,8 @@ if __name__ == '__main__':
     # plot_utility_ratio_high_step()
     # plot_utility_ratio_low_step()
     # plot_utility_high_low_ratio_step()
-    plot_utility_device_num_high_new_step()
-    plot_utility_device_num_low_new_step()
+    # plot_utility_device_num_high_new_step()
+    # plot_utility_device_num_low_new_step()
     # plot_ratio_with_same_IPS_ratio_step()
     # plot_flat_price()
     toc = time.perf_counter()

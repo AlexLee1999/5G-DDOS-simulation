@@ -92,6 +92,7 @@ class MPO():
                 self.qbd.append(asp.qbound)
         self.qbd.sort()
         return
+
     def set_change_point(self):
         self.cp = []
         for asp in self.asp_lst:
@@ -215,7 +216,7 @@ class MPO():
     """
     plot the MPO utility
     """
-    def plot_MPO_utility(self):
+    def plot_MPO_utility(self, plot_range):
         self.find_constraint_phi()
         phi = 1
         step = 1
@@ -224,7 +225,7 @@ class MPO():
         num = []
         asp_ut = []
         vm_prior = float('inf')
-        for _ in range(5000):
+        for _ in range(plot_range):
             self.set_and_check_required_vm(phi)
             vm_after = self.total_vm()
             pr.append(phi)
