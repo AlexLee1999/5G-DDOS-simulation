@@ -182,7 +182,7 @@ class ASP():
                     self.qbound = qbound_case4
                     if self.qbound > self.bound:
                         print(self.qbound, self.bound)
-                    self.change_point = bound_case4
+                    self.change_point = None
                     # print(1)
                     self.case = 1
                 else:
