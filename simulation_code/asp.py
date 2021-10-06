@@ -20,8 +20,8 @@ class ASP():
         self.device_list = []
         self.mal_device_list = []
         self.malicious_ratio = ratio
-        self.num_of_normal_users = num
-        self.num_of_malicious_users = int(self.num_of_normal_users * self.malicious_ratio)
+        self.num_of_malicious_users = int(num * self.malicious_ratio)
+        self.num_of_normal_users = num - self.num_of_malicious_users
         self.set_users()
         self.set_service_rate()
         self.set_arrival_rate()
