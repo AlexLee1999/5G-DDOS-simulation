@@ -10,7 +10,7 @@ import traceback
 
 def plot_utility_ratio_high_new_step():
     print("ratio high new step")
-    ratio = [0.08, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+    ratio = RATIO_LST
     utility_proposed_lst = []
     social_proposed_lst = []
     asp_utility_proposed_lst = []

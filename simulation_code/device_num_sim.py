@@ -9,7 +9,7 @@ import traceback
 
 def plot_utility_device_num_cvx():
     print("device")
-    num = [400, 600, 800, 1000, 1200, 1400, 1600]
+    num = NUM_LST
     utility_proposed_lst = []
     social_proposed_lst = []
     asp_utility_proposed_lst = []
@@ -154,7 +154,7 @@ def plot_utility_device_num_cvx():
 
 def plot_utility_device_num_step():
     print("device step")
-    num = [400, 600, 800, 1000, 1200, 1400, 1600]
+    num = NUM_LST
     utility_proposed_lst = []
     social_proposed_lst = []
     asp_utility_proposed_lst = []

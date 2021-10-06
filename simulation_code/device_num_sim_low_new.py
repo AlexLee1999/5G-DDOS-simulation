@@ -11,7 +11,7 @@ import traceback
 
 def plot_utility_device_num_low_new_step():
     print("device low new step")
-    num = [400, 600, 800, 1000, 1200, 1400, 1600]
+    num = NUM_LST
     utility_proposed_lst = []
     social_proposed_lst = []
     asp_utility_proposed_lst = []
