@@ -6,6 +6,7 @@ matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import traceback
+from fig import *
 
 
 
@@ -85,22 +86,22 @@ def plot_utility_device_num_low_new_step():
                 print(e)
                 traceback.print_exc()
         pbar.close()
-        utility_proposed_lst.append(utility_proposed / (ITER * n))
-        social_proposed_lst.append(social_proposed / (ITER * n))
-        asp_utility_proposed_lst.append(asp_utility_proposed / (ITER * n))
-        vm_proposed_lst.append(vm_proposed / (ITER * n))
-        utility_zero_lst.append(utility_zero / (ITER * n))
-        social_zero_lst.append(social_zero / (ITER * n))
-        asp_utility_zero_lst.append(asp_utility_zero / (ITER * n))
-        vm_zero_lst.append(vm_zero / (ITER * n))
-        utility_five_lst.append(utility_five / (ITER * n))
-        social_five_lst.append(social_five / (ITER * n))
-        asp_utility_five_lst.append(asp_utility_five / (ITER * n))
-        vm_five_lst.append(vm_five / (ITER * n))
-        utility_seven_lst.append(utility_seven / (ITER * n))
-        social_seven_lst.append(social_seven / (ITER * n))
-        asp_utility_seven_lst.append(asp_utility_seven / (ITER * n))
-        vm_seven_lst.append(vm_seven / (ITER * n))
+        utility_proposed_lst.append(utility_proposed / utility_zero)
+        social_proposed_lst.append(social_proposed / social_zero)
+        asp_utility_proposed_lst.append(asp_utility_proposed / asp_utility_zero)
+        vm_proposed_lst.append(vm_proposed / vm_zero)
+        utility_zero_lst.append(utility_zero / utility_zero)
+        social_zero_lst.append(social_zero / social_zero)
+        asp_utility_zero_lst.append(asp_utility_zero / asp_utility_zero)
+        vm_zero_lst.append(vm_zero / vm_zero)
+        utility_five_lst.append(utility_five / utility_zero)
+        social_five_lst.append(social_five / social_zero)
+        asp_utility_five_lst.append(asp_utility_five / asp_utility_zero)
+        vm_five_lst.append(vm_five / vm_zero)
+        utility_seven_lst.append(utility_seven / utility_zero)
+        social_seven_lst.append(social_seven / social_zero)
+        asp_utility_seven_lst.append(asp_utility_seven / asp_utility_zero)
+        vm_seven_lst.append(vm_seven / vm_zero)
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
     plt.plot(num, utility_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
@@ -108,7 +109,7 @@ def plot_utility_device_num_low_new_step():
     plt.plot(num, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{Device\ Number}$'
-    y_title = r'$\bf{MPO\ Utility\ per\ Device}$'
+    y_title = r'$\bf{MPO\ Utility}$'
     plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
@@ -116,6 +117,14 @@ def plot_utility_device_num_low_new_step():
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_MPO_device_low_new_step.jpg')
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_MPO_device_low_new_step.pdf')
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_MPO_device_low_new_step.eps')
+    data_dic = dict()
+    data_dic["Proposed Scheme"] = utility_proposed_lst
+    data_dic["No IPS"] = utility_zero_lst
+    data_dic["5% IPS VM"] = utility_five_lst
+    data_dic["7% IPS VM"] = utility_seven_lst
+    fig_name = "device_number_low_new/5GDDoS_Game_MPO_device_low_new_step"
+    fig = Fig(num, data_dic, x_title, y_title, fig_name, marker_dic)
+    write_fig(fig, fig_name)
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
@@ -124,13 +133,23 @@ def plot_utility_device_num_low_new_step():
     plt.plot(num, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
-    plt.ylabel(r'$\bf{Social\ Welfare\ per\ Device}$', fontsize=LABEL_FONT_SIZE)
+    x_title = r'$\bf{Device\ Number}$'
+    y_title = r'$\bf{Social\ Welfare}$'
+    plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
+    plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_social_device_low_new_step.jpg')
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_social_device_low_new_step.pdf')
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_social_device_low_new_step.eps')
+    data_dic = dict()
+    data_dic["Proposed Scheme"] = social_proposed_lst
+    data_dic["No IPS"] = social_zero_lst
+    data_dic["5% IPS VM"] = social_five_lst
+    data_dic["7% IPS VM"] = social_seven_lst
+    fig_name = "device_number_low_new/5GDDoS_Game_social_device_low_new_step"
+    fig = Fig(num, data_dic, x_title, y_title, fig_name, marker_dic)
+    write_fig(fig, fig_name)
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
@@ -139,13 +158,23 @@ def plot_utility_device_num_low_new_step():
     plt.plot(num, asp_utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, asp_utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
-    plt.ylabel(r'$\bf{ASP\ Utility\ per\ Device}$', fontsize=LABEL_FONT_SIZE)
+    x_title = r'$\bf{Device\ Number}$'
+    y_title = r'$\bf{ASP\ Utility}$'
+    plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
+    plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_asp_device_low_new_step.jpg')
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_asp_device_low_new_step.pdf')
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_asp_device_low_new_step.eps')
+    data_dic = dict()
+    data_dic["Proposed Scheme"] = asp_utility_proposed_lst
+    data_dic["No IPS"] = asp_utility_zero_lst
+    data_dic["5% IPS VM"] = asp_utility_five_lst
+    data_dic["7% IPS VM"] = asp_utility_seven_lst
+    fig_name = "device_number_low_new/5GDDoS_Game_asp_device_low_new_step"
+    fig = Fig(num, data_dic, x_title, y_title, fig_name, marker_dic)
+    write_fig(fig, fig_name)
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
@@ -154,11 +183,21 @@ def plot_utility_device_num_low_new_step():
     plt.plot(num, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
-    plt.ylabel(r'$\bf{Purchased\ VM\ per\ Device}$', fontsize=LABEL_FONT_SIZE)
+    x_title = r'$\bf{Device\ Number}$'
+    y_title = r'$\bf{Purchased\ VM}$'
+    plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
+    plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_total_vm_device_low_new_step.jpg')
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_total_vm_device_low_new_step.pdf')
     plt.savefig('./image/device_number_low_new/5GDDoS_Game_total_vm_device_low_new_step.eps')
+    data_dic = dict()
+    data_dic["Proposed Scheme"] = vm_proposed_lst
+    data_dic["No IPS"] = vm_zero_lst
+    data_dic["5% IPS VM"] = vm_five_lst
+    data_dic["7% IPS VM"] = vm_seven_lst
+    fig_name = "device_number_low_new/5GDDoS_Game_total_vm_device_low_new_step"
+    fig = Fig(num, data_dic, x_title, y_title, fig_name, marker_dic)
+    write_fig(fig, fig_name)
     plt.close()

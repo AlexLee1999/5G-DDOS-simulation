@@ -279,7 +279,7 @@ def plot_utility_ratio_high_step():
     plt.plot(ratio, utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, utility_ips_lst, marker='^', markerfacecolor='none', label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, utility_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
