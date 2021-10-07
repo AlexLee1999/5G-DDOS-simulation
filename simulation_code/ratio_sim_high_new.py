@@ -65,32 +65,32 @@ def plot_utility_ratio_high_new_step():
         while i < ITER:
             try:
                 mpo = MPO(r, DEFAULT_DEVICE_NUM, load_type.HIGH, MPO_NUM_OF_ASP)
-                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(1)
+                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(STEP)
                 utility_proposed += util
                 social_proposed += social
                 asp_utility_proposed += asp_u
                 vm_proposed += vm_num
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0, max_phi)
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(1, 0)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(STEP, 0)
                 utility_zero += util
                 social_zero += social
                 asp_utility_zero += asp_u
                 vm_zero += vm_num
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.05, max_phi)
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(1, 0.05)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(STEP, 0.05)
                 utility_five += util
                 social_five += social
                 asp_utility_five += asp_u
                 vm_five += vm_num
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.07, max_phi)
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(1, 0.07)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(STEP, 0.07)
                 utility_seven += util
                 social_seven += social
                 asp_utility_seven += asp_u
                 vm_seven += vm_num
                 ips = 0.05 * r
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(ips, max_phi)
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(1, ips)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(STEP, ips)
                 utility_ips += util
                 social_ips += social
                 asp_utility_ips += asp_u

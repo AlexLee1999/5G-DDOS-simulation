@@ -196,7 +196,7 @@ def plot_utility_high_low_ratio_step():
         while i < ITER:
             try:
                 mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.RATIO, MPO_NUM_OF_ASP, n[0], n[1])
-                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(1)
+                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(STEP)
                 utility_proposed += util
                 social_proposed += social
                 asp_utility_proposed += asp_u
