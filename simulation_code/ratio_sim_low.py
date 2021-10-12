@@ -253,8 +253,8 @@ def plot_utility_ratio_low_step():
                 asp_utility_seven += asp_u
                 vm_seven += vm_num
                 ips = 0.05 * r
-                # util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(ips, max_phi)
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(STEP, ips)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(ips, max_phi)
+                # util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(STEP, ips)
                 utility_ips += util
                 social_ips += social
                 asp_utility_ips += asp_u
