@@ -1,13 +1,11 @@
+import numpy as np
+import tqdm
+import matplotlib.pyplot as plt
 from random import uniform
 from const import *
 from asp import *
 from convex_solver import convex_solve
 from mpo import *
-import matplotlib
-matplotlib.use('agg') 
-import matplotlib.pyplot as plt
-import tqdm
-import numpy as np
 
 
 
@@ -32,7 +30,7 @@ def plot_different_step():
             _, max_phi, social, _, _ = mpo.optimize_phi_with_step(1)
             phi_step_1 += max_phi
             soc_step_1 += social
-            _, max_phi, social, _, _= mpo.optimize_phi_with_step(2)
+            _, max_phi, social, _, _ = mpo.optimize_phi_with_step(2)
             phi_step_5 += max_phi
             soc_step_5 += social
             _, max_phi, social, _, _ = mpo.optimize_phi_with_step(0.5)
@@ -46,9 +44,12 @@ def plot_different_step():
         social_step_10_lst.append(soc_step_10 / ITER)
     X = np.arange(5)
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(num, phi_step_10_lst, marker='s', linestyle='-.', label='Step = 0.5', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
-    plt.plot(num, phi_step_1_lst, marker='o', linestyle='-.', label='Step = 1', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
-    plt.plot(num, phi_step_5_lst, marker='^', linestyle='-.', label='Step = 2', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+    plt.plot(num, phi_step_10_lst, marker='s', linestyle='-.',
+             label='Step = 0.5', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+    plt.plot(num, phi_step_1_lst, marker='o', linestyle='-.',
+             label='Step = 1', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+    plt.plot(num, phi_step_5_lst, marker='^', linestyle='-.',
+             label='Step = 2', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Optimal\ MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
@@ -144,6 +145,7 @@ def plot_different_step():
 #     plt.savefig('./5GDDoS_Game_asp_device_max_num.pdf')
 #     plt.close()
 
+
 def plot_different_ratio():
     ratio = [0.1, 0.3, 0.5, 0.7, 0.9]
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
@@ -166,7 +168,8 @@ def plot_different_ratio():
             if vm_prior < vm_after:
                 print('Total VM is not non-increasing')
             vm_prior = vm_after
-        plt.plot(pr, ut, marker='.', linestyle='-.', label=f'ratio : {ra}', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+        plt.plot(pr, ut, marker='.', linestyle='-.',
+                 label=f'ratio : {ra}', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
     plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
@@ -176,6 +179,7 @@ def plot_different_ratio():
     plt.savefig('./image/misc/5GDDoS_Game_utility_ratio.jpg')
     plt.savefig('./image/misc/5GDDoS_Game_utility_ratio.eps')
     plt.close()
+
 
 def plot_flat_price():
     price = [i for i in range(50, 2000, 10)]
@@ -190,8 +194,10 @@ def plot_flat_price():
         ut_lst_flat.append(uti)
         ut_lst_proposed.append(utility_proposed_lst)
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(price, ut_lst_proposed, marker='o', linestyle='-.', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=10)
-    plt.plot(price, ut_lst_flat, marker='^', linestyle='-.', label='Flat Price', linewidth=LINE_WIDTH, markersize=10)
+    plt.plot(price, ut_lst_proposed, marker='o', linestyle='-.',
+             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=10)
+    plt.plot(price, ut_lst_flat, marker='^', linestyle='-.',
+             label='Flat Price', linewidth=LINE_WIDTH, markersize=10)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{Flat\ Price}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
@@ -201,6 +207,7 @@ def plot_flat_price():
     plt.savefig('./image/flat/5GDDoS_Game_utility_flat.pdf')
     plt.savefig('./image/flat/5GDDoS_Game_utility_flat.eps')
     plt.close()
+
 
 def plot_asp_utility():
     asp = ASP(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.AVERAGE)
@@ -219,13 +226,16 @@ def plot_asp_utility():
         asp.optimize_zv_without_constraint()
         utility_lst_without_constraint.append(asp.utility)
         purchased_vm_lst_without_constraint.append(asp.z_v)
-        
+
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(price, utility_lst, marker='.', linestyle='-.', label='With Constraint', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
-    plt.plot(price, utility_lst_without_constraint, marker='.', linestyle='-.', label='Without Constraint', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
-    plt.vlines(asp.bound, ymin=min(utility_lst_without_constraint + utility_lst), ymax=max(utility_lst_without_constraint + utility_lst), linewidth=LINE_WIDTH)
-    plt.vlines(asp.qbound, ymin=min(utility_lst_without_constraint + utility_lst), ymax=max(utility_lst_without_constraint + utility_lst), linewidth=LINE_WIDTH)
-    
+    plt.plot(price, utility_lst, marker='.', linestyle='-.',
+             label='With Constraint', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+    plt.plot(price, utility_lst_without_constraint, marker='.', linestyle='-.',
+             label='Without Constraint', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+    plt.vlines(asp.bound, ymin=min(utility_lst_without_constraint + utility_lst),
+               ymax=max(utility_lst_without_constraint + utility_lst), linewidth=LINE_WIDTH)
+    plt.vlines(asp.qbound, ymin=min(utility_lst_without_constraint + utility_lst),
+               ymax=max(utility_lst_without_constraint + utility_lst), linewidth=LINE_WIDTH)
 
     plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
@@ -238,10 +248,14 @@ def plot_asp_utility():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(price, purchased_vm_lst, marker='.', linestyle='-.', label='With Constraint', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
-    plt.plot(price, purchased_vm_lst_without_constraint, marker='.', linestyle='-.', label='Without Constraint', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
-    plt.vlines(asp.bound, ymin=min(purchased_vm_lst_without_constraint + purchased_vm_lst), ymax=max(purchased_vm_lst_without_constraint + purchased_vm_lst), linewidth=LINE_WIDTH)
-    plt.vlines(asp.qbound, ymin=min(purchased_vm_lst_without_constraint + purchased_vm_lst), ymax=max(purchased_vm_lst_without_constraint + purchased_vm_lst), linewidth=LINE_WIDTH)
+    plt.plot(price, purchased_vm_lst, marker='.', linestyle='-.',
+             label='With Constraint', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+    plt.plot(price, purchased_vm_lst_without_constraint, marker='.', linestyle='-.',
+             label='Without Constraint', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+    plt.vlines(asp.bound, ymin=min(purchased_vm_lst_without_constraint + purchased_vm_lst),
+               ymax=max(purchased_vm_lst_without_constraint + purchased_vm_lst), linewidth=LINE_WIDTH)
+    plt.vlines(asp.qbound, ymin=min(purchased_vm_lst_without_constraint + purchased_vm_lst),
+               ymax=max(purchased_vm_lst_without_constraint + purchased_vm_lst), linewidth=LINE_WIDTH)
     plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)

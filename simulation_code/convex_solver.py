@@ -29,7 +29,7 @@ def convex_solve(mpo):
             max_phi = x_lst[i]
     return max_res, max_phi
 
-    
+
 def convex_opt(sq, li, low, up):
     sqrt_c = cp.Parameter(1)
     linear_c = cp.Parameter(1)
@@ -40,7 +40,8 @@ def convex_opt(sq, li, low, up):
     linear_c = li
     upper = up
     lower = low
-    obj = cp.Maximize(cp.sqrt(x) * sqrt_c + x * linear_c - (0.01 * cp.power(sqrt_c * cp.inv_pos(cp.sqrt(x)) + linear_c, 2)))
+    obj = cp.Maximize(cp.sqrt(x) * sqrt_c + x * linear_c - (0.01 *
+                      cp.power(sqrt_c * cp.inv_pos(cp.sqrt(x)) + linear_c, 2)))
     constraint = [lower <= x, x <= upper]
     prob = cp.Problem(obj, constraint)
     try:

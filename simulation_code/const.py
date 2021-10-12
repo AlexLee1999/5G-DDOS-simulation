@@ -68,8 +68,11 @@ ASP_GAMMA_UPPER = 40
 
 ###################################################
 # H function
+
+
 def ASP_H(x, lambda_m):
     return min(GLOBAL_ETA * x, lambda_m)
+
 
 ########################################
 # These are the parameters of MPO
@@ -82,10 +85,13 @@ MPO_NUM_OF_VM_UPPER = 1000
 
 MPO_CPU_FREQUENCY = 0.25 * 10E9
 
+
 def MPO_cost(x):
     return 0.01 * x ** 2
 
+
 CVX_SOLVER = CVXOPT
+
 
 class load_type(Enum):
     HIGH = 1

@@ -1,11 +1,11 @@
+import traceback
+from tqdm import tqdm
+import matplotlib.pyplot as plt
 from const import *
 from mpo import MPO
 from convex_solver import *
-import matplotlib
-matplotlib.use('agg')
-import matplotlib.pyplot as plt
-from tqdm import tqdm
-import traceback
+
+
 
 def plot_utility_high_low_ratio_cvx():
     print("high low ratio")
@@ -48,23 +48,27 @@ def plot_utility_high_low_ratio_cvx():
         pbar = tqdm(total=ITER)
         while i < ITER:
             try:
-                mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.RATIO, MPO_NUM_OF_ASP, n[0], n[1])
+                mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM,
+                          load_type.RATIO, MPO_NUM_OF_ASP, n[0], n[1])
                 util, max_phi, social, asp_u, vm_num = mpo.optimize_phi()
                 utility_proposed += util
                 social_proposed += social
                 asp_utility_proposed += asp_u
                 vm_proposed += vm_num
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0, max_phi)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
+                    0, max_phi)
                 utility_zero += util
                 social_zero += social
                 asp_utility_zero += asp_u
                 vm_zero += vm_num
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.05, max_phi)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
+                    0.05, max_phi)
                 utility_five += util
                 social_five += social
                 asp_utility_five += asp_u
                 vm_five += vm_num
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.07, max_phi)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
+                    0.07, max_phi)
                 utility_seven += util
                 social_seven += social
                 asp_utility_seven += asp_u
@@ -91,10 +95,14 @@ def plot_utility_high_low_ratio_cvx():
         asp_utility_seven_lst.append(asp_utility_seven / ITER)
         vm_seven_lst.append(vm_seven / ITER)
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(num, utility_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, utility_proposed_lst, marker='o', markerfacecolor='none',
+             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{ASP\ RATIO}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
@@ -106,25 +114,36 @@ def plot_utility_high_low_ratio_cvx():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(num, social_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, social_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, social_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, social_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{ASP\ RATIO}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_cvx.jpg')
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_cvx.pdf')
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_cvx.eps')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_cvx.jpg')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_cvx.pdf')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_cvx.eps')
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(num, asp_utility_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, asp_utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, asp_utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, asp_utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, asp_utility_proposed_lst, marker='o', markerfacecolor='none',
+             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, asp_utility_zero_lst, marker='^', markerfacecolor='none',
+             label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, asp_utility_five_lst, marker='s', markerfacecolor='none',
+             label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, asp_utility_seven_lst, marker='p', markerfacecolor='none',
+             label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{ASP\ RATIO}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
@@ -136,20 +155,26 @@ def plot_utility_high_low_ratio_cvx():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(num, vm_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, vm_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, vm_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, vm_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{ASP\ RATIO}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_cvx.jpg')
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_cvx.pdf')
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_cvx.eps')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_cvx.jpg')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_cvx.pdf')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_cvx.eps')
     plt.close()
-
 
 
 def plot_utility_high_low_ratio_step():
@@ -195,32 +220,37 @@ def plot_utility_high_low_ratio_step():
         pbar = tqdm(total=ITER)
         while i < ITER:
             try:
-                mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.RATIO, MPO_NUM_OF_ASP, n[0], n[1])
-                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(STEP)
+                mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM,
+                          load_type.RATIO, MPO_NUM_OF_ASP, n[0], n[1])
+                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(
+                    STEP)
                 utility_proposed += util
                 social_proposed += social
                 asp_utility_proposed += asp_u
                 vm_proposed += vm_num
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0, max_phi)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
+                    0, max_phi)
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(1, 0)
                 utility_zero += util
                 social_zero += social
                 asp_utility_zero += asp_u
                 vm_zero += vm_num
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.05, max_phi)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
+                    0.05, max_phi)
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(1, 0.05)
-                
+
                 utility_five += util
                 social_five += social
                 asp_utility_five += asp_u
                 vm_five += vm_num
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.07, max_phi)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
+                    0.07, max_phi)
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(1, 0.07)
                 utility_seven += util
                 social_seven += social
                 asp_utility_seven += asp_u
                 vm_seven += vm_num
-        
+
                 i += 1
                 pbar.update(1)
             except ArithmeticError as e:
@@ -244,10 +274,14 @@ def plot_utility_high_low_ratio_step():
         asp_utility_seven_lst.append(asp_utility_seven / ITER)
         vm_seven_lst.append(vm_seven / ITER)
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(x, utility_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, utility_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{ASP\ RATIO}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
@@ -259,25 +293,36 @@ def plot_utility_high_low_ratio_step():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(x, social_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, social_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, social_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, social_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{ASP\ RATIO}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(x, values, fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_step.jpg')
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_step.pdf')
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_step.eps')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_step.jpg')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_step.pdf')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_step.eps')
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(x, asp_utility_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, asp_utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, asp_utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, asp_utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, asp_utility_proposed_lst, marker='o', markerfacecolor='none',
+             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, asp_utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, asp_utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, asp_utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{ASP\ RATIO}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
@@ -289,16 +334,23 @@ def plot_utility_high_low_ratio_step():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(x, vm_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, vm_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(x, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, vm_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, vm_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(x, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{ASP\ RATIO}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(x, values, fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_step.jpg')
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_step.pdf')
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_step.eps')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_step.jpg')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_step.pdf')
+    plt.savefig(
+        './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_step.eps')
     plt.close()

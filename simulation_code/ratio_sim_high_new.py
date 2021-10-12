@@ -1,12 +1,11 @@
+from fig import *
+import traceback
+from tqdm import tqdm
+import matplotlib.pyplot as plt
 from const import *
 from mpo import MPO
 from convex_solver import *
-import matplotlib
-matplotlib.use('agg')
-import matplotlib.pyplot as plt
-from tqdm import tqdm
-import traceback
-from fig import *
+
 
 
 def plot_utility_ratio_high_new_step():
@@ -64,33 +63,39 @@ def plot_utility_ratio_high_new_step():
         pbar = tqdm(total=ITER)
         while i < ITER:
             try:
-                mpo = MPO(r, DEFAULT_DEVICE_NUM, load_type.HIGH, MPO_NUM_OF_ASP)
-                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(STEP)
+                mpo = MPO(r, DEFAULT_DEVICE_NUM,
+                          load_type.HIGH, MPO_NUM_OF_ASP)
+                util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(
+                    STEP)
                 utility_proposed += util
                 social_proposed += social
                 asp_utility_proposed += asp_u
                 vm_proposed += vm_num
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0, max_phi)
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(STEP, 0)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(
+                    STEP, 0)
                 utility_zero += util
                 social_zero += social
                 asp_utility_zero += asp_u
                 vm_zero += vm_num
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.05, max_phi)
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(STEP, 0.05)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(
+                    STEP, 0.05)
                 utility_five += util
                 social_five += social
                 asp_utility_five += asp_u
                 vm_five += vm_num
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(0.07, max_phi)
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(STEP, 0.07)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(
+                    STEP, 0.07)
                 utility_seven += util
                 social_seven += social
                 asp_utility_seven += asp_u
                 vm_seven += vm_num
                 ips = 0.05 * r
                 # util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(ips, max_phi)
-                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(STEP, ips)
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_step_chi(
+                    STEP, ips)
                 utility_ips += util
                 social_ips += social
                 asp_utility_ips += asp_u
@@ -103,7 +108,8 @@ def plot_utility_ratio_high_new_step():
         pbar.close()
         utility_proposed_lst.append(utility_proposed / utility_zero)
         social_proposed_lst.append(social_proposed / social_zero)
-        asp_utility_proposed_lst.append(asp_utility_proposed / asp_utility_zero)
+        asp_utility_proposed_lst.append(
+            asp_utility_proposed / asp_utility_zero)
         vm_proposed_lst.append(vm_proposed / vm_zero)
         utility_zero_lst.append(utility_zero / utility_zero)
         social_zero_lst.append(social_zero / social_zero)
@@ -122,11 +128,16 @@ def plot_utility_ratio_high_new_step():
         asp_utility_ips_lst.append(asp_utility_ips / asp_utility_zero)
         vm_ips_lst.append(vm_ips / vm_zero)
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(ratio, utility_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, utility_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, utility_proposed_lst, marker='o', markerfacecolor='none',
+             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, utility_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
     y_title = r'$\bf{MPO\ Utility}$'
@@ -149,11 +160,16 @@ def plot_utility_ratio_high_new_step():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(ratio, social_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, social_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, social_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, social_proposed_lst, marker='o', markerfacecolor='none',
+             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, social_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, social_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
     y_title = r'$\bf{Social\ Welfare}$'
@@ -161,9 +177,12 @@ def plot_utility_ratio_high_new_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/ratio_high_new/5GDDoS_Game_social_ratio_high_new_step.jpg')
-    plt.savefig('./image/ratio_high_new/5GDDoS_Game_social_ratio_high_new_step.pdf')
-    plt.savefig('./image/ratio_high_new/5GDDoS_Game_social_ratio_high_new_step.eps')
+    plt.savefig(
+        './image/ratio_high_new/5GDDoS_Game_social_ratio_high_new_step.jpg')
+    plt.savefig(
+        './image/ratio_high_new/5GDDoS_Game_social_ratio_high_new_step.pdf')
+    plt.savefig(
+        './image/ratio_high_new/5GDDoS_Game_social_ratio_high_new_step.eps')
     data_dic = dict()
     data_dic["Proposed Scheme"] = social_proposed_lst
     data_dic["No IPS"] = social_zero_lst
@@ -176,11 +195,16 @@ def plot_utility_ratio_high_new_step():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(ratio, asp_utility_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, asp_utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, asp_utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, asp_utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, asp_utility_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, asp_utility_proposed_lst, marker='o', markerfacecolor='none',
+             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, asp_utility_zero_lst, marker='^', markerfacecolor='none',
+             label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, asp_utility_five_lst, marker='s', markerfacecolor='none',
+             label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, asp_utility_seven_lst, marker='p', markerfacecolor='none',
+             label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, asp_utility_ips_lst, marker='*', markerfacecolor='none',
+             label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
     y_title = r'$\bf{ASP\ Utility}$'
@@ -203,11 +227,16 @@ def plot_utility_ratio_high_new_step():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(ratio, vm_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, vm_zero_lst, marker='^', markerfacecolor='none', label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, vm_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, vm_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, vm_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, vm_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
     y_title = r'$\bf{Purchased\ VM}$'
@@ -215,9 +244,12 @@ def plot_utility_ratio_high_new_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/ratio_high_new/5GDDoS_Game_total_vm_ratio_high_new_step.jpg')
-    plt.savefig('./image/ratio_high_new/5GDDoS_Game_total_vm_ratio_high_new_step.pdf')
-    plt.savefig('./image/ratio_high_new/5GDDoS_Game_total_vm_ratio_high_new_step.eps')
+    plt.savefig(
+        './image/ratio_high_new/5GDDoS_Game_total_vm_ratio_high_new_step.jpg')
+    plt.savefig(
+        './image/ratio_high_new/5GDDoS_Game_total_vm_ratio_high_new_step.pdf')
+    plt.savefig(
+        './image/ratio_high_new/5GDDoS_Game_total_vm_ratio_high_new_step.eps')
     data_dic = dict()
     data_dic["Proposed Scheme"] = vm_proposed_lst
     data_dic["No IPS"] = vm_zero_lst

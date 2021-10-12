@@ -2,8 +2,9 @@ import pickle
 import matplotlib.pyplot as plt
 from const import *
 
-class Fig(object) :
-    def __init__ (self, x_lst, data_dic, x_title, y_title, fig_name, marker_dic):
+
+class Fig(object):
+    def __init__(self, x_lst, data_dic, x_title, y_title, fig_name, marker_dic):
         self.x_lst = x_lst
         self.data_dic = data_dic
         self.x_title = x_title
@@ -36,7 +37,8 @@ def plot_and_fix_fig(fig, fig_output_path, x_lst=None, data_dic=None, marker_dic
         y_title = fig.y_title
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
     for d in data_dic:
-        plt.plot(x_lst, data_dic[d], marker=marker_dic[d], markerfacecolor='none', label=d, linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+        plt.plot(x_lst, data_dic[d], marker=marker_dic[d], markerfacecolor='none',
+                 label=d, linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)

@@ -1,10 +1,9 @@
+import matplotlib.pyplot as plt
 from random import uniform
 from const import *
 from asp import *
 from convex_solver import convex_solve
-import matplotlib
-matplotlib.use('agg') 
-import matplotlib.pyplot as plt
+
 
 
 class MPO():
@@ -42,6 +41,7 @@ class MPO():
     """
     set_asp : initial asp
     """
+
     def set_asp(self):
         if self.type == load_type.RATIO:
             for _ in range(self.high_num):
@@ -61,6 +61,7 @@ class MPO():
     """
     set_price_per_vm : initial mpo price
     """
+
     def set_price_per_vm(self, price):
         self.price_per_vm = price
         for asp in self.asp_lst:
@@ -68,6 +69,7 @@ class MPO():
     """
     total_vm : calculate and return total vm
     """
+
     def total_vm(self):
         tot = 0
         for asp in self.asp_lst:
@@ -76,6 +78,7 @@ class MPO():
     """
     set_bd : add boundary points to the list
     """
+
     def set_bd(self):
         self.bd = []
         for asp in self.asp_lst:
@@ -85,6 +88,7 @@ class MPO():
     """
     set_queue_bound : add queuing boundary points to the list
     """
+
     def set_queue_bound(self):
         self.qbd = []
         for asp in self.asp_lst:
@@ -103,6 +107,7 @@ class MPO():
     """
     set_and_check_required_vm : set price and optimize the asp
     """
+
     def set_and_check_required_vm(self, price):
         self.set_price_per_vm(price)
         for asp in self.asp_lst:
@@ -113,6 +118,7 @@ class MPO():
     """
     set_and_check_required_vm_with_chi : set price and IPS ratio and optimize the asp
     """
+
     def set_and_check_required_vm_with_chi(self, price, chi):
         self.set_price_per_vm(price)
         for asp in self.asp_lst:
@@ -129,6 +135,7 @@ class MPO():
     """
     optimize_phi : find the optimize phi
     """
+
     def optimize_phi(self):
         max, max_phi = convex_solve(self)
         self.set_and_check_required_vm(max_phi)
@@ -141,6 +148,7 @@ class MPO():
     """
     optimize_phi_with_step : find the optimize phi with different step
     """
+
     def optimize_phi_with_step(self, step):
         self.find_constraint_phi()
         phi = self.constraint_phi
@@ -168,6 +176,7 @@ class MPO():
     """
     optimize_phi_with_chi : calculate the overall utility with input (MPO price, IPS ratio)
     """
+
     def optimize_phi_with_chi(self, chi, phi):
         self.set_and_check_required_vm_with_chi(phi, chi)
         vm = self.total_vm()
@@ -178,7 +187,7 @@ class MPO():
             asp_util += asp.utility
             asp_vm += asp.z_v
         return util, util + asp_util, asp_util, asp_vm
-    
+
     def optimize_phi_with_step_chi(self, step, chi):
         self.find_constraint_phi()
         phi = self.constraint_phi
@@ -205,6 +214,7 @@ class MPO():
     """
     optimize_phi_with_price : calculate the overall utility with input (MPO price)
     """
+
     def optimize_phi_with_price(self, price):
         self.set_and_check_required_vm(price)
         vm = self.total_vm()
@@ -216,6 +226,7 @@ class MPO():
     """
     plot the MPO utility
     """
+
     def plot_MPO_utility(self, plot_range):
         self.find_constraint_phi()
         phi = 1
@@ -237,15 +248,19 @@ class MPO():
             asp_ut.append(asp_u)
             phi += step
             if vm_prior < vm_after:
-                print(f'Total VM is not non-increasing {vm_prior} -> {vm_after}')
+                print(
+                    f'Total VM is not non-increasing {vm_prior} -> {vm_after}')
             vm_prior = vm_after
 
         plt.figure(figsize=FIG_SIZE, dpi=DPI)
-        plt.plot(pr, ut, marker='.', linestyle='-', label='Utility', linewidth=LINE_WIDTH)
+        plt.plot(pr, ut, marker='.', linestyle='-',
+                 label='Utility', linewidth=LINE_WIDTH)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
         plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
-        plt.vlines(self.bd + self.qbd + self.cp, ymin=min(ut), ymax=max(ut), linestyle='dashed', color='gray', label='Boundary', linewidth=LINE_WIDTH)
-        plt.vlines(self.constraint_phi, ymin=min(ut), ymax=max(ut), linestyle=(0, (3, 5, 1, 5, 1, 5)), color='red', label='Constraint', linewidth=LINE_WIDTH)
+        plt.vlines(self.bd + self.qbd + self.cp, ymin=min(ut), ymax=max(ut),
+                   linestyle='dashed', color='gray', label='Boundary', linewidth=LINE_WIDTH)
+        plt.vlines(self.constraint_phi, ymin=min(ut), ymax=max(ut), linestyle=(
+            0, (3, 5, 1, 5, 1, 5)), color='red', label='Constraint', linewidth=LINE_WIDTH)
         plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
         plt.xticks(fontsize=TICKS_FONT_SIZE)
         plt.yticks(fontsize=TICKS_FONT_SIZE)
@@ -255,23 +270,32 @@ class MPO():
         plt.close()
 
         plt.figure(figsize=FIG_SIZE, dpi=DPI)
-        plt.plot(pr, num, marker='.', linestyle='-', label='Purchased VM', linewidth=LINE_WIDTH)
-        plt.vlines(self.bd + self.qbd + self.cp, ymin=min(num), ymax=max(num), linestyle='dashed', color='gray', label='Boundary', linewidth=LINE_WIDTH)
-        plt.vlines(self.constraint_phi, ymin=min(num), ymax=max(num), linestyle=(0, (3, 5, 1, 5, 1, 5)), color='red', label='Constraint', linewidth=LINE_WIDTH)
+        plt.plot(pr, num, marker='.', linestyle='-',
+                 label='Purchased VM', linewidth=LINE_WIDTH)
+        plt.vlines(self.bd + self.qbd + self.cp, ymin=min(num), ymax=max(num),
+                   linestyle='dashed', color='gray', label='Boundary', linewidth=LINE_WIDTH)
+        plt.vlines(self.constraint_phi, ymin=min(num), ymax=max(num), linestyle=(
+            0, (3, 5, 1, 5, 1, 5)), color='red', label='Constraint', linewidth=LINE_WIDTH)
         plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
         plt.ylabel(r'$\bf{Total\ Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
         plt.xticks(fontsize=TICKS_FONT_SIZE)
         plt.yticks(fontsize=TICKS_FONT_SIZE)
-        plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.pdf')
-        plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.jpg')
-        plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.eps')
+        plt.savefig(
+            './image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.pdf')
+        plt.savefig(
+            './image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.jpg')
+        plt.savefig(
+            './image/optimize_mpo/5GDDoS_Game_plot_purchased_vm_number.eps')
         plt.close()
 
         plt.figure(figsize=FIG_SIZE, dpi=DPI)
-        plt.plot(pr, asp_ut, marker='.', linestyle='-', label='Purchased VM', linewidth=LINE_WIDTH)
-        plt.vlines(self.bd + self.qbd + self.cp, ymin=min(asp_ut), ymax=max(asp_ut), linestyle='dashed', color='gray', label='Boundary', linewidth=LINE_WIDTH)
-        plt.vlines(self.constraint_phi, ymin=min(asp_ut), ymax=max(asp_ut), linestyle=(0, (3, 5, 1, 5, 1, 5)), color='red', label='Constraint', linewidth=LINE_WIDTH)
+        plt.plot(pr, asp_ut, marker='.', linestyle='-',
+                 label='Purchased VM', linewidth=LINE_WIDTH)
+        plt.vlines(self.bd + self.qbd + self.cp, ymin=min(asp_ut), ymax=max(asp_ut),
+                   linestyle='dashed', color='gray', label='Boundary', linewidth=LINE_WIDTH)
+        plt.vlines(self.constraint_phi, ymin=min(asp_ut), ymax=max(asp_ut), linestyle=(
+            0, (3, 5, 1, 5, 1, 5)), color='red', label='Constraint', linewidth=LINE_WIDTH)
         plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
         plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
@@ -285,6 +309,7 @@ class MPO():
     """
     find_constraint_phi : find the lowest price that satisfy the total vm constraint
     """
+
     def find_constraint_phi(self):
         vm_prior = float('inf')
         phi_prior = 0.00000000001
@@ -318,6 +343,7 @@ class MPO():
     """
     plot_social_welfare : plot
     """
+
     def plot_social_welfare(self):
         phi = 900
         step = 5
@@ -344,7 +370,7 @@ class MPO():
             if vm_prior < vm_after:
                 print('Total VM is not non-increasing')
             vm_prior = vm_after
-    
+
         vm_prior = float('inf')
         phi = 900
         for _ in range(20):
@@ -359,7 +385,7 @@ class MPO():
             if vm_prior < vm_after:
                 print('Total VM is not non-increasing')
             vm_prior = vm_after
-    
+
         vm_prior = float('inf')
         phi = 900
         for _ in range(20):
@@ -374,7 +400,7 @@ class MPO():
             if vm_prior < vm_after:
                 print('Total VM is not non-increasing')
             vm_prior = vm_after
-    
+
         vm_prior = float('inf')
         phi = 900
         for _ in range(20):
@@ -390,10 +416,14 @@ class MPO():
                 print('Total VM is not non-increasing')
             vm_prior = vm_after
         plt.figure(figsize=FIG_SIZE, dpi=DPI)
-        plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh2, ut_zh2, marker='p', linestyle='-.', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='9% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+        plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed',
+                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+        plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM',
+                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+        plt.plot(pr_zh2, ut_zh2, marker='p', linestyle='-.', label='5% IPS VM',
+                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='9% IPS VM',
+                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
         plt.ylabel(r'$\bf{Social\ welfare}$', fontsize=LABEL_FONT_SIZE)
         plt.xticks(fontsize=TICKS_FONT_SIZE)
@@ -476,10 +506,14 @@ class MPO():
                 print('Total VM is not non-increasing')
             vm_prior = vm_after
         plt.figure(figsize=FIG_SIZE, dpi=DPI)
-        plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh2, ut_zh2, marker='p', linestyle='-.', label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='9% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+        plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed',
+                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+        plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM',
+                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+        plt.plot(pr_zh2, ut_zh2, marker='p', linestyle='-.', label='5% IPS VM',
+                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='9% IPS VM',
+                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
         plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
         plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
         plt.xticks(fontsize=TICKS_FONT_SIZE)
@@ -489,5 +523,3 @@ class MPO():
         plt.savefig('./5GDDoS_Game_asp_utility_cmp.jpg')
         plt.savefig('./5GDDoS_Game_asp_utility_cmp.eps')
         plt.close()
-
-
