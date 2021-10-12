@@ -128,7 +128,7 @@ def plot_utility_ratio_high_new_step():
     plt.plot(ratio, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, utility_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    x_title = r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$'
+    x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
     y_title = r'$\bf{MPO\ Utility}$'
     plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
@@ -155,7 +155,7 @@ def plot_utility_ratio_high_new_step():
     plt.plot(ratio, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, social_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    x_title = r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$'
+    x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
     y_title = r'$\bf{Social\ Welfare}$'
     plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
@@ -182,7 +182,7 @@ def plot_utility_ratio_high_new_step():
     plt.plot(ratio, asp_utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, asp_utility_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    x_title = r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$'
+    x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
     y_title = r'$\bf{ASP\ Utility}$'
     plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
@@ -209,7 +209,7 @@ def plot_utility_ratio_high_new_step():
     plt.plot(ratio, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, vm_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    x_title = r'$\bf{Malicious\ Users\ to\ Normal\ Users\ Ratio}$'
+    x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
     y_title = r'$\bf{Purchased\ VM}$'
     plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)

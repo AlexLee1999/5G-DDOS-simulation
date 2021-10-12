@@ -43,7 +43,7 @@ if __name__ == '__main__':
     # plot_utility_device_num_low_step()
     # plot_utility_ratio_step()
     # plot_utility_ratio_high_step()
-    plot_utility_ratio_low_step()
+    # plot_utility_ratio_low_step()
     # plot_utility_high_low_ratio_step()
     # plot_utility_device_num_high_new_step()
     # plot_utility_device_num_low_new_step()
@@ -51,9 +51,6 @@ if __name__ == '__main__':
     # plot_utility_ratio_low_new_step()
     # plot_ratio_with_same_IPS_ratio_step()
     # plot_flat_price()
-    # fig = read_fig("./fig_db/device_number_low_new/5GDDoS_Game_MPO_device_low_new_step.db")
-    # print(fig.data_dic)
-    # plot_fig(fig)
     toc = time.perf_counter()
     print(f"\nTotal {str(datetime.timedelta(seconds=int(toc - tic)))} seconds")
 
