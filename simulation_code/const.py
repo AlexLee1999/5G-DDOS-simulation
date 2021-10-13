@@ -43,7 +43,7 @@ DEVICE_ARRIVAL_RATE_UPPER = 3
 DEVICE_ARRIVAL_RATE_LOWER = 1
 # price per task
 DEVICE_PRICE_PER_TASK_UPPER = 100
-# COnference 10
+# Conference 10
 DEVICE_PRICE_PER_TASK_LOWER = 1
 
 ########################################
