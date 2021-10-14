@@ -62,7 +62,7 @@ ASP_CHI_LOWER = 0.1
 ASP_CHI_UPPER = 0.2
 # Conference 0.999
 ASP_GAMMA_LOWER = 20
-# COnference 100
+# Conference 100
 ASP_GAMMA_UPPER = 40
 # Conference 100
 
@@ -100,7 +100,7 @@ class load_type(Enum):
     RATIO = 4
 
 
-# PLOT config
+# PLOT config parameters
 
 FIG_SIZE = (50, 25)
 DPI = 400
