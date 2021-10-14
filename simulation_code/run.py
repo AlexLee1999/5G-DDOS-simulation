@@ -29,12 +29,24 @@ if __name__ == '__main__':
     warnings.filterwarnings("ignore")
     tic = time.perf_counter()
     # plot_asp_utility()
-    # mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.RATIO, MPO_NUM_OF_ASP, 3, 2)
-    # mpo.plot_MPO_utility(3000)
+    mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.RATIO, MPO_NUM_OF_ASP, 1, 0)
+    
+    mpo.plot_MPO_utility(1000)
+    for asp in mpo.asp_lst:
+        print(asp)
+    
 
     # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
-    # asp = ASP(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.LOW)
+    # asp = ASP(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.HIGH)
+    # X = (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)
+    # B = ((1-asp.chi)*asp.service_rate*asp.chi*GLOBAL_ETA)
+    # C = asp.arrival_rate / B
+    # D = (asp.malicious_arrival_rate / (GLOBAL_ETA * asp.chi))
+    # asp.mpo_price = asp.total_payment / (X * B * (D-C)**2)
+    # print(asp.mpo_price)
+    # asp.optimize_zv()
+    # print(asp)
     # asp.plot_max_zh()
     # asp.plot_max()
     # plot_utility_device_num_step()
