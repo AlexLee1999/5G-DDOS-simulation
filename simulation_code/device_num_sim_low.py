@@ -10,6 +10,11 @@ from convex_solver import *
 
 def plot_utility_device_num_low_cvx():
     print("device low")
+    marker_dic = dict()
+    marker_dic["Proposed Scheme"] = 'o'
+    marker_dic["No IPS"] = '^'
+    marker_dic["5% IPS VM"] = 's'
+    marker_dic["7% IPS VM"] = 'p'
     num = NUM_LST
     utility_proposed_lst = []
     social_proposed_lst = []
@@ -105,13 +110,23 @@ def plot_utility_device_num_low_cvx():
     plt.plot(num, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
-    plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
+    x_title = r'$\bf{Device\ Number}$'
+    y_title = r'$\bf{MPO\ Utility}$'
+    plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
+    plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.jpg')
     plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.pdf')
     plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.eps')
+    data_dic = dict()
+    data_dic["Proposed Scheme"] = utility_proposed_lst
+    data_dic["No IPS"] = utility_zero_lst
+    data_dic["5% IPS VM"] = utility_five_lst
+    data_dic["7% IPS VM"] = utility_seven_lst
+    fig_name = "device_number_low/5GDDoS_Game_MPO_device_low_cvx"
+    fig = Fig(num, data_dic, x_title, y_title, fig_name, marker_dic)
+    write_fig(fig, fig_name)
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
@@ -124,8 +139,10 @@ def plot_utility_device_num_low_cvx():
     plt.plot(num, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
-    plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=LABEL_FONT_SIZE)
+    x_title = r'$\bf{Device\ Number}$'
+    y_title = r'$\bf{Social\ Welfare}$'
+    plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
+    plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     plt.savefig(
@@ -134,6 +151,14 @@ def plot_utility_device_num_low_cvx():
         './image/device_number_low/5GDDoS_Game_social_device_low_cvx.pdf')
     plt.savefig(
         './image/device_number_low/5GDDoS_Game_social_device_low_cvx.eps')
+    data_dic = dict()
+    data_dic["Proposed Scheme"] = social_proposed_lst
+    data_dic["No IPS"] = social_zero_lst
+    data_dic["5% IPS VM"] = social_five_lst
+    data_dic["7% IPS VM"] = social_seven_lst
+    fig_name = "device_number_low/5GDDoS_Game_social_device_low_cvx"
+    fig = Fig(num, data_dic, x_title, y_title, fig_name, marker_dic)
+    write_fig(fig, fig_name)
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
@@ -146,13 +171,23 @@ def plot_utility_device_num_low_cvx():
     plt.plot(num, asp_utility_seven_lst, marker='p', markerfacecolor='none',
              label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
-    plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
+    x_title = r'$\bf{Device\ Number}$'
+    y_title = r'$\bf{ASP\ Utility}$'
+    plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
+    plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.jpg')
     plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.pdf')
     plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.eps')
+    data_dic = dict()
+    data_dic["Proposed Scheme"] = asp_utility_proposed_lst
+    data_dic["No IPS"] = asp_utility_zero_lst
+    data_dic["5% IPS VM"] = asp_utility_five_lst
+    data_dic["7% IPS VM"] = asp_utility_seven_lst
+    fig_name = "device_number_low/5GDDoS_Game_asp_device_low_cvx"
+    fig = Fig(num, data_dic, x_title, y_title, fig_name, marker_dic)
+    write_fig(fig, fig_name)
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
@@ -165,8 +200,10 @@ def plot_utility_device_num_low_cvx():
     plt.plot(num, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
-    plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
+    x_title = r'$\bf{Device\ Number}$'
+    y_title = r'$\bf{Purchased\ VM}$'
+    plt.xlabel(x_title, fontsize=LABEL_FONT_SIZE)
+    plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     plt.savefig(
@@ -175,6 +212,14 @@ def plot_utility_device_num_low_cvx():
         './image/device_number_low/5GDDoS_Game_total_vm_device_low_cvx.pdf')
     plt.savefig(
         './image/device_number_low/5GDDoS_Game_total_vm_device_low_cvx.eps')
+    data_dic = dict()
+    data_dic["Proposed Scheme"] = vm_proposed_lst
+    data_dic["No IPS"] = vm_zero_lst
+    data_dic["5% IPS VM"] = vm_five_lst
+    data_dic["7% IPS VM"] = vm_seven_lst
+    fig_name = "device_number_low/5GDDoS_Game_total_vm_device_low_cvx"
+    fig = Fig(num, data_dic, x_title, y_title, fig_name, marker_dic)
+    write_fig(fig, fig_name)
     plt.close()
 
 

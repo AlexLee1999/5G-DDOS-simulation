@@ -23,21 +23,21 @@ class MPO():
         self.set_bd()
         self.set_change_point()
         self.set_queue_bound()
-        self.bound = self.bd + self.qbd
+        self.bound = self.bd + self.qbd + self.cp
         self.bound.sort()
         self.find_constraint_phi()
-        # self.bound = [b for b in self.bound if b > self.constraint_phi]
-        # self.bound.append(self.constraint_phi)
-        # self.bound.sort()
-        # self.syn_bound = []
-        # for b in self.bound:
-        #     if b in self.qbd:
-        #         self.syn_bound.append(str(b) + 'q')
-        #     elif b in self.bd:
-        #         self.syn_bound.append(str(b) + 'b')
-        #     else:
-        #         self.syn_bound.append(str(b))
-        # self.check_asp_response()
+        self.bound = [b for b in self.bound if b > self.constraint_phi]
+        self.bound.append(self.constraint_phi)
+        self.bound.sort()
+        self.syn_bound = []
+        for b in self.bound:
+            if b in self.qbd:
+                self.syn_bound.append(str(b) + 'q')
+            elif b in self.bd:
+                self.syn_bound.append(str(b) + 'b')
+            else:
+                self.syn_bound.append(str(b))
+        self.check_asp_response()
     """
     set_asp : initial asp
     """

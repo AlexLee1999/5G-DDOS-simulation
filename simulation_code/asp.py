@@ -29,13 +29,15 @@ class ASP():
         self.chi = uniform(ASP_CHI_LOWER, ASP_CHI_UPPER)
         self.gamma = uniform(ASP_GAMMA_LOWER, ASP_GAMMA_UPPER)
         self.phi = 0
-        # if self.service_rate < GLOBAL_ETA:
-        #     self.sqrt_coff = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)))
-        #     self.coff = self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
-        # else:
-        #     self.sqrt_coff = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.service_rate))
-        #     self.coff = self.arrival_rate / self.service_rate
-        # self.queue_coff = (self.gamma + self.arrival_rate) / self.service_rate
+        if self.service_rate < GLOBAL_ETA:
+            self.sqrt_coff_1 = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)))
+            self.sqrt_coff_2 = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.service_rate))
+            self.coff_1 = self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+            self.coff_2 = self.normal_arrival_rate / self.service_rate + self.malicious_arrival_rate / GLOBAL_ETA
+        else:
+            self.sqrt_coff_3 = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.service_rate))
+            self.coff_3 = self.arrival_rate / self.service_rate
+        self.queue_coff = (self.gamma + self.arrival_rate) / self.service_rate
         self.set_boundary()
 
     def __str__(self):
@@ -652,49 +654,79 @@ class ASP():
             if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
                 print('infeasible')
 
-    def report_asp(self, price):
-        self.mpo_price = price
-        case = 'e'
-        if GLOBAL_ETA > self.service_rate:
-            self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) *
-                            self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
-            if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
-                self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
-                case = 'q'
-            self.z_h = self.chi * self.z_v
-            self.set_process_time()
-            self.set_utility()
-            if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
-                print('infeasible')
-            if self.utility < 0:
-                self.z_v = 0
-                self.utility = 0
-                case = 'z'
-        else:
-            self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)
-                            * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
-            self.z_h = 0
-            if self.z_v < ((self.gamma + self.arrival_rate) / self.service_rate):
-                self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
-                case = 'q'
-            if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
-                print('infeasible')
-                self.z_h = 0
-            self.set_process_time()
-            self.set_utility()
-            if self.utility < 0:
-                self.z_v = 0
-                self.utility = 0
-                case = 'z'
-        return case
+    # def report_asp(self, price):
+    #     self.mpo_price = price
+    #     case = 'e'
+    #     if GLOBAL_ETA > self.service_rate:
+    #         self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.mpo_price * ((1 - self.chi) *
+    #                         self.service_rate + self.chi * GLOBAL_ETA))) + self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+    #         if self.z_v < (self.gamma + self.arrival_rate) / self.service_rate:
+    #             self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+    #             case = 'q'
+    #         self.z_h = self.chi * self.z_v
+    #         self.set_process_time()
+    #         self.set_utility()
+    #         if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
+    #             print('infeasible')
+    #         if self.utility < 0:
+    #             self.z_v = 0
+    #             self.utility = 0
+    #             case = 'z'
+    #     else:
+    #         self.z_v = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)
+    #                         * self.mpo_price * self.service_rate)) + self.arrival_rate / self.service_rate
+    #         self.z_h = 0
+    #         if self.z_v < ((self.gamma + self.arrival_rate) / self.service_rate):
+    #             self.z_v = (self.gamma + self.arrival_rate) / self.service_rate
+    #             case = 'q'
+    #         if self.phi * self.z_v * self.service_rate > (self.z_v - self.z_h) * self.service_rate - self.arrival_rate + ASP_H(self.z_h, self.malicious_arrival_rate):
+    #             print('infeasible')
+    #             self.z_h = 0
+    #         self.set_process_time()
+    #         self.set_utility()
+    #         if self.utility < 0:
+    #             self.z_v = 0
+    #             self.utility = 0
+    #             case = 'z'
+    #     return case
 
     def res(self, price):
-        if price > self.bound:
-            return 'z'
-        elif self.qbound and price > self.qbound:
-            return 'q'
+        if self.case == 1:
+            if price > self.bound:
+                return 'z'
+            elif price > self.qbound and price < self.bound:
+                return 'q'
+            else:
+                return 'e2'
+        elif self.case == 2:
+            if price > self.bound:
+                return 'z'
+            else:
+                return 'e2'
+        elif self.case == 3:
+            if price > self.bound:
+                return 'z'
+            elif price > self.qbound and price < self.bound:
+                return 'q'
+            elif price < self.qbound and price > self.change_point:
+                return 'e1'
+            else:
+                return 'e2'
+        elif self.case == 4:
+            if price > self.bound:
+                return 'z'
+            elif price < self.bound and price > self.change_point:
+                return 'e1'
+            else:
+                return 'e2'
         else:
-            return 'e'
+            if price > self.bound:
+                return 'z'
+            elif self.qbound and price > self.qbound:
+                return 'q'
+            else:
+                return 'e3'
+
     """
     set_zv_zh : set the asp with chi
     """

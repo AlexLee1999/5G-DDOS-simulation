@@ -1,5 +1,5 @@
 from cvxpy import CVXOPT
-from cvxpy.settings import CVXOPT, ECOS
+from cvxpy.settings import CVXOPT, ECOS, SCS
 from enum import Enum
 
 ########################################
@@ -90,7 +90,8 @@ def MPO_cost(x):
     return 0.01 * x ** 2
 
 
-CVX_SOLVER = CVXOPT
+CVX_SOLVER = ECOS
+ALTER_CVX_SOLVER = SCS
 
 
 class load_type(Enum):
@@ -114,4 +115,4 @@ MARKER_EDGE_WIDTH = 3
 
 NUM_LST = [400, 600, 800, 1000, 1200, 1400]
 RATIO_LST = [0.08, 0.1, 0.2, 0.3, 0.4, 0.5]
-STEP = 3
+STEP = 1
