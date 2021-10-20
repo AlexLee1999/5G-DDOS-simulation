@@ -23,7 +23,7 @@ def convex_solve(mpo):
                 linear_c += mpo.asp_lst[j].coff_3
             elif mpo.asp_response[i][j] == 'q':
                 linear_c += mpo.asp_lst[j].queue_coff
-        res, x = convex_opt(sqrt_c, linear_c, mpo.bound[i] - EPSILON, mpo.bound[i + 1] - EPSILON)
+        res, x = convex_opt(sqrt_c, linear_c, mpo.bound[i], mpo.bound[i + 1] - EPSILON)
         res_lst.append(res)
         x_lst.append(x)
     max_res = 0
