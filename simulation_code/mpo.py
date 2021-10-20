@@ -5,7 +5,6 @@ from asp import *
 from convex_solver import convex_solve
 
 
-
 class MPO():
     def __init__(self, ratio, num, mpo_type, asp_num, high_num=0, low_num=0):
         self.price_per_vm = None
@@ -29,14 +28,6 @@ class MPO():
         self.bound = [b for b in self.bound if b > self.constraint_phi]
         self.bound.append(self.constraint_phi)
         self.bound.sort()
-        self.syn_bound = []
-        for b in self.bound:
-            if b in self.qbd:
-                self.syn_bound.append(str(b) + 'q')
-            elif b in self.bd:
-                self.syn_bound.append(str(b) + 'b')
-            else:
-                self.syn_bound.append(str(b))
         self.check_asp_response()
     """
     set_asp : initial asp
@@ -54,10 +45,6 @@ class MPO():
             for _ in range(self.num_of_asp):
                 asp = ASP(self.ratio, self.num, self.type)
                 self.asp_lst.append(asp)
-                # if asp.service_rate > GLOBAL_ETA:
-                #     self.asp_case_lst.append('3')
-                # else:
-                #     self.asp_case_lst.append('2')
     """
     set_price_per_vm : initial mpo price
     """
@@ -150,8 +137,8 @@ class MPO():
     """
 
     def optimize_phi_with_step(self, step):
-        self.find_constraint_phi()
-        phi = self.constraint_phi
+        # self.find_constraint_phi()
+        phi = (self.constraint_phi)
         max = 0
         max_phi = 0
         iter = int(25000 / step)
@@ -165,7 +152,6 @@ class MPO():
             phi += step
             if uti == 0:
                 break
-            pre = uti
         self.set_and_check_required_vm(max_phi)
         asp_util = 0
         asp_vm = 0
@@ -239,8 +225,6 @@ class MPO():
         for _ in range(plot_range):
             self.set_and_check_required_vm(phi)
             vm_after = self.total_vm()
-            # if vm_after != 0:
-            #     print(vm_after) 
             pr.append(phi)
             ut.append(phi * vm_after - MPO_cost(vm_after))
             num.append(vm_after)
@@ -342,186 +326,3 @@ class MPO():
             self.set_and_check_required_vm(mid)
             vm = self.total_vm()
             self.constraint_phi = mid
-    """
-    plot_social_welfare : plot
-    """
-
-    def plot_social_welfare(self):
-        phi = 900
-        step = 5
-        pr = []
-        pr_zh1 = []
-        pr_zh2 = []
-        pr_zh3 = []
-        pr_zh4 = []
-        ut = []
-        ut_zh1 = []
-        ut_zh2 = []
-        ut_zh3 = []
-        ut_zh4 = []
-        vm_prior = float('inf')
-        for _ in range(20):
-            self.set_and_check_required_vm(phi)
-            vm_after = self.total_vm()
-            pr.append(phi)
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            ut.append(phi * vm_after - MPO_cost(vm_after) + welfare)
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-
-        vm_prior = float('inf')
-        phi = 900
-        for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0)
-            vm_after = self.total_vm()
-            pr_zh1.append(phi)
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            ut_zh1.append(phi * vm_after - MPO_cost(vm_after) + welfare)
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-
-        vm_prior = float('inf')
-        phi = 900
-        for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0.05)
-            vm_after = self.total_vm()
-            pr_zh2.append(phi)
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            ut_zh2.append(phi * vm_after - MPO_cost(vm_after) + welfare)
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-
-        vm_prior = float('inf')
-        phi = 900
-        for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0.09)
-            vm_after = self.total_vm()
-            pr_zh4.append(phi)
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            ut_zh4.append(phi * vm_after - MPO_cost(vm_after) + welfare)
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-        plt.figure(figsize=FIG_SIZE, dpi=DPI)
-        plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed',
-                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM',
-                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh2, ut_zh2, marker='p', linestyle='-.', label='5% IPS VM',
-                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='9% IPS VM',
-                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
-        plt.ylabel(r'$\bf{Social\ welfare}$', fontsize=LABEL_FONT_SIZE)
-        plt.xticks(fontsize=TICKS_FONT_SIZE)
-        plt.yticks(fontsize=TICKS_FONT_SIZE)
-        plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-        plt.savefig('./5GDDoS_Game_utility_cmp.pdf')
-        plt.savefig('./5GDDoS_Game_utility_cmp.jpg')
-        plt.savefig('./5GDDoS_Game_utility_cmp.eps')
-        plt.close()
-
-    def plot_asp_utility(self):
-        phi = 900
-        step = 5
-        pr = []
-        pr_zh1 = []
-        pr_zh2 = []
-        pr_zh3 = []
-        pr_zh4 = []
-        ut = []
-        ut_zh1 = []
-        ut_zh2 = []
-        ut_zh3 = []
-        ut_zh4 = []
-        vm_prior = float('inf')
-        for _ in range(20):
-            self.set_and_check_required_vm(phi)
-            vm_after = self.total_vm()
-            pr.append(phi)
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            ut.append(welfare)
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-
-        vm_prior = float('inf')
-        phi = 900
-        for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0)
-            vm_after = self.total_vm()
-            pr_zh1.append(phi)
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            ut_zh1.append(welfare)
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-
-        vm_prior = float('inf')
-        phi = 900
-        for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0.05)
-            vm_after = self.total_vm()
-            pr_zh2.append(phi)
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            ut_zh2.append(welfare)
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-
-        vm_prior = float('inf')
-        phi = 900
-        for _ in range(20):
-            self.set_and_check_required_vm_with_chi(phi, 0.09)
-            vm_after = self.total_vm()
-            pr_zh4.append(phi)
-            welfare = 0
-            for asp in self.asp_lst:
-                welfare += asp.utility
-            ut_zh4.append(welfare)
-            phi += step
-            if vm_prior < vm_after:
-                print('Total VM is not non-increasing')
-            vm_prior = vm_after
-        plt.figure(figsize=FIG_SIZE, dpi=DPI)
-        plt.plot(pr, ut, marker='o', linestyle='-.', label='Proposed',
-                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh1, ut_zh1, marker='s', linestyle='-.', label='No IPS VM',
-                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh2, ut_zh2, marker='p', linestyle='-.', label='5% IPS VM',
-                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.plot(pr_zh4, ut_zh4, marker='^', linestyle='-.', label='9% IPS VM',
-                 linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-        plt.xlabel(r'$\bf{MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
-        plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
-        plt.xticks(fontsize=TICKS_FONT_SIZE)
-        plt.yticks(fontsize=TICKS_FONT_SIZE)
-        plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-        plt.savefig('./5GDDoS_Game_asp_utility_cmp.pdf')
-        plt.savefig('./5GDDoS_Game_asp_utility_cmp.jpg')
-        plt.savefig('./5GDDoS_Game_asp_utility_cmp.eps')
-        plt.close()

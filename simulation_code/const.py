@@ -90,7 +90,7 @@ def MPO_cost(x):
     return 0.01 * x ** 2
 
 
-CVX_SOLVER = ECOS
+CVX_SOLVER = SCS
 ALTER_CVX_SOLVER = SCS
 
 
@@ -116,3 +116,4 @@ MARKER_EDGE_WIDTH = 3
 NUM_LST = [400, 600, 800, 1000, 1200, 1400]
 RATIO_LST = [0.08, 0.1, 0.2, 0.3, 0.4, 0.5]
 STEP = 1
+EPSILON = 0.01

@@ -30,12 +30,17 @@ class ASP():
         self.gamma = uniform(ASP_GAMMA_LOWER, ASP_GAMMA_UPPER)
         self.phi = 0
         if self.service_rate < GLOBAL_ETA:
-            self.sqrt_coff_1 = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)))
-            self.sqrt_coff_2 = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.service_rate))
-            self.coff_1 = self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
-            self.coff_2 = self.normal_arrival_rate / self.service_rate + self.malicious_arrival_rate / GLOBAL_ETA
+            self.sqrt_coff_1 = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * (
+                (1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)))
+            self.sqrt_coff_2 = sqrt(
+                self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.service_rate))
+            self.coff_1 = self.arrival_rate / \
+                ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)
+            self.coff_2 = self.normal_arrival_rate / self.service_rate + \
+                self.malicious_arrival_rate / GLOBAL_ETA
         else:
-            self.sqrt_coff_3 = sqrt(self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.service_rate))
+            self.sqrt_coff_3 = sqrt(
+                self.total_payment / ((ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER) * self.service_rate))
             self.coff_3 = self.arrival_rate / self.service_rate
         self.queue_coff = (self.gamma + self.arrival_rate) / self.service_rate
         self.set_boundary()
@@ -53,8 +58,8 @@ class ASP():
             Gamma                 : {self.gamma}
             Xi                    : {self.chi}
             Queue                 : {(self.gamma + self.arrival_rate) / self.service_rate}
-            Mal                   : {(self.malicious_arrival_rate / (GLOBAL_ETA * self.chi))}
-            Change                : {self.change_point}
+            Malicious request VM  : {(self.malicious_arrival_rate / (GLOBAL_ETA * self.chi))}
+            Change point          : {self.change_point}
         '''
     """
     set_users : initial users
@@ -335,7 +340,7 @@ class ASP():
                                                  self.chi * GLOBAL_ETA)) / (z_v - self.arrival_rate / ((1 - self.chi) * self.service_rate + self.chi * GLOBAL_ETA)) ** 2
             qbound_case4 = self.total_payment / (self.service_rate * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)) * (
                 (self.malicious_arrival_rate + self.gamma) / self.service_rate - self.malicious_arrival_rate / GLOBAL_ETA) ** (-2)
-            
+
             A = 0
             for dev in self.device_list:
                 A += (dev.price_per_task * (ASP_DEVICE_LATENCY_UPPER - dev.transmission_time_to_asp) / (
@@ -346,7 +351,7 @@ class ASP():
             D = self.malicious_arrival_rate * self.service_rate / \
                 GLOBAL_ETA + self.arrival_rate - self.malicious_arrival_rate
             case_B_phi = (A * C * D + 2 * B * C - 2 * C *
-                    sqrt(B ** 2 + A * B * D)) / (D ** 2)
+                          sqrt(B ** 2 + A * B * D)) / (D ** 2)
             A = 0
             for dev in self.device_list:
                 A += (dev.price_per_task * (ASP_DEVICE_LATENCY_UPPER - dev.transmission_time_to_asp) / (
@@ -357,9 +362,9 @@ class ASP():
                 (1 - self.chi) + self.chi * GLOBAL_ETA
             D = self.arrival_rate
             case_D_phi = (A * C * D + 2 * B * C - 2 * C *
-                            sqrt(B ** 2 + A * B * D)) / (D ** 2)
+                          sqrt(B ** 2 + A * B * D)) / (D ** 2)
             z_v_zero = sqrt(self.total_payment / ((self.service_rate) * (ASP_DEVICE_LATENCY_UPPER - ASP_DEVICE_LATENCY_LOWER)
-                                * case_B_phi)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
+                                                  * case_B_phi)) + self.malicious_arrival_rate / GLOBAL_ETA + self.normal_arrival_rate / self.service_rate
             # print(
             #     f"Bound : {bound_case}, Qbound 2 : {qbound_case2}, Qbound 4 : {qbound_case4}, Z_v_zero : {z_v_zero}, phi_b : {case_B_phi}, phi_d : {case_D_phi}")
             if bound_case > qbound_case4 and (self.malicious_arrival_rate / (GLOBAL_ETA * self.chi)) < (self.arrival_rate + self.gamma) / self.service_rate:
@@ -401,7 +406,7 @@ class ASP():
             #         # print(4)
             #         self.case = 4
             #     else:
-                    
+
             #         self.bound = case_B_phi
             #         self.change_point = None
             #         self.qbound = None
