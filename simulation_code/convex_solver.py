@@ -1,4 +1,5 @@
 import cvxpy as cp
+from cvxpy.settings import INFEASIBLE, INFEASIBLE_INACCURATE, OPTIMAL, OPTIMAL_INACCURATE
 from mpo import *
 from const import *
 
@@ -47,17 +48,20 @@ def convex_opt(sq, li, low, up):
     lower = low
     obj = cp.Maximize(cp.sqrt(x) * sqrt_c + x * linear_c - (0.01 *
                       cp.power(sqrt_c * cp.inv_pos(cp.sqrt(x)) + linear_c, 2)))
-    constraint = [lower <= x, x <= upper]
+    constraint = [x - lower >= 0, x-upper <= 0]
     prob = cp.Problem(obj, constraint)
     try:
         res = prob.solve(solver=CVX_SOLVER)
+        # if prob.status != OPTIMAL:
+        #     print('\n')
+        #     print(prob.status)
+        #     print(prob)
+        if prob.status != OPTIMAL and prob.status != OPTIMAL_INACCURATE:
+            raise cp.error.SolverError
     except cp.error.SolverError:
         try:
             res = prob.solve(solver=ALTER_CVX_SOLVER)
-        except:
+            print(f"SOLVER : {ALTER_CVX_SOLVER}")
+        except cp.error.SolverError:
             raise ArithmeticError("Solver Error")
-
-    # if prob.status != OPTIMAL:
-    #     print(prob.status)
-    #     raise ArithmeticError("Not Optimal")
     return res, x.value[0]
