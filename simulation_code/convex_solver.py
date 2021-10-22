@@ -1,5 +1,5 @@
 import cvxpy as cp
-from cvxpy.settings import INFEASIBLE, INFEASIBLE_INACCURATE, OPTIMAL, OPTIMAL_INACCURATE
+from cvxpy.settings import ERROR, INFEASIBLE, INFEASIBLE_INACCURATE, NONNEG, OPTIMAL, OPTIMAL_INACCURATE
 from mpo import *
 from const import *
 
@@ -52,16 +52,19 @@ def convex_opt(sq, li, low, up):
     prob = cp.Problem(obj, constraint)
     try:
         res = prob.solve(solver=CVX_SOLVER)
-        # if prob.status != OPTIMAL:
-        #     print('\n')
-        #     print(prob.status)
-        #     print(prob)
         if prob.status != OPTIMAL and prob.status != OPTIMAL_INACCURATE:
-            raise cp.error.SolverError
-    except cp.error.SolverError:
+            print(f"SOLVER STATUS : {prob.status}", flush=True)
+            raise AssertionError("Not Optimal")
+    except:
         try:
             res = prob.solve(solver=ALTER_CVX_SOLVER)
-            print(f"SOLVER : {ALTER_CVX_SOLVER}")
-        except cp.error.SolverError:
+            print(f"ALTER_SOLVER : {ALTER_CVX_SOLVER}", flush=True)
+            if prob.status != OPTIMAL and prob.status != OPTIMAL_INACCURATE:
+                print(f"ALTER_SOLVER STATUS : {prob.status}", flush=True)
+                raise AssertionError("Not Optimal")
+        except:
             raise ArithmeticError("Solver Error")
-    return res, x.value[0]
+    if res is not None and x.value is not None:
+        return res, x.value[0]
+    else:
+        print("ERROR")
