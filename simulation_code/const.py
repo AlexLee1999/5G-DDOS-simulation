@@ -8,7 +8,7 @@ from enum import Enum
 ########################################
 GLOBAL_ETA = 50
 # Conference 5000
-ITER = 1000
+ITER = 2000
 DEFAULT_DEVICE_NUM = 1000
 # Conference 100
 DEFAULT_DEVICE_RATIO = 0.1
