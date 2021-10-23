@@ -47,10 +47,12 @@ if __name__ == '__main__':
     #######################################################################
     # Plot MPO Curves
     #######################################################################
-    # mpo = MPO(0.3, 1000, load_type.RATIO, MPO_NUM_OF_ASP, 5, 0)
+    # mpo = MPO(0.9, 1000, load_type.RATIO, MPO_NUM_OF_ASP, 5, 0)
     # for asp in mpo.asp_lst:
     #     print(asp.case)
-    # print(mpo.bound)
+    # print(mpo.bd)
+    # print(mpo.qbd)
+    # print(mpo.cp)
     # mpo_utility, max_phi, social_welfare, asp_utility, vm_number = mpo.optimize_phi()
     # print(mpo_utility, max_phi, social_welfare, asp_utility, vm_number)
     # print(mpo.optimize_phi_with_chi(0, max_phi))

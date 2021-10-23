@@ -48,7 +48,7 @@ def convex_opt(sq, li, low, up):
     lower = low
     obj = cp.Maximize(cp.sqrt(x) * sqrt_c + x * linear_c - (0.01 *
                       cp.power(sqrt_c * cp.inv_pos(cp.sqrt(x)) + linear_c, 2)))
-    constraint = [x - lower >= 0, x-upper <= 0]
+    constraint = [x >= lower, x <= upper]
     prob = cp.Problem(obj, constraint)
     try:
         res = prob.solve(solver=CVX_SOLVER)
@@ -58,6 +58,7 @@ def convex_opt(sq, li, low, up):
     except:
         try:
             res = prob.solve(solver=ALTER_CVX_SOLVER)
+            # print(prob)
             print(f"ALTER_SOLVER : {ALTER_CVX_SOLVER}", flush=True)
             if prob.status != OPTIMAL and prob.status != OPTIMAL_INACCURATE:
                 print(f"ALTER_SOLVER STATUS : {prob.status}", flush=True)
