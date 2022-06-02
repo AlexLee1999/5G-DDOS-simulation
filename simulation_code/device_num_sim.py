@@ -108,7 +108,8 @@ def plot_utility_device_num_cvx():
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number/5GDDoS_Game_MPO_device_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number/5GDDoS_Game_MPO_device_cvx.jpg')
     plt.savefig('./image/device_number/5GDDoS_Game_MPO_device_cvx.pdf')
     plt.savefig('./image/device_number/5GDDoS_Game_MPO_device_cvx.eps')
     plt.close()
@@ -127,7 +128,8 @@ def plot_utility_device_num_cvx():
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number/5GDDoS_Game_social_device_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number/5GDDoS_Game_social_device_cvx.jpg')
     plt.savefig('./image/device_number/5GDDoS_Game_social_device_cvx.pdf')
     plt.savefig('./image/device_number/5GDDoS_Game_social_device_cvx.eps')
     plt.close()
@@ -146,7 +148,8 @@ def plot_utility_device_num_cvx():
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number/5GDDoS_Game_asp_device_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number/5GDDoS_Game_asp_device_cvx.jpg')
     plt.savefig('./image/device_number/5GDDoS_Game_asp_device_cvx.pdf')
     plt.savefig('./image/device_number/5GDDoS_Game_asp_device_cvx.eps')
     plt.close()
@@ -165,7 +168,8 @@ def plot_utility_device_num_cvx():
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number/5GDDoS_Game_total_vm_device_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number/5GDDoS_Game_total_vm_device_cvx.jpg')
     plt.savefig('./image/device_number/5GDDoS_Game_total_vm_device_cvx.pdf')
     plt.savefig('./image/device_number/5GDDoS_Game_total_vm_device_cvx.eps')
     plt.close()
@@ -279,7 +283,8 @@ def plot_utility_device_num_step():
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number/5GDDoS_Game_MPO_device_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number/5GDDoS_Game_MPO_device_step.jpg')
     plt.savefig('./image/device_number/5GDDoS_Game_MPO_device_step.pdf')
     plt.savefig('./image/device_number/5GDDoS_Game_MPO_device_step.eps')
     plt.close()
@@ -298,7 +303,8 @@ def plot_utility_device_num_step():
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number/5GDDoS_Game_social_device_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number/5GDDoS_Game_social_device_step.jpg')
     plt.savefig('./image/device_number/5GDDoS_Game_social_device_step.pdf')
     plt.savefig('./image/device_number/5GDDoS_Game_social_device_step.eps')
     plt.close()
@@ -317,7 +323,8 @@ def plot_utility_device_num_step():
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number/5GDDoS_Game_asp_device_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number/5GDDoS_Game_asp_device_step.jpg')
     plt.savefig('./image/device_number/5GDDoS_Game_asp_device_step.pdf')
     plt.savefig('./image/device_number/5GDDoS_Game_asp_device_step.eps')
     plt.close()
@@ -336,7 +343,8 @@ def plot_utility_device_num_step():
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number/5GDDoS_Game_total_vm_device_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number/5GDDoS_Game_total_vm_device_step.jpg')
     plt.savefig('./image/device_number/5GDDoS_Game_total_vm_device_step.pdf')
     plt.savefig('./image/device_number/5GDDoS_Game_total_vm_device_step.eps')
     plt.close()

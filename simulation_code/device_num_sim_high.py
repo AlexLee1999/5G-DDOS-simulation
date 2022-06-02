@@ -116,8 +116,9 @@ def plot_utility_device_num_high_cvx():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_high/5GDDoS_Game_MPO_device_high_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_high/5GDDoS_Game_MPO_device_high_cvx.jpg')
     plt.savefig(
         './image/device_number_high/5GDDoS_Game_MPO_device_high_cvx.pdf')
     plt.savefig(
@@ -148,8 +149,9 @@ def plot_utility_device_num_high_cvx():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_high/5GDDoS_Game_social_device_high_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_high/5GDDoS_Game_social_device_high_cvx.jpg')
     plt.savefig(
         './image/device_number_high/5GDDoS_Game_social_device_high_cvx.pdf')
     plt.savefig(
@@ -180,8 +182,9 @@ def plot_utility_device_num_high_cvx():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_high/5GDDoS_Game_asp_device_high_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_high/5GDDoS_Game_asp_device_high_cvx.jpg')
     plt.savefig(
         './image/device_number_high/5GDDoS_Game_asp_device_high_cvx.pdf')
     plt.savefig(
@@ -212,8 +215,9 @@ def plot_utility_device_num_high_cvx():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_high/5GDDoS_Game_total_vm_device_high_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_high/5GDDoS_Game_total_vm_device_high_cvx.jpg')
     plt.savefig(
         './image/device_number_high/5GDDoS_Game_total_vm_device_high_cvx.pdf')
     plt.savefig(
@@ -342,8 +346,9 @@ def plot_utility_device_num_high_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_high/5GDDoS_Game_MPO_device_high_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_high/5GDDoS_Game_MPO_device_high_step.jpg')
     plt.savefig(
         './image/device_number_high/5GDDoS_Game_MPO_device_high_step.pdf')
     plt.savefig(
@@ -374,8 +379,9 @@ def plot_utility_device_num_high_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_high/5GDDoS_Game_social_device_high_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_high/5GDDoS_Game_social_device_high_step.jpg')
     plt.savefig(
         './image/device_number_high/5GDDoS_Game_social_device_high_step.pdf')
     plt.savefig(
@@ -406,8 +412,9 @@ def plot_utility_device_num_high_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_high/5GDDoS_Game_asp_device_high_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_high/5GDDoS_Game_asp_device_high_step.jpg')
     plt.savefig(
         './image/device_number_high/5GDDoS_Game_asp_device_high_step.pdf')
     plt.savefig(
@@ -438,8 +445,9 @@ def plot_utility_device_num_high_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_high/5GDDoS_Game_total_vm_device_high_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_high/5GDDoS_Game_total_vm_device_high_step.jpg')
     plt.savefig(
         './image/device_number_high/5GDDoS_Game_total_vm_device_high_step.pdf')
     plt.savefig(

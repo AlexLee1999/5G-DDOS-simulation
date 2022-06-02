@@ -55,7 +55,8 @@ def plot_different_step():
     plt.ylabel(r'$\bf{Optimal\ MPO\ Price}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/step_compare/5GDDoS_Game_price_device_with_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/step_compare/5GDDoS_Game_price_device_with_step.jpg')
     plt.savefig('./image/step_compare/5GDDoS_Game_price_device_with_step.pdf')
     plt.savefig('./image/step_compare/5GDDoS_Game_price_device_with_step.eps')
     plt.close()
@@ -70,7 +71,8 @@ def plot_different_step():
     plt.ylabel(r'$\bf{Social\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/step_compare/5GDDoS_Game_social_device_with_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/step_compare/5GDDoS_Game_social_device_with_step.jpg')
     plt.savefig('./image/step_compare/5GDDoS_Game_social_device_with_step.pdf')
     plt.savefig('./image/step_compare/5GDDoS_Game_social_device_with_step.eps')
     plt.close()
@@ -176,7 +178,8 @@ def plot_different_ratio():
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.savefig('./image/misc/5GDDoS_Game_utility_ratio.pdf')
-    plt.savefig('./image/misc/5GDDoS_Game_utility_ratio.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/misc/5GDDoS_Game_utility_ratio.jpg')
     plt.savefig('./image/misc/5GDDoS_Game_utility_ratio.eps')
     plt.close()
 
@@ -203,7 +206,8 @@ def plot_flat_price():
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/flat/5GDDoS_Game_utility_flat.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/flat/5GDDoS_Game_utility_flat.jpg')
     plt.savefig('./image/flat/5GDDoS_Game_utility_flat.pdf')
     plt.savefig('./image/flat/5GDDoS_Game_utility_flat.eps')
     plt.close()
@@ -242,7 +246,8 @@ def plot_asp_utility():
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/asp/5GDDoS_Game_ASP_price.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/asp/5GDDoS_Game_ASP_price.jpg')
     plt.savefig('./image/asp/5GDDoS_Game_ASP_price.pdf')
     plt.savefig('./image/asp/5GDDoS_Game_ASP_price.eps')
     plt.close()
@@ -261,7 +266,8 @@ def plot_asp_utility():
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/asp/5GDDoS_Game_ASP_vm.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/asp/5GDDoS_Game_ASP_vm.jpg')
     plt.savefig('./image/asp/5GDDoS_Game_ASP_vm.pdf')
     plt.savefig('./image/asp/5GDDoS_Game_ASP_vm.eps')
     plt.close()

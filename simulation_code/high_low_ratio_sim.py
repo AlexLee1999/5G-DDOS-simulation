@@ -108,7 +108,8 @@ def plot_utility_high_low_ratio_cvx():
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_MPO_high_low_ratio_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/high_low_ratio/5GDDoS_Game_MPO_high_low_ratio_cvx.jpg')
     plt.savefig('./image/high_low_ratio/5GDDoS_Game_MPO_high_low_ratio_cvx.pdf')
     plt.savefig('./image/high_low_ratio/5GDDoS_Game_MPO_high_low_ratio_cvx.eps')
     plt.close()
@@ -127,8 +128,9 @@ def plot_utility_high_low_ratio_cvx():
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_cvx.jpg')
     plt.savefig(
         './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_cvx.pdf')
     plt.savefig(
@@ -149,7 +151,8 @@ def plot_utility_high_low_ratio_cvx():
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_asp_high_low_ratio_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/high_low_ratio/5GDDoS_Game_asp_high_low_ratio_cvx.jpg')
     plt.savefig('./image/high_low_ratio/5GDDoS_Game_asp_high_low_ratio_cvx.pdf')
     plt.savefig('./image/high_low_ratio/5GDDoS_Game_asp_high_low_ratio_cvx.eps')
     plt.close()
@@ -168,8 +171,9 @@ def plot_utility_high_low_ratio_cvx():
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_cvx.jpg')
     plt.savefig(
         './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_cvx.pdf')
     plt.savefig(
@@ -287,7 +291,8 @@ def plot_utility_high_low_ratio_step():
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(x, values, fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_MPO_high_low_ratio_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/high_low_ratio/5GDDoS_Game_MPO_high_low_ratio_step.jpg')
     plt.savefig('./image/high_low_ratio/5GDDoS_Game_MPO_high_low_ratio_step.pdf')
     plt.savefig('./image/high_low_ratio/5GDDoS_Game_MPO_high_low_ratio_step.eps')
     plt.close()
@@ -306,8 +311,9 @@ def plot_utility_high_low_ratio_step():
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(x, values, fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_step.jpg')
     plt.savefig(
         './image/high_low_ratio/5GDDoS_Game_social_high_low_ratio_step.pdf')
     plt.savefig(
@@ -328,7 +334,8 @@ def plot_utility_high_low_ratio_step():
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(x, values, fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/high_low_ratio/5GDDoS_Game_asp_high_low_ratio_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/high_low_ratio/5GDDoS_Game_asp_high_low_ratio_step.jpg')
     plt.savefig('./image/high_low_ratio/5GDDoS_Game_asp_high_low_ratio_step.pdf')
     plt.savefig('./image/high_low_ratio/5GDDoS_Game_asp_high_low_ratio_step.eps')
     plt.close()
@@ -347,8 +354,9 @@ def plot_utility_high_low_ratio_step():
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(x, values, fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_step.jpg')
     plt.savefig(
         './image/high_low_ratio/5GDDoS_Game_total_vm_high_low_ratio_step.pdf')
     plt.savefig(

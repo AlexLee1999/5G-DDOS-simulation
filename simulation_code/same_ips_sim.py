@@ -62,8 +62,9 @@ def plot_ratio_with_same_IPS_ratio_cvx():
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio_cvx.jpg')
     plt.savefig(
         './image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio_cvx.pdf')
     plt.savefig(
@@ -82,8 +83,9 @@ def plot_ratio_with_same_IPS_ratio_cvx():
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio_cvx.jpg')
     plt.savefig(
         './image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio_cvx.pdf')
     plt.savefig(
@@ -101,8 +103,9 @@ def plot_ratio_with_same_IPS_ratio_cvx():
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio_cvx.jpg')
     plt.savefig(
         './image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio_cvx.pdf')
     plt.savefig(
@@ -166,8 +169,9 @@ def plot_ratio_with_same_IPS_ratio_step():
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio_step.jpg')
     plt.savefig(
         './image/same_ips/5GDDoS_Game_MPO_ratio_with_same_IPS_ratio_step.pdf')
     plt.savefig(
@@ -186,8 +190,9 @@ def plot_ratio_with_same_IPS_ratio_step():
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio_step.jpg')
     plt.savefig(
         './image/same_ips/5GDDoS_Game_social_ratio_with_same_IPS_ratio_step.pdf')
     plt.savefig(
@@ -205,8 +210,9 @@ def plot_ratio_with_same_IPS_ratio_step():
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio_step.jpg')
     plt.savefig(
         './image/same_ips/5GDDoS_Game_asp_ratio_with_same_IPS_ratio_step.pdf')
     plt.savefig(

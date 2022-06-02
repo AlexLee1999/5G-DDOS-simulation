@@ -144,7 +144,8 @@ def plot_utility_ratio_low_new_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/ratio_low_new/5GDDoS_Game_MPO_ratio_low_new_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/ratio_low_new/5GDDoS_Game_MPO_ratio_low_new_step.jpg')
     plt.savefig('./image/ratio_low_new/5GDDoS_Game_MPO_ratio_low_new_step.pdf')
     plt.savefig('./image/ratio_low_new/5GDDoS_Game_MPO_ratio_low_new_step.eps')
     data_dic = dict()
@@ -176,8 +177,9 @@ def plot_utility_ratio_low_new_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/ratio_low_new/5GDDoS_Game_social_ratio_low_new_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/ratio_low_new/5GDDoS_Game_social_ratio_low_new_step.jpg')
     plt.savefig(
         './image/ratio_low_new/5GDDoS_Game_social_ratio_low_new_step.pdf')
     plt.savefig(
@@ -211,7 +213,8 @@ def plot_utility_ratio_low_new_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/ratio_low_new/5GDDoS_Game_asp_ratio_low_new_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/ratio_low_new/5GDDoS_Game_asp_ratio_low_new_step.jpg')
     plt.savefig('./image/ratio_low_new/5GDDoS_Game_asp_ratio_low_new_step.pdf')
     plt.savefig('./image/ratio_low_new/5GDDoS_Game_asp_ratio_low_new_step.eps')
     data_dic = dict()
@@ -243,8 +246,9 @@ def plot_utility_ratio_low_new_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/ratio_low_new/5GDDoS_Game_total_vm_ratio_low_new_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/ratio_low_new/5GDDoS_Game_total_vm_ratio_low_new_step.jpg')
     plt.savefig(
         './image/ratio_low_new/5GDDoS_Game_total_vm_ratio_low_new_step.pdf')
     plt.savefig(

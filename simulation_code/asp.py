@@ -788,7 +788,8 @@ class ASP():
             plt.yticks(fontsize=TICKS_FONT_SIZE)
             plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
             plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case2.pdf')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case2.jpg')
+            if JPG_ENABLE:
+                plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case2.jpg')
             plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case2.eps')
             plt.close()
         else:
@@ -820,7 +821,8 @@ class ASP():
             plt.yticks(fontsize=TICKS_FONT_SIZE)
             plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
             plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case3.pdf')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case3.jpg')
+            if JPG_ENABLE:
+                plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case3.jpg')
             plt.savefig('./image/asp/5GDDoS_Game_asp_utility_case3.eps')
             plt.close()
 
@@ -849,7 +851,8 @@ class ASP():
             plt.yticks(fontsize=TICKS_FONT_SIZE)
             plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
             plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case2.pdf')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case2.jpg')
+            if JPG_ENABLE:
+                plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case2.jpg')
             plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case2.eps')
             plt.close()
         else:
@@ -876,6 +879,7 @@ class ASP():
             plt.yticks(fontsize=TICKS_FONT_SIZE)
             plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
             plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case3.pdf')
-            plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case3.jpg')
+            if JPG_ENABLE:
+                plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case3.jpg')
             plt.savefig('./image/asp/5GDDoS_Game_asp_utility_z_h_case3.eps')
             plt.close()

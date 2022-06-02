@@ -116,7 +116,8 @@ def plot_utility_device_num_low_cvx():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.jpg')
     plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.pdf')
     plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.eps')
     data_dic = dict()
@@ -145,8 +146,9 @@ def plot_utility_device_num_low_cvx():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_low/5GDDoS_Game_social_device_low_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_low/5GDDoS_Game_social_device_low_cvx.jpg')
     plt.savefig(
         './image/device_number_low/5GDDoS_Game_social_device_low_cvx.pdf')
     plt.savefig(
@@ -177,7 +179,8 @@ def plot_utility_device_num_low_cvx():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.jpg')
     plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.pdf')
     plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.eps')
     data_dic = dict()
@@ -206,8 +209,9 @@ def plot_utility_device_num_low_cvx():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_low/5GDDoS_Game_total_vm_device_low_cvx.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_low/5GDDoS_Game_total_vm_device_low_cvx.jpg')
     plt.savefig(
         './image/device_number_low/5GDDoS_Game_total_vm_device_low_cvx.pdf')
     plt.savefig(
@@ -336,7 +340,8 @@ def plot_utility_device_num_low_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_step.jpg')
     plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_step.pdf')
     plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_step.eps')
     data_dic = dict()
@@ -365,8 +370,9 @@ def plot_utility_device_num_low_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_low/5GDDoS_Game_social_device_low_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_low/5GDDoS_Game_social_device_low_step.jpg')
     plt.savefig(
         './image/device_number_low/5GDDoS_Game_social_device_low_step.pdf')
     plt.savefig(
@@ -397,7 +403,8 @@ def plot_utility_device_num_low_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_step.jpg')
     plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_step.pdf')
     plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_step.eps')
     data_dic = dict()
@@ -426,8 +433,9 @@ def plot_utility_device_num_low_step():
     plt.ylabel(y_title, fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
-    plt.savefig(
-        './image/device_number_low/5GDDoS_Game_total_vm_device_low_step.jpg')
+    if JPG_ENABLE:
+        plt.savefig(
+            './image/device_number_low/5GDDoS_Game_total_vm_device_low_step.jpg')
     plt.savefig(
         './image/device_number_low/5GDDoS_Game_total_vm_device_low_step.pdf')
     plt.savefig(
