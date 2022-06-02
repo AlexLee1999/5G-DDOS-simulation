@@ -100,7 +100,7 @@ class MPO():
         for asp in self.asp_lst:
             asp.optimize_zv()
             # if asp.z_h != 0 and isinstance(price, int):
-            #     print(f"price : {price}, pruchased_vm : {asp.z_v}, IPS VM : {asp.z_h}, Intercepted : {ASP_H(asp.z_h, asp.malicious_arrival_rate)}, Mal request : {asp.malicious_arrival_rate}, Utility : {asp.utility}")
+            #     print(f"price : {price}, pruchased_vm : {asp.z_v}, IPS VM : {asp.z_h}, Intercepted : {ASP_H(asp.z_h, asp.malicious_arrival_rate, asp.malicious_ratio)}, Mal request : {asp.malicious_arrival_rate}, Utility : {asp.utility}")
         return
     """
     set_and_check_required_vm_with_chi : set price and IPS ratio and optimize the asp

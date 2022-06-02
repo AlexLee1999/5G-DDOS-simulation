@@ -28,9 +28,9 @@ if __name__ == '__main__':
     #######################################################################
     # Convex Optimizations
     #######################################################################
-    # plot_utility_device_num_cvx()
-    # plot_utility_device_num_high_cvx()
-    # plot_utility_device_num_low_cvx()
+    plot_utility_device_num_cvx()
+    plot_utility_device_num_high_cvx()
+    plot_utility_device_num_low_cvx()
     plot_utility_ratio_cvx()
     plot_utility_ratio_high_cvx()
     plot_utility_ratio_low_cvx()

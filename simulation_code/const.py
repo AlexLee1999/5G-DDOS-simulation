@@ -6,9 +6,11 @@ from enum import Enum
 # These are the parameters of Global
 # Prefix with GLOBAL_
 ########################################
-GLOBAL_ETA = 50
+# GLOBAL_ETA = 50
+def GLOBAL_ETA(mal, eff=500):
+    return eff * mal
 # Conference 5000
-ITER = 2000
+ITER = 1000
 DEFAULT_DEVICE_NUM = 1000
 # Conference 100
 DEFAULT_DEVICE_RATIO = 0.1
@@ -70,8 +72,8 @@ ASP_GAMMA_UPPER = 40
 # H function
 
 
-def ASP_H(x, lambda_m):
-    return min(GLOBAL_ETA * x, lambda_m)
+def ASP_H(x, lambda_m, mal):
+    return min(GLOBAL_ETA(mal) * x, lambda_m)
 
 
 ########################################

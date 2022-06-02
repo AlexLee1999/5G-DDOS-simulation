@@ -216,7 +216,7 @@ def plot_asp_utility():
     utility_lst_without_constraint = []
     purchased_vm_lst_without_constraint = []
     price = [i for i in range(20, 5000, 10)]
-    print(asp.malicious_arrival_rate/(asp.chi * GLOBAL_ETA))
+    print(asp.malicious_arrival_rate/(asp.chi * GLOBAL_ETA(asp.malicious_ratio)))
     for i in range(20, 5000, 10):
         asp.mpo_price = i
         asp.optimize_zv()
