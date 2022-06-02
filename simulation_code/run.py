@@ -1,11 +1,4 @@
 from fig import *
-from ratio_sim_low_new import *
-from ratio_sim_high_new import *
-from device_num_sim_low_new import *
-from misc import *
-from device_num_sim_high_new import *
-from high_low_ratio_sim import *
-from same_ips_sim import *
 from ratio_sim_low import *
 from ratio_sim_high import *
 from ratio_sim import *
@@ -19,6 +12,8 @@ from asp import *
 from const import *
 from mpo import *
 from convex_solver import *
+from efficiency_sim_high import *
+from efficiency_sim_low import *
 
 
 if __name__ == '__main__':
@@ -34,6 +29,8 @@ if __name__ == '__main__':
     plot_utility_ratio_cvx()
     plot_utility_ratio_high_cvx()
     plot_utility_ratio_low_cvx()
+    plot_utility_efficiency_high_cvx()
+    plot_utility_efficiency_low_cvx()
     #######################################################################
     # Step Optimizations
     #######################################################################

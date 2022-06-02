@@ -7,10 +7,11 @@ from enum import Enum
 # Prefix with GLOBAL_
 ########################################
 # GLOBAL_ETA = 50
-def GLOBAL_ETA(mal, eff=500):
+DEFAULT_ETA = 500
+def GLOBAL_ETA(mal, eff):
     return eff * mal
 # Conference 5000
-ITER = 1000
+ITER = 1
 JPG_ENABLE = False
 DEFAULT_DEVICE_NUM = 1000
 # Conference 100
@@ -73,8 +74,8 @@ ASP_GAMMA_UPPER = 40
 # H function
 
 
-def ASP_H(x, lambda_m, mal):
-    return min(GLOBAL_ETA(mal) * x, lambda_m)
+def ASP_H(x, lambda_m, mal, eff):
+    return min(GLOBAL_ETA(mal, eff) * x, lambda_m)
 
 
 ########################################
@@ -118,6 +119,7 @@ MARKER_EDGE_WIDTH = 3
 
 NUM_LST = [400, 600, 800, 1000, 1200, 1400]
 RATIO_LST = [0.08, 0.1, 0.15, 0.2, 0.25, 0.3]
+EFF_LST = [100, 300, 500, 700, 900]
 STEP = 1
 EPSILON = 0.0001
 IPS_PROP_COFF = 0.3

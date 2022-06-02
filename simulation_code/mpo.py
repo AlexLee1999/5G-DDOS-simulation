@@ -6,7 +6,7 @@ from convex_solver import convex_solve
 
 
 class MPO():
-    def __init__(self, ratio, num, mpo_type, asp_num, high_num=0, low_num=0):
+    def __init__(self, ratio, num, mpo_type, asp_num, eff, high_num=0, low_num=0):
         self.price_per_vm = None
         self.type = mpo_type
         self.high_num = high_num
@@ -15,6 +15,7 @@ class MPO():
         self.asp_case_lst = []
         self.asp_response = []
         self.num_of_asp = asp_num
+        self.eff = eff
         self.num_of_vm = uniform(MPO_NUM_OF_VM_LOWER, MPO_NUM_OF_VM_UPPER)
         self.ratio = ratio
         self.num = num
@@ -36,14 +37,14 @@ class MPO():
     def set_asp(self):
         if self.type == load_type.RATIO:
             for _ in range(self.high_num):
-                asp = ASP(self.ratio, self.num, load_type.HIGH)
+                asp = ASP(self.ratio, self.num, load_type.HIGH, self.eff)
                 self.asp_lst.append(asp)
             for _ in range(self.low_num):
-                asp = ASP(self.ratio, self.num, load_type.LOW)
+                asp = ASP(self.ratio, self.num, load_type.LOW, self.eff)
                 self.asp_lst.append(asp)
         else:
             for _ in range(self.num_of_asp):
-                asp = ASP(self.ratio, self.num, self.type)
+                asp = ASP(self.ratio, self.num, self.type, self.eff)
                 self.asp_lst.append(asp)
     """
     set_price_per_vm : initial mpo price
@@ -291,7 +292,7 @@ class MPO():
         plt.yticks(fontsize=TICKS_FONT_SIZE)
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_asp_utility.pdf')
         if JPG_ENABLE:
-        plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_asp_utility.jpg')
+            plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_asp_utility.jpg')
         plt.savefig('./image/optimize_mpo/5GDDoS_Game_plot_asp_utility.eps')
         plt.close()
 

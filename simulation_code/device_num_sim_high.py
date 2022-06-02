@@ -55,7 +55,7 @@ def plot_utility_device_num_high_cvx():
         while i < ITER:
             try:
                 mpo = MPO(DEFAULT_DEVICE_RATIO, n,
-                          load_type.HIGH, MPO_NUM_OF_ASP)
+                          load_type.HIGH, MPO_NUM_OF_ASP, DEFAULT_ETA)
                 util, max_phi, social, asp_u, vm_num = mpo.optimize_phi()
                 utility_proposed += util
                 social_proposed += social
@@ -280,7 +280,7 @@ def plot_utility_device_num_high_step():
         while i < ITER:
             try:
                 mpo = MPO(DEFAULT_DEVICE_RATIO, n,
-                          load_type.HIGH, MPO_NUM_OF_ASP)
+                          load_type.HIGH, MPO_NUM_OF_ASP, DEFAULT_ETA)
                 util, max_phi, social, asp_u, vm_num = mpo.optimize_phi_with_step(
                     1)
                 utility_proposed += util
