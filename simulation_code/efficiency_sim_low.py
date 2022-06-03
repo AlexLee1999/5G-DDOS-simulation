@@ -8,7 +8,7 @@ from convex_solver import *
 
 
 
-def plot_utility_efficiency_high_cvx():
+def plot_utility_efficiency_low_cvx():
     print("efficiency low")
     marker_dic = dict()
     marker_dic["Proposed Scheme"] = 'o'
@@ -118,17 +118,17 @@ def plot_utility_efficiency_high_cvx():
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     if JPG_ENABLE:
         plt.savefig(
-            './image/efficiency_high/5GDDoS_Game_MPO_efficiency_high_cvx.jpg')
+            './image/efficiency_low/5GDDoS_Game_MPO_efficiency_low_cvx.jpg')
     plt.savefig(
-        './image/efficiency_high/5GDDoS_Game_MPO_efficiency_high_cvx.pdf')
+        './image/efficiency_low/5GDDoS_Game_MPO_efficiency_low_cvx.pdf')
     plt.savefig(
-        './image/efficiency_high/5GDDoS_Game_MPO_efficiency_high_cvx.eps')
+        './image/efficiency_low/5GDDoS_Game_MPO_efficiency_low_cvx.eps')
     data_dic = dict()
     data_dic["Proposed Scheme"] = utility_proposed_lst
     data_dic["No IPS"] = utility_zero_lst
     data_dic["5% IPS VM"] = utility_five_lst
     data_dic["7% IPS VM"] = utility_seven_lst
-    fig_name = "efficiency_high/5GDDoS_Game_MPO_efficiency_high_cvx"
+    fig_name = "efficiency_low/5GDDoS_Game_MPO_efficiency_low_cvx"
     fig = Fig(eff, data_dic, x_title, y_title, fig_name, marker_dic)
     write_fig(fig, fig_name)
     plt.close()
@@ -151,17 +151,17 @@ def plot_utility_efficiency_high_cvx():
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     if JPG_ENABLE:
         plt.savefig(
-            './image/efficiency_high/5GDDoS_Game_social_efficiency_high_cvx.jpg')
+            './image/efficiency_low/5GDDoS_Game_social_efficiency_low_cvx.jpg')
     plt.savefig(
-        './image/efficiency_high/5GDDoS_Game_social_efficiency_high_cvx.pdf')
+        './image/efficiency_low/5GDDoS_Game_social_efficiency_low_cvx.pdf')
     plt.savefig(
-        './image/efficiency_high/5GDDoS_Game_social_efficiency_high_cvx.eps')
+        './image/efficiency_low/5GDDoS_Game_social_efficiency_low_cvx.eps')
     data_dic = dict()
     data_dic["Proposed Scheme"] = social_proposed_lst
     data_dic["No IPS"] = social_zero_lst
     data_dic["5% IPS VM"] = social_five_lst
     data_dic["7% IPS VM"] = social_seven_lst
-    fig_name = "efficiency_high/5GDDoS_Game_social_efficiency_high_cvx"
+    fig_name = "efficiency_low/5GDDoS_Game_social_efficiency_low_cvx"
     fig = Fig(eff, data_dic, x_title, y_title, fig_name, marker_dic)
     write_fig(fig, fig_name)
     plt.close()
@@ -184,17 +184,17 @@ def plot_utility_efficiency_high_cvx():
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     if JPG_ENABLE:
         plt.savefig(
-            './image/efficiency_high/5GDDoS_Game_asp_efficiency_high_cvx.jpg')
+            './image/efficiency_low/5GDDoS_Game_asp_efficiency_low_cvx.jpg')
     plt.savefig(
-        './image/efficiency_high/5GDDoS_Game_asp_efficiency_high_cvx.pdf')
+        './image/efficiency_low/5GDDoS_Game_asp_efficiency_low_cvx.pdf')
     plt.savefig(
-        './image/efficiency_high/5GDDoS_Game_asp_efficiency_high_cvx.eps')
+        './image/efficiency_low/5GDDoS_Game_asp_efficiency_low_cvx.eps')
     data_dic = dict()
     data_dic["Proposed Scheme"] = asp_utility_proposed_lst
     data_dic["No IPS"] = asp_utility_zero_lst
     data_dic["5% IPS VM"] = asp_utility_five_lst
     data_dic["7% IPS VM"] = asp_utility_seven_lst
-    fig_name = "efficiency_high/5GDDoS_Game_asp_efficiency_high_cvx"
+    fig_name = "efficiency_low/5GDDoS_Game_asp_efficiency_low_cvx"
     fig = Fig(eff, data_dic, x_title, y_title, fig_name, marker_dic)
     write_fig(fig, fig_name)
     plt.close()
@@ -217,17 +217,17 @@ def plot_utility_efficiency_high_cvx():
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     if JPG_ENABLE:
         plt.savefig(
-            './image/efficiency_high/5GDDoS_Game_total_vm_efficiency_high_cvx.jpg')
+            './image/efficiency_low/5GDDoS_Game_total_vm_efficiency_low_cvx.jpg')
     plt.savefig(
-        './image/efficiency_high/5GDDoS_Game_total_vm_efficiency_high_cvx.pdf')
+        './image/efficiency_low/5GDDoS_Game_total_vm_efficiency_low_cvx.pdf')
     plt.savefig(
-        './image/efficiency_high/5GDDoS_Game_total_vm_efficiency_high_cvx.eps')
+        './image/efficiency_low/5GDDoS_Game_total_vm_efficiency_low_cvx.eps')
     data_dic = dict()
     data_dic["Proposed Scheme"] = vm_proposed_lst
     data_dic["No IPS"] = vm_zero_lst
     data_dic["5% IPS VM"] = vm_five_lst
     data_dic["7% IPS VM"] = vm_seven_lst
-    fig_name = "efficiency_high/5GDDoS_Game_total_vm_efficiency_high_cvx"
+    fig_name = "efficiency_low/5GDDoS_Game_total_vm_efficiency_low_cvx"
     fig = Fig(eff, data_dic, x_title, y_title, fig_name, marker_dic)
     write_fig(fig, fig_name)
     plt.close()

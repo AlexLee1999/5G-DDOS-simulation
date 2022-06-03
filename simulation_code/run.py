@@ -14,6 +14,7 @@ from mpo import *
 from convex_solver import *
 from efficiency_sim_high import *
 from efficiency_sim_low import *
+from efficiency_sim import *
 
 
 if __name__ == '__main__':
@@ -29,8 +30,9 @@ if __name__ == '__main__':
     # plot_utility_ratio_cvx()
     # plot_utility_ratio_high_cvx()
     # plot_utility_ratio_low_cvx()
-    plot_utility_efficiency_high_cvx()
-    plot_utility_efficiency_low_cvx()
+    # plot_utility_efficiency_high_cvx()
+    # plot_utility_efficiency_low_cvx()
+    plot_utility_efficiency_cvx()
     #######################################################################
     # Step Optimizations
     #######################################################################
