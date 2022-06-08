@@ -15,7 +15,7 @@ class ASP():
     def __init__(self, ratio, num, ASP_type, eff):
         self.type = ASP_type
         self.bandwidth = ASP_BANDWIDTH
-        self.frequency = MPO_CPU_FREQUENCY
+        self.frequency = MPO_VM_CPU_FREQUENCY
         self.device_list = []
         self.mal_device_list = []
         self.malicious_ratio = ratio
