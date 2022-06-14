@@ -32,8 +32,8 @@ def plot_utility_efficiency_low_cvx():
     social_seven_lst = []
     asp_utility_seven_lst = []
     vm_seven_lst = []
-    for e in eff:
-        print(e, flush=True)
+    for ef in eff:
+        print(ef, flush=True)
         utility_zero = 0
         social_zero = 0
         asp_utility_zero = 0
@@ -55,7 +55,7 @@ def plot_utility_efficiency_low_cvx():
         while i < ITER:
             try:
                 mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM,
-                          load_type.LOW, MPO_NUM_OF_ASP, e)
+                          load_type.LOW, MPO_NUM_OF_ASP, ef)
                 util, max_phi, social, asp_u, vm_num = mpo.optimize_phi()
                 utility_proposed += util
                 social_proposed += social

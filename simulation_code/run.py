@@ -24,12 +24,12 @@ if __name__ == '__main__':
     #######################################################################
     # Convex Optimizations
     #######################################################################
-    # plot_utility_device_num_cvx()
-    # plot_utility_device_num_high_cvx()
-    # plot_utility_device_num_low_cvx()
-    # plot_utility_ratio_cvx()
-    # plot_utility_ratio_high_cvx()
-    # plot_utility_ratio_low_cvx()
+    plot_utility_device_num_cvx()
+    plot_utility_device_num_high_cvx()
+    plot_utility_device_num_low_cvx()
+    plot_utility_ratio_cvx()
+    plot_utility_ratio_high_cvx()
+    plot_utility_ratio_low_cvx()
     plot_utility_efficiency_high_cvx()
     plot_utility_efficiency_low_cvx()
     plot_utility_efficiency_cvx()
@@ -46,9 +46,9 @@ if __name__ == '__main__':
     #######################################################################
     # Plot MPO Curves
     #######################################################################
-    # mpo = MPO(0.9, 1000, load_type.RATIO, MPO_NUM_OF_ASP, 5, 0)
+    # mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.HIGH, MPO_NUM_OF_ASP, DEFAULT_ETA, 2, 3)
     # for asp in mpo.asp_lst:
-    #     print(asp.case)
+    #     print(asp)
     # print(mpo.bd)
     # print(mpo.qbd)
     # print(mpo.cp)
@@ -61,9 +61,7 @@ if __name__ == '__main__':
     # print(mpo.optimize_phi_with_chi(0, max_phi))
     # print(mpo.optimize_phi_with_price(max_phi))
     # mpo.plot_MPO_utility(1000)
-    # mpo.plot_social_welfare()
     # mpo.plot_asp_utility()
-
     #######################################################################
     # Plot ASP Curves
     #######################################################################

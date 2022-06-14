@@ -10,11 +10,10 @@ class Device():
         self.frequency = DEVICE_FREQUENCY
         self.bandwidth = bandwidth
         self.task_size = uniform(
-            DEVICE_TASK_SIZE_LOWER, DEVICE_TASK_SIZE_UPPER) * 8 * 10E3  # change to bits
+            DEVICE_TASK_SIZE_LOWER, DEVICE_TASK_SIZE_UPPER) * 8 * 1E3  # change to bits
         self.arrival_rate = uniform(
             DEVICE_ARRIVAL_RATE_LOWER, DEVICE_ARRIVAL_RATE_UPPER)
-        self.required_cpu_cycle = uniform(
-            DEVICE_REQUIRED_CPU_CYCLE_LOWER, DEVICE_REQUIRED_CPU_CYCLE_UPPER)
+        self.required_cpu_cycle = CPU_CYCLE_PER_BITS * self.task_size
         self.log_snr = math.log2(1 + self.tx_power * 10**10 * 10 ** (-(
             22 * math.log10(self.distance) + 28 + 20 * math.log10(self.frequency)) / 10))
         self.shannon_rate = self.bandwidth * self.log_snr
@@ -31,11 +30,10 @@ class Malicious_Device():
         self.frequency = DEVICE_FREQUENCY
         self.bandwidth = bandwidth
         self.task_size = uniform(
-            DEVICE_TASK_SIZE_LOWER, DEVICE_TASK_SIZE_UPPER) * 8 * 10E3  # change to bits
+            DEVICE_TASK_SIZE_LOWER, DEVICE_TASK_SIZE_UPPER) * 8 * 1E3  # change to bits
         self.arrival_rate = uniform(
             DEVICE_ARRIVAL_RATE_LOWER, DEVICE_ARRIVAL_RATE_UPPER)
-        self.required_cpu_cycle = uniform(
-            DEVICE_REQUIRED_CPU_CYCLE_LOWER, DEVICE_REQUIRED_CPU_CYCLE_UPPER)
+        self.required_cpu_cycle = CPU_CYCLE_PER_BITS * self.task_size
         self.log_snr = math.log2(1 + self.tx_power * 10**10 * 10 ** (-(
             22 * math.log10(self.distance) + 28 + 20 * math.log10(self.frequency)) / 10))
         self.shannon_rate = self.bandwidth * self.log_snr
@@ -51,11 +49,10 @@ class Device_high_load():
         self.frequency = DEVICE_FREQUENCY
         self.bandwidth = bandwidth
         self.task_size = uniform(
-            DEVICE_TASK_SIZE_LOWER, DEVICE_TASK_SIZE_UPPER) * 8 * 10E3  # change to bits
+            DEVICE_TASK_SIZE_HIGH_LOWER, DEVICE_TASK_SIZE_HIGH_UPPER) * 8 * 1E3  # change to bits
         self.arrival_rate = uniform(
             DEVICE_ARRIVAL_RATE_LOWER, DEVICE_ARRIVAL_RATE_UPPER)
-        self.required_cpu_cycle = uniform(
-            DEVICE_REQUIRED_CPU_CYCLE_HIGH_LOWER, DEVICE_REQUIRED_CPU_CYCLE_HIGH_UPPER)
+        self.required_cpu_cycle = CPU_CYCLE_PER_BITS * self.task_size
         self.log_snr = math.log2(1 + self.tx_power * 10**10 * 10 ** (-(
             22 * math.log10(self.distance) + 28 + 20 * math.log10(self.frequency)) / 10))
         self.shannon_rate = self.bandwidth * self.log_snr
@@ -72,11 +69,10 @@ class Malicious_Device_high_load():
         self.frequency = DEVICE_FREQUENCY
         self.bandwidth = bandwidth
         self.task_size = uniform(
-            DEVICE_TASK_SIZE_LOWER, DEVICE_TASK_SIZE_UPPER) * 8 * 10E3  # change to bits
+            DEVICE_TASK_SIZE_HIGH_LOWER, DEVICE_TASK_SIZE_HIGH_UPPER) * 8 * 1E3  # change to bits
         self.arrival_rate = uniform(
             DEVICE_ARRIVAL_RATE_LOWER, DEVICE_ARRIVAL_RATE_UPPER)
-        self.required_cpu_cycle = uniform(
-            DEVICE_REQUIRED_CPU_CYCLE_HIGH_LOWER, DEVICE_REQUIRED_CPU_CYCLE_HIGH_UPPER)
+        self.required_cpu_cycle = CPU_CYCLE_PER_BITS * self.task_size
         self.log_snr = math.log2(1 + self.tx_power * 10**10 * 10 ** (-(
             22 * math.log10(self.distance) + 28 + 20 * math.log10(self.frequency)) / 10))
         self.shannon_rate = self.bandwidth * self.log_snr
@@ -92,11 +88,10 @@ class Device_low_load():
         self.frequency = DEVICE_FREQUENCY
         self.bandwidth = bandwidth
         self.task_size = uniform(
-            DEVICE_TASK_SIZE_LOWER, DEVICE_TASK_SIZE_UPPER) * 8 * 10E3  # change to bits
+            DEVICE_TASK_SIZE_LOW_LOWER, DEVICE_TASK_SIZE_LOW_UPPER) * 8 * 1E3  # change to bits
         self.arrival_rate = uniform(
             DEVICE_ARRIVAL_RATE_LOWER, DEVICE_ARRIVAL_RATE_UPPER)
-        self.required_cpu_cycle = uniform(
-            DEVICE_REQUIRED_CPU_CYCLE_LOW_LOWER, DEVICE_REQUIRED_CPU_CYCLE_LOW_UPPER)
+        self.required_cpu_cycle = CPU_CYCLE_PER_BITS * self.task_size
         self.log_snr = math.log2(1 + self.tx_power * 10**10 * 10 ** (-(
             22 * math.log10(self.distance) + 28 + 20 * math.log10(self.frequency)) / 10))
         self.shannon_rate = self.bandwidth * self.log_snr
@@ -113,11 +108,10 @@ class Malicious_Device_low_load():
         self.frequency = DEVICE_FREQUENCY
         self.bandwidth = bandwidth
         self.task_size = uniform(
-            DEVICE_TASK_SIZE_LOWER, DEVICE_TASK_SIZE_UPPER) * 8 * 10E3  # change to bits
+            DEVICE_TASK_SIZE_LOW_LOWER, DEVICE_TASK_SIZE_LOW_UPPER) * 8 * 1E3  # change to bits
         self.arrival_rate = uniform(
             DEVICE_ARRIVAL_RATE_LOWER, DEVICE_ARRIVAL_RATE_UPPER)
-        self.required_cpu_cycle = uniform(
-            DEVICE_REQUIRED_CPU_CYCLE_LOW_LOWER, DEVICE_REQUIRED_CPU_CYCLE_LOW_UPPER)
+        self.required_cpu_cycle = CPU_CYCLE_PER_BITS * self.task_size
         self.log_snr = math.log2(1 + self.tx_power * 10**10 * 10 ** (-(
             22 * math.log10(self.distance) + 28 + 20 * math.log10(self.frequency)) / 10))
         self.shannon_rate = self.bandwidth * self.log_snr

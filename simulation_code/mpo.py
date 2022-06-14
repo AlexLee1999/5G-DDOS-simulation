@@ -16,7 +16,7 @@ class MPO():
         self.asp_response = []
         self.num_of_asp = asp_num
         self.eff = eff
-        self.num_of_vm = uniform(MPO_NUM_OF_VM_LOWER, MPO_NUM_OF_VM_UPPER)
+        self.num_of_vm = MPO_NUM_OF_VM
         self.ratio = ratio
         self.num = num
         self.set_asp()
@@ -319,7 +319,7 @@ class MPO():
             mid = (upper + lower) / 2
             self.set_and_check_required_vm(lower)
             vm_num = self.total_vm()
-            while abs(vm_num - self.num_of_vm) > 0.001 and abs(upper - lower) > 1E-8:
+            while abs(vm_num - self.num_of_vm) > 0.001 and abs(upper - lower) > 1E-15:
                 mid = (upper + lower) / 2
                 self.set_and_check_required_vm(mid)
                 vm_num = self.total_vm()
