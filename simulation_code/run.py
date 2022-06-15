@@ -24,24 +24,15 @@ if __name__ == '__main__':
     #######################################################################
     # Convex Optimizations
     #######################################################################
-    # plot_utility_device_num_cvx()
-    # plot_utility_device_num_high_cvx()
-    # plot_utility_device_num_low_cvx()
-    # plot_utility_ratio_cvx()
-    # plot_utility_ratio_high_cvx()
-    # plot_utility_ratio_low_cvx()
-    # plot_utility_efficiency_cvx()
-    # plot_utility_efficiency_high_cvx()
-    # plot_utility_efficiency_low_cvx()
-    #######################################################################
-    # Step Optimizations
-    #######################################################################
-    # plot_utility_device_num_step()
-    # plot_utility_device_num_high_step()
-    # plot_utility_device_num_low_step()
-    # plot_utility_ratio_step()
-    # plot_utility_ratio_high_step()
-    # plot_utility_ratio_low_step()
+    plot_utility_device_num_cvx()
+    plot_utility_device_num_high_cvx()
+    plot_utility_device_num_low_cvx()
+    plot_utility_ratio_cvx()
+    plot_utility_ratio_high_cvx()
+    plot_utility_ratio_low_cvx()
+    plot_utility_efficiency_cvx()
+    plot_utility_efficiency_high_cvx()
+    plot_utility_efficiency_low_cvx()
 
     #######################################################################
     # Plot MPO Curves
@@ -49,37 +40,7 @@ if __name__ == '__main__':
     # mpo = MPO(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.AVERAGE, MPO_NUM_OF_ASP, DEFAULT_ETA, 2, 3)
     # for asp in mpo.asp_lst:
     #     print(asp)
-    # print(mpo.bd)
-    # print(mpo.qbd)
-    # print(mpo.cp)
-    # mpo_utility, max_phi, social_welfare, asp_utility, vm_number = mpo.optimize_phi()
-    # print(mpo_utility, max_phi, social_welfare, asp_utility, vm_number)
-    # print(mpo.optimize_phi_with_chi(0, max_phi))
-    # print(mpo.optimize_phi_with_price(max_phi))
-    # mpo_utility, max_phi, social_welfare, asp_utility, vm_number = mpo.optimize_phi_with_step(STEP)
-    # print(mpo_utility, max_phi, social_welfare, asp_utility, vm_number)
-    # print(mpo.optimize_phi_with_chi(0, max_phi))
-    # print(mpo.optimize_phi_with_price(max_phi))
     # mpo.plot_MPO_utility(350)
-    # mpo.plot_asp_utility()
-    #######################################################################
-    # Plot ASP Curves
-    #######################################################################
-    # asp = ASP(DEFAULT_DEVICE_RATIO, DEFAULT_DEVICE_NUM, load_type.HIGH)
-    # asp.plot_max_zh()
-    # asp.plot_max()
-    # plot_asp_utility()
-
-    #######################################################################
-    # Misc.
-    #######################################################################    
-    # plot_utility_device_num_high_new_step()
-    # plot_utility_device_num_low_new_step()
-    # plot_utility_ratio_high_new_step()
-    # plot_utility_ratio_low_new_step()
-    # plot_utility_high_low_ratio_step()
-    # plot_ratio_with_same_IPS_ratio_step()
-    # plot_flat_price()
 
     toc = time.perf_counter()
     print(f"\nTotal {str(datetime.timedelta(seconds=int(toc - tic)))} seconds")

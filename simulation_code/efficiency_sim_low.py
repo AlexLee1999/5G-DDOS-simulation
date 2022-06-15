@@ -7,14 +7,8 @@ from mpo import *
 from convex_solver import *
 
 
-
 def plot_utility_efficiency_low_cvx():
     print("efficiency low")
-    marker_dic = dict()
-    marker_dic["Proposed Scheme"] = 'o'
-    marker_dic["No IPS"] = '^'
-    marker_dic["5% IPS VM"] = 's'
-    marker_dic["7% IPS VM"] = 'p'
     eff = EFF_LST
     utility_proposed_lst = []
     social_proposed_lst = []
@@ -32,6 +26,10 @@ def plot_utility_efficiency_low_cvx():
     social_seven_lst = []
     asp_utility_seven_lst = []
     vm_seven_lst = []
+    utility_eff_lst = []
+    social_eff_lst = []
+    asp_utility_eff_lst = []
+    vm_eff_lst = []
     for ef in eff:
         print(ef, flush=True)
         utility_zero = 0
@@ -50,6 +48,10 @@ def plot_utility_efficiency_low_cvx():
         social_seven = 0
         asp_utility_seven = 0
         vm_seven = 0
+        utility_eff = 0
+        social_eff = 0
+        asp_utility_eff = 0
+        vm_eff = 0
         i = 0
         pbar = tqdm(total=ITER)
         while i < ITER:
@@ -79,6 +81,13 @@ def plot_utility_efficiency_low_cvx():
                 social_seven += social
                 asp_utility_seven += asp_u
                 vm_seven += vm_num
+                eff_ips = ef * EFF_IPS_PROP_COFF
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
+                    eff_ips, max_phi)
+                utility_eff += util
+                social_eff += social
+                asp_utility_eff += asp_u
+                vm_eff += vm_num
                 i += 1
                 pbar.update(1)
             except ArithmeticError as e:
@@ -100,6 +109,10 @@ def plot_utility_efficiency_low_cvx():
         social_seven_lst.append(social_seven / ITER)
         asp_utility_seven_lst.append(asp_utility_seven / ITER)
         vm_seven_lst.append(vm_seven / ITER)
+        utility_eff_lst.append(utility_eff / ITER)
+        social_eff_lst.append(social_eff / ITER)
+        asp_utility_eff_lst.append(asp_utility_eff / ITER)
+        vm_eff_lst.append(vm_eff / ITER)
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
     plt.plot(eff, utility_proposed_lst, marker='o', markerfacecolor='none',
              label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
@@ -108,6 +121,8 @@ def plot_utility_efficiency_low_cvx():
     plt.plot(eff, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(eff, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(eff, utility_eff_lst, marker='p', markerfacecolor='none', label='Propotional IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{IPS\ EFFICIENCY}$'
@@ -123,14 +138,6 @@ def plot_utility_efficiency_low_cvx():
         './image/efficiency_low/5GDDoS_Game_MPO_efficiency_low_cvx.pdf')
     plt.savefig(
         './image/efficiency_low/5GDDoS_Game_MPO_efficiency_low_cvx.eps')
-    data_dic = dict()
-    data_dic["Proposed Scheme"] = utility_proposed_lst
-    data_dic["No IPS"] = utility_zero_lst
-    data_dic["5% IPS VM"] = utility_five_lst
-    data_dic["7% IPS VM"] = utility_seven_lst
-    fig_name = "efficiency_low/5GDDoS_Game_MPO_efficiency_low_cvx"
-    fig = Fig(eff, data_dic, x_title, y_title, fig_name, marker_dic)
-    write_fig(fig, fig_name)
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
@@ -141,6 +148,10 @@ def plot_utility_efficiency_low_cvx():
     plt.plot(eff, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(eff, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(eff, social_eff_lst, marker='p', markerfacecolor='none', label='Propotional IPS efficiency',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(eff, social_eff_lst, marker='p', markerfacecolor='none', label='Propotional IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{IPS\ EFFICIENCY}$'
@@ -156,14 +167,6 @@ def plot_utility_efficiency_low_cvx():
         './image/efficiency_low/5GDDoS_Game_social_efficiency_low_cvx.pdf')
     plt.savefig(
         './image/efficiency_low/5GDDoS_Game_social_efficiency_low_cvx.eps')
-    data_dic = dict()
-    data_dic["Proposed Scheme"] = social_proposed_lst
-    data_dic["No IPS"] = social_zero_lst
-    data_dic["5% IPS VM"] = social_five_lst
-    data_dic["7% IPS VM"] = social_seven_lst
-    fig_name = "efficiency_low/5GDDoS_Game_social_efficiency_low_cvx"
-    fig = Fig(eff, data_dic, x_title, y_title, fig_name, marker_dic)
-    write_fig(fig, fig_name)
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
@@ -175,6 +178,8 @@ def plot_utility_efficiency_low_cvx():
              label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(eff, asp_utility_seven_lst, marker='p', markerfacecolor='none',
              label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(eff, asp_utility_eff_lst, marker='p', markerfacecolor='none', label='Propotional IPS efficiency',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{IPS\ EFFICIENCY}$'
     y_title = r'$\bf{ASP\ Utility}$'
@@ -189,14 +194,6 @@ def plot_utility_efficiency_low_cvx():
         './image/efficiency_low/5GDDoS_Game_asp_efficiency_low_cvx.pdf')
     plt.savefig(
         './image/efficiency_low/5GDDoS_Game_asp_efficiency_low_cvx.eps')
-    data_dic = dict()
-    data_dic["Proposed Scheme"] = asp_utility_proposed_lst
-    data_dic["No IPS"] = asp_utility_zero_lst
-    data_dic["5% IPS VM"] = asp_utility_five_lst
-    data_dic["7% IPS VM"] = asp_utility_seven_lst
-    fig_name = "efficiency_low/5GDDoS_Game_asp_efficiency_low_cvx"
-    fig = Fig(eff, data_dic, x_title, y_title, fig_name, marker_dic)
-    write_fig(fig, fig_name)
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
@@ -207,6 +204,8 @@ def plot_utility_efficiency_low_cvx():
     plt.plot(eff, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(eff, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(eff, vm_eff_lst, marker='p', markerfacecolor='none', label='Propotional IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{IPS\ EFFICIENCY}$'
@@ -222,12 +221,4 @@ def plot_utility_efficiency_low_cvx():
         './image/efficiency_low/5GDDoS_Game_total_vm_efficiency_low_cvx.pdf')
     plt.savefig(
         './image/efficiency_low/5GDDoS_Game_total_vm_efficiency_low_cvx.eps')
-    data_dic = dict()
-    data_dic["Proposed Scheme"] = vm_proposed_lst
-    data_dic["No IPS"] = vm_zero_lst
-    data_dic["5% IPS VM"] = vm_five_lst
-    data_dic["7% IPS VM"] = vm_seven_lst
-    fig_name = "efficiency_low/5GDDoS_Game_total_vm_efficiency_low_cvx"
-    fig = Fig(eff, data_dic, x_title, y_title, fig_name, marker_dic)
-    write_fig(fig, fig_name)
     plt.close()

@@ -26,6 +26,10 @@ def plot_utility_device_num_cvx():
     social_seven_lst = []
     asp_utility_seven_lst = []
     vm_seven_lst = []
+    utility_ips_lst = []
+    social_ips_lst = []
+    asp_utility_ips_lst = []
+    vm_ips_lst = []
     for n in num:
         print(n, flush=True)
         utility_zero = 0
@@ -44,6 +48,10 @@ def plot_utility_device_num_cvx():
         social_seven = 0
         asp_utility_seven = 0
         vm_seven = 0
+        utility_ips = 0
+        social_ips = 0
+        asp_utility_ips = 0
+        vm_ips = 0
         i = 0
         pbar = tqdm(total=ITER)
         while i < ITER:
@@ -73,6 +81,13 @@ def plot_utility_device_num_cvx():
                 social_seven += social
                 asp_utility_seven += asp_u
                 vm_seven += vm_num
+                ips = IPS_PROP_COFF * DEFAULT_DEVICE_RATIO
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
+                    ips, max_phi)
+                utility_ips += util
+                social_ips += social
+                asp_utility_ips += asp_u
+                vm_ips += vm_num
                 i += 1
                 pbar.update(1)
             except ArithmeticError as e:
@@ -94,6 +109,10 @@ def plot_utility_device_num_cvx():
         social_seven_lst.append(social_seven / ITER)
         asp_utility_seven_lst.append(asp_utility_seven / ITER)
         vm_seven_lst.append(vm_seven / ITER)
+        utility_ips_lst.append(utility_ips / ITER)
+        social_ips_lst.append(social_ips / ITER)
+        asp_utility_ips_lst.append(asp_utility_ips / ITER)
+        vm_ips_lst.append(vm_ips / ITER)
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
     plt.plot(num, utility_proposed_lst, marker='o', markerfacecolor='none',
              label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
@@ -102,6 +121,8 @@ def plot_utility_device_num_cvx():
     plt.plot(num, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, utility_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
@@ -123,6 +144,8 @@ def plot_utility_device_num_cvx():
              label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
     plt.plot(num, social_seven_lst, marker='p', markerfacecolor='none',
              label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+    plt.plot(num, social_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=LABEL_FONT_SIZE)
@@ -143,6 +166,8 @@ def plot_utility_device_num_cvx():
              label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
     plt.plot(num, asp_utility_seven_lst, marker='p', markerfacecolor='none',
              label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+    plt.plot(num, asp_utility_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
@@ -163,6 +188,8 @@ def plot_utility_device_num_cvx():
              label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
     plt.plot(num, vm_seven_lst, marker='p', markerfacecolor='none',
              label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE)
+    plt.plot(num, vm_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
