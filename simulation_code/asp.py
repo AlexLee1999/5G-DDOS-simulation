@@ -94,7 +94,7 @@ class ASP():
 
     def total_pay(self):
         self.total_payment = 0
-        for dev in self.normal_device_list:
+        for dev in self.device_list:
             self.total_payment += dev.price_per_task
     """
     set_service_rate : initial the service rate
