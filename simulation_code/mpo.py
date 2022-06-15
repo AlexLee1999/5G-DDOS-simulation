@@ -216,7 +216,7 @@ class MPO():
 
     def plot_MPO_utility(self, plot_range):
         self.find_constraint_phi()
-        phi = 1
+        phi = self.constraint_phi
         step = 1
         pr = []
         ut = []
