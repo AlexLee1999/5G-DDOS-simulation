@@ -27,6 +27,10 @@ def plot_utility_efficiency_high_cvx():
     social_seven_lst = []
     asp_utility_seven_lst = []
     vm_seven_lst = []
+    utility_ips_lst = []
+    social_ips_lst = []
+    asp_utility_ips_lst = []
+    vm_ips_lst = []
     utility_eff_lst = []
     social_eff_lst = []
     asp_utility_eff_lst = []
@@ -49,6 +53,10 @@ def plot_utility_efficiency_high_cvx():
         social_seven = 0
         asp_utility_seven = 0
         vm_seven = 0
+        utility_ips = 0
+        social_ips = 0
+        asp_utility_ips = 0
+        vm_ips = 0
         utility_eff = 0
         social_eff = 0
         asp_utility_eff = 0
@@ -82,6 +90,13 @@ def plot_utility_efficiency_high_cvx():
                 social_seven += social
                 asp_utility_seven += asp_u
                 vm_seven += vm_num
+                ips = IPS_PROP_COFF * DEFAULT_DEVICE_RATIO
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
+                    ips, max_phi)
+                utility_ips += util
+                social_ips += social
+                asp_utility_ips += asp_u
+                vm_ips += vm_num
                 eff_ips = ef * EFF_IPS_PROP_COFF
                 util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
                     eff_ips, max_phi)
@@ -110,20 +125,26 @@ def plot_utility_efficiency_high_cvx():
         social_seven_lst.append(social_seven / ITER)
         asp_utility_seven_lst.append(asp_utility_seven / ITER)
         vm_seven_lst.append(vm_seven / ITER)
+        utility_ips_lst.append(utility_ips / ITER)
+        social_ips_lst.append(social_ips / ITER)
+        asp_utility_ips_lst.append(asp_utility_ips / ITER)
+        vm_ips_lst.append(vm_ips / ITER)
         utility_eff_lst.append(utility_eff / ITER)
         social_eff_lst.append(social_eff / ITER)
         asp_utility_eff_lst.append(asp_utility_eff / ITER)
         vm_eff_lst.append(vm_eff / ITER)
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
     plt.plot(eff, utility_proposed_lst, marker='o', markerfacecolor='none',
-             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+             label='Proposed', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(eff, utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(eff, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+    plt.plot(eff, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(eff, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+    plt.plot(eff, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(eff, utility_eff_lst, marker='p', markerfacecolor='none', label='Propotional IPS efficiency',
+    plt.plot(eff, utility_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(eff, utility_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{IPS\ EFFICIENCY}$'
@@ -142,15 +163,17 @@ def plot_utility_efficiency_high_cvx():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(eff, social_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme',
+    plt.plot(eff, social_proposed_lst, marker='o', markerfacecolor='none', label='Proposed',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(eff, social_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(eff, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+    plt.plot(eff, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(eff, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+    plt.plot(eff, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(eff, social_eff_lst, marker='p', markerfacecolor='none', label='Propotional IPS efficiency',
+    plt.plot(eff, social_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(eff, social_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{IPS\ EFFICIENCY}$'
@@ -170,14 +193,16 @@ def plot_utility_efficiency_high_cvx():
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
     plt.plot(eff, asp_utility_proposed_lst, marker='o', markerfacecolor='none',
-             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+             label='Proposed', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(eff, asp_utility_zero_lst, marker='^', markerfacecolor='none',
              label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(eff, asp_utility_five_lst, marker='s', markerfacecolor='none',
-             label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+             label='5% IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(eff, asp_utility_seven_lst, marker='p', markerfacecolor='none',
-             label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(eff, asp_utility_eff_lst, marker='p', markerfacecolor='none', label='Propotional IPS efficiency',
+             label='7% IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(eff, asp_utility_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(eff, asp_utility_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{IPS\ EFFICIENCY}$'
@@ -196,15 +221,17 @@ def plot_utility_efficiency_high_cvx():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(eff, vm_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme',
+    plt.plot(eff, vm_proposed_lst, marker='o', markerfacecolor='none', label='Proposed',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(eff, vm_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(eff, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+    plt.plot(eff, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(eff, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+    plt.plot(eff, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(eff, vm_eff_lst, marker='p', markerfacecolor='none', label='Propotional IPS efficiency',
+    plt.plot(eff, vm_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(eff, vm_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{IPS\ EFFICIENCY}$'

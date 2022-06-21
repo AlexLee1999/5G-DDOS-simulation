@@ -31,6 +31,10 @@ def plot_utility_ratio_high_cvx():
     social_ips_lst = []
     asp_utility_ips_lst = []
     vm_ips_lst = []
+    utility_eff_lst = []
+    social_eff_lst = []
+    asp_utility_eff_lst = []
+    vm_eff_lst = []
     for r in ratio:
         print(r, flush=True)
         utility_zero = 0
@@ -53,6 +57,10 @@ def plot_utility_ratio_high_cvx():
         social_ips = 0
         asp_utility_ips = 0
         vm_ips = 0
+        utility_eff = 0
+        social_eff = 0
+        asp_utility_eff = 0
+        vm_eff = 0
         i = 0
         pbar = tqdm(total=ITER)
         while i < ITER:
@@ -89,6 +97,13 @@ def plot_utility_ratio_high_cvx():
                 social_ips += social
                 asp_utility_ips += asp_u
                 vm_ips += vm_num
+                eff_ips = DEFAULT_ETA * EFF_IPS_PROP_COFF
+                util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
+                    eff_ips, max_phi)
+                utility_eff += util
+                social_eff += social
+                asp_utility_eff += asp_u
+                vm_eff += vm_num
                 i += 1
                 pbar.update(1)
             except ArithmeticError as e:
@@ -114,16 +129,22 @@ def plot_utility_ratio_high_cvx():
         social_ips_lst.append(social_ips / ITER)
         asp_utility_ips_lst.append(asp_utility_ips / ITER)
         vm_ips_lst.append(vm_ips / ITER)
+        utility_eff_lst.append(utility_eff / ITER)
+        social_eff_lst.append(social_eff / ITER)
+        asp_utility_eff_lst.append(asp_utility_eff / ITER)
+        vm_eff_lst.append(vm_eff / ITER)
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
     plt.plot(ratio, utility_proposed_lst, marker='o', markerfacecolor='none',
-             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+             label='Proposed', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, utility_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+    plt.plot(ratio, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+    plt.plot(ratio, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, utility_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio',
+    plt.plot(ratio, utility_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, utility_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
@@ -140,14 +161,16 @@ def plot_utility_ratio_high_cvx():
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
     plt.plot(ratio, social_proposed_lst, marker='o', markerfacecolor='none',
-             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+             label='Proposed', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, social_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+    plt.plot(ratio, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+    plt.plot(ratio, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, social_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio',
+    plt.plot(ratio, social_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, social_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
@@ -164,15 +187,17 @@ def plot_utility_ratio_high_cvx():
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
     plt.plot(ratio, asp_utility_proposed_lst, marker='o', markerfacecolor='none',
-             label='Proposed Scheme', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+             label='Proposed', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, asp_utility_zero_lst, marker='^', markerfacecolor='none',
              label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, asp_utility_five_lst, marker='s', markerfacecolor='none',
-             label='5% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+             label='5% IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, asp_utility_seven_lst, marker='p', markerfacecolor='none',
-             label='7% IPS VM', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+             label='7% IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, asp_utility_ips_lst, marker='*', markerfacecolor='none',
-             label='Propotional IPS ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+             label='Prop Malicious ratio', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, asp_utility_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
     y_title = r'$\bf{ASP\ Utility}$'
@@ -187,15 +212,17 @@ def plot_utility_ratio_high_cvx():
     plt.close()
 
     plt.figure(figsize=FIG_SIZE, dpi=DPI)
-    plt.plot(ratio, vm_proposed_lst, marker='o', markerfacecolor='none', label='Proposed Scheme',
+    plt.plot(ratio, vm_proposed_lst, marker='o', markerfacecolor='none', label='Proposed',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(ratio, vm_zero_lst, marker='^', markerfacecolor='none', label='No IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS VM',
+    plt.plot(ratio, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+    plt.plot(ratio, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(ratio, vm_ips_lst, marker='*', markerfacecolor='none', label='Propotional IPS ratio',
+    plt.plot(ratio, vm_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
+             linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(ratio, vm_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
     x_title = r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$'
