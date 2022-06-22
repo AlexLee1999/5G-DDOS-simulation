@@ -23,10 +23,10 @@ def plot_utility_device_num_high_cvx():
     social_five_lst = []
     asp_utility_five_lst = []
     vm_five_lst = []
-    utility_seven_lst = []
-    social_seven_lst = []
-    asp_utility_seven_lst = []
-    vm_seven_lst = []
+    utility_ten_lst = []
+    social_ten_lst = []
+    asp_utility_ten_lst = []
+    vm_ten_lst = []
     utility_ips_lst = []
     social_ips_lst = []
     asp_utility_ips_lst = []
@@ -49,10 +49,10 @@ def plot_utility_device_num_high_cvx():
         social_five = 0
         asp_utility_five = 0
         vm_five = 0
-        utility_seven = 0
-        social_seven = 0
-        asp_utility_seven = 0
-        vm_seven = 0
+        utility_ten = 0
+        social_ten = 0
+        asp_utility_ten = 0
+        vm_ten = 0
         utility_ips = 0
         social_ips = 0
         asp_utility_ips = 0
@@ -86,10 +86,10 @@ def plot_utility_device_num_high_cvx():
                 vm_five += vm_num
                 util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
                     0.07, max_phi)
-                utility_seven += util
-                social_seven += social
-                asp_utility_seven += asp_u
-                vm_seven += vm_num
+                utility_ten += util
+                social_ten += social
+                asp_utility_ten += asp_u
+                vm_ten += vm_num
                 ips = IPS_PROP_COFF * DEFAULT_DEVICE_RATIO
                 util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
                     ips, max_phi)
@@ -121,10 +121,10 @@ def plot_utility_device_num_high_cvx():
         social_five_lst.append(social_five / ITER)
         asp_utility_five_lst.append(asp_utility_five / ITER)
         vm_five_lst.append(vm_five / ITER)
-        utility_seven_lst.append(utility_seven / ITER)
-        social_seven_lst.append(social_seven / ITER)
-        asp_utility_seven_lst.append(asp_utility_seven / ITER)
-        vm_seven_lst.append(vm_seven / ITER)
+        utility_ten_lst.append(utility_ten / ITER)
+        social_ten_lst.append(social_ten / ITER)
+        asp_utility_ten_lst.append(asp_utility_ten / ITER)
+        vm_ten_lst.append(vm_ten / ITER)
         utility_ips_lst.append(utility_ips / ITER)
         social_ips_lst.append(social_ips / ITER)
         asp_utility_ips_lst.append(asp_utility_ips / ITER)
@@ -140,7 +140,7 @@ def plot_utility_device_num_high_cvx():
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
+    plt.plot(num, utility_ten_lst, marker='p', markerfacecolor='none', label='10% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, utility_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
@@ -169,7 +169,7 @@ def plot_utility_device_num_high_cvx():
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
+    plt.plot(num, social_ten_lst, marker='p', markerfacecolor='none', label='10% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, social_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
@@ -198,8 +198,8 @@ def plot_utility_device_num_high_cvx():
              label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, asp_utility_five_lst, marker='s', markerfacecolor='none',
              label='5% IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, asp_utility_seven_lst, marker='p', markerfacecolor='none',
-             label='7% IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
+    plt.plot(num, asp_utility_ten_lst, marker='p', markerfacecolor='none',
+             label='10% IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, asp_utility_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, asp_utility_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
@@ -227,7 +227,7 @@ def plot_utility_device_num_high_cvx():
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
+    plt.plot(num, vm_ten_lst, marker='p', markerfacecolor='none', label='10% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, vm_ips_lst, marker='*', markerfacecolor='none', label='Prop Malicious ratio',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
