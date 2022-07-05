@@ -158,7 +158,7 @@ def plot_utility_device_num_low_cvx():
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, utility_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, utility_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
+    plt.plot(num, utility_seven_lst, marker='>', markerfacecolor='none', label='7% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, utility_ten_lst, marker='p', markerfacecolor='none', label='10% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
@@ -186,7 +186,7 @@ def plot_utility_device_num_low_cvx():
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, social_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, social_seven_lst, marker='p', markerfacecolor='none', label='7% IPS VM',
+    plt.plot(num, social_seven_lst, marker='>', markerfacecolor='none', label='7% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, social_ten_lst, marker='p', markerfacecolor='none', label='10% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
@@ -217,7 +217,7 @@ def plot_utility_device_num_low_cvx():
              label='No IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, asp_utility_five_lst, marker='s', markerfacecolor='none',
              label='5% IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, asp_utility_seven_lst, marker='p', markerfacecolor='none',
+    plt.plot(num, asp_utility_seven_lst, marker='>', markerfacecolor='none',
              label='7% IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, asp_utility_ten_lst, marker='p', markerfacecolor='none',
              label='10% IPS', linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
@@ -245,7 +245,7 @@ def plot_utility_device_num_low_cvx():
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, vm_five_lst, marker='s', markerfacecolor='none', label='5% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
-    plt.plot(num, vm_seven_lst, marker='p', markerfacecolor='none', label='7% IPS',
+    plt.plot(num, vm_seven_lst, marker='>', markerfacecolor='none', label='7% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.plot(num, vm_ten_lst, marker='p', markerfacecolor='none', label='10% IPS',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
