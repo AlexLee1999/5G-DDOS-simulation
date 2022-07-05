@@ -221,7 +221,7 @@ def plot_utility_ratio_cvx():
     plt.plot(ratio, vm_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
+    plt.xlabel(r'$\bf{Malicious\ Users\ to\ Total\ Users\ Ratio}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)

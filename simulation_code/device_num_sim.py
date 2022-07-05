@@ -146,7 +146,7 @@ def plot_utility_device_num_cvx():
     plt.plot(num, utility_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
+    plt.xlabel(r'$\bf{Number\ of\ End-Users}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{MPO\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
@@ -170,7 +170,7 @@ def plot_utility_device_num_cvx():
     plt.plot(num, social_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
+    plt.xlabel(r'$\bf{Number\ of\ End-Users}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Social\ Welfare}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
@@ -194,7 +194,7 @@ def plot_utility_device_num_cvx():
     plt.plot(num, asp_utility_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
+    plt.xlabel(r'$\bf{Number\ of\ End-Users}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{ASP\ Utility}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
@@ -218,7 +218,7 @@ def plot_utility_device_num_cvx():
     plt.plot(num, vm_eff_lst, marker='D', markerfacecolor='none', label='Prop IPS efficiency',
              linewidth=LINE_WIDTH, markersize=MARKER_SIZE, mew=MARKER_EDGE_WIDTH)
     plt.legend(loc="best", fontsize=LEGEND_FONT_SIZE)
-    plt.xlabel(r'$\bf{Device\ Number}$', fontsize=LABEL_FONT_SIZE)
+    plt.xlabel(r'$\bf{Number\ of\ End-Users}$', fontsize=LABEL_FONT_SIZE)
     plt.ylabel(r'$\bf{Purchased\ VM}$', fontsize=LABEL_FONT_SIZE)
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
