@@ -84,7 +84,7 @@ def plot_utility_ratio_low_cvx():
                 asp_utility_five += asp_u
                 vm_five += vm_num
                 util, social, asp_u, vm_num = mpo.optimize_phi_with_chi(
-                    0.07, max_phi)
+                    0.1, max_phi)
                 utility_ten += util
                 social_ten += social
                 asp_utility_ten += asp_u

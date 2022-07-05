@@ -11,7 +11,7 @@ DEFAULT_ETA = 50
 def GLOBAL_ETA(mal, eff):
     return eff * mal
 # Conference 5000
-ITER = 2500
+ITER = 2000
 JPG_ENABLE = False
 DEFAULT_DEVICE_NUM = 1000
 # Conference 100
@@ -123,7 +123,7 @@ MARKER_EDGE_WIDTH = 3
 
 
 NUM_LST = [200, 400, 600, 800, 1000]
-RATIO_LST = [0.08, 0.09, 0.1, 0.11, 0.12, 0.15, 0.2, 0.25]
+RATIO_LST = [0.08, 0.1, 0.12, 0.15, 0.2, 0.25]
 EFF_LST = [5, 30, 50, 100, 200, 300]
 STEP = 1
 EPSILON = 0.0001

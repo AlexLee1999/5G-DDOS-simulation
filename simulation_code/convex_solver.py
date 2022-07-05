@@ -59,7 +59,7 @@ def convex_opt(sq, li, low, up):
         try:
             res = prob.solve(solver=ALTER_CVX_SOLVER)
             # print(prob)
-            print(f"ALTER_SOLVER : {ALTER_CVX_SOLVER}", flush=True)
+            # print(f"ALTER_SOLVER : {ALTER_CVX_SOLVER}", flush=True)
             if prob.status != OPTIMAL and prob.status != OPTIMAL_INACCURATE:
                 print(f"ALTER_SOLVER STATUS : {prob.status}", flush=True)
                 raise AssertionError("Not Optimal")
