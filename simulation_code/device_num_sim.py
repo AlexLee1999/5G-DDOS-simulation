@@ -6,7 +6,6 @@ from mpo import MPO
 from convex_solver import *
 
 
-
 def plot_utility_device_num_cvx():
     print("device")
     num = NUM_LST
@@ -253,4 +252,3 @@ def plot_utility_device_num_cvx():
     plt.savefig('./image/device_number/5GDDoS_Game_total_vm_device_cvx.pdf')
     plt.savefig('./image/device_number/5GDDoS_Game_total_vm_device_cvx.eps')
     plt.close()
-

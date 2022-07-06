@@ -7,7 +7,6 @@ from mpo import *
 from convex_solver import *
 
 
-
 def plot_utility_device_num_low_cvx():
     print("device low")
     num = NUM_LST
@@ -174,7 +173,8 @@ def plot_utility_device_num_low_cvx():
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     if JPG_ENABLE:
-        plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.jpg')
+        plt.savefig(
+            './image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.jpg')
     plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.pdf')
     plt.savefig('./image/device_number_low/5GDDoS_Game_MPO_device_low_cvx.eps')
     plt.close()
@@ -233,7 +233,8 @@ def plot_utility_device_num_low_cvx():
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     if JPG_ENABLE:
-        plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.jpg')
+        plt.savefig(
+            './image/device_number_low/5GDDoS_Game_asp_device_low_cvx.jpg')
     plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.pdf')
     plt.savefig('./image/device_number_low/5GDDoS_Game_asp_device_low_cvx.eps')
     plt.close()

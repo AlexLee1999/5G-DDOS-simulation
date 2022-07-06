@@ -7,7 +7,6 @@ from mpo import MPO
 from convex_solver import *
 
 
-
 def plot_utility_ratio_high_cvx():
     print("ratio high")
     ratio = RATIO_LST
@@ -258,7 +257,8 @@ def plot_utility_ratio_high_cvx():
     plt.xticks(fontsize=TICKS_FONT_SIZE)
     plt.yticks(fontsize=TICKS_FONT_SIZE)
     if JPG_ENABLE:
-        plt.savefig('./image/ratio_high/5GDDoS_Game_total_vm_ratio_high_cvx.jpg')
+        plt.savefig(
+            './image/ratio_high/5GDDoS_Game_total_vm_ratio_high_cvx.jpg')
     plt.savefig('./image/ratio_high/5GDDoS_Game_total_vm_ratio_high_cvx.pdf')
     plt.savefig('./image/ratio_high/5GDDoS_Game_total_vm_ratio_high_cvx.eps')
     plt.close()

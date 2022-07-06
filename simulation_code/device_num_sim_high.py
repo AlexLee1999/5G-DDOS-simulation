@@ -7,7 +7,6 @@ from mpo import *
 from convex_solver import *
 
 
-
 def plot_utility_device_num_high_cvx():
     print("device high")
     num = NUM_LST

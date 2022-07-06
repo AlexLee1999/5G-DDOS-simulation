@@ -7,7 +7,6 @@ from mpo import *
 from convex_solver import *
 
 
-
 def plot_utility_efficiency_high_cvx():
     print("efficiency high")
     eff = EFF_LST
