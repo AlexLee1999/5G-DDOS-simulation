@@ -11,7 +11,7 @@ DEFAULT_ETA = 50
 def GLOBAL_ETA(mal, eff):
     return eff * mal
 # Conference 5000
-ITER = 1
+ITER = 1500
 JPG_ENABLE = False
 DEFAULT_DEVICE_NUM = 1000
 # Conference 100
