@@ -96,7 +96,7 @@ Multi-layer edge framework is another research topic to solve the DDoS problems.
 
 Some papers enhanced intrusion detection with different methods. For example, several articles adopted entropy-based methods to identify the DDoS attack and achieve a decent detection rate\cite{Wang}\cite{Xuanyuan}. Bi \emph{et al.} made use of the feedback of edge routers in the autonomous system to enhance the detection \cite{Bi}. Liu \emph{et al.} developed a Deep Convolution Neural Network Q-learning model to prevent Mirai botnet\cite{Liu}. Zhang \emph{et al.} built dynamic deployment of classifiers based on a reinforcement learning model to detect DDoS attacks\cite{Zhang}. FlowGuard, an intelligent edge defense mechanism against IoT DDoS attacks, leveraging long short-term memory (LSTM) and convolutional neural network (CNN) \cite{Jia} was proposed by Jia \emph{et al.} .
 
-Collaborative frameworks also provided a possible solution. Yang \emph{et al.} devised a collaborative task offloading scheme to balance the task load between overloaded and underloaded cloudlets, which can improve the overall performance without additional security frameworks\cite{Yang}. Tan \emph{et al.} used a novel cooperative defense orchestration mechanism and introduced algorithms to effectively organize the cooperation of defense resources in MEC for DDoS mitigation \cite{Tan}. Chen \emph{et al.} proposed a new distributed aggregation scheme and established cooperation among communicating network domains, which establish an early warning system for DDoS defense across multiple internet service provider (ISP) domains \cite{Chen}. Li \emph{et al.} explored the cooperative defense strategy and provided an online cooperative defense framework\cite{Li}. Introduced by Mtibaa \emph{et al.}, detecting and isolating malicious nodes for D2D communication was proposed as another solution to DDoS attacks\cite{Mtibaa}. \textcolor{red}{Li \emph{et al.} proposed a framework CODE4MEC to coordinate resources to defend application-layer DDoS attack.\cite{Li2}} 
+Collaborative frameworks also provided a possible solution. Yang \emph{et al.} devised a collaborative task offloading scheme to balance the task load between overloaded and underloaded cloudlets, which can improve the overall performance without additional security frameworks\cite{Yang}. Tan \emph{et al.} used a novel cooperative defense orchestration mechanism and introduced algorithms to effectively organize the cooperation of defense resources in MEC for DDoS mitigation \cite{Tan}. Chen \emph{et al.} proposed a distributed aggregation scheme and established cooperation among communicating network domains, which establish an early warning system for DDoS defense across multiple internet service provider (ISP) domains \cite{Chen}. Li \emph{et al.} explored the cooperative defense strategy and provided an online cooperative defense framework\cite{Li}. Introduced by Mtibaa \emph{et al.}, detecting and isolating malicious nodes for D2D communication was proposed as another solution to DDoS attacks\cite{Mtibaa}. \textcolor{red}{Li \emph{et al.} proposed a framework CODE4MEC to coordinate resources to defend application-layer DDoS attack.\cite{Li2}} 
 
 There exist studies seeking defensive strategies against DDoS in MEC systems through game-theoretic approaches. He \emph{et al.} designed a mechanism to mitigate the impact of DDoS attacks by transferring requests from busy edge servers to their neighbor servers and adopted a game theory model to solve the optimization problem\cite{He}.  Liu \emph{et al.} considered the incomplete information about the resource allocation strategy and formulated a Bayesian Q-learning game to resolve the DDoS problems in sensor edge cloud (SEC)\cite{Liu3}. However, both of the works did not consider deploying IPS on the servers to defend against DDoS attacks. Guo \emph{et al.} proposed a price-based resource orchestration algorithm (PROA) to ensure resource utilization under DDoS attacks\cite{Guo2}. In this work, the system model allows the MEC nodes under attack to request IPS resource from other nodes and the relationship can be described as followers and leaders in Stackelberg game. The resource providers (leaders) decide the price of resource first and the requesters (followers) determine the request resource quantity based on the leaders' actions. Nevertheless, although the authors deployed IPS in their system model, they did not consider the tradeoff in the IPS deployment, as the VM allocated for IPS can also be used for the original service. In addition, the proper configuration of IPS under different workloads and attack intensity is not studied. 
 
@@ -156,7 +156,7 @@ T_i^p(z_i^v, z_i^h) = \frac{1}{(z_i^v - z_i^h)\mu_i^v - \big(\lambda_i - H_i(z_i
 where $(z_i^v - z_i^h)$ is the number of VMs devoted to serving EUs, and $(z_i^v - z_i^h)\mu_i^v$ is the total service rate of ASP $i$. Moreover, the $H_i(z_i^h)$ is the number of intercepted requests, and $(\lambda_i - H_i(z_i^h))$ is the number of requests needed to be processed.
 
 
-The payment from the NU $j \in \mathrm{U}_i^n$ to the ASP $i$ depends on whether the latency requirements $d_{ij} \, \forall j \in \mathrm{U}_i^n$ are satisfied or not. If latency requirements $d_{ij}$ are met, NU $j \in \mathrm{U}_i^n$ pays a price $\Psi_{ij}$ to ASP $i$. The heterogeneity of the payment reflects the different characteristics of NUs. The NUs with different latency requirements may have different level of satisfaction with the same service provided by the ASP $i$. If latency requirements $d_{ij}$ are not met, NU $j \in \mathrm{U}_i^n$ does not pay ASP $i$. The MUs $j \in \mathrm{U}_i^m$ will not pay any money to the ASP $i$ no matter whether their latency requirement are satisfied or not. We represent the payment of NU $j \in \mathrm{U}_i$ as follows:
+The payment from the NU $j \in \mathrm{U}_i^n$ to the ASP $i$ depends on whether the latency requirements $d_{ij} \, \forall j \in \mathrm{U}_i^n$ are satisfied or not. If latency requirements $d_{ij}$ are met, NU $j \in \mathrm{U}_i^n$ pays a price $\Psi_{ij}$ to ASP $i$. The heterogeneity of the payment reflects the different characteristics of NUs. The NUs with different latency requirements may have different level of satisfaction with the same service provided by the ASP $i$. If latency requirements $d_{ij}$ are not met, NU $j \in \mathrm{U}_i^n$ does not pay ASP $i$. The MUs $j \in \mathrm{U}_i^m$ will not pay ASP $i$ no matter whether their latency requirement are satisfied or not. We represent the payment of NU $j \in \mathrm{U}_i$ as follows:
 \begin{subnumcases}{\mathcal{K}_{ij}(z_i^v, z_i^h)=\label{eqn:devicepayment}}
   \Psi_{ij} & \hspace*{-1.7mm}if $T_{ij}^t + T_i^p(z_i^v, z_i^h) \leq d_{ij}$, $j \in \mathrm{U}_i^n$\\
   0 & \hspace*{-1.7mm}if $T_{ij}^t + T_i^p(z_i^v, z_i^h) > d_{ij}$, $j \in \mathrm{U}_i^n$ \\
@@ -176,12 +176,12 @@ Given the MPO's price per VM $\Psi_m^v$, each ASP $i$ chooses the number of VMs 
 \hspace*{-1mm}&=\max_{z_i^h} [\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}(1-F_{d_{ij}}(T_{ij}^t+T_i^p(z_i^v, z_i^h)) - \Psi_m^vz_i^v] \\ %\label{eqn:asp_def_subobjective_unfold}
 &\hspace*{-1mm}\triangleq \max_{z_i^h} X_i(z_i^h|z_i^v,\Psi_m^v) \label{eqn:asp_def_subobjective}
 \end{align}
-where the $F_{X}(x)$ is the cumulative distribution function (CDF) of $\mathcal{U}(a_i,b_i)$:
-\begin{subnumcases}{F_X(x)=\label{eqn:CDF}}
-  0 & $x < a_i$\\
-  \frac{x-a_i}{b_i-a_i} &  $x \in[a_i, b_i]$\\
-  1 & $x > b_i$
-\end{subnumcases}
+where $F_{X}(x)$ is the cumulative distribution function (CDF) of $\mathcal{U}(a_i,b_i)$.
+% \begin{subnumcases}{F_X(x)=\label{eqn:CDF}}
+%   0 & $x < a_i$\\
+%   \frac{x-a_i}{b_i-a_i} &  $x \in[a_i, b_i]$\\
+%   1 & $x > b_i$
+% \end{subnumcases}
 
 The $\mathsf{E}_{d_{ij}}$ is derived by taking expectation with respect to the distribution of $d_{ij}$, where $\mathds{1}\{\cdot\}$ is the indicator function. The $F_{d_{ij}}(T_{ij}^t+T_i^p(z_i^v, z_i^h))$ is the probability that the latency requirement $d_{ij}$ of the NU $j\in\mathrm{U}_i^n$ are not satisfied, which is also the CDF of $\mathcal{U}(a_i,b_i)$. Given $z_i^v$, we have three constraints on $z_i^h$. First, the number of VMs dedicated to IPS $z_i^h$ must be no larger than the number of purchased VMs $z_i^v$. Second, to make the processing queue stable, the mean service rate by VMs dedicated to running the service must be higher than the mean arrival rate for EUs $j \in \mathrm{U}_i$. Third, we introduce $\xi_i\in[0, 1]$ as a resource reservation constraint to control the minimum resource reserved for the service. Thus, to define the utility of ASP $i$ when the purchased VMs from the MPO is $z_i^v$, we have to solve the following optimization problem to determine the optimal configuration of IPS first.
 \begin{maxi!}[2]
@@ -199,7 +199,7 @@ Showing the $Y_i(z_i^v)$ is well-defined is equivalent to proving the optimizati
 \begin{equation}
 \begin{aligned}
 &\sum_{j \in \mathrm{U}_i^{n1}}\Psi_{ij} \times 1 +\sum_{j \in \mathrm{U}_i^{n2}}\Psi_{ij} \times &(1-\frac{T_{ij}^t+T_i^p(z_i^v, z_i^h)-a_i}{b_i-a_i}) \\
-& + \sum_{j \in \mathrm{U}_i^{n3}}\Psi_{ij} \times 0
+% & + \sum_{j \in \mathrm{U}_i^{n3}}\Psi_{ij} \times 0
 \end{aligned}
 \end{equation}
 , where we divide $\mathrm{U}_i^{n}$ into three sets $\mathrm{U}_i^{n1}$, $\mathrm{U}_i^{n2}$ and $\mathrm{U}_i^{n3}$.
@@ -214,6 +214,7 @@ We define these three sets as
 \begin{lemma}
 The utility of ASP $i$, $Y_i(z_i^v)$, is well defined, as the optimization problem (\ref{eqn:asp_utility_def_opti}) is a convex optimization problem and has at least one optimal point 
 \end{lemma}
+The detailed proof is in Appendix \ref{appendix:lemma_1}.
 % \begin{proof}
 % The feasible region imposed by (\ref{eqn:asp_utility_def_opti_const1}) and (\ref{eqn:asp_utility_def_opti_const2}) is a closed and bounded interval in $\mathbb{R}$ and thus is a convex set. As the objective function (\ref{eqn:asp_utility_def_opti_obj}) is continuous in $z_i^h$, the existence of the optimal solution then comes from the Extreme Value Theorem. If (\ref{eqn:asp_utility_def_opti_obj}) is concave at each feasible $z_i^h$, optimization problem (\ref{eqn:asp_utility_def_opti}) is a convex optimization problem. It remains to show that the objective function (\ref{eqn:asp_utility_def_opti_obj}) is concave in feasible $z_i^h$. By rearranging the terms, we express $X_i(z_i^h|z_i^v,\Psi_m^v)$ as
 % \begin{equation}
@@ -266,8 +267,7 @@ We would leverage the backward induction principle to derive the Stackelberg equ
 \textcolor{red}{Based on the definition of the Stackelberg game equilibrium\cite{bacsar1998dynamic}}, we formally define the Stackelberg game equilibrium. We symbolize the ASP $i$'s action set using $\mathcal{A}_i$ and the profile of all ASPs' action using $\bm{z^v}=(z_1^v, z_2^v, \cdots, z_I^v) \in \mathcal{A}_1 \times \mathcal{A}_2 \cdots \times \mathcal{A}_I$ where $\mathcal{A}_1 \times \mathcal{A}_2$ means the Cartesian product of $\mathcal{A}_1$ and $\mathcal{A}_2$. The ASP $i$'s best response set $\mathcal{B}_i^R(\Psi_m^v)$ to the MPO's price per VM $\Psi_m^v$ is given by
 \begin{equation} \label{eqn:asp_best_response}
 \begin{aligned}
-&\mathcal{B}_i^R(\Psi_m^v) = \\
-&\{z_i^v \in \mathcal{A}_i |Y_i(z_i^v|\Psi_m^v) \geq Y_i\big((z_i^v)'|\Psi_m^v\big) \\
+&\mathcal{B}_i^R(\Psi_m^v) = \{z_i^v \in \mathcal{A}_i |Y_i(z_i^v|\Psi_m^v) \geq Y_i\big((z_i^v)'|\Psi_m^v\big) \\
 &\forall (z_i^v)' \in \mathcal{A}_i, (z_i^v)' \neq z_i^v\}
 \end{aligned}
 \end{equation}
@@ -314,6 +314,8 @@ Nevertheless, we can prove that Case 1 will never happen since $H_i(x) = min(\et
 \begin{lemma} \label{lemma:asp_case1_not_exist}
 The extreme point of $X_i(z_i^h|z_i^v,\Psi_m^v)$ doesn't exist in feasible $z_i^h$ if $H_i(x) = min(\eta_i{x}, \lambda_i^m)$.
 \end{lemma}
+The detailed proof is in Appendix \ref{appendix:lemma_2}.
+
 % \begin{proof}
 % From (\ref{eqn:asp_utilitu_def_firstderiv}), we substitute $\eta_i{z_i^h}$ into $H_i(z_i^h)$, then we can obtain
 % \begin{equation} \label{eqn:asp_utilitu_simplified}
@@ -346,6 +348,7 @@ If $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to 
 \begin{lemma} \label{lemma:asp_case2_utility_concave}
 $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.
 \end{lemma}
+The detailed proof is in Appendix \ref{appendix:lemma_3}.
 % \begin{proof}
 % If $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. We will verify the convexity of $T_{i,2}^p(z_i^v)$. We can write $T_{i,2}^p(z_i^v)$ as follow
 % \begin{equation} \label{eqn:asp_case2_mm1_delay_min}
@@ -402,6 +405,7 @@ and if $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$
 \end{equation}
 
 \end{theorem}
+The detailed proof is in Appendix \ref{appendix:theorem_1}.
 % \begin{proof}
 % We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^2(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case2_utility_concave}, $\Upsilon_i^2$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^2$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case2_utility_concave}, $Y_i^2(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^2(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
 % \begin{equation} \label{eqn:asp_case2_utility_first_deriv}
@@ -532,26 +536,26 @@ We can also obtain the MPO's price that the ASP's response changes from (\ref{eq
 
 By the boundaries we have obtained above, we can precisely predict the $i$th ASP's best response $z_i^v$ given any $\Psi_m^v$. In fact, there are four possible outcomes. 
 
-If $\Psi_{m,2}^{i,z} > \Psi_{m,2}^{i,l'}$ and $\frac{\lambda_i + \gamma_i}{\mu^v_i} > \frac{\lambda^m_i}{\eta_i\xi_i}$ then the ASP is classified as Case A.
+If $\Psi_{m,2}^{i,z} > \Psi_{m,2}^{i,l'}$ and $\frac{\lambda_i + \gamma_i}{\mu^v_i} > \frac{\lambda^m_i}{\eta_i\xi_i}$ then the ASP is classified as \textbf{Case A}.
 
-\textbf{Case A}
+
 \begin{subnumcases}{z_i^v=\label{eqn:ASP_reaction_case2_1}}
   0 & $\Psi_m^v\in(\Psi_{m,2}^{i,z},\infty)$ \label{eqn:MPO_zero_boundary_case2_11} \\
   \frac{\lambda_i+\gamma_i}{\mu_i^v} & $\Psi_m^v \in [\Psi_{m,2}^{i,l'}, \Psi_{m,2}^{i,z}]$ \label{eqn:MPO_queueing_boundary_case2_12}\\
   (z_{i,2}^{v,e'}(\Psi_m^v))^* & $\Psi_m^v\in[0, \Psi_{m,2}^{i,l'})$ \label{eqn:MPO_extreme_point_case2_13}
 \end{subnumcases}
 
-Moreover, if $(z_{i,2}^{v,e'}(\Psi_{m,2}^{i,r'}))^* > \frac{\lambda^m_i}{\eta_i\xi_i}$ and $(z_{i,2}^{v,e'}(\Psi_{m,2}^{i,r'}))^* > \frac{\lambda_i + \gamma_i}{\mu^v_i}$ the ASP is classified as Case B.
+Moreover, if $(z_{i,2}^{v,e'}(\Psi_{m,2}^{i,r'}))^* > \frac{\lambda^m_i}{\eta_i\xi_i}$ and $(z_{i,2}^{v,e'}(\Psi_{m,2}^{i,r'}))^* > \frac{\lambda_i + \gamma_i}{\mu^v_i}$ the ASP is classified as \textbf{Case B}.
 
-\textbf{Case B}
+
 \begin{subnumcases}{z_i^v=\label{eqn:ASP_reaction_case2_2}}
   0 & $\Psi_m^v\in[\Psi_{m,2}^{i,r'}, \infty)$ \label{eqn:MPO_zero_boundary_case2_21} \\
   (z_{i,2}^{v,e'}(\Psi_m^v))^* & $\Psi_m^v\in[0, \Psi_{m,2}^{i,r'})$ \label{eqn:MPO_extreme_point_case2_22}
 \end{subnumcases}
 
-In addition, if $\frac{\lambda^m_i}{\eta_i\xi_i} > \frac{\lambda_i + \gamma_i}{\mu^v_i}$ and $\Psi_{m,2}^{i,z} < \Psi_{m,2}^{i,l''}$, the ASP is classified as Case C.
+In addition, if $\frac{\lambda^m_i}{\eta_i\xi_i} > \frac{\lambda_i + \gamma_i}{\mu^v_i}$ and $\Psi_{m,2}^{i,z} < \Psi_{m,2}^{i,l''}$, the ASP is classified as \textbf{Case C}.
 
-\textbf{Case C}
+
 \begin{subnumcases}{z_i^v=\label{eqn:ASP_reaction_case2_3}}
   0 & $\Psi_m^v\in(\Psi_{m,2}^{i,z},\infty)$ \label{eqn:MPO_zero_boundary_case2_31} \\
   \frac{\lambda_i+\gamma_i}{\mu_i^v} & $\Psi_m^v \in [\Psi_{m,2}^{i,l''}, \Psi_{m,2}^{i,z}]$ \label{eqn:MPO_queueing_boundary_case2_32}\\
@@ -559,9 +563,9 @@ In addition, if $\frac{\lambda^m_i}{\eta_i\xi_i} > \frac{\lambda_i + \gamma_i}{\
   (z_{i,2}^{v,e'}(\Psi_m^v))^* & $\Psi_m^v\in[0, \Psi_{m,2}^{i,c})$ \label{eqn:MPO_extreme_point_case2_34}
 \end{subnumcases}
 
-If the ASP does not meet the conditions above, the ASP is classified as Case D.
+If the ASP does not meet the conditions above, the ASP is classified as \textbf{Case D}.
 
-\textbf{Case D}
+
 \begin{subnumcases}{z_i^v=\label{eqn:ASP_reaction_case2_4}}
   0 & $\Psi_m^v\in[\Psi_{m,2}^{i,r''}, \infty)$ \label{eqn:MPO_zero_boundary_case2_41} \\
   (z_{i,2}^{v,e''}(\Psi_m^v))^* & $\Psi_m^v\in[\Psi_{m,2}^{i,c},\Psi_{m,2}^{i,r''})$ \label{eqn:MPO_extreme_point_case2_42} \\
@@ -621,6 +625,7 @@ If $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to 
 \begin{lemma} \label{lemma:asp_case3_utility_concave}
 $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.
 \end{lemma}
+The detailed proof is in Appendix \ref{appendix:lemma_4}.
 % \begin{proof}
 % If $T_{i,3}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. We can verify the convexity of $T_{i,3}^p(z_i^v)$ by taking second derivative of $T_{i,3}^p(z_i^v)$ with respect to $z_i^v$.
 
@@ -651,6 +656,7 @@ and if $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$
 \end{aligned}
 \end{equation}
 \end{theorem}
+The detailed proof is in Appendix \ref{appendix:theorem_2}.
 % \begin{proof}
 % We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^3(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case3_utility_concave}, $\Upsilon_i^3$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^3$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case3_utility_concave}, $Y_i^3(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^3(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
 % \begin{equation} \label{eqn:asp_case3_utility_first_deriv}
@@ -677,7 +683,7 @@ However, the utility of ASP may descend to $0$ without experiencing the state of
 \end{multline}
 
 By the boundaries we have obtained above, we can precisely predict the $z_i^v$ given any $\Psi_m^v$. There are divided into two cases. One is $\Psi_{m,3}^{i,z} \geq \Psi_{m,3}^{i,l}$, the other is $\Psi_{m,3}^{i,z} < \Psi_{m,3}^{i,l}$.\\
-If $\Psi_{m,3}^{i,z}>\Psi_{m,3}^{i,l}$, the extreme point (\ref{eqn:asp_case3_optimal_solution_extreme}) will be lower than the queuing stability constraint as some given VM price $\Psi_m^v$.
+If $\Psi_{m,3}^{i,z}>\Psi_{m,3}^{i,l}$, the extreme point (\ref{eqn:asp_case3_optimal_solution_extreme}) will be lower than the queuing stability constraint as some given $\Psi_m^v$.
 \begin{subnumcases}{z_i^v=\label{eqn:ASP_reaction_case3_1}}
   0 & $\Psi_m^v\in(\Psi_{m,3}^{i,z}, \inf)$ \label{eqn:MPO_zero_boundary_case3_1} \\
   \frac{\lambda_i+\gamma_i}{\mu_i^v} & $\Psi_m^v \in [\Psi_{m,3}^{i,l}, \Psi_{m,3}^{i,z}]$ \label{eqn:MPO_queueing_boundary_case3_1}\\
@@ -692,7 +698,7 @@ If $\Psi_{m,3}^{i,z}\leq\Psi_{m,3}^{i,l}$, the extreme point (\ref{eqn:asp_case3
 Based on the analysis above, the MPO can predict the number of VMs every ASP will buy given an arbitrary price per VM in each case. Thus, the MPO can optimize its utility by setting $\Psi_m^v$ accordingly. The corresponding optimization problem is in the following subsection. 
 
 \subsection{MPO Optimization Problem}
-We solve the optimization problem (\ref{eqn:mpo_utility_opti_obj}) in this subsection. For every ASP, the optimal solution is either Case 2 or Case 3. That is, $\mathcal{I}_{case2} \cup \mathcal{I}_{case3} = \mathcal{I}$, where $\mathcal{I}_{case2}$ indicates the ASP set which its optimal solution is in Case 2, and $\mathcal{I}_{case3}$ indicates the ASP set which its optimal solution is in Case 3. The boundary set of an ASP is $L_i^b$, and because of the different characteristic of ASPs, there are several cases of $L_i^b$.
+We solve the optimization problem (\ref{eqn:mpo_utility_opti_obj}) in this subsection. For every ASP, the optimal solution is either Case 2 or Case 3. That is, $\mathcal{I}_{case2} \cup \mathcal{I}_{case3} = \mathcal{I}$, where $\mathcal{I}_{case2}$ indicates the ASP set which its optimal solution is in Case 2, and $\mathcal{I}_{case3}$ indicates the ASP set which its optimal solution is in Case 3. The boundary set of an ASP is $L_i^b$, and because of the different characteristic of ASPs, there are several cases.
 \begin{subnumcases}{L_i^b = }
     \{\Psi_{m,2}^{i,z}, \Psi_{m,2}^{i,l'}\ |\ i\in \mathcal{I}_{case2} \}\\
     \{\Psi_{m,2}^{i,z}, \Psi_{m,2}^{i,l''}, \Psi_{m,2}^{i,c}\ |\ i\in \mathcal{I}_{case2} \}\\
@@ -739,6 +745,7 @@ With (\ref{eqn:total_number_VM}), the MPO's optimization problem in each interva
 \begin{theorem} \label{thm:f_mpo_convex_optimization}
 In each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$, the MPO's optimization problem (\ref{eqn:f_mpo_utility_opti}) is a convex optimization problem. The MPO's optimal price per VM $\Psi_m^v$ is one of the optimal prices in each $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$ that gives the highest utility.
 \end{theorem}
+The detailed proof is in Appendix \ref{appendix:theorem_3}.
 % \begin{proof}
 % We start by proving that $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v$ when $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \mathcal{I}$. In (\ref{eqn:total_number_VM}), the second, third and fourth term pertains to $\Psi_m^v$. As the summation of convex function is also a convex function, it suffices to prove that $(z_{i,2}^{v,e''}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_2^{k,e''}$, $(z_{i,2}^{v,e'}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_2^{k,e'}$ and $(z_{i,3}^{v,e}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_3^{k,e}$. Taking the second derivative of (\ref{eqn:asp_case2_utility_extreme2_1}) and (\ref{eqn:asp_case2_utility_extreme2_2}) with respect to $\Psi_m^v$, we have
 % \begin{equation}
@@ -783,6 +790,7 @@ After analyzing both the followers' and the leader's optimization problems, we n
 \begin{theorem} \label{thm:stackelberg_game_equilibrium}
 There exists a Stackelberg equilibrium in our system after the modifications.
 \end{theorem}
+The detailed proof is in Appendix \ref{appendix:theorem_4}.
 % \begin{proof}
 % In Case 2, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case2_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. Also, in Case 3, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case3_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. 
 
@@ -848,7 +856,7 @@ In this subsection, we analyze the time complexity of the solution process of \c
 
 
 \section{Simulation Results} \label{sec:simulation}
-We evaluate the performance of the proposed Stackelberg equilibrium with simulations. We simulate a MEC system with one MPO and five ASPs\cite{Zhang3}\cite{Xu2}. For the MPO, the CPU frequency per VM $f_m^v$ is 0.2GHz, and the cost function is set to be $C_m^v(x) = 0.01x^2$. \textcolor{red}{The frequency of an MEC server is set to 20GHz\cite{Liu4}. We assume that there are 10 servers in the MEC platform, therefore, the total quantity of VMs for an MPO is set to 1000.} For each ASP, the bandwidth $B_i$ is 0.4GHz, which the total bandwidth is 2GHz in this system, the transmission power $p_i$ is 23dBm\cite{3gpp.36.101}, the background noise power $N_0$ is -100dBm\cite{chen2015efficient}. For path loss model, we use $g(d)=22log_{10}(d)+28+20log_{10}(f_c)$ \cite{3gpp.36.814}, where $d$ is the distance between EUs and ASPs, and $f_c$ is the frequency band. As for other system parameters, $\xi_{i}$ is chosen uniformly between $[0.1, 0.2]$, $\gamma_i$ is chosen uniformly between $[20, 40]$, and the frequency band $f_c$ is 2.1GHz\cite{Chang3}. \textcolor{red}{For EUs, the distance between the EU and ASP is 50m\cite{Mao}. As for the task size $s_{ij}$ of EU $j$, we set the average task size is 10KB\cite{Ko}, and the size of every task is uniformly chosen from 8KB to 12KB}, the latency requirements of the NU are chosen uniformly between 15ms to 1000ms. \textcolor{red}{The required CPU cycle per bit $B$ is 500 \cite{Ko}, and the arrival rate $\lambda_{ij}$ is chosen uniformly between 0.6 and 1\cite{Wu}}. The payments of NUs $\Psi_{ij}$ are chosen uniformly between 1 and 100. If not specified, the ratio of MUs to total EUs is set to 0.1, the number of the EUs is set to 1000 per ASP, and the IPS efficiency, the number of packets that an VM can filter, $\nu$ is set to 50. We use CVXPY \cite{diamond2016cvxpy} \cite{agrawal2018rewriting} as our convex solver . We use Embedded Conic Solver (ECOS) \cite{bib:Domahidi2013ecos} to solve our convex optimization problem. The constant $\epsilon$ is set to $0.0001$. 
+We evaluate the performance of the proposed Stackelberg equilibrium with simulations. We simulate a MEC system with one MPO and five ASPs\cite{Zhang3}\cite{Xu2}. For the MPO, the CPU frequency per VM $f_m^v$ is 0.2GHz, and the cost function is set to be $C_m^v(x) = 0.01x^2$. \textcolor{red}{The frequency of an MEC server is set to 20GHz\cite{Liu4}. We assume that there are 10 servers in the MEC platform, therefore, the total quantity of VMs for an MPO is set to 1000.} For each ASP, the bandwidth $B_i$ is 0.4GHz, which the total bandwidth is 2GHz in this system, the transmission power $p_i$ is 23dBm\cite{3gpp.36.101}, the background noise power $N_0$ is -100dBm\cite{chen2015efficient}. For path loss model, we use $g(d)=22log_{10}(d)+28+20log_{10}(f_c)$ \cite{3gpp.36.814}, where $d$ is the distance between EUs and ASPs, and $f_c$ is the frequency band. As for other system parameters, $\xi_{i}$ is chosen uniformly between $[0.1, 0.2]$, $\gamma_i$ is chosen uniformly between $[20, 40]$, and the frequency band $f_c$ is 2.1GHz\cite{Chang3}. \textcolor{red}{For EUs, the distance between the EU and ASP is 50m\cite{Mao}. As for the task size $s_{ij}$ of EU $j$, we set the average task size is 10KB\cite{Ko}, and the size of every task is uniformly chosen from 8KB to 12KB}, the latency requirements of the NU are chosen uniformly between 15ms to 1000ms. \textcolor{red}{The required CPU cycle per bit $B$ is 500 \cite{Ko}, and the arrival rate $\lambda_{ij}$ is chosen uniformly between 0.6 and 1\cite{Wu}}. The payments $\Psi_{ij}$ are chosen uniformly between 1 and 100. If not specified, the ratio of MUs to total EUs is set to 0.1, the number of the EUs is set to 1000 per ASP, and the IPS efficiency, the number of packets that an VM can filter, $\nu$ is set to 50. We use CVXPY \cite{diamond2016cvxpy} \cite{agrawal2018rewriting} as our convex solver . We use Embedded Conic Solver (ECOS) \cite{bib:Domahidi2013ecos} to solve our convex optimization problem. The constant $\epsilon$ is set to $10^{-4}$. 
 
 In the simulations, we consider six schemes: \textbf{Proposed Scheme} (Proposed), \textbf{No IPS}, \textbf{5\% IPS VM} (5\% IPS), \textbf{7\% IPS VM} (7\% IPS), \textbf{10\% IPS VM} (10\% IPS), \textbf{Proportional malicious ratio} (Prop malicious ratio), and \textbf{Propotional IPS efficiency} (Prop IPS efficiency). In the proposed scheme, the ASPs can optimize their utility by purchasing VMs and allocating their IPS VMs, while the MPO determines the price optimally. The system achieves the proposed Stackelberg equilibrium. In the \textit{No IPS}, the ASPs do not allocate VMs for the IPS. Instead, the ASPs devote all their VM to serving their end-users. In both \textit{5\% IPS VM}, \textit{7\% IPS VM}, and \textit{10\% IPS VM}, the ASP allocate a fixed ratio of VMs for IPS services. In the \textit{Proportional malicious ratio} scheme, the ASP devotes VMs to IPS services based on the ratio of malicious to total users. In the simulation, we set the ratio of VMs to IPS services for ASPs to $30 \times r \%$ , where $r$ is the ratio of malicious and total users. \textcolor{red}{As for the \textit{Propotional IPS efficiency} scheme, the ASPs devote VMs to IPS services based on the efficiency of IPS $\nu$, which is the number of packets that an IPS VM can filter. We set the ratio of IPS VMs to $0.01 \times \nu \%$, where $\nu$ is the IPS efficiency.}
 
@@ -869,7 +877,7 @@ We first verify the convexity of the MPO optimization problem. The boundaries of
     \end{minipage}
 \end{figure}
 
-\subsection{Comparison between different number of end-users scenario}
+\subsection{Comparison between various number of end-users}
 In this section, we compare multiple IPS VM deployment schemes on ASPs with various numbers of end-users. We consider two cases: ASP with high workload devices and ASP with low workload devices. In ASP with high and low workload devices, the task size $s_{ij}$ is chosen uniformly between \textcolor{red}{$11 - 12$ kB and $8 - 9$ kB}, respectively. We discuss the results under these two types of ASP in the following. 
 \begin{figure*}[!]
 \captionsetup{justification=centering}
@@ -900,7 +908,7 @@ When considering ASP with high workload devices, by (\ref{eqn:service_rate}), we
 \textbf{ASP with low workload devices}:
 When considering ASP with low workload devices, the required CPU cycles are low, and the service rate is higher than the efficiency of IPS VMs. Thus, the ASP has more incentive to deploy VMs to serve end-users than to wipe out malicious requests. Therefore, the optimal deployment scheme for such ASPs is identical to the \textit{No IPS} scheme. We can observe the phenomenon in \Cref{fig:num_cmp_asp_low}. Moreover, the ASPs' utility in \textit{5\% IPS VM} \textit{7\% IPS VM}, and \textit{10\% IPS VM} are lower because, in these cases, it is less efficient for ASPs to deploy IPS VMs than to deploy VMs to serve users. \textcolor{red}{Similar to the previous case, both scheme \textit{Proportional malicious ratio} and \textit{Proportional IPS efficiency} allocate fixed ratio of IPS VMs. In this scenario, the \textit{Proportional malicious ratio} scheme allocates $30 \times 0.1 = 3\%$ of IPS VMs, and the \textit{Proportional IPS efficiency} scheme allocates $0.01 \times 50 = 0.5\%$ of IPS VMs. As a result, in \Cref{fig:num_cmp_asp_low}, the \textit{Proportional malicious ratio} has lower utility than \textit{Proportional IPS efficiency} because it is inefficient to deploy IPS VMs in this scenario.} In addition, our proposed scheme has the highest utility in \Cref{fig:num_cmp_soc_low}, \Cref{fig:num_cmp_asp_low}, and \Cref{fig:num_cmp_mpo_low}.
 
-\subsection{Comparison between different malicious users to total users ratio scenario}\label{subsec:mal}
+\subsection{Comparison between various malicious users to total users ratio}\label{subsec:mal}
 In this section, we compare different IPS VM deployment schemes on ASPs given various of malicious users to total users ratios. Similar to the previous section, we discuss two different cases: ASP with high workload devices and ASP with low workload devices. The parameters of high and low workload are mentioned in the previous section. We discuss the different characteristics between these two types of ASP in the following. 
 
 
@@ -917,27 +925,27 @@ In this section, we compare different IPS VM deployment schemes on ASPs given va
 
 \textbf{ASP with high workload devices}:  In this case, when the workload of the end-users is high, by \cref{eqn:service_rate}, the service rate would be low with default parameters (ratio = 0.1). Therefore, in this case, the interception rate would be higher than the service rate, and the ASPs tend to deploy more IPS VMs. However, when the number of malicious users is low, the IPS VMs can intercept fewer malicious requests, and the interception rate would be lower than the service rate. As the number of malicious users increases, the behavior of the ASPs changes at a specific point, which is the point where the interception rate and the service rate intersects. When the malicious users are low, the ASP will tend to deploy less IPS VM. In this case, if the ASP deploys excessive IPS VMs, it would crowd out VMs serving end-users. The scheme \textit{No IPS} has higher utility when the malicious users are low. As for \textit{10\% IPS VM}, the utility curve in \Cref{fig:ratio_asp_high} is far lower than \textit{5\% IPS VM} because it deploys redundant IPS VM. Moreover, when the ratio of malicious to total users increases, the interception rate increases and exceed the service rate. Therefore, the ASP tends to deploy more IPS VMs. We observe that the curve of \textit{No IPS} scheme and the utility curve of \textit{5\% IPS VM} and \textit{7\% IPS VM} intersects. Moreover, when the number of malicious users increases, the \textit{10\% IPS VM} scheme has better utility than the \textit{5\% IPS VM} scheme. As for the scheme \textit{Proportional malicious ratio}, when the malicious ratio is low, \textit{Proportional malicious ratio} deploys fewer IPS VMs, so the utility is lower than \textit{5\% IPS VM}. However, when the number of malicious users increases, the \textit{Proportional malicious ratio} deploys more IPS VMs than \textit{5\% IPS VM} and \textit{10\% IPS VM}, and the ASPs' utility is higher than the scheme mentioned above. In addition, the \textit{Proposed Scheme} outperformed other schemes in \Cref{fig:ratio_soc_high}, \Cref{fig:ratio_asp_high}, and \Cref{fig:ratio_mpo_high} due to the optimal IPS deployment.
 
-% % ratio low
-% \begin{figure*}[!]
-% \captionsetup{justification=centering}
-%   \subfloat[Social Welfare\label{fig:ratio_soc_low}]{\includegraphics[width=0.33\textwidth]{5GDDoS_Game_social_ratio_low_cvx.pdf}}
-%   \hfill
-%   \subfloat[ASP Utility\label{fig:ratio_asp_low}]{\includegraphics[width=0.33\textwidth] {5GDDoS_Game_asp_ratio_low_cvx.pdf}}
-%   \hfill
-%   \subfloat[MPO Utility\label{fig:ratio_mpo_low}]{\includegraphics[width=0.33\textwidth]{5GDDoS_Game_MPO_ratio_low_cvx.pdf}}
-% \label{fig:ratio_low}
-% \caption{Different Malicious Users to Total Users Ratio of Low Workload End-Users}
-% \end{figure*}
+% ratio low
+\begin{figure*}[!]
+\captionsetup{justification=centering}
+  \subfloat[Social Welfare\label{fig:ratio_soc_low}]{\includegraphics[width=0.33\textwidth]{5GDDoS_Game_social_ratio_low_cvx.pdf}}
+  \hfill
+  \subfloat[ASP Utility\label{fig:ratio_asp_low}]{\includegraphics[width=0.33\textwidth] {5GDDoS_Game_asp_ratio_low_cvx.pdf}}
+  \hfill
+  \subfloat[MPO Utility\label{fig:ratio_mpo_low}]{\includegraphics[width=0.33\textwidth]{5GDDoS_Game_MPO_ratio_low_cvx.pdf}}
+\label{fig:ratio_low}
+\caption{Different Malicious Users to Total Users Ratio of Low Workload End-Users}
+\end{figure*}
 
 
-\textbf{ASP with low workload devices}: \textcolor{red}{In this case, when the the workload of the end-users are low, by \cref{eqn:service_rate}, the service rate would be high in default parameters (ratio = 0.1). Therefore, in this case, the interception rate would be lower than the service rate, and the ASPs tend to deploy fewer IPS VMs. However, when the number of malicious users increases, the deployed IPS VMs can intercept more malicious requests, and the interception rate would be higher than the service rate. As the number of malicious users increases, the behavior of the ASP changes at a specific point, which is the point where the interception rate and the service rate intersects. Note that the main difference with the previous section is that, in this case, the interception rate and the service rate intersect at a point where the malicious users are higher. Other than the difference previously mentioned, the case is similar to the high-workload case.} \textcolor{blue}{We omit the figure due to page limitations.}
+\textbf{ASP with low workload devices}: \textcolor{red}{In this case, when the the workload of the end-users are low, by \cref{eqn:service_rate}, the service rate would be high in default parameters (ratio = 0.1). Therefore, in this case, the interception rate would be lower than the service rate, and the ASPs tend to deploy fewer IPS VMs. However, when the number of malicious users increases, the deployed IPS VMs can intercept more malicious requests, and the interception rate would be higher than the service rate. As the number of malicious users increases, the behavior of the ASP changes at a specific point, which is the point where the interception rate and the service rate intersects. Note that the main difference with the previous section is that, in this case, the interception rate and the service rate intersect at a point where the malicious users are higher. Other than the difference previously mentioned, the case is similar to the high-workload case.} 
 
 % \textcolor{red}{Similar to the previous simulation, when the malicious users are low, the ASP tend to deploy fewer IPS VMs. The behaviors of \textit{No IPS} and \textit{Proposed Scheme} are identical in this case when malicious users are low. Moreover, the \textit{5\% IPS VM} has higher utility than \textit{7\% IPS VM} and \textit{10\% IPS VM} when malicious users are low because ASPs have less incentive to deploy IPS VMs. In addition, the \textit{Proportional malicious ratio} has deployed lower IPS VMs when the malicious ratio is low, so the utility is higher than \textit{5\% IPS VM},  \textit{7\% IPS VM}, and \textit{10\% IPS VM}.}
 
 % \textcolor{red}{
 % When the number of malicious users rises, similar to the previous case, the ASPs tend to deploy more IPS VMs when the malicious ratio is high. In this case, \textit{10\% IPS VM} has the highest utility among other fixed ratio schemes. As for the \textit{Proportional malicious ratio} scheme, the scheme has lower utility when the number of malicious users is low. When the number of malicious users increases, the utility exceeds \textit{5\% IPS VM} and \textit{7\% IPS VM} because it deploys more IPS VMs. For example, when the ratio is $0.25$, the ASPs deploy $0.25 \times 30 \% = 7.5\%$ IPS VMs, which is higher than \textit{7\% IPS VM}. As a result, the utility is higher. Similarly, the \textit{Proposed Scheme} has outperformed other schemes in \Cref{fig:ratio_soc_low}, \Cref{fig:ratio_asp_low}, and \Cref{fig:ratio_mpo_low}.}
 
-\subsection{Comparison between different IPS efficiency scenario}
+\subsection{Comparison between various IPS efficiency}
 \textcolor{red}{In this section, we compare different IPS VM deployment schemes on ASPs given various of IPS Efficiency $\nu$. Similar to the previous section, we discuss two different cases: ASP with high workload devices and ASP with low workload devices. The parameters of high and low workload are mentioned in the previous section. We discuss the different characteristics between these two types of ASPs above. }
 
 
@@ -961,19 +969,20 @@ When the IPS efficiency is low, the ASPs tend to deploy fewer IPS VMs, and there
 \textcolor{red}{
 In \cref{fig:eff_asp_high}, as for the scheme \textit{Proportional IPS efficiency}, the utility of the scheme is higher than other scheme such as \textit{5\% IPS VM} and \textit{7\% IPS VM} when the IPS efficiency is low because it deploys less IPS VMs, which is $0.01 \times 30\% = 0.3\%$. As the IPS efficiency increases, the utility of these fixed ratio scheme \textit{5\% IPS VM} and \textit{7\% IPS VM} started to exceed the utility of \textit{Proportional IPS efficiency} because these fixed schemes deploy more IPS VMs, which can intercept more malicious requests. As the IPS efficiency increases, the utility of \textit{Proportional IPS efficiency} starts to surpass \textit{5\% IPS VM} and \textit{7\% IPS VM} because these fixed ratio scheme deploys redundant IPS VMs, and \textit{Proportional IPS efficiency} deploys the appropriate number of IPS VMs. In addition, our \textit{Proposed Scheme} has outperformed other schemes in \Cref{fig:eff_soc_high}, \Cref{fig:eff_asp_high}, and \Cref{fig:eff_mpo_high}.}
 
-% \begin{figure*}[!]
-% \captionsetup{justification=centering}
-%   \subfloat[Social Welfare\label{fig:eff_soc_low}]{\includegraphics[width=0.33\textwidth]{5GDDoS_Game_social_efficiency_low_cvx.pdf}}
-%   \hfill
-%   \subfloat[ASP Utility\label{fig:eff_asp_low}]{\includegraphics[width=0.33\textwidth] {5GDDoS_Game_asp_efficiency_low_cvx.pdf}}
-%   \hfill
-%   \subfloat[MPO Utility\label{fig:eff_mpo_low}]{\includegraphics[width=0.33\textwidth]{5GDDoS_Game_MPO_efficiency_low_cvx.pdf}}
-% \label{fig:eff_low}
-% \caption{Different IPS efficiency of Low Workload End-Users}
-% \end{figure*}
+\begin{figure*}[!]
+\captionsetup{justification=centering}
+  \subfloat[Social Welfare\label{fig:eff_soc_low}]{\includegraphics[width=0.33\textwidth]{5GDDoS_Game_social_efficiency_low_cvx.pdf}}
+  \hfill
+  \subfloat[ASP Utility\label{fig:eff_asp_low}]{\includegraphics[width=0.33\textwidth] {5GDDoS_Game_asp_efficiency_low_cvx.pdf}}
+  \hfill
+  \subfloat[MPO Utility\label{fig:eff_mpo_low}]{\includegraphics[width=0.33\textwidth]{5GDDoS_Game_MPO_efficiency_low_cvx.pdf}}
+\label{fig:eff_low}
+\caption{Different IPS efficiency of Low Workload End-Users}
+\end{figure*}
+
 \textbf{ASP with low workload devices}:
 \textcolor{red}{
-In the case where ASPs have low workload end-users, by \cref{eqn:service_rate}, the service rate would be high. Therefore, in this case, the interception rate would be lower than the service rate in default parameters ($\nu = 50$), and the ASPs tend to deploy fewer IPS VMs. As the efficiency of IPS increases, the best responses of the ASPs change at a specific point, which is the point where the interception rate and the service rate intersects. The main difference with the high-workload case is that the interception rate and the service rate intersects at a point where the IPS efficiency is higher. Other than the difference previously mentioned, the case is similar to the high-workload case.} \textcolor{blue}{We omit the figure due to page limitations.}
+In the case where ASPs have low workload end-users, by \cref{eqn:service_rate}, the service rate would be high. Therefore, in this case, the interception rate would be lower than the service rate in default parameters ($\nu = 50$), and the ASPs tend to deploy fewer IPS VMs. As the efficiency of IPS increases, the best responses of the ASPs change at a specific point, which is the point where the interception rate and the service rate intersects. The main difference with the high-workload case is that the interception rate and the service rate intersects at a point where the IPS efficiency is higher. Other than the difference previously mentioned, the case is similar to the high-workload case.}
 
 % \textcolor{red}{
 % Similar to the previous case, where the end-users have high workload tasks, the utility of fixed ratio scheme \textit{5\% IPS VM} and \textit{7\% IPS VM} has lower utility when IPS efficiency is low. When the IPS efficiency increases, the ASPs change their best responses and tend to deploy IPS VMs to intercept malicious requests. The changes in the utility curve are similar to the previous case. To elaborate, the utility of fixed ratio schemes \textit{5\% IPS VM} and \textit{7\% IPS VM} first exceed the utility of \textit{Proportional IPS efficiency}, and when the IPS efficiency increases, the utility of \textit{Proportional IPS efficiency} exceed these fixed ratio schemes \textit{5\% IPS VM} and \textit{7\% IPS VM} again. In addition, the \textit{Proposed Scheme} outperformed other schemes in \Cref{fig:eff_soc_low}, \Cref{fig:eff_asp_low}, and \Cref{fig:eff_mpo_low} with various IPS efficiency due to the optimal IPS deployment.}
