@@ -177,11 +177,11 @@ Given the MPO's price per VM $\Psi_m^v$, each ASP $i$ chooses the number of VMs 
 &\hspace*{-1mm}\triangleq \max_{z_i^h} X_i(z_i^h|z_i^v,\Psi_m^v) \label{eqn:asp_def_subobjective}
 \end{align}
 where the $F_{X}(x)$ is the cumulative distribution function (CDF) of $\mathcal{U}(a_i,b_i)$:
-% \begin{subnumcases}{F_X(x)=\label{eqn:CDF}}
-%   0 & $x < a_i$\\
-%   \frac{x-a_i}{b_i-a_i} &  $x \in[a_i, b_i]$\\
-%   1 & $x > b_i$
-% \end{subnumcases}
+\begin{subnumcases}{F_X(x)=\label{eqn:CDF}}
+  0 & $x < a_i$\\
+  \frac{x-a_i}{b_i-a_i} &  $x \in[a_i, b_i]$\\
+  1 & $x > b_i$
+\end{subnumcases}
 
 The $\mathsf{E}_{d_{ij}}$ is derived by taking expectation with respect to the distribution of $d_{ij}$, where $\mathds{1}\{\cdot\}$ is the indicator function. The $F_{d_{ij}}(T_{ij}^t+T_i^p(z_i^v, z_i^h))$ is the probability that the latency requirement $d_{ij}$ of the NU $j\in\mathrm{U}_i^n$ are not satisfied, which is also the CDF of $\mathcal{U}(a_i,b_i)$. Given $z_i^v$, we have three constraints on $z_i^h$. First, the number of VMs dedicated to IPS $z_i^h$ must be no larger than the number of purchased VMs $z_i^v$. Second, to make the processing queue stable, the mean service rate by VMs dedicated to running the service must be higher than the mean arrival rate for EUs $j \in \mathrm{U}_i$. Third, we introduce $\xi_i\in[0, 1]$ as a resource reservation constraint to control the minimum resource reserved for the service. Thus, to define the utility of ASP $i$ when the purchased VMs from the MPO is $z_i^v$, we have to solve the following optimization problem to determine the optimal configuration of IPS first.
 \begin{maxi!}[2]
@@ -214,21 +214,21 @@ We define these three sets as
 \begin{lemma}
 The utility of ASP $i$, $Y_i(z_i^v)$, is well defined, as the optimization problem (\ref{eqn:asp_utility_def_opti}) is a convex optimization problem and has at least one optimal point 
 \end{lemma}
-\begin{proof}
-The feasible region imposed by (\ref{eqn:asp_utility_def_opti_const1}) and (\ref{eqn:asp_utility_def_opti_const2}) is a closed and bounded interval in $\mathbb{R}$ and thus is a convex set. As the objective function (\ref{eqn:asp_utility_def_opti_obj}) is continuous in $z_i^h$, the existence of the optimal solution then comes from the Extreme Value Theorem. If (\ref{eqn:asp_utility_def_opti_obj}) is concave at each feasible $z_i^h$, optimization problem (\ref{eqn:asp_utility_def_opti}) is a convex optimization problem. It remains to show that the objective function (\ref{eqn:asp_utility_def_opti_obj}) is concave in feasible $z_i^h$. By rearranging the terms, we express $X_i(z_i^h|z_i^v,\Psi_m^v)$ as
-\begin{equation}
-\begin{aligned}
-    \sum_{j \in \mathrm{U}_i^{n}}\Psi_{ij}(1-\frac{T_{ij}^t+T_i^p(z_i^v, z_i^h)-a_i}{b_i-a_i})- \Psi_m^v z_i^v 
-\end{aligned}
-\end{equation}
-To show $X_i(z_i^h|z_i^v,\Psi_m^v)$ is concave in feasible $z_i^h$, it suffices to show that $T_i^p(z_i^v, z_i^h)$ is convex in feasible $z_i^h$. We will verify the convexity of $T_i^p(z_i^v, z_i^h)$. From (\ref{eqn:asp_mm1_delay}), We can rewrite it as
-\begin{equation} 
-\begin{aligned}
-T_i^p(z_i^v)=\frac{1}{(z_i^v-z_i^h)\mu_i^v - \lambda_i + H_i(z_i^h)}
-\end{aligned}
-\end{equation}
-By definition, $H_i(z_i^h)$ is concave in feasible $z_i^h$. In addition, $(z_i^v-z_i^h)\mu_i^v - \lambda_i$ is an affine function of $z_i^h$, so $(z_i^v-z_i^h)\mu_i^v - \lambda_i + H_i(z_i^h)$ is concave in feasible $z_i^h$. Given a positive concave function $f(x)$ in feasible $x$, $\frac{1}{f(x)}$ is convex in feasible $x$\cite[Chapter~3.2]{boyd2004convex}. Thus, $T_i^p(z_i^v, z_i^h)$ is convex in feasible $z_i^h$ and $X_i(z_i^h|z_i^v,\Psi_m^v)$ is concave in feasible $z_i^h$.
-\end{proof}
+% \begin{proof}
+% The feasible region imposed by (\ref{eqn:asp_utility_def_opti_const1}) and (\ref{eqn:asp_utility_def_opti_const2}) is a closed and bounded interval in $\mathbb{R}$ and thus is a convex set. As the objective function (\ref{eqn:asp_utility_def_opti_obj}) is continuous in $z_i^h$, the existence of the optimal solution then comes from the Extreme Value Theorem. If (\ref{eqn:asp_utility_def_opti_obj}) is concave at each feasible $z_i^h$, optimization problem (\ref{eqn:asp_utility_def_opti}) is a convex optimization problem. It remains to show that the objective function (\ref{eqn:asp_utility_def_opti_obj}) is concave in feasible $z_i^h$. By rearranging the terms, we express $X_i(z_i^h|z_i^v,\Psi_m^v)$ as
+% \begin{equation}
+% \begin{aligned}
+%     \sum_{j \in \mathrm{U}_i^{n}}\Psi_{ij}(1-\frac{T_{ij}^t+T_i^p(z_i^v, z_i^h)-a_i}{b_i-a_i})- \Psi_m^v z_i^v 
+% \end{aligned}
+% \end{equation}
+% To show $X_i(z_i^h|z_i^v,\Psi_m^v)$ is concave in feasible $z_i^h$, it suffices to show that $T_i^p(z_i^v, z_i^h)$ is convex in feasible $z_i^h$. We will verify the convexity of $T_i^p(z_i^v, z_i^h)$. From (\ref{eqn:asp_mm1_delay}), We can rewrite it as
+% \begin{equation} 
+% \begin{aligned}
+% T_i^p(z_i^v)=\frac{1}{(z_i^v-z_i^h)\mu_i^v - \lambda_i + H_i(z_i^h)}
+% \end{aligned}
+% \end{equation}
+% By definition, $H_i(z_i^h)$ is concave in feasible $z_i^h$. In addition, $(z_i^v-z_i^h)\mu_i^v - \lambda_i$ is an affine function of $z_i^h$, so $(z_i^v-z_i^h)\mu_i^v - \lambda_i + H_i(z_i^h)$ is concave in feasible $z_i^h$. Given a positive concave function $f(x)$ in feasible $x$, $\frac{1}{f(x)}$ is convex in feasible $x$\cite[Chapter~3.2]{boyd2004convex}. Thus, $T_i^p(z_i^v, z_i^h)$ is convex in feasible $z_i^h$ and $X_i(z_i^h|z_i^v,\Psi_m^v)$ is concave in feasible $z_i^h$.
+% \end{proof}
 
 After defining the utility of ASP $i$, $Y_i(z_i^v)$, we can now formulate the optimization problem of ASP $i$ given the MPO's price per VM $\Psi_m^v$.
 \begin{maxi!}[2]
@@ -314,13 +314,13 @@ Nevertheless, we can prove that Case 1 will never happen since $H_i(x) = min(\et
 \begin{lemma} \label{lemma:asp_case1_not_exist}
 The extreme point of $X_i(z_i^h|z_i^v,\Psi_m^v)$ doesn't exist in feasible $z_i^h$ if $H_i(x) = min(\eta_i{x}, \lambda_i^m)$.
 \end{lemma}
-\begin{proof}
-From (\ref{eqn:asp_utilitu_def_firstderiv}), we substitute $\eta_i{z_i^h}$ into $H_i(z_i^h)$, then we can obtain
-\begin{equation} \label{eqn:asp_utilitu_simplified}
-[(z_i^v - z_i^h) - \lambda_i + \eta_i{z_i^h}]^{-2} \cdot (-\mu_i^v + \eta_i)
-\end{equation}
-Obviously, regardless of the value of $z_i^h$, the (\ref{eqn:asp_utilitu_simplified}) will never be zero. Therefore, the extreme point does not exist.\qedhere
-\end{proof}
+% \begin{proof}
+% From (\ref{eqn:asp_utilitu_def_firstderiv}), we substitute $\eta_i{z_i^h}$ into $H_i(z_i^h)$, then we can obtain
+% \begin{equation} \label{eqn:asp_utilitu_simplified}
+% [(z_i^v - z_i^h) - \lambda_i + \eta_i{z_i^h}]^{-2} \cdot (-\mu_i^v + \eta_i)
+% \end{equation}
+% Obviously, regardless of the value of $z_i^h$, the (\ref{eqn:asp_utilitu_simplified}) will never be zero. Therefore, the extreme point does not exist.\qedhere
+% \end{proof}
 Now we know that the extreme point of (\ref{eqn:asp_utility_def_opti_obj}) does not exist in feasible $z_i^h$, so the maximum value of $X_i(z_i^h|z_i^v,\Psi_m^v)$ only happens at the boundary points of feasible $z_i^h$. Moreover, for the linear form of $H_i(x)$, the coefficient $\eta_i$ indicates the number of intercepted malicious requests of an IPS VM. If $\eta_i$ is larger than the service rate $\mu_i^v$, the ASP would tend to deploy as much IPS ratio as it could. In contrast, if $\eta_i$ is smaller than the service rate $\mu_i^v$, the ASP would tend to serve its users instead of intercepting malicious requests. 
 
 \textbf{Case 2}: In this case, the \textcolor{red}{interception rate} $\eta_i$ is larger than the service rate $\mu_i^v$ of the ASP $i$. As a result, the ASP has more incentive to deploy as many IPS VMs as they could. In this situation, the optimal point of (\ref{eqn:asp_utility_def_opti}) is the right boundary of (\ref{eqn:asp_utility_def_opti_const1}) or the exact number of VMs required to defend all of the malicious requests. With a specific form of $H_i(x) = min(\eta_i x, \lambda_i^m)$ and the purchased number of VM is $z_i^v$, the ASP $i$'s optimal number of VMs devoted to the IPS is
@@ -346,45 +346,23 @@ If $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to 
 \begin{lemma} \label{lemma:asp_case2_utility_concave}
 $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.
 \end{lemma}
-\begin{proof}
-If $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. We will verify the convexity of $T_{i,2}^p(z_i^v)$. We can write $T_{i,2}^p(z_i^v)$ as follow
-\begin{equation} \label{eqn:asp_case2_mm1_delay_min}
-\begin{aligned}
-&T_{i,2}^p(z_i^v) = \\ &\frac{1}{(z_i^v-min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i}))\mu_i^v - \big(\lambda_i - \eta_i\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})\big)}
-\end{aligned}
-\end{equation}
-By rewriting (\ref{eqn:asp_case2_mm1_delay_min}), $T_{i,2}^p(z_i^v)$ can be further expressed as
-\begin{equation} \label{eqn:asp_case2_mm1_delay_min_new}
-\begin{aligned}
-T_{i,2}^p(z_i^v) = \frac{1}{z_i^v\mu_i^v - \lambda_i +(\eta_i - \mu_i^v)\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})}
-\end{aligned}
-\end{equation}
-Since the term $(\eta_i - \mu_i^v)$ is always positive in Case 2, $(\mu_i^v - \eta_i)\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})$ is positive and concave in feasible $z_i^v$. In addition, $(z_i^v\mu_i^v - \lambda_i)$ is an affine function in feasible $z_i^v$, so $z_i^v\mu_i^v - \lambda_i+(\mu_i^v - \eta_i)\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})$ is concave in feasible $z_i^v$\cite[Chapter~3.2]{boyd2004convex}.
-
-Given a concave function $f(x)$ in feasible $x$, $\frac{1}{f(x)}$ is convex in feasible $x$. Therefore, $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$ and $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.  \qedhere
-\iffalse
-% If $z_i^v < \frac{\lambda_i^m}{\eta_i \xi_i}$, the second derivative of
-% $T_{i,2}^p(z_i^v)$ with respect to $z_i^v$ is
-% \begin{equation} \label{eqn:asp_case2_mm1_delay_second_deriv1}
+% \begin{proof}
+% If $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. We will verify the convexity of $T_{i,2}^p(z_i^v)$. We can write $T_{i,2}^p(z_i^v)$ as follow
+% \begin{equation} \label{eqn:asp_case2_mm1_delay_min}
 % \begin{aligned}
-% &2[(1-\xi_i)\mu_i^v z_i^v - \lambda_i + H_i(\xi_i z_i^v)]^{-3}\times [(1-\xi_i)\mu_i^v\\
-% &+ \xi_i H'(\xi_i z_i^v)]^2-[(1-\xi_i)\mu_i^v z_i^v - \lambda_i + H_i(\xi_i z_i^v)]^{-2}  \\
-% & \times (\xi_i)^2 H''(\xi_i z_i^v)
+% &T_{i,2}^p(z_i^v) = \\ &\frac{1}{(z_i^v-min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i}))\mu_i^v - \big(\lambda_i - \eta_i\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})\big)}
 % \end{aligned}
 % \end{equation}
-% Since $(z_i^h)^* = \xi_i z_i^v$ satisfies the constraint (\ref{eqn:asp_utility_def_opti_const2}), $(1-\xi_i)\mu_i^v z_i^v - \lambda_i + H_i(\xi_i z_i^v)$ is always positive. Moreover, as $H_i(\cdot)$ is concave, $H''(\xi_i z_i^v)$ is non-positive. The first term of (\ref{eqn:asp_case2_mm1_delay_second_deriv1}) is positive, and the second term of (\ref{eqn:asp_case2_mm1_delay_second_deriv1}) is non-positive. Therefore, (\ref{eqn:asp_case2_mm1_delay_second_deriv1}) is non-negative.
-
-% If $z_i^v > \frac{\lambda_i^m}{\eta_i \xi_i}$, the second derivative of $T_{i,2}^p(z_i^v)$ with respect to $z_i^v$ is
-% \begin{equation} \label{eqn:asp_case2_mm1_delay_second_deriv2}
+% By rewriting (\ref{eqn:asp_case2_mm1_delay_min}), $T_{i,2}^p(z_i^v)$ can be further expressed as
+% \begin{equation} \label{eqn:asp_case2_mm1_delay_min_new}
 % \begin{aligned}
-% &2[(z_i^v-\frac{\lambda_i^m}{\eta_i})\mu_i^v  - \lambda_i + \lambda_i^m]^{-3}\times (\mu_i^v)^2
-% \end{aligned}{}
+% T_{i,2}^p(z_i^v) = \frac{1}{z_i^v\mu_i^v - \lambda_i +(\eta_i - \mu_i^v)\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})}
+% \end{aligned}
 % \end{equation}
-% Since $(z_i^h)^* = \frac{\lambda_i^m}{\eta_i}$ satisfies the constraint (\ref{eqn:asp_utility_def_opti_const2}), $(z_i^v-\frac{\lambda_i^m}{\eta_i})\mu_i^v  - \lambda_i + \lambda_i^m$ is always positive. Moreover, as $(\mu_i^v)^2$ is non-negative,  (\ref{eqn:asp_case2_mm1_delay_second_deriv2}) is positive. Therefore, (\ref{eqn:asp_case2_mm1_delay_second_deriv2}) is non-negative.
+% Since the term $(\eta_i - \mu_i^v)$ is always positive in Case 2, $(\mu_i^v - \eta_i)\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})$ is positive and concave in feasible $z_i^v$. In addition, $(z_i^v\mu_i^v - \lambda_i)$ is an affine function in feasible $z_i^v$, so $z_i^v\mu_i^v - \lambda_i+(\mu_i^v - \eta_i)\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})$ is concave in feasible $z_i^v$\cite[Chapter~3.2]{boyd2004convex}.
 
-% Both (\ref{eqn:asp_case2_mm1_delay_second_deriv1}) and (\ref{eqn:asp_case2_mm1_delay_second_deriv2}) are non-negative, which means $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$. Hence, $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. \qedhere
-\fi
-\end{proof}
+% Given a concave function $f(x)$ in feasible $x$, $\frac{1}{f(x)}$ is convex in feasible $x$. Therefore, $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$ and $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.  \qedhere
+% \end{proof}
 
 With \Cref{lemma:asp_case2_utility_concave}, we can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}). Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const1}) as $\Upsilon_i$ for ASP i while the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^2$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^2(z_i^v|\Psi_m^v)$.
 \begin{theorem}\label{thm:asp_case2_optimal}
@@ -393,9 +371,7 @@ The solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the o
   \frac{\lambda_i+\gamma_i}{\mu_i^v} & $(z_{i,2}^{v,e}(\Psi_m^v))^* < \frac{\lambda_i+\gamma_i}{\mu_i^v}$ \label{eqn:asp_case2_optimal_solution_lower_boundary} \\
   (z_{i,2}^{v,e}(\Psi_m^v))^* & $(z_{i,2}^{v,e}(\Psi_m^v))^* \geq \frac{\lambda_i+\gamma_i}{\mu_i^v}$ \label{eqn:asp_case2_optimal_solution_extreme}
 \end{subnumcases}
-where
-
-$(z_{i,2}^{v,e}(\Psi_m^v))^*  $
+where $(z_{i,2}^{v,e}(\Psi_m^v))^*  $
 \begin{subnumcases} {=\label{eqn:asp_case2_utility_extreme}}
 (z_{i,2}^{v,e''}(\Psi_m^v))^*
  &if $(z_{i,2}^{v,e'}(\Psi_m^v))^*<\frac{\lambda_i^m}{\eta_i \xi_i}$
@@ -426,13 +402,13 @@ and if $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$
 \end{equation}
 
 \end{theorem}
-\begin{proof}
-We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^2(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case2_utility_concave}, $\Upsilon_i^2$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^2$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case2_utility_concave}, $Y_i^2(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^2(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
-\begin{equation} \label{eqn:asp_case2_utility_first_deriv}
--\frac{\partial T_{i,2}^p(z_i^v)}{\partial z_i^v} = \frac{\Psi_m^v (b_i - a_i)}{\sum_{j \in \mathsf{U}_i^n} \Psi_{ij}}
-\end{equation}
-Using (\ref{eqn:asp_case2_mm1_delay1}), (\ref{eqn:asp_case2_mm1_delay2}), (\ref{eqn:asp_case2_objective}), and $H_i(x)=\eta_i x$, it only takes simple algebraic operations to have the expression for the extreme point in (\ref{eqn:asp_case2_utility_extreme}). Note that since there are two kinds of $Y_i^2(z_i^v|\Psi_m^v)$ under the circumstances of (\ref{eqn:asp_case2_mm1_delay1}) and (\ref{eqn:asp_case2_mm1_delay2}), there are also two different extreme points (\ref{eqn:asp_case2_utility_extreme2_1}) and (\ref{eqn:asp_case2_utility_extreme2_2}) based on the $Y_i^2(z_i^v|\Psi_m^v)$.\qedhere
-\end{proof}
+% \begin{proof}
+% We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^2(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case2_utility_concave}, $\Upsilon_i^2$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^2$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case2_utility_concave}, $Y_i^2(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^2(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
+% \begin{equation} \label{eqn:asp_case2_utility_first_deriv}
+% -\frac{\partial T_{i,2}^p(z_i^v)}{\partial z_i^v} = \frac{\Psi_m^v (b_i - a_i)}{\sum_{j \in \mathsf{U}_i^n} \Psi_{ij}}
+% \end{equation}
+% Using (\ref{eqn:asp_case2_mm1_delay1}), (\ref{eqn:asp_case2_mm1_delay2}), (\ref{eqn:asp_case2_objective}), and $H_i(x)=\eta_i x$, it only takes simple algebraic operations to have the expression for the extreme point in (\ref{eqn:asp_case2_utility_extreme}). Note that since there are two kinds of $Y_i^2(z_i^v|\Psi_m^v)$ under the circumstances of (\ref{eqn:asp_case2_mm1_delay1}) and (\ref{eqn:asp_case2_mm1_delay2}), there are also two different extreme points (\ref{eqn:asp_case2_utility_extreme2_1}) and (\ref{eqn:asp_case2_utility_extreme2_2}) based on the $Y_i^2(z_i^v|\Psi_m^v)$.\qedhere
+% \end{proof}
 
 From \Cref{thm:asp_case2_optimal}, we can obtain the MPO's price per VM $\Psi_m^i$ which makes the ASP $i$'s optimal response switch among (\ref{eqn:asp_case2_optimal_solution_individual_rationality}), (\ref{eqn:asp_case2_optimal_solution_lower_boundary}) and (\ref{eqn:asp_case2_optimal_solution_extreme}) by solving the $\Psi_m^v$ that satisfies $(z_{i,2}^{v,e}(\Psi_m^v))^* = \frac{\lambda_i+\gamma_i}{\mu_i^v}$ and  $Y_i^2(\frac{\lambda_i+\gamma_i}{\mu_i^v}|\Psi_m^v) = 0$.
 
@@ -645,16 +621,16 @@ If $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$, it is much easier to 
 \begin{lemma} \label{lemma:asp_case3_utility_concave}
 $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.
 \end{lemma}
-\begin{proof}
-If $T_{i,3}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. We can verify the convexity of $T_{i,3}^p(z_i^v)$ by taking second derivative of $T_{i,3}^p(z_i^v)$ with respect to $z_i^v$.
+% \begin{proof}
+% If $T_{i,3}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. We can verify the convexity of $T_{i,3}^p(z_i^v)$ by taking second derivative of $T_{i,3}^p(z_i^v)$ with respect to $z_i^v$.
 
-\begin{equation} \label{eqn:asp_case3_mm1_delay_second_deriv}
-\begin{aligned}
-&[2(\mu_i^v)^2](z_i^v\mu_i^v-\lambda_i)^{-3}
-\end{aligned}
-\end{equation}
-The first term of (\ref{eqn:asp_case3_mm1_delay_second_deriv}) is positive. Moreover, $z_i^v\mu_i^v - \lambda_i$ is larger than $0$ to satisfy the constraint (\ref{eqn:asp_utility_def_opti_const1}), so the second term of (\ref{eqn:asp_utility_def_opti_const1}) is always positive. Therefore, (\ref{eqn:asp_case3_mm1_delay_second_deriv}) is non-negative, which means $T_{i,3}^p(z_i^v)$ is convex in feasible $z_i^v$. Hence, $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. \qedhere
-\end{proof}
+% \begin{equation} \label{eqn:asp_case3_mm1_delay_second_deriv}
+% \begin{aligned}
+% &[2(\mu_i^v)^2](z_i^v\mu_i^v-\lambda_i)^{-3}
+% \end{aligned}
+% \end{equation}
+% The first term of (\ref{eqn:asp_case3_mm1_delay_second_deriv}) is positive. Moreover, $z_i^v\mu_i^v - \lambda_i$ is larger than $0$ to satisfy the constraint (\ref{eqn:asp_utility_def_opti_const1}), so the second term of (\ref{eqn:asp_utility_def_opti_const1}) is always positive. Therefore, (\ref{eqn:asp_case3_mm1_delay_second_deriv}) is non-negative, which means $T_{i,3}^p(z_i^v)$ is convex in feasible $z_i^v$. Hence, $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. \qedhere
+% \end{proof}
 With \Cref{lemma:asp_case3_utility_concave}, we can characterize the solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^3(z_i^v|\Psi_m^v)$ in the following theorem with a specific form of $H_i(\cdot)$. Before stating the result, we define the feasible region of (\ref{eqn:asp_utility_opti_const2}) as $\Upsilon_i^3$ when the $Y_i(z_i^v|\Psi_m^v)$ equals $Y_i^3(z_i^v|\Psi_m^v)$.
 \begin{theorem}\label{thm:asp_case3_optimal}
 The solution to the optimization problem (\ref{eqn:asp_utility_opti}) when the objective function (\ref{eqn:asp_utility_opti_obj}) equals $Y_i^3(z_i^v|\Psi_m^v)$ and $H_i(x)=min(\eta_i x, \lambda_i^m)$ is $(z_{i,3}^v(\Psi_m^v))^*$ and if $\Upsilon_i \cap \Upsilon_i^3 \neq \emptyset $
@@ -675,13 +651,13 @@ and if $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$
 \end{aligned}
 \end{equation}
 \end{theorem}
-\begin{proof}
-We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^3(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case3_utility_concave}, $\Upsilon_i^3$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^3$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case3_utility_concave}, $Y_i^3(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^3(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
-\begin{equation} \label{eqn:asp_case3_utility_first_deriv}
--\frac{\partial T_{i,3}^p(z_i^v)}{\partial z_i^v} = \frac{\Psi_m^v (b_i - a_i)}{\sum_{j \in \mathsf{U}_i^n} \Psi_{ij}}
-\end{equation}
-Using (\ref{eqn:asp_case3_mm1_delay}), (\ref{eqn:asp_case3_objective}), and $H_i(x)=\eta_i x $, it only takes simple algebraic operations to have the expression for the extreme point in (\ref{eqn:asp_case3_utility_extreme}). \qedhere
-\end{proof}
+% \begin{proof}
+% We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^3(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case3_utility_concave}, $\Upsilon_i^3$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^3$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case3_utility_concave}, $Y_i^3(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^3(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
+% \begin{equation} \label{eqn:asp_case3_utility_first_deriv}
+% -\frac{\partial T_{i,3}^p(z_i^v)}{\partial z_i^v} = \frac{\Psi_m^v (b_i - a_i)}{\sum_{j \in \mathsf{U}_i^n} \Psi_{ij}}
+% \end{equation}
+% Using (\ref{eqn:asp_case3_mm1_delay}), (\ref{eqn:asp_case3_objective}), and $H_i(x)=\eta_i x $, it only takes simple algebraic operations to have the expression for the extreme point in (\ref{eqn:asp_case3_utility_extreme}). \qedhere
+% \end{proof}
 
 From \Cref{thm:asp_case3_optimal}, we can obtain the MPO's price per VM $\Psi_m^i$ which makes the ASP $i$'s optimal response switch among (\ref{eqn:asp_case3_optimal_solution_individual_rationality}), (\ref{eqn:asp_case3_optimal_solution_lower_boundary}) and (\ref{eqn:asp_case3_optimal_solution_extreme}) by solving the $\Psi_m^v$ that satisfies $(z_{i,3}^{v,e}(\Psi_m^v))^* = \frac{\lambda_i+\gamma_i}{\mu_i^v}$ and $Y_i^3(\frac{\lambda_i+\gamma_i}{\mu_i^v}|\Psi_m^v) = 0$.
 \begin{equation}
@@ -763,55 +739,55 @@ With (\ref{eqn:total_number_VM}), the MPO's optimization problem in each interva
 \begin{theorem} \label{thm:f_mpo_convex_optimization}
 In each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$, the MPO's optimization problem (\ref{eqn:f_mpo_utility_opti}) is a convex optimization problem. The MPO's optimal price per VM $\Psi_m^v$ is one of the optimal prices in each $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$ that gives the highest utility.
 \end{theorem}
-\begin{proof}
-We start by proving that $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v$ when $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \mathcal{I}$. In (\ref{eqn:total_number_VM}), the second, third and fourth term pertains to $\Psi_m^v$. As the summation of convex function is also a convex function, it suffices to prove that $(z_{i,2}^{v,e''}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_2^{k,e''}$, $(z_{i,2}^{v,e'}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_2^{k,e'}$ and $(z_{i,3}^{v,e}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_3^{k,e}$. Taking the second derivative of (\ref{eqn:asp_case2_utility_extreme2_1}) and (\ref{eqn:asp_case2_utility_extreme2_2}) with respect to $\Psi_m^v$, we have
-\begin{equation}
-\frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \geq 0
-\end{equation}
-\begin{equation}
-\frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta_i]}} \geq 0
-\end{equation}
-In addition, take the second derivative of (\ref{eqn:asp_case3_utility_extreme}) with respect to $\Psi_m^v$, we have
-\begin{equation}
-\frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \geq 0
-\end{equation}
+% \begin{proof}
+% We start by proving that $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v$ when $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \mathcal{I}$. In (\ref{eqn:total_number_VM}), the second, third and fourth term pertains to $\Psi_m^v$. As the summation of convex function is also a convex function, it suffices to prove that $(z_{i,2}^{v,e''}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_2^{k,e''}$, $(z_{i,2}^{v,e'}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_2^{k,e'}$ and $(z_{i,3}^{v,e}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_3^{k,e}$. Taking the second derivative of (\ref{eqn:asp_case2_utility_extreme2_1}) and (\ref{eqn:asp_case2_utility_extreme2_2}) with respect to $\Psi_m^v$, we have
+% \begin{equation}
+% \frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \geq 0
+% \end{equation}
+% \begin{equation}
+% \frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta_i]}} \geq 0
+% \end{equation}
+% In addition, take the second derivative of (\ref{eqn:asp_case3_utility_extreme}) with respect to $\Psi_m^v$, we have
+% \begin{equation}
+% \frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \geq 0
+% \end{equation}
 
-As a result, $(z_{i,2}^{v, e'}(\Psi_m^v))^*$, $(z_{i,2}^{v, e''}(\Psi_m^v))^*$ and $(z_{i,3}^{v, e}(\Psi_m^v))^*$ is convex in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1,\cdots, J\}$. Since the sub-level set of a convex function is a convex set, the feasible region resulting from (\ref{eqn:f_mpo_utility_opti_const1}) is a convex set for any value $\mathcal{Q}_v$. In addition, the feasible region of (\ref{eqn:f_mpo_utility_opti_const2}) is also a convex set because the convex combination of two numbers in $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$ is still a number in $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$. Thus, the feasible region of the optimization problem (\ref{eqn:f_mpo_utility_opti}) is the intersection of two convex set and thus is a convex set. To prove that the MPO's the optimization problem (\ref{eqn:f_mpo_utility_opti}) is a convex optimization problem, what remains to do is to prove that the objective function (\ref{eqn:f_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1,\cdots, J\}$. Using (\ref{eqn:asp_case2_utility_extreme}), (\ref{eqn:asp_case3_utility_extreme}) and (\ref{eqn:total_number_VM}), we can unfold the first term in (\ref{eqn:f_mpo_utility_opti_obj}) as follows.
-\begin{equation}\label{eqn:mpo_utility_first_term}
-\begin{aligned}
-&\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^* = \\
-&\Psi_m^v \cdot \sum_{i\in \Omega^{k,l}}\frac{\lambda_i + \gamma_i}{\mu_i^v}+
-\Psi_m^v \cdot \sum_{i\in \Omega^{k,e'}_{2}}(z_{i,2}^{v,e'}(\Psi_m^v))^* + \\
-&\Psi_m^v \cdot \sum_{i\in \Omega^{k,e''}_{2}}(z_{i,2}^{v,e''}(\Psi_m^v))^* + \Psi_m^v \cdot \sum_{i\in \Omega^{k,e}_{3}}(z_{i,3}^{v,e}(\Psi_m^v))^*
-\end{aligned}   
-\end{equation} 
+% As a result, $(z_{i,2}^{v, e'}(\Psi_m^v))^*$, $(z_{i,2}^{v, e''}(\Psi_m^v))^*$ and $(z_{i,3}^{v, e}(\Psi_m^v))^*$ is convex in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1,\cdots, J\}$. Since the sub-level set of a convex function is a convex set, the feasible region resulting from (\ref{eqn:f_mpo_utility_opti_const1}) is a convex set for any value $\mathcal{Q}_v$. In addition, the feasible region of (\ref{eqn:f_mpo_utility_opti_const2}) is also a convex set because the convex combination of two numbers in $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$ is still a number in $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$. Thus, the feasible region of the optimization problem (\ref{eqn:f_mpo_utility_opti}) is the intersection of two convex set and thus is a convex set. To prove that the MPO's the optimization problem (\ref{eqn:f_mpo_utility_opti}) is a convex optimization problem, what remains to do is to prove that the objective function (\ref{eqn:f_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1,\cdots, J\}$. Using (\ref{eqn:asp_case2_utility_extreme}), (\ref{eqn:asp_case3_utility_extreme}) and (\ref{eqn:total_number_VM}), we can unfold the first term in (\ref{eqn:f_mpo_utility_opti_obj}) as follows.
+% \begin{equation}\label{eqn:mpo_utility_first_term}
+% \begin{aligned}
+% &\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^* = \\
+% &\Psi_m^v \cdot \sum_{i\in \Omega^{k,l}}\frac{\lambda_i + \gamma_i}{\mu_i^v}+
+% \Psi_m^v \cdot \sum_{i\in \Omega^{k,e'}_{2}}(z_{i,2}^{v,e'}(\Psi_m^v))^* + \\
+% &\Psi_m^v \cdot \sum_{i\in \Omega^{k,e''}_{2}}(z_{i,2}^{v,e''}(\Psi_m^v))^* + \Psi_m^v \cdot \sum_{i\in \Omega^{k,e}_{3}}(z_{i,3}^{v,e}(\Psi_m^v))^*
+% \end{aligned}   
+% \end{equation} 
 
 
-The first term in (\ref{eqn:mpo_utility_first_term}) is a linear function of $\Psi_m^v$ which is both convex and concave. The second and third term (\ref{eqn:mpo_utility_first_term}) is concave in $\Psi_m^v$. To prove these properties, we check the concavity via the second-order test. The second derivative of the second term is
-\begin{equation}
--\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_2^{k,e'}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta_i]}} \leq 0
-\end{equation}
-The second derivative of the third term is
-\begin{equation}
--\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_2^{k,e''}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \leq 0
-\end{equation}
-And the second derivative of the forth term is
-\begin{equation}
--\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_3^{k,e}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \leq 0
-\end{equation}
-Therefore, (\ref{eqn:mpo_utility_first_term}) is concave in $\Psi_m^v$. The second term of (\ref{eqn:f_mpo_utility_opti_obj}), $C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v)^*)$, is convex in $\Psi_m^v$ as it is a composition of $C_m^v$ and $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ where $C_m^v$ is convex and non-decreasing, and $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1, \cdots, J\}$. Since a concave function minus a convex function yields a concave function, (\ref{eqn:f_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \mathcal{I}$. In sum, the (\ref{eqn:f_mpo_utility_opti}) in each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$ is a convex optimization problem. \qedhere
-\end{proof}
+% The first term in (\ref{eqn:mpo_utility_first_term}) is a linear function of $\Psi_m^v$ which is both convex and concave. The second and third term (\ref{eqn:mpo_utility_first_term}) is concave in $\Psi_m^v$. To prove these properties, we check the concavity via the second-order test. The second derivative of the second term is
+% \begin{equation}
+% -\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_2^{k,e'}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta_i]}} \leq 0
+% \end{equation}
+% The second derivative of the third term is
+% \begin{equation}
+% -\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_2^{k,e''}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \leq 0
+% \end{equation}
+% And the second derivative of the forth term is
+% \begin{equation}
+% -\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_3^{k,e}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \leq 0
+% \end{equation}
+% Therefore, (\ref{eqn:mpo_utility_first_term}) is concave in $\Psi_m^v$. The second term of (\ref{eqn:f_mpo_utility_opti_obj}), $C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v)^*)$, is convex in $\Psi_m^v$ as it is a composition of $C_m^v$ and $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ where $C_m^v$ is convex and non-decreasing, and $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1, \cdots, J\}$. Since a concave function minus a convex function yields a concave function, (\ref{eqn:f_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \mathcal{I}$. In sum, the (\ref{eqn:f_mpo_utility_opti}) in each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$ is a convex optimization problem. \qedhere
+% \end{proof}
 As the optimization problem (\ref{eqn:f_mpo_utility_opti}) is convex in every interval, the global optimal solution $\Psi_m^v$ for MPO can be identified efficiently by comparing the optimal value in every interval.
 
 After analyzing both the followers' and the leader's optimization problems, we now prove that there exists at least one Stackelberg game equilibrium in our system with minor modifications. We convert all the right open intervals among $\mathcal{M}^k$, $\forall k \in \{1, \cdots, J\}$ into right close intervals with the right endpoint being the right endpoint of original ones minus small constants $\epsilon$, so all the intervals $\mathcal{M}^k$, $\forall k \in \{1, \cdots, J\}$ are compact sets. 
 \begin{theorem} \label{thm:stackelberg_game_equilibrium}
 There exists a Stackelberg equilibrium in our system after the modifications.
 \end{theorem}
-\begin{proof}
-In Case 2, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case2_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. Also, in Case 3, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case3_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. 
+% \begin{proof}
+% In Case 2, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case2_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. Also, in Case 3, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case3_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. 
 
-With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists because MPO's optimization problem is convex proved in \Cref{thm:f_mpo_convex_optimization} with a compact region; thus, the MPO's best response set defined in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there is at least one Stackelberg game equilibrium.
-\end{proof}
+% With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists because MPO's optimization problem is convex proved in \Cref{thm:f_mpo_convex_optimization} with a compact region; thus, the MPO's best response set defined in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there is at least one Stackelberg game equilibrium.
+% \end{proof}
 Because of \Cref{thm:f_mpo_convex_optimization}, if the specific form of $C_m^v(\cdot)$ is given, we can solve the exact form of the solution to the MPO's optimization problem. We will select some specific forms for $C_m^v(\cdot)$ in the \Cref{sec:simulation}.
 \subsection{Time complexity analysis}
 % \begin{algorithm}
@@ -1008,7 +984,6 @@ In the paper, we proposed a flexible IPS deployment strategy for ASPs to allocat
 
 \bibliographystyle{IEEEtran}
 \bibliography{5GDDoS_Game}
-\iffalse
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{chun_yen.jpg}}]{Chun-Yen Lee}
 received the B.S. degree in electrical engineering from National Taiwan University (NTU), Taipei, Taiwan in 2021. He is currently a research assistant with the Research Center for Information Technology Innovation, Academia Sinica. His research interests include wireless communications, game theory and network economics.
 \end{IEEEbiography}
@@ -1031,5 +1006,125 @@ He was a recipient of the K. T. Li Young Researcher Award from ACM Taipei/Taiwan
 Dr. Wei received NTU Excellent Teaching Award in 2008 and 2018. He also received "Recruiting Outstanding Young Scholar Award" from the Foundation for the Advancement of Outstanding Scholarship in 2006, K. T. Li Young Researcher Award from ACM Taipei/Taiwan Chapter and The Institute of Information and Computing Machinery in 2012, Excellent Young Engineer Award from the Chinese Institute of Electrical Engineering in 2014, Wu Ta You Memorial Award from MOST in 2015, and Outstanding Research Award from MOST in 2020. He has been actively participating in NGMN, IEEE 802.16, 3GPP, IEEE P1934, and IEEE P1935 standardization. He serves as Vice Chair of IEEE P1934 Working Group to standardize fog computing and networking architecture. He serves as Secretary for IEEE ComSoC Fog/Edge Industry Community. He is an Associate Editor for IEEE System journal and IEEE IoT magazine, and was an Associate Editor for IEEE IoT journal. He is an IEEE certified Wireless Communications Professional. He was the Chair of IEEE VTS Taipei Chapter during 2016~2017. He is currently the Chair of IEEE P1935 working group for edge/fog management and orchestration standard.
 
 \end{IEEEbiography}
-\fi
+
+
+\clearpage
+\appendices
+    \section{Proof of Lemma 1}\label{appendix:lemma_1}
+    \begin{proof}
+    The feasible region imposed by (\ref{eqn:asp_utility_def_opti_const1}) and (\ref{eqn:asp_utility_def_opti_const2}) is a closed and bounded interval in $\mathbb{R}$ and thus is a convex set. As the objective function (\ref{eqn:asp_utility_def_opti_obj}) is continuous in $z_i^h$, the existence of the optimal solution then comes from the Extreme Value Theorem. If (\ref{eqn:asp_utility_def_opti_obj}) is concave at each feasible $z_i^h$, optimization problem (\ref{eqn:asp_utility_def_opti}) is a convex optimization problem. It remains to show that the objective function (\ref{eqn:asp_utility_def_opti_obj}) is concave in feasible $z_i^h$. By rearranging the terms, we express $X_i(z_i^h|z_i^v,\Psi_m^v)$ as
+    \begin{equation}
+    \begin{aligned}
+        \sum_{j \in \mathrm{U}_i^{n}}\Psi_{ij}(1-\frac{T_{ij}^t+T_i^p(z_i^v, z_i^h)-a_i}{b_i-a_i})- \Psi_m^v z_i^v 
+    \end{aligned}
+    \end{equation}
+    To show $X_i(z_i^h|z_i^v,\Psi_m^v)$ is concave in feasible $z_i^h$, it suffices to show that $T_i^p(z_i^v, z_i^h)$ is convex in feasible $z_i^h$. We will verify the convexity of $T_i^p(z_i^v, z_i^h)$. From (\ref{eqn:asp_mm1_delay}), We can rewrite it as
+    \begin{equation} 
+    \begin{aligned}
+    T_i^p(z_i^v)=\frac{1}{(z_i^v-z_i^h)\mu_i^v - \lambda_i + H_i(z_i^h)}
+    \end{aligned}
+    \end{equation}
+    By definition, $H_i(z_i^h)$ is concave in feasible $z_i^h$. In addition, $(z_i^v-z_i^h)\mu_i^v - \lambda_i$ is an affine function of $z_i^h$, so $(z_i^v-z_i^h)\mu_i^v - \lambda_i + H_i(z_i^h)$ is concave in feasible $z_i^h$. Given a positive concave function $f(x)$ in feasible $x$, $\frac{1}{f(x)}$ is convex in feasible $x$\cite[Chapter~3.2]{boyd2004convex}. Thus, $T_i^p(z_i^v, z_i^h)$ is convex in feasible $z_i^h$ and $X_i(z_i^h|z_i^v,\Psi_m^v)$ is concave in feasible $z_i^h$.
+    \end{proof}
+
+  \section{Proof of Lemma 2}\label{appendix:lemma_2}
+    \begin{proof}
+    From (\ref{eqn:asp_utilitu_def_firstderiv}), we substitute $\eta_i{z_i^h}$ into $H_i(z_i^h)$, then we can obtain
+    \begin{equation} \label{eqn:asp_utilitu_simplified}
+    [(z_i^v - z_i^h) - \lambda_i + \eta_i{z_i^h}]^{-2} \cdot (-\mu_i^v + \eta_i)
+    \end{equation}
+    Obviously, regardless of the value of $z_i^h$, the (\ref{eqn:asp_utilitu_simplified}) will never be zero. Therefore, the extreme point does not exist.\qedhere
+    \end{proof}
+
+  \section{Proof of Lemma 3}\label{appendix:lemma_3}
+    \begin{proof}
+    If $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. We will verify the convexity of $T_{i,2}^p(z_i^v)$. We can write $T_{i,2}^p(z_i^v)$ as follow
+    \begin{equation} \label{eqn:asp_case2_mm1_delay_min}
+    \begin{aligned}
+    &T_{i,2}^p(z_i^v) = \\ &\frac{1}{(z_i^v-min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i}))\mu_i^v - \big(\lambda_i - \eta_i\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})\big)}
+    \end{aligned}
+    \end{equation}
+    By rewriting (\ref{eqn:asp_case2_mm1_delay_min}), $T_{i,2}^p(z_i^v)$ can be further expressed as
+    \begin{equation} \label{eqn:asp_case2_mm1_delay_min_new}
+    \begin{aligned}
+    T_{i,2}^p(z_i^v) = \frac{1}{z_i^v\mu_i^v - \lambda_i +(\eta_i - \mu_i^v)\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})}
+    \end{aligned}
+    \end{equation}
+    Since the term $(\eta_i - \mu_i^v)$ is always positive in Case 2, $(\mu_i^v - \eta_i)\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})$ is positive and concave in feasible $z_i^v$. In addition, $(z_i^v\mu_i^v - \lambda_i)$ is an affine function in feasible $z_i^v$, so $z_i^v\mu_i^v - \lambda_i+(\mu_i^v - \eta_i)\min(\xi_i z_i^v, \frac{\lambda_i^m}{\eta_i})$ is concave in feasible $z_i^v$\cite[Chapter~3.2]{boyd2004convex}.
+    
+    Given a concave function $f(x)$ in feasible $x$, $\frac{1}{f(x)}$ is convex in feasible $x$. Therefore, $T_{i,2}^p(z_i^v)$ is convex in feasible $z_i^v$ and $Y_i^2(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$.  \qedhere
+    \end{proof}
+
+  \section{Proof of Theorem 1}\label{appendix:theorem_1}
+    \begin{proof}
+    We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^2(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case2_utility_concave}, $\Upsilon_i^2$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^2$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^2 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case2_utility_concave}, $Y_i^2(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^2(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^2(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
+    \begin{equation} \label{eqn:asp_case2_utility_first_deriv}
+    -\frac{\partial T_{i,2}^p(z_i^v)}{\partial z_i^v} = \frac{\Psi_m^v (b_i - a_i)}{\sum_{j \in \mathsf{U}_i^n} \Psi_{ij}}
+    \end{equation}
+    Using (\ref{eqn:asp_case2_mm1_delay1}), (\ref{eqn:asp_case2_mm1_delay2}), (\ref{eqn:asp_case2_objective}), and $H_i(x)=\eta_i x$, it only takes simple algebraic operations to have the expression for the extreme point in (\ref{eqn:asp_case2_utility_extreme}). Note that since there are two kinds of $Y_i^2(z_i^v|\Psi_m^v)$ under the circumstances of (\ref{eqn:asp_case2_mm1_delay1}) and (\ref{eqn:asp_case2_mm1_delay2}), there are also two different extreme points (\ref{eqn:asp_case2_utility_extreme2_1}) and (\ref{eqn:asp_case2_utility_extreme2_2}) based on the $Y_i^2(z_i^v|\Psi_m^v)$.\qedhere
+    \end{proof}
+  \section{Proof of Lemma 4}\label{appendix:lemma_4}
+    \begin{proof}
+    If $T_{i,3}^p(z_i^v)$ is convex in feasible $z_i^v$, $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. We can verify the convexity of $T_{i,3}^p(z_i^v)$ by taking second derivative of $T_{i,3}^p(z_i^v)$ with respect to $z_i^v$.
+    
+    \begin{equation} \label{eqn:asp_case3_mm1_delay_second_deriv}
+    \begin{aligned}
+    &[2(\mu_i^v)^2](z_i^v\mu_i^v-\lambda_i)^{-3}
+    \end{aligned}
+    \end{equation}
+    The first term of (\ref{eqn:asp_case3_mm1_delay_second_deriv}) is positive. Moreover, $z_i^v\mu_i^v - \lambda_i$ is larger than $0$ to satisfy the constraint (\ref{eqn:asp_utility_def_opti_const1}), so the second term of (\ref{eqn:asp_utility_def_opti_const1}) is always positive. Therefore, (\ref{eqn:asp_case3_mm1_delay_second_deriv}) is non-negative, which means $T_{i,3}^p(z_i^v)$ is convex in feasible $z_i^v$. Hence, $Y_i^3(z_i^v|\Psi_m^v)$ is concave in feasible $z_i^v$. \qedhere
+    \end{proof}
+  \section{Proof of Theorem 2}\label{appendix:theorem_2}
+    \begin{proof}
+    We begin by proving the feasible region is a convex set. $\Upsilon_i$ is a convex set because $\Upsilon_i$ is a ray starting from $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ to $\infty$. Since we have proved the convexity of $Y_i^3(z_i^v|\Psi_m^v)$ in \Cref{lemma:asp_case3_utility_concave}, $\Upsilon_i^3$ is a convex set because any superlevel set of a concave function is a convex set. Since the intersection of two convex set is a convex set, $\Upsilon_i \cap \Upsilon_i^3$ is a convex set. When $\Upsilon_i \cap \Upsilon_i^3 = \emptyset$, which means the ASP $i$ cannot make the processing queue stable while has a positive utility no matter how many VMs ASP $i$ buys from the MPO. In this situation, the best action of ASP $i$ is not to buy any VM. By \Cref{lemma:asp_case3_utility_concave}, $Y_i^3(z_i^v|\Psi_m^v)$ is concave. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ is smaller than $\frac{\lambda_i+\gamma_i}{\mu_i^v}$, $\frac{\lambda_i+\gamma_i}{\mu_i^v}$ is the optimal point. When the extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ falls in the interior of the feasible region, the extreme point is the optimal point. The extreme point of $Y_i^3(z_i^v|\Psi_m^v)$ can be solved when the first derivative of $Y_i^3(z_i^v|\Psi_m^v)$ with respect to $z_i^v$ equals zero.
+    \begin{equation} \label{eqn:asp_case3_utility_first_deriv}
+    -\frac{\partial T_{i,3}^p(z_i^v)}{\partial z_i^v} = \frac{\Psi_m^v (b_i - a_i)}{\sum_{j \in \mathsf{U}_i^n} \Psi_{ij}}
+    \end{equation}
+    Using (\ref{eqn:asp_case3_mm1_delay}), (\ref{eqn:asp_case3_objective}), and $H_i(x)=\eta_i x $, it only takes simple algebraic operations to have the expression for the extreme point in (\ref{eqn:asp_case3_utility_extreme}). \qedhere
+    \end{proof}
+  \section{Proof of Theorem 3}\label{appendix:theorem_3}
+    \begin{proof}
+    We start by proving that $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v$ when $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \mathcal{I}$. In (\ref{eqn:total_number_VM}), the second, third and fourth term pertains to $\Psi_m^v$. As the summation of convex function is also a convex function, it suffices to prove that $(z_{i,2}^{v,e''}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_2^{k,e''}$, $(z_{i,2}^{v,e'}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_2^{k,e'}$ and $(z_{i,3}^{v,e}(\Psi_m^v))^*$ is convex in $\Psi_m^v$ for $i \in \Omega_3^{k,e}$. Taking the second derivative of (\ref{eqn:asp_case2_utility_extreme2_1}) and (\ref{eqn:asp_case2_utility_extreme2_2}) with respect to $\Psi_m^v$, we have
+    \begin{equation}
+    \frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \geq 0
+    \end{equation}
+    \begin{equation}
+    \frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta_i]}} \geq 0
+    \end{equation}
+    In addition, take the second derivative of (\ref{eqn:asp_case3_utility_extreme}) with respect to $\Psi_m^v$, we have
+    \begin{equation}
+    \frac{3}{4}(\Psi_m^v)^{-5/2}\sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \geq 0
+    \end{equation}
+    
+    As a result, $(z_{i,2}^{v, e'}(\Psi_m^v))^*$, $(z_{i,2}^{v, e''}(\Psi_m^v))^*$ and $(z_{i,3}^{v, e}(\Psi_m^v))^*$ is convex in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1,\cdots, J\}$. Since the sub-level set of a convex function is a convex set, the feasible region resulting from (\ref{eqn:f_mpo_utility_opti_const1}) is a convex set for any value $\mathcal{Q}_v$. In addition, the feasible region of (\ref{eqn:f_mpo_utility_opti_const2}) is also a convex set because the convex combination of two numbers in $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$ is still a number in $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$. Thus, the feasible region of the optimization problem (\ref{eqn:f_mpo_utility_opti}) is the intersection of two convex set and thus is a convex set. To prove that the MPO's the optimization problem (\ref{eqn:f_mpo_utility_opti}) is a convex optimization problem, what remains to do is to prove that the objective function (\ref{eqn:f_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1,\cdots, J\}$. Using (\ref{eqn:asp_case2_utility_extreme}), (\ref{eqn:asp_case3_utility_extreme}) and (\ref{eqn:total_number_VM}), we can unfold the first term in (\ref{eqn:f_mpo_utility_opti_obj}) as follows.
+    \begin{equation}\label{eqn:mpo_utility_first_term}
+    \begin{aligned}
+    &\Psi_m^v \cdot \sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^* = \\
+    &\Psi_m^v \cdot \sum_{i\in \Omega^{k,l}}\frac{\lambda_i + \gamma_i}{\mu_i^v}+
+    \Psi_m^v \cdot \sum_{i\in \Omega^{k,e'}_{2}}(z_{i,2}^{v,e'}(\Psi_m^v))^* + \\
+    &\Psi_m^v \cdot \sum_{i\in \Omega^{k,e''}_{2}}(z_{i,2}^{v,e''}(\Psi_m^v))^* + \Psi_m^v \cdot \sum_{i\in \Omega^{k,e}_{3}}(z_{i,3}^{v,e}(\Psi_m^v))^*
+    \end{aligned}   
+    \end{equation} 
+    
+    
+    The first term in (\ref{eqn:mpo_utility_first_term}) is a linear function of $\Psi_m^v$ which is both convex and concave. The second and third term (\ref{eqn:mpo_utility_first_term}) is concave in $\Psi_m^v$. To prove these properties, we check the concavity via the second-order test. The second derivative of the second term is
+    \begin{equation}
+    -\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_2^{k,e'}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{(b_i-a_i)[(1-\xi_i)\mu_i^v + \xi_i \eta_i]}} \leq 0
+    \end{equation}
+    The second derivative of the third term is
+    \begin{equation}
+    -\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_2^{k,e''}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \leq 0
+    \end{equation}
+    And the second derivative of the forth term is
+    \begin{equation}
+    -\frac{1}{4}(\Psi_m^v)^{-3/2}\sum_{i \in \Omega_3^{k,e}} \sqrt{\frac{\sum_{j \in \mathrm{U}_i^n}\Psi_{ij}}{\mu_i^v(b_i-a_i)}} \leq 0
+    \end{equation}
+    Therefore, (\ref{eqn:mpo_utility_first_term}) is concave in $\Psi_m^v$. The second term of (\ref{eqn:f_mpo_utility_opti_obj}), $C_m^v\big(\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v)^*)$, is convex in $\Psi_m^v$ as it is a composition of $C_m^v$ and $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ where $C_m^v$ is convex and non-decreasing, and $\sum_{i \in \mathcal{I}} (z_{i}^v(\Psi_m^v))^*$ is convex in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \{1, \cdots, J\}$. Since a concave function minus a convex function yields a concave function, (\ref{eqn:f_mpo_utility_opti_obj}) is concave in $\Psi_m^v \in \mathcal{M}^k,\, \forall k \in \mathcal{I}$. In sum, the (\ref{eqn:f_mpo_utility_opti}) in each interval $\mathcal{M}^k, \forall k \in \{1, \cdots, J\}$ is a convex optimization problem. \qedhere
+    \end{proof}
+  \section{Proof of Theorem 4}\label{appendix:theorem_4}
+    \begin{proof}
+    In Case 2, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case2_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. Also, in Case 3, we have analytical solutions for ASPs' optimal number of VMs to buy from the MPO by \Cref{thm:asp_case3_optimal}. The best response sets for ASPs defined in (\ref{eqn:asp_best_response}) are non-empty. 
+    
+    With the optimal responses from the ASPs, the MPO's optimal price per VM $\Psi_m^v$ exists because MPO's optimization problem is convex proved in \Cref{thm:f_mpo_convex_optimization} with a compact region; thus, the MPO's best response set defined in (\ref{eqn:mpo_best_response}) is non-empty. By \Cref{def:stackelberg_equilibrium}, there is at least one Stackelberg game equilibrium.
+    \end{proof}
 \end{document}
